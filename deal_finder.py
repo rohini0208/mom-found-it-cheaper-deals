@@ -328,15 +328,21 @@ def main():
         except Exception as e:  # one bad feed should not stop the rest
             errors.append(name)
             print(f"[warn] {name}: {e}")
-    extras = []
+    extras, status = [], {}
     for name, url in CODE_FEEDS.items():
         try:
-            extras += parse_feed(name, fetch(url))
+            items = parse_feed(name, fetch(url))
+            extras += items
+            status[name] = {"items": len(items),
+                            "with_code_or_coupon": sum(1 for i in items if (i["code"] and i["code"] != "w/ code") or i["coupon"])}
         except Exception as e:
             print(f"[warn] code feed {name}: {e}")
+            status[name] = {"error": str(e)[:120]}
     DATA_FILE.parent.mkdir(exist_ok=True)
     update_price_history(new)
     deals = cross_check(merge(load_history(), new), extras)
+    status["_matched_deals"] = sum(1 for d in deals if d.get("also"))
+    Path("data/code_feeds.json").write_text(json.dumps(status, indent=1))
     DATA_FILE.write_text(json.dumps(deals, indent=1))
     write_markdown(deals, errors)
     write_html(deals)
