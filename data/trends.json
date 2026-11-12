@@ -1,0 +1,342 @@
+{
+ "updated": "2026-11-12T23:39+00:00",
+ "status": {
+  "TikTok Made Me Buy It (Reddit)": "error: HTTP Error 404: Not Found",
+  "Amazon finds (Reddit)": "error: HTTP Error 429: Too Many Requests",
+  "Shut Up And Take My Money (Reddit)": "error: HTTP Error 429: Too Many Requests",
+  "camelcamelcamel popular": 20,
+  "camelcamelcamel top price drops": "error: HTTP Error 404: Not Found",
+  "YouTube Shorts": "no data (add YT_API_KEY)"
+ },
+ "signals": [
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Kasa Smart Light Switch, Single Pole, Need Neutral Wire, HS200",
+   "link": "https://camelcamelcamel.com/product/B01EZV35QU?active=price_amazon",
+   "asin": "B01EZV35QU",
+   "rank": 1,
+   "label": "Best Price",
+   "words": [
+    "hs200",
+    "kasa",
+    "light",
+    "need",
+    "neutral",
+    "pole",
+    "single",
+    "smart",
+    "switch",
+    "wire"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Godzilla: The Showa-Era Films, 1954\u20131975 (The Criterion Collection) [Blu-ray]",
+   "link": "https://camelcamelcamel.com/product/B07VLJ9KB6?active=price_amazon",
+   "asin": "B07VLJ9KB6",
+   "rank": 2,
+   "label": "Good Deal",
+   "words": [
+    "collection",
+    "criterion",
+    "films",
+    "godzilla",
+    "showa"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Roland FP-30X 88-Note Digital Piano, Black",
+   "link": "https://camelcamelcamel.com/product/B08SBZW46G?active=price_amazon",
+   "asin": "B08SBZW46G",
+   "rank": 3,
+   "label": "Good Deal",
+   "words": [
+    "black",
+    "digital",
+    "note",
+    "piano",
+    "roland"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Ring Floodlight Cam Wired Plus (2nd Gen), Home or business security, White",
+   "link": "https://camelcamelcamel.com/product/B08F6GPQQ7?active=price_amazon",
+   "asin": "B08F6GPQQ7",
+   "rank": 4,
+   "label": "Best Price",
+   "words": [
+    "business",
+    "floodlight",
+    "home",
+    "plus",
+    "ring",
+    "security",
+    "white",
+    "wired"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "LEGO Botanicals Succulents 10309",
+   "link": "https://camelcamelcamel.com/product/B09Q4GWMZQ?active=price_amazon",
+   "asin": "B09Q4GWMZQ",
+   "rank": 5,
+   "label": "Best Price",
+   "words": [
+    "botanicals",
+    "lego",
+    "succulents"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "WALL\u2022E (The Criterion Collection) [4K UHD]",
+   "link": "https://camelcamelcamel.com/product/B0BDMTDSHK?active=price_amazon",
+   "asin": "B0BDMTDSHK",
+   "rank": 6,
+   "label": "Good Deal",
+   "words": [
+    "collection",
+    "criterion",
+    "wall"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Garmin v\u00edvoactive\u00ae 5, Health & Fitness GPS Smartwatch, 42mm, Black",
+   "link": "https://camelcamelcamel.com/product/B0CG6NR413?active=price_amazon",
+   "asin": "B0CG6NR413",
+   "rank": 7,
+   "label": "Best Price",
+   "words": [
+    "42mm",
+    "black",
+    "fitness",
+    "garmin",
+    "health",
+    "smartwatch",
+    "voactive"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "LEGO Star Wars Millennium Falcon 75375",
+   "link": "https://camelcamelcamel.com/product/B0CGY3ZB24?active=price_amazon",
+   "asin": "B0CGY3ZB24",
+   "rank": 8,
+   "label": "Good Deal",
+   "words": [
+    "falcon",
+    "lego",
+    "millennium",
+    "star",
+    "wars"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Gothic 1 Remake: Collector's Edition - Xbox Series X",
+   "link": "https://camelcamelcamel.com/product/B0D2P9DTBL?active=price_amazon",
+   "asin": "B0D2P9DTBL",
+   "rank": 9,
+   "label": "Best Price",
+   "words": [
+    "collector",
+    "edition",
+    "gothic",
+    "remake",
+    "series",
+    "xbox"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "AMD RYZEN 7 9800X3D 8-Core, 16-Thread Desktop Processor",
+   "link": "https://camelcamelcamel.com/product/B0DKFMSMYK?active=price_amazon",
+   "asin": "B0DKFMSMYK",
+   "rank": 10,
+   "label": "Good Deal",
+   "words": [
+    "9800x3d",
+    "core",
+    "desktop",
+    "processor",
+    "ryzen",
+    "thread"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Sony WH-1000XM6 The Best Noise Cancelling Wireless Headphones, Black",
+   "link": "https://camelcamelcamel.com/product/B0F3PQHWTZ?active=price_amazon",
+   "asin": "B0F3PQHWTZ",
+   "rank": 11,
+   "label": "Best Price",
+   "words": [
+    "1000xm6",
+    "best",
+    "black",
+    "cancelling",
+    "headphones",
+    "noise",
+    "sony",
+    "wireless"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "The Wes Anderson Archive: Ten Films, Twenty-Five Years (The Criterion Collection) [4K UHD]",
+   "link": "https://camelcamelcamel.com/product/B0FBF1YJ2J?active=price_amazon",
+   "asin": "B0FBF1YJ2J",
+   "rank": 12,
+   "label": "Best Price",
+   "words": [
+    "anderson",
+    "archive",
+    "collection",
+    "criterion",
+    "films",
+    "five",
+    "twenty",
+    "years"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "The Ghost in the Shell Legacy Edition Manga Box Set (The Ghost in the Shell Deluxe)",
+   "link": "https://camelcamelcamel.com/product/B0FCGDT59S?active=price_amazon",
+   "asin": "B0FCGDT59S",
+   "rank": 13,
+   "label": "Best Price",
+   "words": [
+    "deluxe",
+    "edition",
+    "ghost",
+    "legacy",
+    "manga",
+    "shell"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Apple AirTag (2nd Generation) - 4 Pack: Tracker for Keychain, Wallet, and More; Locator with Sound; Simple One-Tap Setup with iPhone or iPad; Key Finder with up to 1.5X Precision Finding Range*",
+   "link": "https://camelcamelcamel.com/product/B0GJTXVN9Z?active=price_amazon",
+   "asin": "B0GJTXVN9Z",
+   "rank": 14,
+   "label": "Best Price",
+   "words": [
+    "airtag",
+    "apple",
+    "finder",
+    "finding",
+    "generation",
+    "ipad",
+    "iphone",
+    "keychain",
+    "locator",
+    "more",
+    "precision",
+    "range",
+    "setup",
+    "simple",
+    "sound",
+    "tracker",
+    "wallet"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Marillion.Com (5LP Box Set)",
+   "link": "https://camelcamelcamel.com/product/B0G84MXCF9?active=price_amazon",
+   "asin": "B0G84MXCF9",
+   "rank": 15,
+   "label": "Best Price",
+   "words": [
+    "marillion"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "LG 65 inch Class LG OLED evo AI C6 4K Smart TV 2026",
+   "link": "https://camelcamelcamel.com/product/B0GRK5D3RW?active=price_amazon",
+   "asin": "B0GRK5D3RW",
+   "rank": 16,
+   "label": "Best Price",
+   "words": [
+    "class",
+    "inch",
+    "oled",
+    "smart"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "LG 55-Inch Class OLED evo AI 4K C6 Series Smart TV, 2026 Model",
+   "link": "https://camelcamelcamel.com/product/B0GRKGQ8HH?active=price_amazon",
+   "asin": "B0GRKGQ8HH",
+   "rank": 17,
+   "label": "Best Price",
+   "words": [
+    "class",
+    "inch",
+    "model",
+    "oled",
+    "series",
+    "smart"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Pok\u00e9mon TCG: 30th Celebration Elite Trainer Box",
+   "link": "https://camelcamelcamel.com/product/B0H78BB9TY?active=price_amazon",
+   "asin": "B0H78BB9TY",
+   "rank": 18,
+   "label": "Best Price",
+   "words": [
+    "30th",
+    "celebration",
+    "elite",
+    "trainer"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Amazon Fire HD 10 tablet, built for relaxation, 10.1\" vibrant Full HD screen, octa-core processor, 4 GB RAM, 32 GB, Black",
+   "link": "https://camelcamelcamel.com/product/B0GVTPKJVT?active=price_amazon",
+   "asin": "B0GVTPKJVT",
+   "rank": 19,
+   "label": "Best Price",
+   "words": [
+    "black",
+    "built",
+    "core",
+    "fire",
+    "full",
+    "octa",
+    "processor",
+    "relaxation",
+    "screen",
+    "tablet",
+    "vibrant"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "XBOX Series X | X25 Special Edition Gaming Console | 1TB SSD",
+   "link": "https://camelcamelcamel.com/product/B0HFM9NTC1?active=price_amazon",
+   "asin": "B0HFM9NTC1",
+   "rank": 20,
+   "label": "Best Price",
+   "words": [
+    "console",
+    "edition",
+    "gaming",
+    "series",
+    "special",
+    "xbox"
+   ]
+  }
+ ]
+}
