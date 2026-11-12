@@ -22,6 +22,16 @@ from datetime import datetime, timezone
 from pathlib import Path
 from deal_finder import is_amazon, no_price_title
 
+# Amazon's Associates rules only allow prices that come from Amazon's own API.
+# "show" (your choice): show feed prices with an "as of" time; "hide": no Amazon prices.
+AMAZON_PRICES = os.environ.get("AMAZON_PRICES", "show").strip().lower()
+
+
+def as_of(iso):
+    from zoneinfo import ZoneInfo
+    t = datetime.fromisoformat(iso).astimezone(ZoneInfo("America/New_York"))
+    return t.strftime("%b %-d, %-I:%M %p ET")
+
 DATA = Path("data")
 OUT = Path("site")
 BRAND = "Mom Found It Cheaper"
@@ -83,7 +93,9 @@ def card(d, history, tested):
     if isinstance(t, dict) and t.get("asin") and not d.get("asin"):
         d = dict(d, asin=t["asin"])      # Amazon link you pasted when testing
     url, label = link_for(d)
-    amz = is_amazon(d)
+    is_amz = is_amazon(d)
+    amz = is_amz and AMAZON_PRICES == "hide"
+    stamp = f"Amazon price as of {as_of(d['seen'])} &middot; prices change, check before buying" if is_amz and not amz else ""
     if amz:                      # Amazon policy: no prices unless from Amazon's API
         price, pts, b = None, [], (b if b != "Lowest price we've seen" else "")
     code = d.get("code", "")
@@ -115,6 +127,8 @@ def card(d, history, tested):
   {f'<button class="code" data-code="{html.escape(code)}">Code <b>{html.escape(code)}</b> <span>tap to copy</span></button>' if real_code else ''}
   {'<div class="coupon">Clip the coupon on the product page</div>' if d.get('coupon') else ''}
   {'<div class="coupon">Promo code in the deal</div>' if code == 'w/ code' else ''}
+  {f'<div class="asof">{stamp}</div>' if stamp else ''}
+  {''.join(f'<div class="also">Also found: {("code <b>" + html.escape(a["code"]) + "</b>") if a["code"] else "clip coupon"} on <a href="{html.escape(a["link"])}" target="_blank" rel="noopener">{html.escape(a["source"])}</a></div>' for a in d.get("also", []))}
   {f'<div class="hist">{hist_txt}</div>' if hist_txt else ''}
   <div class="meta"><span class="ago" data-t="{d['seen']}"></span>{f' · +{d["thumbs"]} community votes' if d.get('thumbs') else ''}</div>
   <a class="go" href="{html.escape(url)}" target="_blank" rel="sponsored noopener">{label}</a>
@@ -168,6 +182,8 @@ footer a{color:var(--muted)}
 .was{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--blush)}
 .code{border:1px dashed var(--gold);background:var(--ivory);border-radius:10px;padding:10px;font-size:14px;cursor:pointer;text-align:left}
 .code b{letter-spacing:.12em}.code span{float:right;color:var(--muted);font-size:12px}
+.asof{font-size:11px;color:var(--muted);font-style:italic}
+.also{font-size:12px;color:#1f6f4a}.also a{color:#1f6f4a}
 .amz{font-size:15px;font-weight:600;color:#a07c3f}
 .coupon{font-size:13px;color:#1f6f4a;font-weight:600}
 .hist,.meta{font-size:12px;color:var(--muted)}

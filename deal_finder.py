@@ -92,6 +92,17 @@ MAX_ROWS = 900         # cap the list (website shows top 100 per category)
 DATA_FILE = Path("data/deals.json")
 UA = "Mozilla/5.0 (deal-finder; personal RSS reader)"
 
+# Deal blogs that post Amazon/Walmart/Target promo codes. Used only to CROSS-CHECK:
+# if the same product shows up there with a code or coupon, we add it to our deal
+# (with credit and a link back). Koupon.ai has no public feed, so it isn't here.
+CODE_FEEDS = {
+    "Hip2Save": "https://hip2save.com/feed/",
+    "Fabulessly Frugal": "https://fabulesslyfrugal.com/feed/",
+    "Koupon Karen": "https://www.kouponkaren.com/feed/",
+    "The Freebie Guy": "https://thefreebieguy.com/feed/",
+    "Passionate Penny Pincher": "https://passionatepennypincher.com/feed/",
+}
+
 PRICE_RE = re.compile(r"\$\s?(\d[\d,]*(?:\.\d{2})?)")
 # Real promo codes are written in capitals, e.g. "code: SAVE50XY". The word
 # "code" is matched in any case, the code itself only in capitals/digits,
@@ -204,6 +215,51 @@ def load_history():
     return []
 
 
+STOP = {"with", "from", "for", "and", "the", "pack", "pcs", "piece", "free", "shipping", "amazon",
+        "deal", "deals", "code", "coupon", "promo", "save", "off", "only", "just", "now", "new",
+        "this", "that", "your", "women", "womens", "men", "mens", "kids", "set"}
+
+
+def name_words(title):
+    t = re.sub(r"[^a-z0-9 ]+", " ", no_price_title(title).lower())
+    return {w for w in t.split() if len(w) >= 4 and w not in STOP and not w.isdigit()}
+
+
+def cross_check(deals, extras):
+    """Attach codes/coupons found for the same product on other deal sites.
+    Match on Amazon product ID, or on at least 4 shared product-name words
+    that make up most of the shorter name (strict, to avoid wrong codes)."""
+    useful = [e for e in extras if (e["code"] and e["code"] != "w/ code") or e["coupon"]]
+    for e in useful:
+        e["_words"] = name_words(e["title"])
+    for d in deals:
+        words = name_words(d["title"])
+        found = []
+        for e in useful:
+            same_asin = d.get("asin") and d["asin"] == e.get("asin")
+            shared = words & e["_words"]
+            close = len(shared) >= 4 and len(shared) >= 0.7 * min(len(words), len(e["_words"]))
+            if not (same_asin or close):
+                continue
+            item = {"source": e["source"], "link": e["link"], "code": e["code"] if e["code"] != "w/ code" else "",
+                    "coupon": bool(e["coupon"]), "by_id": bool(same_asin), "seen": e["seen"]}
+            if item["code"] == d.get("code") and not item["coupon"]:
+                continue                     # same code we already show
+            if not any(f["source"] == item["source"] and f["code"] == item["code"] for f in found):
+                found.append(item)
+        old = [f for f in d.get("also", []) if not any(f["source"] == n["source"] and f["code"] == n["code"] for n in found)]
+        if found or old:
+            d["also"] = (found + old)[:3]
+        # a code confirmed by product ID fills in a missing code
+        if (not d.get("code") or d["code"] == "w/ code"):
+            sure = next((f for f in found if f["by_id"] and f["code"]), None)
+            if sure:
+                d["code"], d["code_from"] = sure["code"], sure["source"]
+        if not d.get("coupon") and any(f["by_id"] and f["coupon"] for f in found):
+            d["coupon"] = "clip coupon"
+    return deals
+
+
 def merge(history, new):
     by_id = {d["id"]: d for d in history}
     seen_titles = {d["title"].lower() for d in history}
@@ -272,9 +328,15 @@ def main():
         except Exception as e:  # one bad feed should not stop the rest
             errors.append(name)
             print(f"[warn] {name}: {e}")
+    extras = []
+    for name, url in CODE_FEEDS.items():
+        try:
+            extras += parse_feed(name, fetch(url))
+        except Exception as e:
+            print(f"[warn] code feed {name}: {e}")
     DATA_FILE.parent.mkdir(exist_ok=True)
     update_price_history(new)
-    deals = merge(load_history(), new)
+    deals = cross_check(merge(load_history(), new), extras)
     DATA_FILE.write_text(json.dumps(deals, indent=1))
     write_markdown(deals, errors)
     write_html(deals)

@@ -22,6 +22,16 @@ from PIL import Image, ImageDraw, ImageFont
 
 from deal_finder import is_amazon, no_price_title
 
+# "show" (default): Amazon prices shown with an "as of" time; "hide": no Amazon prices
+AMAZON_PRICES = os.environ.get("AMAZON_PRICES", "show").strip().lower()
+
+
+def as_of(iso):
+    from datetime import datetime
+    from zoneinfo import ZoneInfo
+    t = datetime.fromisoformat(iso).astimezone(ZoneInfo("America/New_York"))
+    return t.strftime("%b %-d, %-I %p ET")
+
 W, H = 1080, 1920
 BRAND = "Mom Found It Cheaper"
 VOICE = os.environ.get("VOICE") or "en-US-AvaMultilingualNeural"   # warm, expressive; pick yours from the voice samples
@@ -277,7 +287,7 @@ def scene_features(path, features):
     img.save(path)
 
 
-def scene_price(path, price, was, code, coupon, amazon=False):
+def scene_price(path, price, was, code, coupon, amazon=False, stamp=""):
     img = Image.new("RGB", (W, H), CHAR)
     d = ImageDraw.Draw(img)
     masthead(d, IVORY)
@@ -298,6 +308,8 @@ def scene_price(path, price, was, code, coupon, amazon=False):
     if not amazon:
         pf = fit(d, price, lambda s: serif(s, "Bold"), 300, W - 200, max_lines=1, min_size=120)
         y = centered(d, y, price, pf, GOLD) + 130
+        if stamp:
+            y = centered(d, y - 10, stamp, sans(30, "Medium"), MUTED, spacing=2) + 90
     if code and code != "w/ code":
         centered(d, y, "WITH CODE", sans(34, "SemiBold"), MUTED, spacing=8)
         cf = sans(80, "Bold")
@@ -400,7 +412,10 @@ def render(scenes, durations, audio, out_path):
 
 def caption(title, price, code, coupon, deal=None):
     extra = f" Use code {code}." if code and code != "w/ code" else (" Clip the coupon!" if coupon else "")
-    if deal and is_amazon(deal):    # no price for Amazon items (Associates policy)
+    if deal and is_amazon(deal) and AMAZON_PRICES != "hide":
+        head = (f"Mom found it cheaper! {title} - {price} on Amazon "
+                f"(price as of {as_of(deal['seen'])}, prices change).{extra}")
+    elif deal and is_amazon(deal):    # no price for Amazon items (Associates policy)
         head = f"Mom found it cheaper! Price drop on Amazon: {title}. Tap for today's price.{extra}"
     else:
         head = f"Mom found it cheaper! {title} - now just {price}.{extra}"
@@ -426,7 +441,8 @@ def is_lowest_seen(deal):
 
 
 def make_one(n, deal, work):
-    amazon = is_amazon(deal)
+    amazon = is_amazon(deal) and AMAZON_PRICES == "hide"
+    stamp = f"Amazon price as of {as_of(deal['seen'])}" if is_amazon(deal) and not amazon else ""
     title = short_title(no_price_title(deal["title"]) if amazon else deal["title"])
     price, code, coupon = deal["price"], deal.get("code", ""), deal.get("coupon", "")
     was, feats = deal.get("was", ""), deal.get("features", [])
@@ -445,7 +461,7 @@ def make_one(n, deal, work):
         add("features", 4.2, scene_features, feats)
     if amazon:
         was = ""          # no "was" price either
-    add("price", 3.8, scene_price, price, was, code, coupon, amazon)
+    add("price", 3.8, scene_price, price, was, code, coupon, amazon, stamp)
     add("cta", 3.4, scene_cta)
 
     clean_code = "".join(c for c in (code or "").upper() if c.isalnum())
