@@ -262,7 +262,7 @@ async def make_voice(parts, path, voice=None):
     if key:
         import urllib.request
         vid = os.environ.get("ELEVENLABS_VOICE_ID") or "21m00Tcm4TlvDq8ikWAM"
-        text = " ".join(t for t, *_ in parts)
+        text = " ".join((f'<break time="{pause}s"/> ' if pause else "") + t for t, _, _, pause in parts)
         req = urllib.request.Request(
             f"https://api.elevenlabs.io/v1/text-to-speech/{vid}",
             data=json.dumps({"text": text, "model_id": "eleven_multilingual_v2",
@@ -320,7 +320,7 @@ def render(scenes, durations, audio, out_path):
         last = f"x{i}"
     cmd += ["-filter_complex", ";".join(parts), "-map", f"[{last}]"]
     if audio:
-        cmd += ["-map", f"{len(durations)}:a", "-c:a", "aac", "-b:a", "128k", "-shortest"]
+        cmd += ["-map", f"{len(durations)}:a", "-c:a", "aac", "-b:a", "128k"]
     cmd += ["-c:v", "libx264", "-preset", "veryfast", "-crf", "23", "-pix_fmt", "yuv420p",
             "-movflags", "+faststart", str(out_path)]
     subprocess.run(cmd, check=True)
@@ -341,13 +341,12 @@ def is_lowest_seen(deal):
     m = re.search(r"\$\s?([\d,]+(?:\.\d{1,2})?)", deal.get("price", "") or "")
     if not (hist_file.exists() and m):
         return False
-    if deal.get("asin"):
-        key = deal["asin"]
-    else:
-        name = re.split(r"\s+(?:for\s+)?\$\d", deal["title"].lower())[0]
-        key = re.sub(r"[^a-z0-9 ]", "", name).strip()[:60]
-    pts = [p for _, p in json.loads(hist_file.read_text()).get(key, [])]
-    return len(pts) >= 2 and float(m.group(1).replace(",", "")) <= min(pts)
+    from deal_finder import product_key
+    price = float(m.group(1).replace(",", ""))
+    day = (deal.get("seen") or "")[:10]
+    # earlier sightings only (not today's own entry); today's price must beat all of them
+    earlier = [p for d, p in json.loads(hist_file.read_text()).get(product_key(deal), []) if d != day]
+    return len(earlier) >= 1 and price < min(earlier)
 
 
 def make_one(n, deal, work):
@@ -370,20 +369,25 @@ def make_one(n, deal, work):
     add("price", 3.8, scene_price, price, was, code, coupon)
     add("cta", 3.4, scene_cta)
 
-    said_code = f"Use code {', '.join(code)}." if code and code != "w/ code" else ("Just clip the coupon." if coupon else "")
+    clean_code = "".join(c for c in (code or "").upper() if c.isalnum())
+    has_code = bool(clean_code) and code != "w/ code"
+    said_code = f"Use code {', '.join(clean_code)}." if has_code else ("Just clip the coupon." if coupon else "")
     said_was = f" It's usually {was}." if was else ""
     said_low = " That's the lowest price I've seen on it." if is_lowest_seen(deal) else ""
     said_feats = (" " + ". ".join(feats[:2]) + ".") if feats else ""
     opener = random.choice(["Okay, you need to see this!", "Oh, this one's good.", "Mama, stop scrolling for a sec!",
                             "I just found something you're going to love."])
-    body = f"{title}.{said_feats}{said_was} And right now? It's only {price}!{said_low}"
-    cta = f"Prices like this don't usually last, so grab it while you can. Link's right here at {BRAND}."
+    spoken = " ".join(title.split()[:7]).rstrip(".!?,;: -")      # keep the spoken name short
+    body = f"{spoken}, only {price}!{said_was}{said_low}{said_feats}"   # price in the first seconds
+    cta = (f"Prices like this don't usually last, so grab it while you can. "
+           f"The link is in the caption, and there's more every day at {BRAND}.")
     parts = [(opener, "+12%", "+4Hz", 0),            # excited hook
              (body, VOICE_RATE, VOICE_PITCH, 0.15)]  # then warm and calm
     if said_code:
-        parts.append((said_code, "-8%", VOICE_PITCH, 0.3))   # pause, then the code slowly
+        parts.append((said_code, "-8%" if has_code else VOICE_RATE, VOICE_PITCH, 0.3))   # pause, then the code slowly
     parts.append((cta, VOICE_RATE, VOICE_PITCH, 0.25))
-    ab = AB_VOICE.lower() != "off" and n % 2 == 1
+    # A/B split by deal id (stable, not by position, so neither voice always gets the top deal)
+    ab = AB_VOICE.lower() != "off" and int(hashlib.sha1(deal["id"].encode()).hexdigest(), 16) % 2 == 1
     voice = AB_VOICE if ab else VOICE
     audio = work / f"{n}.mp3"
     try:
@@ -396,7 +400,11 @@ def make_one(n, deal, work):
         audio = None
     out = OUT / f"deal_{n}.mp4"
     render(scenes, durations, audio, out)
-    vname = voice.split("-")[2].replace("MultilingualNeural", "").replace("Neural", "")
+    if os.environ.get("ELEVENLABS_API_KEY"):
+        vname = "ElevenLabs"
+    else:
+        mm = re.search(r"-([A-Za-z]+?)(?:Multilingual)?Neural$", voice)
+        vname = mm.group(1) if mm else voice
     (OUT / f"deal_{n}.txt").write_text(caption(title, price, code, coupon, deal)
                                        + f"\n\nSource deal: {deal['link']}\nVoice (A/B test): {vname}\n")
     return out
