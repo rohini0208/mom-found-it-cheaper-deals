@@ -24,7 +24,7 @@ DATA = Path("data")
 OUT = Path("site")
 BRAND = "Mom Found It Cheaper"
 REPO = os.environ.get("GITHUB_REPOSITORY", "rohini0208/mom-found-it-cheaper-deals")
-TAG = os.environ.get("AMAZON_TAG", "").strip()
+TAG = os.environ.get("AMAZON_TAG", "momfounditc08-20").strip()  # Amazon Associates tracking ID
 PRICE_RE = re.compile(r"\$\s?(\d[\d,]*(?:\.\d{2})?)")
 
 

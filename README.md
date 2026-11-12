@@ -37,5 +37,5 @@ codes (tap to copy), coupons, our own price history and community votes.
 - **Mark a code as tested:** open the site once with `?admin=1` on the end of the
   address (your phone remembers it), then tap "Mark tested today" on a deal. It opens
   a GitHub issue; send it, and within a minute the deal shows a green "Tested" badge.
-- **Your Amazon links:** when you have your Associates ID, add it in
+- **Your Amazon links:** tracking ID `momfounditc08-20` is built in. To change it, set
   Settings -> Secrets and variables -> Actions -> **Variables** -> `AMAZON_TAG`.
