@@ -9,7 +9,6 @@ on:
 permissions:
   contents: write
   issues: write
-  actions: write
 
 jobs:
   mark:
@@ -31,4 +30,3 @@ jobs:
           git diff --cached --quiet || git commit -m "Mark deal tested"
           git pull --rebase -q && git push
           gh issue close ${{ github.event.issue.number }} --comment "Marked as tested today. The website updates in about a minute."
-          gh workflow run deals.yml

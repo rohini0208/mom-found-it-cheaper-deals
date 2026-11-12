@@ -7,12 +7,9 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
-concurrency:
-  group: site
-  cancel-in-progress: false
+# The website is published by Cloudflare Pages: every push here
+# (each 3-hourly deal update) triggers a rebuild of the site automatically.
 
 jobs:
   update:
@@ -30,20 +27,3 @@ jobs:
           git add DEALS.md deals.html data/
           git diff --cached --quiet || git commit -m "Update deal list"
           git pull --rebase -q && git push
-      - name: Build the website
-        env:
-          AMAZON_TAG: ${{ vars.AMAZON_TAG }}
-        run: python build_site.py
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: site
-
-  deploy:
-    needs: update
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4

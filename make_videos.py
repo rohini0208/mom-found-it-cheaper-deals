@@ -29,7 +29,7 @@ SKIP_WORDS = ("ebook", "ps5", "xbox", "steam", "pcdd", "gog", "resale", "kindle"
 DEALS_FILE = Path("data/deals.json")
 MADE_FILE = Path("data/videos_made.json")
 OUT = Path("videos")
-SITE = os.environ.get("SITE_URL", "https://rohini0208.github.io/mom-found-it-cheaper-deals/")
+SITE = os.environ.get("SITE_URL", "https://mom-found-it-cheaper-deals.pages.dev/")
 
 HOOKS = [
     ("Stop scrolling,", "mama."),

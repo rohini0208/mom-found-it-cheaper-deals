@@ -31,7 +31,7 @@ It needs a free YouTube API key saved as the repo secret `YT_API_KEY`.
 ## The website (one place for everything)
 
 Every 3 hours the site is rebuilt and published at
-https://rohini0208.github.io/mom-found-it-cheaper-deals/ with viral finds, deals,
+https://mom-found-it-cheaper-deals.pages.dev/ (Cloudflare Pages, rebuilt on every push) with viral finds, deals,
 codes (tap to copy), coupons, our own price history and community votes.
 
 - **Mark a code as tested:** open the site once with `?admin=1` on the end of the
