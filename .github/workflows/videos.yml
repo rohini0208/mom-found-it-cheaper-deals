@@ -1,0 +1,41 @@
+name: Make deal videos and viral list
+
+on:
+  schedule:
+    - cron: "41 12 * * *"    # every day, 7:41 AM New York time (winter)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  videos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pillow edge-tts
+      - name: Viral product list (skipped until YT_API_KEY is added)
+        env:
+          YT_API_KEY: ${{ secrets.YT_API_KEY }}
+        run: python viral_finder.py
+      - name: Make today's videos
+        run: python make_videos.py
+      - name: Save lists
+        run: |
+          git config user.name "deal-bot"
+          git config user.email "deal-bot@users.noreply.github.com"
+          git add data/videos_made.json
+          [ -f VIRAL.md ] && git add VIRAL.md
+          git diff --cached --quiet || git commit -m "Update videos list"
+          git pull --rebase -q && git push
+      - name: Publish videos to the "Today's videos" release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete todays-videos --yes --cleanup-tag || true
+          gh release create todays-videos videos/* \
+            --title "Today's videos ($(date -u +%Y-%m-%d))" \
+            --notes "Download a video and its .txt caption. Check the price first, then post with your own SiteStripe link in the group."

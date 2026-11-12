@@ -15,3 +15,15 @@ SiteStripe link, and add #ad. Never repost the Slickdeals/DealNews link.
 
 **Change sources or timing:** edit `FEEDS` in `deal_finder.py`, or the
 `cron` line in `.github/workflows/deals.yml`.
+
+## Daily videos (free, faceless)
+
+Every morning `make_videos.py` turns the 3 best new deals into 14-second vertical Reels
+(hook, product, price + code, "link in our Facebook group") with an AI voice.
+Download them from **Releases -> Today's videos** (each video has a `.txt` caption).
+No product photos are used, to follow Amazon's rules.
+
+## Viral products
+
+`viral_finder.py` lists the fastest-growing "Amazon finds" Shorts on YouTube in **VIRAL.md**.
+It needs a free YouTube API key saved as the repo secret `YT_API_KEY`.
