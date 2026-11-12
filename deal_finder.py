@@ -37,6 +37,8 @@ PRICE_RE = re.compile(r"\$\s?(\d[\d,]*(?:\.\d{2})?)")
 # so seller names like "w/ Code Sunway Direct" are not mistaken for codes.
 CODE_RE = re.compile(r"(?i:code|coupon)[:\s]+[\"']?([A-Z0-9]{4,20})\b")
 TAG_RE = re.compile(r"<[^>]+>")
+THUMBS_RE = re.compile(r"thumb score:\s*\+?(\d+)", re.I)
+WAS_RE = re.compile(r"(?:list price|reg(?:ularly)?\.?|was|originally|retail)\s*:?\s*\$\s?(\d[\d,]*(?:\.\d{2})?)", re.I)
 
 
 def fetch(url):
@@ -49,6 +51,17 @@ def clean(text):
     return html.unescape(TAG_RE.sub(" ", text or "")).replace("\xa0", " ").strip()
 
 
+def features_from(raw_html):
+    """Bullet points (<li>) from the deal's own description: real product features."""
+    items = re.findall(r"<li[^>]*>(.*?)</li>", raw_html or "", re.I | re.S)
+    feats = []
+    for it in items:
+        t = re.sub(r"\s+", " ", clean(it))
+        if 6 <= len(t) <= 80 and "$" not in t and "http" not in t.lower():
+            feats.append(t)
+    return feats[:3]
+
+
 def parse_feed(source, raw):
     """Return a list of deal dicts from one RSS feed."""
     deals = []
@@ -56,11 +69,12 @@ def parse_feed(source, raw):
     for item in root.iter("item"):
         title = clean(item.findtext("title"))
         link = (item.findtext("link") or "").strip()
-        desc = clean(item.findtext("description"))
+        raw_desc = item.findtext("description") or ""
         # Slickdeals puts the full text in content:encoded
         for child in item:
             if child.tag.endswith("encoded") and child.text:
-                desc = clean(child.text)
+                raw_desc = child.text
+        desc = re.sub(r"\s+", " ", clean(raw_desc))
         blob = f"{title} {desc}".lower()
         if "amazon" not in blob:
             continue
@@ -70,12 +84,20 @@ def parse_feed(source, raw):
             when = datetime.now(timezone.utc)
         price = PRICE_RE.search(title)
         code = CODE_RE.search(f"{title} {desc}")
+        thumbs = THUMBS_RE.search(desc)
+        was = WAS_RE.search(desc)
         deals.append({
             "id": link or title,
             "title": title,
             "price": f"${price.group(1)}" if price else "",
             "code": code.group(1).upper() if code else ("w/ code" if "w/ code" in blob or "promo code" in blob else ""),
             "coupon": "clip coupon" if "clip" in blob and "coupon" in blob else "",
+            "thumbs": int(thumbs.group(1)) if thumbs else 0,
+            "was": f"${was.group(1)}" if was else "",
+            "features": features_from(raw_desc),
+            "new": bool(re.search(r"\b(new release|newly released|just launched|new arrival|2026 model)\b", blob)),
+            "bestseller": bool(re.search(r"\b(best ?seller|#1 best)", blob)),
+            "desc": desc[:500],
             "source": source,
             "link": link,
             "seen": when.isoformat(),

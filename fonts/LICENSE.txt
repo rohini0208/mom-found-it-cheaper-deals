@@ -1,0 +1,1 @@
+Playfair Display and Inter, from github.com/google/fonts. Both under the SIL Open Font License 1.1 (free to use, including commercially).

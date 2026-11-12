@@ -20,7 +20,6 @@ from PIL import Image, ImageDraw, ImageFont
 
 W, H = 1080, 1920
 BRAND = "Mom Found It Cheaper"
-PINK, CREAM, INK, YELLOW = (255, 79, 139), (255, 247, 239), (34, 30, 40), (255, 214, 64)
 VOICE = "en-US-JennyNeural"
 VIDEOS_PER_RUN = 3
 MAX_PRICE = 60.0
@@ -28,14 +27,12 @@ SKIP_WORDS = ("ebook", "ps5", "xbox", "steam", "pcdd", "gog", "resale", "kindle"
 DEALS_FILE = Path("data/deals.json")
 MADE_FILE = Path("data/videos_made.json")
 OUT = Path("videos")
-FONT_BOLD = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
-FONT_REG = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
 
 HOOKS = [
-    ("STOP SCROLLING,", "MAMA!"),
-    ("DON'T PAY", "FULL PRICE!"),
-    ("I FOUND IT", "CHEAPER!"),
-    ("RUN, DON'T", "WALK!"),
+    ("Stop scrolling,", "mama."),
+    ("Don't pay", "full price."),
+    ("I found it", "cheaper."),
+    ("Your new", "favorite find."),
 ]
 
 
@@ -70,10 +67,34 @@ def pick_deals(deals, made):
     return [d for _, _, d in good[:VIDEOS_PER_RUN]]
 
 
-# ---------- drawing scenes ----------
+# ---------- drawing scenes (elegant editorial look) ----------
+# Ivory paper, deep charcoal, champagne gold. Playfair Display headlines,
+# Inter for small caps labels. Thin gold rules instead of boxes.
 
-def font(size, bold=True):
-    return ImageFont.truetype(FONT_BOLD if bold else FONT_REG, size)
+IVORY, CHAR, GOLD, MUTED, BLUSH = (246, 240, 231), (22, 21, 24), (201, 164, 106), (120, 112, 104), (232, 190, 186)
+FONTS = Path(__file__).parent / "fonts"
+
+
+WEIGHTS = {"Regular": 400, "Medium": 500, "SemiBold": 600, "Bold": 700}
+
+
+def _variable(file, size, weight):
+    """Open a variable font at a numeric weight (works for italic files too)."""
+    f = ImageFont.truetype(str(FONTS / file), size)
+    axes = []
+    for ax in f.get_variation_axes():
+        name = ax["name"].lower() if isinstance(ax["name"], str) else ax["name"].decode().lower()
+        axes.append(WEIGHTS[weight] if "weight" in name else (min(max(32, ax["minimum"]), ax["maximum"]) if "optical" in name else ax["default"]))
+    f.set_variation_by_axes(axes)
+    return f
+
+
+def serif(size, weight="Bold", italic=False):
+    return _variable("PlayfairDisplay-Italic.ttf" if italic else "PlayfairDisplay.ttf", size, weight)
+
+
+def sans(size, weight="Medium"):
+    return _variable("Inter.ttf", size, weight)
 
 
 def wrap(draw, text, fnt, max_w):
@@ -90,79 +111,137 @@ def wrap(draw, text, fnt, max_w):
     return lines
 
 
-def centered(draw, y, text, fnt, fill, max_w=W - 140, gap=12):
+def centered(draw, y, text, fnt, fill, max_w=W - 200, gap=14, spacing=0):
     for line in wrap(draw, text, fnt, max_w):
-        w = draw.textlength(line, font=fnt)
-        draw.text(((W - w) / 2, y), line, font=fnt, fill=fill)
+        if spacing:  # letter-spaced small caps
+            w = sum(draw.textlength(c, font=fnt) for c in line) + spacing * (len(line) - 1)
+            x = (W - w) / 2
+            for c in line:
+                draw.text((x, y), c, font=fnt, fill=fill)
+                x += draw.textlength(c, font=fnt) + spacing
+        else:
+            w = draw.textlength(line, font=fnt)
+            draw.text(((W - w) / 2, y), line, font=fnt, fill=fill)
         y += fnt.size + gap
     return y
 
 
-def brand_bar(draw, bg=INK, fg=CREAM):
-    # Kept away from the top edge so the slow zoom never cuts it off.
-    draw.rounded_rectangle([90, 130, W - 90, 250], radius=60, fill=bg)
-    f = font(50)
-    w = draw.textlength(BRAND.upper(), font=f)
-    draw.text(((W - w) / 2, 160), BRAND.upper(), font=f, fill=fg)
-
-
-def fit_font(draw, text, start, max_w):
-    """Largest font size (from `start` down) that fits `text` on one line."""
+def fit(draw, text, maker, start, max_w, max_lines=3, min_size=56):
+    """Largest font that wraps `text` into max_lines inside max_w."""
     size = start
-    while size > 40 and draw.textlength(text, font=font(size)) > max_w:
+    while size > min_size:
+        f = maker(size)
+        if len(wrap(draw, text, f, max_w)) <= max_lines:
+            return f
         size -= 6
-    return font(size)
+    return maker(min_size)
+
+
+def rule(draw, y, w=220, color=GOLD):
+    draw.line([((W - w) / 2, y), ((W + w) / 2, y)], fill=color, width=3)
+
+
+def masthead(draw, color, y=170):
+    centered(draw, y, BRAND.upper(), sans(34, "SemiBold"), color, spacing=9)
+    rule(draw, y + 70, 120, GOLD)
+
+
+def footer(draw, color):
+    centered(draw, 1760, "#AD  ·  PRICES CAN CHANGE", sans(28, "Medium"), color, spacing=5)
+
+
+def badge_text(deal):
+    """Only real signals from the deal itself - never invented."""
+    if deal.get("new"):
+        return "NEW RELEASE"
+    if deal.get("bestseller"):
+        return "BEST SELLER"
+    t = deal.get("thumbs", 0)
+    if t >= 30:
+        return f"COMMUNITY FAVORITE  ·  +{t} VOTES"
+    if t >= 10:
+        return f"TRENDING  ·  +{t} VOTES"
+    return "TODAY'S FIND"
 
 
 def scene_hook(path, hook):
-    img = Image.new("RGB", (W, H), PINK)
+    img = Image.new("RGB", (W, H), IVORY)
     d = ImageDraw.Draw(img)
-    brand_bar(d)
-    y = 700
-    for line in hook:
-        y = centered(d, y, line, font(130), CREAM) + 20
-    centered(d, y + 60, "Today's deal", font(60, False), INK)
+    masthead(d, CHAR)
+    centered(d, 640, hook[0], serif(120, "Regular", italic=True), CHAR)
+    centered(d, 800, hook[1], serif(150, "Bold"), CHAR)
+    rule(d, 1040, 160)
+    centered(d, 1090, "TODAY'S FIND", sans(36, "SemiBold"), MUTED, spacing=8)
     img.save(path)
 
 
-def scene_product(path, title):
-    img = Image.new("RGB", (W, H), CREAM)
+def scene_product(path, title, deal):
+    img = Image.new("RGB", (W, H), CHAR)
     d = ImageDraw.Draw(img)
-    brand_bar(d)
-    d.rounded_rectangle([60, 500, W - 60, 1400], radius=50, fill="white", outline=PINK, width=10)
-    centered(d, 560, "VIRAL FIND", font(56), PINK)
-    centered(d, 700, title, font(84), INK, max_w=W - 220)
+    masthead(d, IVORY)
+    badge = badge_text(deal)
+    bf = sans(32, "SemiBold")
+    bw = sum(d.textlength(c, font=bf) for c in badge) + 6 * (len(badge) - 1) + 80
+    d.rounded_rectangle([(W - bw) / 2, 640, (W + bw) / 2, 720], radius=40, outline=GOLD, width=3)
+    centered(d, 660, badge, bf, GOLD, spacing=6)
+    tf = fit(d, title, lambda s: serif(s, "SemiBold"), 112, W - 200, max_lines=4)
+    y = centered(d, 840, title, tf, IVORY, gap=18)
+    rule(d, y + 50, 160)
     img.save(path)
 
 
-def scene_price(path, price, code, coupon):
-    img = Image.new("RGB", (W, H), INK)
+def scene_features(path, features):
+    img = Image.new("RGB", (W, H), IVORY)
     d = ImageDraw.Draw(img)
-    brand_bar(d, bg=PINK, fg=CREAM)
-    centered(d, 520, "NOW JUST", font(80), CREAM)
-    pf = fit_font(d, price, 280, W - 160)
-    y = centered(d, 660, price, pf, YELLOW) + 80
+    masthead(d, CHAR)
+    centered(d, 520, "Why moms love it", serif(96, "Regular", italic=True), CHAR)
+    rule(d, 670, 160)
+    y = 800
+    for i, feat in enumerate(features[:3], 1):
+        centered(d, y, f"0{i}", serif(64, "Bold"), GOLD)
+        y = centered(d, y + 90, feat, sans(54, "Medium"), CHAR, max_w=W - 240, gap=10) + 70
+    img.save(path)
+
+
+def scene_price(path, price, was, code, coupon):
+    img = Image.new("RGB", (W, H), CHAR)
+    d = ImageDraw.Draw(img)
+    masthead(d, IVORY)
+    y = 640
+    if was:
+        wf = serif(80, "Regular")
+        label = f"was {was}"
+        w = d.textlength(label, font=wf)
+        d.text(((W - w) / 2, y), label, font=wf, fill=MUTED)
+        d.line([((W - w) / 2 - 10, y + 58), ((W + w) / 2 + 10, y + 58)], fill=BLUSH, width=5)
+        y += 140
+    else:
+        y = centered(d, y, "NOW ONLY", sans(40, "SemiBold"), MUTED, spacing=8) + 30
+    pf = fit(d, price, lambda s: serif(s, "Bold"), 300, W - 200, max_lines=1, min_size=120)
+    y = centered(d, y, price, pf, GOLD) + 130
     if code and code != "w/ code":
-        d.rounded_rectangle([150, y, W - 150, y + 210], radius=30, fill=CREAM)
-        centered(d, y + 25, "USE CODE", font(50, False), INK)
-        centered(d, y + 95, code, font(90), PINK)
+        centered(d, y, "WITH CODE", sans(34, "SemiBold"), MUTED, spacing=8)
+        cf = sans(80, "Bold")
+        cw = sum(d.textlength(c, font=cf) for c in code) + 10 * (len(code) - 1)
+        d.rounded_rectangle([(W - cw) / 2 - 60, y + 70, (W + cw) / 2 + 60, y + 210], radius=16, outline=GOLD, width=3)
+        centered(d, y + 95, code, cf, IVORY, spacing=10)
     elif coupon or code:
-        d.rounded_rectangle([150, y, W - 150, y + 170], radius=30, fill=CREAM)
-        centered(d, y + 45, "CLIP THE COUPON" if coupon else "PROMO CODE INSIDE", font(70), PINK)
+        centered(d, y, "CLIP THE COUPON" if coupon else "PROMO CODE INSIDE", sans(48, "SemiBold"), IVORY, spacing=8)
+    footer(d, MUTED)
     img.save(path)
 
 
 def scene_cta(path):
-    img = Image.new("RGB", (W, H), PINK)
+    img = Image.new("RGB", (W, H), IVORY)
     d = ImageDraw.Draw(img)
-    brand_bar(d)
-    y = centered(d, 600, "GRAB THE LINK", font(100), CREAM)
-    y = centered(d, y, "IN OUR FREE", font(100), CREAM)
-    y = centered(d, y + 10, "FACEBOOK GROUP", font(100), YELLOW)
-    bf = fit_font(d, BRAND, 80, W - 320)
-    d.rounded_rectangle([120, y + 80, W - 120, y + 120 + bf.size + 80], radius=40, fill=CREAM)
-    centered(d, y + 120, BRAND, bf, PINK)
-    centered(d, 1700, "#ad  -  prices and codes can change anytime", font(38, False), CREAM)
+    centered(d, 560, "The link is waiting in our", serif(76, "Regular", italic=True), CHAR)
+    centered(d, 680, "free Facebook group", serif(76, "Regular", italic=True), CHAR)
+    rule(d, 850, 160)
+    centered(d, 920, "Mom Found", serif(150, "Bold"), CHAR)
+    centered(d, 1090, "It Cheaper", serif(150, "Bold"), GOLD)
+    rule(d, 1310, 160)
+    centered(d, 1360, "JOIN FREE  ·  NEW DEALS DAILY", sans(34, "SemiBold"), MUTED, spacing=7)
+    footer(d, MUTED)
     img.save(path)
 
 
@@ -199,7 +278,7 @@ def render(scenes, durations, audio, out_path):
     last, offset = "v0", 0.0
     for i in range(1, len(durations)):
         offset += durations[i - 1]
-        parts.append(f"[{last}][v{i}]xfade=transition=slideleft:duration={fade}:offset={offset:.2f}[x{i}]")
+        parts.append(f"[{last}][v{i}]xfade=transition=fade:duration={fade}:offset={offset:.2f}[x{i}]")
         last = f"x{i}"
     cmd += ["-filter_complex", ";".join(parts), "-map", f"[{last}]"]
     if audio:
@@ -220,18 +299,29 @@ def caption(title, price, code, coupon):
 def make_one(n, deal, work):
     title = short_title(deal["title"])
     price, code, coupon = deal["price"], deal.get("code", ""), deal.get("coupon", "")
+    was, feats = deal.get("was", ""), deal.get("features", [])
     hook = random.choice(HOOKS)
-    s = [work / f"{n}_{i}.png" for i in range(4)]
-    scene_hook(s[0], hook)
-    scene_product(s[1], title)
-    scene_price(s[2], price, code, coupon)
-    scene_cta(s[3])
+    scenes, durations = [], []
+
+    def add(name, dur, fn, *args):
+        path = work / f"{n}_{name}.png"
+        fn(path, *args)
+        scenes.append(path)
+        durations.append(dur)
+
+    add("hook", 2.2, scene_hook, hook)
+    add("product", 3.6, scene_product, title, deal)
+    if feats:
+        add("features", 4.2, scene_features, feats)
+    add("price", 3.8, scene_price, price, was, code, coupon)
+    add("cta", 3.4, scene_cta)
 
     said_code = f" Use code {' '.join(code)}." if code and code != "w/ code" else (" Just clip the coupon." if coupon else "")
-    script = (f"{' '.join(hook).capitalize()} {title}. Now just {price}.{said_code} "
-              f"Grab the link in our free Facebook group, {BRAND}.")
+    said_was = f" It's usually {was}." if was else ""
+    said_feats = (" " + ". ".join(feats[:2]) + ".") if feats else ""
+    script = (f"{hook[0]} {hook[1]} {title}.{said_feats}{said_was} Today it's just {price}.{said_code} "
+              f"The link is in our free Facebook group, {BRAND}.")
     audio = work / f"{n}.mp3"
-    durations = [2.2, 3.8, 4.0, 3.5]
     try:
         asyncio.run(make_voice(script, audio))
         total = duration(audio) + 0.6
@@ -241,7 +331,7 @@ def make_one(n, deal, work):
         print(f"[warn] voiceover failed: {e}")
         audio = None
     out = OUT / f"deal_{n}.mp4"
-    render(s, durations, audio, out)
+    render(scenes, durations, audio, out)
     (OUT / f"deal_{n}.txt").write_text(caption(title, price, code, coupon) + f"\n\nSource deal: {deal['link']}\n")
     return out
 
