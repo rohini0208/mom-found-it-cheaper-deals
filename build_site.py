@@ -66,9 +66,8 @@ def badge(d, low):
 def link_for(d):
     """Your own tagged Amazon link when possible; otherwise the source deal page."""
     if TAG and d.get("asin"):
-        return f"https://www.amazon.com/dp/{d['asin']}?tag={TAG}", "Get it on Amazon"
-    src = "Slickdeals" if "Slickdeals" in d["source"] else "DealNews"
-    return d["link"], f"See deal on {src}"
+        return f"https://www.amazon.com/dp/{d['asin']}?tag={TAG}", "Get this deal"
+    return d["link"], "Get this deal"
 
 
 def card(d, history, tested):
