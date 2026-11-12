@@ -17,6 +17,7 @@ import html
 import json
 import os
 import re
+import urllib.parse
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -72,11 +73,14 @@ def link_for(d):
 
 def card(d, history, tested):
     i = deal_id(d)
+    t = tested.get(i, "")            # "Nov 12" (old) or {"date": ..., "asin": ...}
     price = price_num(d.get("price"))
     pts = [p for _, p in history.get(product_key(d), [])]
     lowest = min(pts) if pts else None
     is_low = price is not None and len(pts) >= 2 and price <= lowest
     b = badge(d, is_low)
+    if isinstance(t, dict) and t.get("asin") and not d.get("asin"):
+        d = dict(d, asin=t["asin"])      # Amazon link you pasted when testing
     url, label = link_for(d)
     code = d.get("code", "")
     real_code = code and code != "w/ code"
@@ -84,7 +88,7 @@ def card(d, history, tested):
     if len(pts) >= 2:
         hist_txt = f"Seen {len(pts)} times · low ${lowest:,.2f} · high ${max(pts):,.2f}"
     feats = "".join(f"<li>{html.escape(f)}</li>" for f in d.get("features", [])[:3])
-    tested_on = tested.get(i, "")
+    tested_on = t.get("date", "") if isinstance(t, dict) else t
     tags = " ".join(filter(None, [
         "has-code" if real_code else "",
         "has-coupon" if d.get("coupon") else "",
@@ -109,7 +113,7 @@ def card(d, history, tested):
   {f'<div class="hist">{hist_txt}</div>' if hist_txt else ''}
   <div class="meta"><span class="ago" data-t="{d['seen']}"></span>{f' · +{d["thumbs"]} community votes' if d.get('thumbs') else ''}</div>
   <a class="go" href="{html.escape(url)}" target="_blank" rel="sponsored noopener">{label}</a>
-  <a class="admin" href="https://github.com/{REPO}/issues/new?title=tested:+{i}&body=Tested+{html.escape(d['title'][:60])}">Mark tested today</a>
+  <a class="admin" href="https://github.com/{REPO}/issues/new?title=tested:+{i}&body=Paste+the+Amazon+product+link+here+(optional):%0A%0ATested:+{html.escape(urllib.parse.quote_plus(d['title'][:60]))}">Mark tested today</a>
 </article>"""
 
 

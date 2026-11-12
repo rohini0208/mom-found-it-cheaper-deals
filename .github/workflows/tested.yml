@@ -19,6 +19,7 @@ jobs:
       - name: Record it
         env:
           ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
         run: python mark_tested.py
       - name: Save and close
         env:
