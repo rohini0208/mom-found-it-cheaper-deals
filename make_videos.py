@@ -10,7 +10,9 @@ Out:  videos/deal_1.mp4 + deal_1.txt (caption to paste), ...
 """
 
 import asyncio
+import hashlib
 import json
+import os
 import random
 import re
 import subprocess
@@ -27,6 +29,7 @@ SKIP_WORDS = ("ebook", "ps5", "xbox", "steam", "pcdd", "gog", "resale", "kindle"
 DEALS_FILE = Path("data/deals.json")
 MADE_FILE = Path("data/videos_made.json")
 OUT = Path("videos")
+SITE = os.environ.get("SITE_URL", "https://rohini0208.github.io/mom-found-it-cheaper-deals/")
 
 HOOKS = [
     ("Stop scrolling,", "mama."),
@@ -288,10 +291,11 @@ def render(scenes, durations, audio, out_path):
     subprocess.run(cmd, check=True)
 
 
-def caption(title, price, code, coupon):
+def caption(title, price, code, coupon, deal=None):
     extra = f" Use code {code}." if code and code != "w/ code" else (" Clip the coupon!" if coupon else "")
     return (f"Mom found it cheaper! {title} - now just {price}.{extra}\n\n"
-            f"Link in our free Facebook group: {BRAND}\n\n"
+            f"Get it here: {SITE}#d-{hashlib.sha1(deal['id'].encode()).hexdigest()[:10] if deal else ''}\n"
+            f"More deals daily in our free Facebook group: {BRAND}\n\n"
             "#ad #amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\n"
             "As an Amazon Associate I earn from qualifying purchases. Prices and codes can change.")
 
@@ -332,7 +336,7 @@ def make_one(n, deal, work):
         audio = None
     out = OUT / f"deal_{n}.mp4"
     render(scenes, durations, audio, out)
-    (OUT / f"deal_{n}.txt").write_text(caption(title, price, code, coupon) + f"\n\nSource deal: {deal['link']}\n")
+    (OUT / f"deal_{n}.txt").write_text(caption(title, price, code, coupon, deal) + f"\n\nSource deal: {deal['link']}\n")
     return out
 
 

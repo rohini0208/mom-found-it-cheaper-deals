@@ -80,6 +80,8 @@ def main():
     for v in videos[:60]:
         lines.append(f"| {v['per_hour']:,} | {v['views']:,} | [{v['title']}]({v['url']}) | {v['channel']} | {v['search']} |")
     Path("VIRAL.md").write_text("\n".join(lines) + "\n")
+    Path("data").mkdir(exist_ok=True)
+    Path("data/viral.json").write_text(json.dumps({"updated": now, "videos": videos[:30]}, indent=1))
     print(f"{len(videos)} viral Shorts listed")
 
 

@@ -37,6 +37,8 @@ PRICE_RE = re.compile(r"\$\s?(\d[\d,]*(?:\.\d{2})?)")
 # so seller names like "w/ Code Sunway Direct" are not mistaken for codes.
 CODE_RE = re.compile(r"(?i:code|coupon)[:\s]+[\"']?([A-Z0-9]{4,20})\b")
 TAG_RE = re.compile(r"<[^>]+>")
+ASIN_RE = re.compile(r"amazon\.com/(?:[^\s\"'<>]*?/)?(?:dp|gp/product|gp/aw/d)/([A-Z0-9]{10})")
+HISTORY_FILE = Path("data/price_history.json")
 THUMBS_RE = re.compile(r"thumb score:\s*\+?(\d+)", re.I)
 WAS_RE = re.compile(r"(?:list price|reg(?:ularly)?\.?|was|originally|retail)\s*:?\s*\$\s?(\d[\d,]*(?:\.\d{2})?)", re.I)
 
@@ -85,6 +87,7 @@ def parse_feed(source, raw):
         price = PRICE_RE.search(title)
         code = CODE_RE.search(f"{title} {desc}")
         thumbs = THUMBS_RE.search(desc)
+        asin = ASIN_RE.search(raw_desc) or ASIN_RE.search(link)
         was = WAS_RE.search(desc)
         deals.append({
             "id": link or title,
@@ -92,6 +95,7 @@ def parse_feed(source, raw):
             "price": f"${price.group(1)}" if price else "",
             "code": code.group(1).upper() if code else ("w/ code" if "w/ code" in blob or "promo code" in blob else ""),
             "coupon": "clip coupon" if "clip" in blob and "coupon" in blob else "",
+            "asin": asin.group(1) if asin else "",
             "thumbs": int(thumbs.group(1)) if thumbs else 0,
             "was": f"${was.group(1)}" if was else "",
             "features": features_from(raw_desc),
@@ -103,6 +107,31 @@ def parse_feed(source, raw):
             "seen": when.isoformat(),
         })
     return deals
+
+
+def product_key(d):
+    """ASIN when we have it, else a simplified product name."""
+    if d.get("asin"):
+        return d["asin"]
+    name = re.split(r"\s+(?:for\s+)?\$\d", d["title"].lower())[0]
+    return re.sub(r"[^a-z0-9 ]", "", name).strip()[:60]
+
+
+def update_price_history(new):
+    hist = json.loads(HISTORY_FILE.read_text()) if HISTORY_FILE.exists() else {}
+    for d in new:
+        p = PRICE_RE.search(d.get("price", "") or "")
+        if not p:
+            continue
+        value = float(p.group(1).replace(",", ""))
+        day = d["seen"][:10]
+        rows = hist.setdefault(product_key(d), [])
+        if not any(r[0] == day and r[1] == value for r in rows):
+            rows.append([day, value])
+        rows.sort()
+        del rows[:-60]                      # keep the last 60 price points
+    HISTORY_FILE.write_text(json.dumps(hist))
+    return hist
 
 
 def load_history():
@@ -179,8 +208,9 @@ def main():
         except Exception as e:  # one bad feed should not stop the rest
             errors.append(name)
             print(f"[warn] {name}: {e}")
-    deals = merge(load_history(), new)
     DATA_FILE.parent.mkdir(exist_ok=True)
+    update_price_history(new)
+    deals = merge(load_history(), new)
     DATA_FILE.write_text(json.dumps(deals, indent=1))
     write_markdown(deals, errors)
     write_html(deals)
