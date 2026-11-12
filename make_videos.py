@@ -21,6 +21,9 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
 from deal_finder import is_amazon, no_price_title
+from trends_finder import load_signals, viral_sources
+
+SIGNALS = load_signals()
 
 # "show" (default): Amazon prices shown with an "as of" time; "hide": no Amazon prices
 AMAZON_PRICES = os.environ.get("AMAZON_PRICES", "show").strip().lower()
@@ -109,6 +112,7 @@ def pick_deals(deals, made):
             continue
         score = (2 if d.get("code") and d["code"] != "w/ code" else 0) + (1 if d.get("coupon") else 0)
         score += 3 if find_photo(d) else 0          # deals with a real photo go first
+        score += 2 * len(viral_sources(d, SIGNALS))  # buzzing in several places = viral
         good.append((score, d["seen"], d))
     good.sort(key=lambda x: (x[0], x[1]), reverse=True)
     return [d for _, _, d in good[:VIDEOS_PER_RUN]]

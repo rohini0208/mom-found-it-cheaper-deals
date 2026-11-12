@@ -21,6 +21,9 @@ import urllib.parse
 from datetime import datetime, timezone
 from pathlib import Path
 from deal_finder import is_amazon, no_price_title
+from trends_finder import load_signals, viral_sources
+
+SIGNALS = load_signals()
 
 # Amazon's Associates rules only allow prices that come from Amazon's own API.
 # "show" (your choice): show feed prices with an "as of" time; "hide": no Amazon prices.
@@ -90,6 +93,9 @@ def card(d, history, tested):
     lowest = min(pts) if pts else None
     is_low = price is not None and len(pts) >= 2 and price <= lowest
     b = badge(d, is_low)
+    buzz = viral_sources(d, SIGNALS)
+    if len(buzz) >= 2:
+        b = f"Viral · seen in {len(buzz)} places"
     if isinstance(t, dict) and t.get("asin") and not d.get("asin"):
         d = dict(d, asin=t["asin"])      # Amazon link you pasted when testing
     url, label = link_for(d)
@@ -110,6 +116,7 @@ def card(d, history, tested):
         "has-coupon" if d.get("coupon") else "",
         "under25" if price is not None and price < 25 else "",
         "tested" if tested_on else "",
+        "viral" if len(buzz) >= 2 else "",
     ]))
     return f"""
 <article class="card {tags}" id="d-{i}" data-title="{html.escape((no_price_title(d['title']) if amz else d['title']).lower())}" data-cat="{html.escape(d.get('category','Everything else'))}" data-store="{html.escape(d.get('store','Other'))}">
@@ -129,6 +136,7 @@ def card(d, history, tested):
   {'<div class="coupon">Promo code in the deal</div>' if code == 'w/ code' else ''}
   {f'<div class="asof">{stamp}</div>' if stamp else ''}
   {''.join(f'<div class="also">Also found: {("code <b>" + html.escape(a["code"]) + "</b>") if a["code"] else "clip coupon"} on <a href="{html.escape(a["link"])}" target="_blank" rel="noopener">{html.escape(a["source"])}</a></div>' for a in d.get("also", []))}
+  {f'<div class="buzz">Buzzing on: {html.escape(", ".join(buzz))}</div>' if buzz else ''}
   {f'<div class="hist">{hist_txt}</div>' if hist_txt else ''}
   <div class="meta"><span class="ago" data-t="{d['seen']}"></span>{f' · +{d["thumbs"]} community votes' if d.get('thumbs') else ''}</div>
   <a class="go" href="{html.escape(url)}" target="_blank" rel="sponsored noopener">{label}</a>
@@ -136,15 +144,33 @@ def card(d, history, tested):
 </article>"""
 
 
+def trending_section():
+    """Top products people are talking about right now, from each free source."""
+    by_src = {}
+    for s in SIGNALS:
+        by_src.setdefault(s["source"], []).append(s)
+    picks = []
+    for src, items in by_src.items():
+        picks += sorted(items, key=lambda s: s.get("rank", 99))[:3]
+    if not picks:
+        return ""
+    cells = "".join(
+        f'<a class="viral" href="{html.escape(s["link"])}" target="_blank" rel="noopener">'
+        f'<span>{html.escape(s["source"])}{(" · " + html.escape(s["label"])) if s.get("label") else ""}</span>'
+        f'<em>{html.escape(s["title"][:80])}</em></a>' for s in picks[:12])
+    return ('<section><h2>Trending right now</h2><p class="sub">What people are buying and talking about '
+            'on TikTok, Reddit, YouTube and Amazon price trackers</p><div class="virals">' + cells + '</div></section>')
+
+
 def viral_section(viral):
     vids = viral.get("videos", [])[:6]
     if not vids:
-        return ""
+        return trending_section()
     items = "".join(
         f'<a class="viral" href="{html.escape(v["url"])}" target="_blank" rel="noopener">'
         f'<b>{v["per_hour"]:,}</b><span>views/hour</span><em>{html.escape(v["title"][:70])}</em></a>'
         for v in vids)
-    return f'<section><h2>Going viral this week</h2><p class="sub">Fastest-growing product videos right now</p><div class="virals">{items}</div></section>'
+    return f'<section><h2>Going viral this week</h2><p class="sub">Fastest-growing product videos right now</p><div class="virals">{items}</div></section>' + trending_section()
 
 
 CSS = """
@@ -182,6 +208,7 @@ footer a{color:var(--muted)}
 .was{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--blush)}
 .code{border:1px dashed var(--gold);background:var(--ivory);border-radius:10px;padding:10px;font-size:14px;cursor:pointer;text-align:left}
 .code b{letter-spacing:.12em}.code span{float:right;color:var(--muted);font-size:12px}
+.buzz{font-size:12px;color:#9b7a43}
 .asof{font-size:11px;color:var(--muted);font-style:italic}
 .also{font-size:12px;color:#1f6f4a}.also a{color:#1f6f4a}
 .amz{font-size:15px;font-weight:600;color:#a07c3f}
@@ -285,7 +312,8 @@ def main():
     # tested deals first, then deals with codes, then newest
     def rank(d):
         i = deal_id(d)
-        return (1 if i in tested else 0, 1 if d.get("code") and d["code"] != "w/ code" else 0, d["seen"])
+        return (1 if i in tested else 0, len(viral_sources(d, SIGNALS)),
+                1 if d.get("code") and d["code"] != "w/ code" else 0, d["seen"])
     PER_CATEGORY = 100
     count, picked = {}, []
     for d in sorted(deals, key=rank, reverse=True):
@@ -315,7 +343,7 @@ def main():
 <div class="cats"><button class="on" data-c="">All categories</button>{cat_buttons}</div>
 <div class="bar"><input id="q" placeholder="Search deals…"><select id="store"><option value="">All stores</option>{store_opts}</select>
 <button class="on" data-f="all">All</button><button data-f="has-code">Codes</button>
-<button data-f="has-coupon">Coupons</button><button data-f="under25">Under $25</button><button data-f="tested">Tested</button></div>
+<button data-f="has-coupon">Coupons</button><button data-f="under25">Under $25</button><button data-f="tested">Tested</button><button data-f="viral">Viral</button></div>
 <div class="grid">{cards}</div></section>
 </main>
 <footer><b>Affiliate disclosure:</b> As an Amazon Associate I earn from qualifying purchases. Some links are affiliate links (#ad) — if you buy through them we may earn a commission at no extra cost to you.<br>

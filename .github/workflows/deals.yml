@@ -20,6 +20,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: python deal_finder.py
+      - run: python trends_finder.py
       - name: Save the new list
         run: |
           git config user.name "deal-bot"
