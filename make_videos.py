@@ -23,6 +23,8 @@ from PIL import Image, ImageDraw, ImageFont
 W, H = 1080, 1920
 BRAND = "Mom Found It Cheaper"
 VOICE = os.environ.get("VOICE") or "en-US-AvaMultilingualNeural"   # warm, expressive; pick yours from the voice samples
+# A/B test: every other Reel uses this voice instead (set AB_VOICE to "off" to stop the test)
+AB_VOICE = os.environ.get("AB_VOICE") or "en-US-EmmaMultilingualNeural"
 VOICE_RATE = os.environ.get("VOICE_RATE", "+6%")
 VOICE_PITCH = os.environ.get("VOICE_PITCH", "+2Hz")
 VIDEOS_PER_RUN = int(os.environ.get("VIDEOS_PER_RUN") or "20")   # Reels per day (private repo: ~2,000 free Actions min/month)
@@ -252,13 +254,15 @@ def scene_cta(path):
 
 # ---------- voice and video ----------
 
-async def make_voice(text, path, voice=None):
-    """Premium ElevenLabs voice if ELEVENLABS_API_KEY is set (free tier ~10k characters/month),
-    otherwise a free Microsoft Edge neural voice."""
+async def make_voice(parts, path, voice=None):
+    """parts: list of (text, rate, pitch, pause_before_seconds).
+    Premium ElevenLabs voice if ELEVENLABS_API_KEY is set (free tier ~10k characters/month),
+    otherwise free Microsoft Edge neural voices, one clip per part, joined with short pauses."""
     key = os.environ.get("ELEVENLABS_API_KEY", "")
     if key:
         import urllib.request
         vid = os.environ.get("ELEVENLABS_VOICE_ID") or "21m00Tcm4TlvDq8ikWAM"
+        text = " ".join(t for t, *_ in parts)
         req = urllib.request.Request(
             f"https://api.elevenlabs.io/v1/text-to-speech/{vid}",
             data=json.dumps({"text": text, "model_id": "eleven_multilingual_v2",
@@ -268,7 +272,22 @@ async def make_voice(text, path, voice=None):
             Path(path).write_bytes(r.read())
         return
     import edge_tts
-    await edge_tts.Communicate(text, voice or VOICE, rate=VOICE_RATE, pitch=VOICE_PITCH).save(str(path))
+    path = Path(path)
+    inputs, labels = [], []
+    for i, (text, rate, pitch, pause) in enumerate(parts):
+        if pause:
+            inputs += ["-f", "lavfi", "-t", str(pause), "-i", "anullsrc=r=24000:cl=mono"]
+            labels.append(f"[{len(labels)}:a]")
+        clip = path.with_name(f"{path.stem}_p{i}.mp3")
+        await edge_tts.Communicate(text, voice or VOICE, rate=rate, pitch=pitch).save(str(clip))
+        inputs += ["-i", str(clip)]
+        labels.append(f"[{len(labels)}:a]")
+    # resample every piece to the same format, then join them in order
+    norm = [f"{l}aresample=24000,aformat=channel_layouts=mono[a{i}]" for i, l in enumerate(labels)]
+    joined = "".join(f"[a{i}]" for i in range(len(labels)))
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", *inputs, "-filter_complex",
+                    ";".join(norm) + f";{joined}concat=n={len(labels)}:v=0:a=1[out]",
+                    "-map", "[out]", "-c:a", "libmp3lame", "-b:a", "128k", str(path)], check=True)
 
 
 def duration(path):
@@ -316,6 +335,21 @@ def caption(title, price, code, coupon, deal=None):
             "As an Amazon Associate I earn from qualifying purchases. Prices and codes can change.")
 
 
+def is_lowest_seen(deal):
+    """True only when our own price history has 2+ points and today's price is the lowest."""
+    hist_file = Path("data/price_history.json")
+    m = re.search(r"\$\s?([\d,]+(?:\.\d{1,2})?)", deal.get("price", "") or "")
+    if not (hist_file.exists() and m):
+        return False
+    if deal.get("asin"):
+        key = deal["asin"]
+    else:
+        name = re.split(r"\s+(?:for\s+)?\$\d", deal["title"].lower())[0]
+        key = re.sub(r"[^a-z0-9 ]", "", name).strip()[:60]
+    pts = [p for _, p in json.loads(hist_file.read_text()).get(key, [])]
+    return len(pts) >= 2 and float(m.group(1).replace(",", "")) <= min(pts)
+
+
 def make_one(n, deal, work):
     title = short_title(deal["title"])
     price, code, coupon = deal["price"], deal.get("code", ""), deal.get("coupon", "")
@@ -336,16 +370,24 @@ def make_one(n, deal, work):
     add("price", 3.8, scene_price, price, was, code, coupon)
     add("cta", 3.4, scene_cta)
 
-    said_code = f" Use code {' '.join(code)}." if code and code != "w/ code" else (" Just clip the coupon." if coupon else "")
+    said_code = f"Use code {', '.join(code)}." if code and code != "w/ code" else ("Just clip the coupon." if coupon else "")
     said_was = f" It's usually {was}." if was else ""
+    said_low = " That's the lowest price I've seen on it." if is_lowest_seen(deal) else ""
     said_feats = (" " + ". ".join(feats[:2]) + ".") if feats else ""
     opener = random.choice(["Okay, you need to see this!", "Oh, this one's good.", "Mama, stop scrolling for a sec!",
                             "I just found something you're going to love."])
-    script = (f"{opener} {title}.{said_feats}{said_was} And right now? It's only {price}!{said_code} "
-              f"Hurry, deals like this go fast. The link is waiting for you at {BRAND}.")
+    body = f"{title}.{said_feats}{said_was} And right now? It's only {price}!{said_low}"
+    cta = f"Prices like this don't usually last, so grab it while you can. Link's right here at {BRAND}."
+    parts = [(opener, "+12%", "+4Hz", 0),            # excited hook
+             (body, VOICE_RATE, VOICE_PITCH, 0.15)]  # then warm and calm
+    if said_code:
+        parts.append((said_code, "-8%", VOICE_PITCH, 0.3))   # pause, then the code slowly
+    parts.append((cta, VOICE_RATE, VOICE_PITCH, 0.25))
+    ab = AB_VOICE.lower() != "off" and n % 2 == 1
+    voice = AB_VOICE if ab else VOICE
     audio = work / f"{n}.mp3"
     try:
-        asyncio.run(make_voice(script, audio))
+        asyncio.run(make_voice(parts, audio, voice))
         total = duration(audio) + 0.6
         scale = max(total / sum(durations), 1.0)
         durations = [d * scale for d in durations]
@@ -354,7 +396,9 @@ def make_one(n, deal, work):
         audio = None
     out = OUT / f"deal_{n}.mp4"
     render(scenes, durations, audio, out)
-    (OUT / f"deal_{n}.txt").write_text(caption(title, price, code, coupon, deal) + f"\n\nSource deal: {deal['link']}\n")
+    vname = voice.split("-")[2].replace("MultilingualNeural", "").replace("Neural", "")
+    (OUT / f"deal_{n}.txt").write_text(caption(title, price, code, coupon, deal)
+                                       + f"\n\nSource deal: {deal['link']}\nVoice (A/B test): {vname}\n")
     return out
 
 
