@@ -1,0 +1,26 @@
+name: Update deal list
+
+on:
+  schedule:
+    - cron: "17 */3 * * *"   # every 3 hours
+  workflow_dispatch: {}        # "Run workflow" button for a manual run
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python deal_finder.py
+      - name: Save the new list
+        run: |
+          git config user.name "deal-bot"
+          git config user.email "deal-bot@users.noreply.github.com"
+          git add DEALS.md deals.html data/deals.json
+          git diff --cached --quiet || git commit -m "Update deal list"
+          git push
