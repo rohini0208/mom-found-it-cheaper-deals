@@ -56,6 +56,27 @@ def store_of(text):
     return "Other"
 
 
+def is_amazon(d):
+    """Amazon deals may only show prices that come from Amazon's own API (Associates policy),
+    so for these we never show or say a price, a 'was' price or a % off."""
+    return (d.get("store") == "Amazon" or bool(d.get("asin"))
+            or "amazon." in (d.get("link") or "").lower())
+
+
+PRICE_TEXT_RE = re.compile(
+    r"\s*(?:for\s+|from\s+|now\s+|only\s+|just\s+)?\$\s?[\d,]+(?:\.\d+)?\*?"
+    r"(?:\s*(?:\+|w/|with)\s*free\s+(?:shipping|s&h|store pickup|delivery))?", re.I)
+PCT_OFF_RE = re.compile(r"\s*\(?\b(?:save\s+|up\s+to\s+)?\d+\s?%\s*off\b\)?", re.I)
+
+
+def no_price_title(title):
+    """'Wyze Cam OG for $19.98 + free shipping (40% off)' -> 'Wyze Cam OG'"""
+    t = PRICE_TEXT_RE.sub("", title)
+    t = PCT_OFF_RE.sub("", t)
+    t = re.sub(r"\(\s*\)|\s{2,}", " ", t)
+    return t.strip(" -–,|:/+*")
+
+
 def category_of(text):
     low = text.lower()
     best, hits = "Everything else", 0

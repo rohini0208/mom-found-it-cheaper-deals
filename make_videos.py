@@ -20,6 +20,8 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
+from deal_finder import is_amazon, no_price_title
+
 W, H = 1080, 1920
 BRAND = "Mom Found It Cheaper"
 VOICE = os.environ.get("VOICE") or "en-US-AvaMultilingualNeural"   # warm, expressive; pick yours from the voice samples
@@ -275,12 +277,16 @@ def scene_features(path, features):
     img.save(path)
 
 
-def scene_price(path, price, was, code, coupon):
+def scene_price(path, price, was, code, coupon, amazon=False):
     img = Image.new("RGB", (W, H), CHAR)
     d = ImageDraw.Draw(img)
     masthead(d, IVORY)
     y = 640
-    if was:
+    if amazon:      # Amazon policy: no price unless it comes from Amazon's API
+        y = centered(d, y, "PRICE DROP", sans(44, "SemiBold"), MUTED, spacing=10) + 40
+        y = centered(d, y, "on Amazon today", serif(110, "Bold"), GOLD) + 50
+        y = centered(d, y, "Tap the link for today's price", serif(58, "Regular", italic=True), IVORY) + 110
+    elif was:
         wf = serif(80, "Regular")
         label = f"was {was}"
         w = d.textlength(label, font=wf)
@@ -289,8 +295,9 @@ def scene_price(path, price, was, code, coupon):
         y += 140
     else:
         y = centered(d, y, "NOW ONLY", sans(40, "SemiBold"), MUTED, spacing=8) + 30
-    pf = fit(d, price, lambda s: serif(s, "Bold"), 300, W - 200, max_lines=1, min_size=120)
-    y = centered(d, y, price, pf, GOLD) + 130
+    if not amazon:
+        pf = fit(d, price, lambda s: serif(s, "Bold"), 300, W - 200, max_lines=1, min_size=120)
+        y = centered(d, y, price, pf, GOLD) + 130
     if code and code != "w/ code":
         centered(d, y, "WITH CODE", sans(34, "SemiBold"), MUTED, spacing=8)
         cf = sans(80, "Bold")
@@ -393,7 +400,11 @@ def render(scenes, durations, audio, out_path):
 
 def caption(title, price, code, coupon, deal=None):
     extra = f" Use code {code}." if code and code != "w/ code" else (" Clip the coupon!" if coupon else "")
-    return (f"Mom found it cheaper! {title} - now just {price}.{extra}\n\n"
+    if deal and is_amazon(deal):    # no price for Amazon items (Associates policy)
+        head = f"Mom found it cheaper! Price drop on Amazon: {title}. Tap for today's price.{extra}"
+    else:
+        head = f"Mom found it cheaper! {title} - now just {price}.{extra}"
+    return (f"{head}\n\n"
             f"Get it here: {SITE}#d-{hashlib.sha1(deal['id'].encode()).hexdigest()[:10] if deal else ''}\n"
             f"More deals daily in our free Facebook group: {BRAND}\n\n"
             "#ad #amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\n"
@@ -415,7 +426,8 @@ def is_lowest_seen(deal):
 
 
 def make_one(n, deal, work):
-    title = short_title(deal["title"])
+    amazon = is_amazon(deal)
+    title = short_title(no_price_title(deal["title"]) if amazon else deal["title"])
     price, code, coupon = deal["price"], deal.get("code", ""), deal.get("coupon", "")
     was, feats = deal.get("was", ""), deal.get("features", [])
     hook = random.choice(HOOKS)
@@ -431,20 +443,25 @@ def make_one(n, deal, work):
     add("product", 3.6, scene_product, title, deal)
     if feats:
         add("features", 4.2, scene_features, feats)
-    add("price", 3.8, scene_price, price, was, code, coupon)
+    if amazon:
+        was = ""          # no "was" price either
+    add("price", 3.8, scene_price, price, was, code, coupon, amazon)
     add("cta", 3.4, scene_cta)
 
     clean_code = "".join(c for c in (code or "").upper() if c.isalnum())
     has_code = bool(clean_code) and code != "w/ code"
     said_code = f"Use code {', '.join(clean_code)}." if has_code else ("Just clip the coupon." if coupon else "")
     said_was = f" It's usually {was}." if was else ""
-    said_low = " That's the lowest price I've seen on it." if is_lowest_seen(deal) else ""
+    said_low = " That's the lowest price I've seen on it." if not amazon and is_lowest_seen(deal) else ""
     said_feats = (" " + ". ".join(feats[:2]) + ".") if feats else ""
     opener = random.choice(["Okay, you need to see this!", "Oh, this one's good.", "Mama, stop scrolling for a sec!",
                             "I just found something you're going to love."])
     spoken = " ".join(title.split()[:7]).rstrip(".!?,;: -")      # keep the spoken name short
-    body = f"{spoken}, only {price}!{said_was}{said_low}{said_feats}"   # price in the first seconds
-    cta = (f"Prices like this don't usually last, so grab it while you can. "
+    if amazon:
+        body = f"{spoken} just had a price drop on Amazon! Tap the link to see today's price.{said_feats}"
+    else:
+        body = f"{spoken}, only {price}!{said_was}{said_low}{said_feats}"   # price in the first seconds
+    cta = (f"Deals like this don't usually last, so grab it while you can. "
            f"The link is in the caption, and there's more every day at {BRAND}.")
     parts = [(opener, "+12%", "+4Hz", 0),            # excited hook
              (body, VOICE_RATE, VOICE_PITCH, 0.15)]  # then warm and calm

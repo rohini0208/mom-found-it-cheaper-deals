@@ -20,6 +20,7 @@ import re
 import urllib.parse
 from datetime import datetime, timezone
 from pathlib import Path
+from deal_finder import is_amazon, no_price_title
 
 DATA = Path("data")
 OUT = Path("site")
@@ -82,6 +83,9 @@ def card(d, history, tested):
     if isinstance(t, dict) and t.get("asin") and not d.get("asin"):
         d = dict(d, asin=t["asin"])      # Amazon link you pasted when testing
     url, label = link_for(d)
+    amz = is_amazon(d)
+    if amz:                      # Amazon policy: no prices unless from Amazon's API
+        price, pts, b = None, [], (b if b != "Lowest price we've seen" else "")
     code = d.get("code", "")
     real_code = code and code != "w/ code"
     hist_txt = ""
@@ -96,18 +100,18 @@ def card(d, history, tested):
         "tested" if tested_on else "",
     ]))
     return f"""
-<article class="card {tags}" id="d-{i}" data-title="{html.escape(d['title'].lower())}" data-cat="{html.escape(d.get('category','Everything else'))}" data-store="{html.escape(d.get('store','Other'))}">
+<article class="card {tags}" id="d-{i}" data-title="{html.escape((no_price_title(d['title']) if amz else d['title']).lower())}" data-cat="{html.escape(d.get('category','Everything else'))}" data-store="{html.escape(d.get('store','Other'))}">
   <div class="where">{html.escape(d.get('store','Other'))} · {html.escape(d.get('category','Everything else'))}</div>
   <div class="top">
     {f'<span class="badge">{html.escape(b)}</span>' if b else ''}
     {f'<span class="tested-badge">&#10003; Tested {html.escape(tested_on)}</span>' if tested_on else ''}
   </div>
-  <h3>{html.escape(d['title'])}</h3>
+  <h3>{html.escape(no_price_title(d['title']) if amz else d['title'])}</h3>
   {f'<ul class="feats">{feats}</ul>' if feats else ''}
-  <div class="price">
+  {'<div class="amz">Price drop on Amazon &middot; tap to see today&rsquo;s price</div>' if amz else f"""<div class="price">
     <span class="now">{html.escape(d.get('price') or '')}</span>
     {f'<span class="was">{html.escape(d["was"])}</span>' if d.get('was') else ''}
-  </div>
+  </div>"""}
   {f'<button class="code" data-code="{html.escape(code)}">Code <b>{html.escape(code)}</b> <span>tap to copy</span></button>' if real_code else ''}
   {'<div class="coupon">Clip the coupon on the product page</div>' if d.get('coupon') else ''}
   {'<div class="coupon">Promo code in the deal</div>' if code == 'w/ code' else ''}
@@ -164,6 +168,7 @@ footer a{color:var(--muted)}
 .was{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--blush)}
 .code{border:1px dashed var(--gold);background:var(--ivory);border-radius:10px;padding:10px;font-size:14px;cursor:pointer;text-align:left}
 .code b{letter-spacing:.12em}.code span{float:right;color:var(--muted);font-size:12px}
+.amz{font-size:15px;font-weight:600;color:#a07c3f}
 .coupon{font-size:13px;color:#1f6f4a;font-weight:600}
 .hist,.meta{font-size:12px;color:var(--muted)}
 .go{margin-top:auto;background:var(--char);color:var(--ivory);text-align:center;padding:12px;border-radius:12px;text-decoration:none;font-weight:600}
