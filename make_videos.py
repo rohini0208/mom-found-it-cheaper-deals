@@ -22,8 +22,10 @@ from PIL import Image, ImageDraw, ImageFont
 
 W, H = 1080, 1920
 BRAND = "Mom Found It Cheaper"
-VOICE = "en-US-JennyNeural"
-VIDEOS_PER_RUN = 3
+VOICE = os.environ.get("VOICE") or "en-US-AvaMultilingualNeural"   # warm, expressive; pick yours from the voice samples
+VOICE_RATE = os.environ.get("VOICE_RATE", "+6%")
+VOICE_PITCH = os.environ.get("VOICE_PITCH", "+2Hz")
+VIDEOS_PER_RUN = int(os.environ.get("VIDEOS_PER_RUN") or "8")   # Reels per day
 MAX_PRICE = 60.0
 SKIP_WORDS = ("ebook", "ps5", "xbox", "steam", "pcdd", "gog", "resale", "kindle", "watch (")
 DEALS_FILE = Path("data/deals.json")
@@ -250,9 +252,23 @@ def scene_cta(path):
 
 # ---------- voice and video ----------
 
-async def make_voice(text, path):
+async def make_voice(text, path, voice=None):
+    """Premium ElevenLabs voice if ELEVENLABS_API_KEY is set (free tier ~10k characters/month),
+    otherwise a free Microsoft Edge neural voice."""
+    key = os.environ.get("ELEVENLABS_API_KEY", "")
+    if key:
+        import urllib.request
+        vid = os.environ.get("ELEVENLABS_VOICE_ID") or "21m00Tcm4TlvDq8ikWAM"
+        req = urllib.request.Request(
+            f"https://api.elevenlabs.io/v1/text-to-speech/{vid}",
+            data=json.dumps({"text": text, "model_id": "eleven_multilingual_v2",
+                             "voice_settings": {"stability": 0.35, "similarity_boost": 0.8, "style": 0.55}}).encode(),
+            headers={"xi-api-key": key, "Content-Type": "application/json", "Accept": "audio/mpeg"})
+        with urllib.request.urlopen(req, timeout=60) as r:
+            Path(path).write_bytes(r.read())
+        return
     import edge_tts
-    await edge_tts.Communicate(text, VOICE, rate="+8%").save(str(path))
+    await edge_tts.Communicate(text, voice or VOICE, rate=VOICE_RATE, pitch=VOICE_PITCH).save(str(path))
 
 
 def duration(path):
@@ -323,8 +339,10 @@ def make_one(n, deal, work):
     said_code = f" Use code {' '.join(code)}." if code and code != "w/ code" else (" Just clip the coupon." if coupon else "")
     said_was = f" It's usually {was}." if was else ""
     said_feats = (" " + ". ".join(feats[:2]) + ".") if feats else ""
-    script = (f"{hook[0]} {hook[1]} {title}.{said_feats}{said_was} Today it's just {price}.{said_code} "
-              f"The link is in our free Facebook group, {BRAND}.")
+    opener = random.choice(["Okay, you need to see this!", "Oh, this one's good.", "Mama, stop scrolling for a sec!",
+                            "I just found something you're going to love."])
+    script = (f"{opener} {title}.{said_feats}{said_was} And right now? It's only {price}!{said_code} "
+              f"Hurry, deals like this go fast. The link is waiting for you at {BRAND}.")
     audio = work / f"{n}.mp3"
     try:
         asyncio.run(make_voice(script, audio))

@@ -1,7 +1,7 @@
-"""Mom Found It Cheaper - daily Amazon deal finder.
+"""Mom Found It Cheaper - daily deal finder (Amazon, Walmart, Target and more).
 
-Pulls public RSS feeds from Slickdeals and DealNews, keeps only Amazon
-deals, and writes one list: DEALS.md (readable in the GitHub app) and
+Pulls public RSS feeds from Slickdeals and DealNews, tags each deal by store
+and category, and writes one list: DEALS.md (readable in the GitHub app) and
 deals.html. No Claude, no API keys, standard library only.
 
 Run:  python deal_finder.py
@@ -25,10 +25,48 @@ FEEDS = {
     "DealNews Clothing": "https://www.dealnews.com/c202/Clothing-Accessories/?rss=1",
     "DealNews Health & Beauty": "https://www.dealnews.com/c756/Health-Beauty/?rss=1",
     "DealNews Toys": "https://www.dealnews.com/c186/Gaming-Toys/?rss=1",
+    "DealNews Electronics": "https://www.dealnews.com/c142/Electronics/?rss=1",
+    "DealNews Sports & Fitness": "https://www.dealnews.com/c211/Sports-Fitness/?rss=1",
+    "DealNews Computers": "https://www.dealnews.com/c39/Computers/?rss=1",
+    "Slickdeals Hot Deals": "https://slickdeals.net/newsearch.php?searchin=first&forumchoice%5B%5D=9&rss=1",
 }
 
+STORES = ["Amazon", "Walmart", "Target", "Best Buy", "Costco", "Home Depot", "Lowe's", "Kohl's",
+          "Macy's", "eBay", "Woot", "Sam's Club", "Old Navy", "Nike", "Adidas", "Wayfair", "Ulta",
+          "Sephora", "Dell", "Lenovo", "Newegg", "Staples", "Kroger", "Dollar General", "CVS", "Walgreens"]
+
+CATEGORIES = {
+    "Baby & Kids": ["baby", "toddler", "kids", "infant", "diaper", "stroller", "car seat", "nursery"],
+    "Toys & Games": ["toy", "lego", "game", "puzzle", "plush", "playset", "doll", "nerf"],
+    "Beauty & Health": ["beauty", "skin", "hair", "makeup", "vitamin", "supplement", "massager", "toothbrush", "shaver", "trimmer", "health"],
+    "Home & Kitchen": ["kitchen", "pan", "cook", "knife", "air fryer", "vacuum", "mattress", "bedding", "towel", "rug", "home", "storage", "cleaner", "detergent", "light", "fan"],
+    "Fashion": ["women's", "men's", "shirt", "dress", "jeans", "shoes", "sneakers", "jacket", "socks", "bag", "pants", "sweater", "boots"],
+    "Tech & Electronics": ["charger", "usb", "headphones", "earbuds", "laptop", "monitor", "tv", "ssd", "phone", "power bank", "camera", "speaker", "tablet"],
+    "Grocery & Household": ["snack", "coffee", "chips", "soup", "candy", "paper towel", "toilet paper", "laundry", "trash bags", "water"],
+    "Pets": ["dog", "cat", "pet", "litter"],
+    "Outdoor & Tools": ["tool", "drill", "garden", "grill", "outdoor", "camping", "screwdriver", "tire", "generator"],
+}
+
+
+def store_of(text):
+    low = text.lower()
+    for s in STORES:
+        if s.lower() in low:
+            return s
+    return "Other"
+
+
+def category_of(text):
+    low = text.lower()
+    best, hits = "Everything else", 0
+    for cat, words in CATEGORIES.items():
+        n = sum(1 for w in words if w in low)
+        if n > hits:
+            best, hits = cat, n
+    return best
+
 KEEP_DAYS = 3          # how long a deal stays on the list
-MAX_ROWS = 150         # cap the page length
+MAX_ROWS = 900         # cap the list (website shows top 100 per category)
 DATA_FILE = Path("data/deals.json")
 UA = "Mozilla/5.0 (deal-finder; personal RSS reader)"
 
@@ -79,8 +117,6 @@ def parse_feed(source, raw):
                 raw_desc = child.text
         desc = re.sub(r"\s+", " ", clean(raw_desc))
         blob = f"{title} {desc}".lower()
-        if "amazon" not in blob:
-            continue
         try:
             when = parsedate_to_datetime(item.findtext("pubDate")).astimezone(timezone.utc)
         except Exception:
@@ -100,6 +136,8 @@ def parse_feed(source, raw):
             "code": code.group(1).upper() if code else ("w/ code" if "w/ code" in blob or "promo code" in blob else ""),
             "coupon": "clip coupon" if "clip" in blob and "coupon" in blob else "",
             "asin": asin.group(1) if asin else "",
+            "store": store_of(f"{title} {desc}"),
+            "category": category_of(title),
             "thumbs": int(thumbs.group(1)) if thumbs else 0,
             "was": f"${was.group(1)}" if was else "",
             "features": features_from(raw_desc),
@@ -161,9 +199,9 @@ def merge(history, new):
 def write_markdown(deals, errors):
     now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     lines = [
-        "# Mom Found It Cheaper - Amazon deal list",
+        "# Mom Found It Cheaper - deal list",
         "",
-        f"Updated {now} - {len(deals)} Amazon deals from the last {KEEP_DAYS} days, newest first.",
+        f"Updated {now} - {len(deals)} deals from the last {KEEP_DAYS} days, newest first.",
         "",
         "> Before posting: open the deal, check the price is real, then make **your own SiteStripe link**. "
         "Never repost the source link. Add #ad.",
@@ -218,7 +256,7 @@ def main():
     DATA_FILE.write_text(json.dumps(deals, indent=1))
     write_markdown(deals, errors)
     write_html(deals)
-    print(f"{len(new)} Amazon deals fetched, {len(deals)} on the list, {len(errors)} feeds failed")
+    print(f"{len(new)} deals fetched, {len(deals)} on the list, {len(errors)} feeds failed")
 
 
 if __name__ == "__main__":

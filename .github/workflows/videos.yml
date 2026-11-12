@@ -26,6 +26,11 @@ jobs:
           YT_API_KEY: ${{ secrets.YT_API_KEY }}
         run: python viral_finder.py
       - name: Make today's videos
+        env:
+          VOICE: ${{ vars.VOICE }}
+          VIDEOS_PER_RUN: ${{ vars.VIDEOS_PER_RUN }}
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          ELEVENLABS_VOICE_ID: ${{ vars.ELEVENLABS_VOICE_ID }}
         run: python make_videos.py
       - name: Save lists
         run: |

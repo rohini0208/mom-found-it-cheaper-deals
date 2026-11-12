@@ -1,0 +1,25 @@
+name: Voice samples
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  samples:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install edge-tts
+      - run: python voice_samples.py
+      - name: Publish samples
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete voice-samples --yes --cleanup-tag || true
+          gh release create voice-samples voices/*.mp3 --title "Voice samples" \
+            --notes "Listen and tell Claude which number you like. To use one, set the repo variable VOICE (e.g. en-US-EmmaMultilingualNeural)."
