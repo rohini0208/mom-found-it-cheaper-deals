@@ -59,7 +59,8 @@ def store_of(text):
 def is_amazon(d):
     """Amazon deals may only show prices that come from Amazon's own API (Associates policy),
     so for these we never show or say a price, a 'was' price or a % off."""
-    return (d.get("store") == "Amazon" or bool(d.get("asin"))
+    store = d.get("store") or store_of(f"{d.get('title', '')} {d.get('desc', '')}")
+    return (store == "Amazon" or bool(d.get("asin"))
             or "amazon." in (d.get("link") or "").lower())
 
 
