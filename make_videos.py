@@ -59,6 +59,33 @@ def short_title(title):
     return t.strip(" -–,|")[:90]
 
 
+PHOTOS = Path("photos")
+PHOTO_EXT = {".jpg", ".jpeg", ".png", ".webp"}
+
+
+def find_photo(deal):
+    """Your own (or brand-supplied) product photo from the photos/ folder.
+    Match by deal id (as on the website, e.g. 3f9a1c2b7e.jpg) or by words in the file name:
+    'wyze cam.jpg' matches any deal whose title has both 'wyze' and 'cam'."""
+    if not PHOTOS.is_dir():
+        return None
+    did = hashlib.sha1(deal["id"].encode()).hexdigest()[:10]
+    title = re.sub(r"[^a-z0-9]+", " ", deal["title"].lower())
+    words_in_title = set(title.split())
+    best = None
+    for f in PHOTOS.iterdir():
+        if f.suffix.lower() not in PHOTO_EXT:
+            continue
+        stem = f.stem.lower()
+        if stem == did:
+            return f
+        words = [w for w in re.split(r"[^a-z0-9]+", stem) if w]
+        if words and all(w in words_in_title for w in words):
+            if best is None or len(words) > best[0]:     # most specific name wins
+                best = (len(words), f)
+    return best[1] if best else None
+
+
 def pick_deals(deals, made):
     good = []
     for d in deals:
@@ -69,6 +96,7 @@ def pick_deals(deals, made):
         if any(w in low for w in SKIP_WORDS):
             continue
         score = (2 if d.get("code") and d["code"] != "w/ code" else 0) + (1 if d.get("coupon") else 0)
+        score += 3 if find_photo(d) else 0          # deals with a real photo go first
         good.append((score, d["seen"], d))
     good.sort(key=lambda x: (x[0], x[1]), reverse=True)
     return [d for _, _, d in good[:VIDEOS_PER_RUN]]
@@ -182,7 +210,44 @@ def scene_hook(path, hook):
     img.save(path)
 
 
+def scene_product_photo(path, title, deal, photo):
+    """Photo on an ivory card: soft shadow, gold frame, badge above, name below."""
+    from PIL import ImageFilter, ImageOps
+    img = Image.new("RGB", (W, H), CHAR)
+    # blurred, darkened photo fills the background
+    src = Image.open(photo).convert("RGB")
+    bg = ImageOps.fit(src, (W, H)).filter(ImageFilter.GaussianBlur(40))
+    img = Image.blend(bg, img, 0.72)
+    d = ImageDraw.Draw(img)
+    masthead(d, IVORY)
+    badge = badge_text(deal)
+    bf = sans(30, "SemiBold")
+    bw = sum(d.textlength(c, font=bf) for c in badge) + 6 * (len(badge) - 1) + 80
+    d.rounded_rectangle([(W - bw) / 2, 430, (W + bw) / 2, 506], radius=38, fill=CHAR, outline=GOLD, width=3)
+    centered(d, 449, badge, bf, GOLD, spacing=6)
+    # card with the product photo, whole product visible (no cropping)
+    cw, ch, top = 860, 900, 560
+    shadow = Image.new("L", (W, H), 0)
+    ImageDraw.Draw(shadow).rounded_rectangle([(W - cw) / 2 + 10, top + 24, (W + cw) / 2 + 10, top + ch + 24], 48, fill=150)
+    img.paste((0, 0, 0), mask=shadow.filter(ImageFilter.GaussianBlur(28)))
+    d = ImageDraw.Draw(img)
+    d.rounded_rectangle([(W - cw) / 2, top, (W + cw) / 2, top + ch], 48, fill=(255, 255, 255), outline=GOLD, width=4)
+    pic = ImageOps.contain(src, (cw - 90, ch - 90))
+    img.paste(pic, ((W - pic.width) // 2, top + (ch - pic.height) // 2))
+    d = ImageDraw.Draw(img)
+    tf = fit(d, title, lambda s: serif(s, "SemiBold"), 84, W - 180, max_lines=2, min_size=50)
+    y = centered(d, top + ch + 70, title, tf, IVORY, gap=14)
+    rule(d, y + 40, 160)
+    img.save(path)
+
+
 def scene_product(path, title, deal):
+    photo = find_photo(deal)
+    if photo:
+        try:
+            return scene_product_photo(path, title, deal, photo)
+        except Exception as e:      # unreadable image: fall back to the text card
+            print(f"[warn] photo {photo}: {e}")
     img = Image.new("RGB", (W, H), CHAR)
     d = ImageDraw.Draw(img)
     masthead(d, IVORY)
