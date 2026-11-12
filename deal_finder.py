@@ -10,6 +10,7 @@ Run:  python deal_finder.py
 import html
 import json
 import re
+import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, timezone
@@ -87,7 +88,10 @@ def parse_feed(source, raw):
         price = PRICE_RE.search(title)
         code = CODE_RE.search(f"{title} {desc}")
         thumbs = THUMBS_RE.search(desc)
-        asin = ASIN_RE.search(raw_desc) or ASIN_RE.search(link)
+        # Deal sites wrap Amazon links in encoded redirects (amazon.com%2Fdp%2F...),
+        # so decode twice before looking for the product ID.
+        decoded = urllib.parse.unquote(urllib.parse.unquote(html.unescape(raw_desc + " " + link)))
+        asin = ASIN_RE.search(decoded)
         was = WAS_RE.search(desc)
         deals.append({
             "id": link or title,
