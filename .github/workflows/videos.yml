@@ -16,7 +16,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install pillow edge-tts
+      - name: Install video tools
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q ffmpeg
+          pip install pillow edge-tts
       - name: Viral product list (skipped until YT_API_KEY is added)
         env:
           YT_API_KEY: ${{ secrets.YT_API_KEY }}
@@ -28,7 +32,7 @@ jobs:
           git config user.name "deal-bot"
           git config user.email "deal-bot@users.noreply.github.com"
           git add data/videos_made.json
-          [ -f VIRAL.md ] && git add VIRAL.md
+          if [ -f VIRAL.md ]; then git add VIRAL.md data/viral.json; fi
           git diff --cached --quiet || git commit -m "Update videos list"
           git pull --rebase -q && git push
       - name: Publish videos to the "Today's videos" release
@@ -36,6 +40,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release delete todays-videos --yes --cleanup-tag || true
+          ls videos/*.mp4 >/dev/null 2>&1 || { echo "No new deals for videos today"; exit 0; }
           gh release create todays-videos videos/* \
             --title "Today's videos ($(date -u +%Y-%m-%d))" \
             --notes "Download a video and its .txt caption. Check the price first, then post with your own SiteStripe link in the group."
