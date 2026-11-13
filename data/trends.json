@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-13T17:13+00:00",
+ "updated": "2026-11-13T23:35+00:00",
  "status": {
   "TikTok Made Me Buy It (Reddit)": "error: HTTP Error 404: Not Found",
   "Amazon finds (Reddit)": "error: HTTP Error 429: Too Many Requests",
@@ -11,34 +11,10 @@
  "signals": [
   {
    "source": "camelcamelcamel popular",
-   "title": "Honeywell Home RTH9585WF1004 Wi-Fi Smart Color Thermostat, 7 Day Programmable, Touch Screen, Energy Star, Alexa Ready, Gray",
-   "link": "https://camelcamelcamel.com/product/B075BF6V58?active=price_amazon",
-   "asin": "B075BF6V58",
-   "rank": 1,
-   "label": "Best Price",
-   "words": [
-    "alexa",
-    "color",
-    "energy",
-    "gray",
-    "home",
-    "honeywell",
-    "programmable",
-    "ready",
-    "rth9585wf1004",
-    "screen",
-    "smart",
-    "star",
-    "thermostat",
-    "touch"
-   ]
-  },
-  {
-   "source": "camelcamelcamel popular",
    "title": "Ring Floodlight Cam Wired Plus (2nd Gen), Home or business security, White",
    "link": "https://camelcamelcamel.com/product/B08F6GPQQ7?active=price_amazon",
    "asin": "B08F6GPQQ7",
-   "rank": 2,
+   "rank": 1,
    "label": "Best Price",
    "words": [
     "business",
@@ -56,7 +32,7 @@
    "title": "Amazon eero Pro 6E mesh wifi router - Supports internet plans up to 2.5 Gbps, Coverage up to 2,000 sq. ft., Connect 100+ devices, 1-pack",
    "link": "https://camelcamelcamel.com/product/B091G65HH6?active=price_amazon",
    "asin": "B091G65HH6",
-   "rank": 3,
+   "rank": 2,
    "label": "Best Price",
    "words": [
     "connect",
@@ -74,10 +50,49 @@
   },
   {
    "source": "camelcamelcamel popular",
+   "title": "Amazon eero 6+ mesh wifi system - Supports internet plans up to a Gigabit, Coverage up to 4,500 sq. ft., Connect 75+ devices, 3-pack",
+   "link": "https://camelcamelcamel.com/product/B08ZK2BHP2?active=price_amazon",
+   "asin": "B08ZK2BHP2",
+   "rank": 3,
+   "label": "Good Deal",
+   "words": [
+    "connect",
+    "coverage",
+    "devices",
+    "eero",
+    "gigabit",
+    "internet",
+    "mesh",
+    "plans",
+    "supports",
+    "system",
+    "wifi"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Garmin Forerunner\u00ae 265, Running Smartwatch, 46mm, Black/Powder Gray",
+   "link": "https://camelcamelcamel.com/product/B0BS1T9J4Y?active=price_amazon",
+   "asin": "B0BS1T9J4Y",
+   "rank": 4,
+   "label": "Best Price",
+   "words": [
+    "46mm",
+    "black",
+    "forerunner",
+    "garmin",
+    "gray",
+    "powder",
+    "running",
+    "smartwatch"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
    "title": "Garmin v\u00edvoactive\u00ae 5, Health & Fitness GPS Smartwatch, 42mm, Black",
    "link": "https://camelcamelcamel.com/product/B0CG6NR413?active=price_amazon",
    "asin": "B0CG6NR413",
-   "rank": 4,
+   "rank": 5,
    "label": "Best Price",
    "words": [
     "42mm",
@@ -94,7 +109,7 @@
    "title": "LEGO Icons Poinsettia 10370",
    "link": "https://camelcamelcamel.com/product/B0CYM2Y154?active=price_amazon",
    "asin": "B0CYM2Y154",
-   "rank": 5,
+   "rank": 6,
    "label": "Best Price",
    "words": [
     "icons",
@@ -107,7 +122,7 @@
    "title": "AMD RYZEN 7 9800X3D 8-Core, 16-Thread Desktop Processor",
    "link": "https://camelcamelcamel.com/product/B0DKFMSMYK?active=price_amazon",
    "asin": "B0DKFMSMYK",
-   "rank": 6,
+   "rank": 7,
    "label": "Good Deal",
    "words": [
     "9800x3d",
@@ -123,7 +138,7 @@
    "title": "Amazon eero Pro 7 tri-band mesh Wi-Fi 7 router - Supports internet plans up to 5 Gbps, Coverage up to 2,000 sq. ft., 1-pack",
    "link": "https://camelcamelcamel.com/product/B0C6RBS846?active=price_amazon",
    "asin": "B0C6RBS846",
-   "rank": 7,
+   "rank": 8,
    "label": "Best Price",
    "words": [
     "band",
@@ -142,7 +157,7 @@
    "title": "Sony WH-1000XM6 The Best Noise Cancelling Wireless Headphones, Black",
    "link": "https://camelcamelcamel.com/product/B0F3PQHWTZ?active=price_amazon",
    "asin": "B0F3PQHWTZ",
-   "rank": 8,
+   "rank": 9,
    "label": "Best Price",
    "words": [
     "1000xm6",
@@ -157,52 +172,10 @@
   },
   {
    "source": "camelcamelcamel popular",
-   "title": "LEGO Star Wars Gingerbread AT-AT Walker 40806",
-   "link": "https://camelcamelcamel.com/product/B0G2STSGW3?active=price_amazon",
-   "asin": "B0G2STSGW3",
-   "rank": 9,
-   "label": "Good Deal",
-   "words": [
-    "gingerbread",
-    "lego",
-    "star",
-    "walker",
-    "wars"
-   ]
-  },
-  {
-   "source": "camelcamelcamel popular",
-   "title": "Apple AirTag (2nd Generation) - 4 Pack: Tracker for Keychain, Wallet, and More; Locator with Sound; Simple One-Tap Setup with iPhone or iPad; Key Finder with up to 1.5X Precision Finding Range*",
-   "link": "https://camelcamelcamel.com/product/B0GJTXVN9Z?active=price_amazon",
-   "asin": "B0GJTXVN9Z",
-   "rank": 10,
-   "label": "Best Price",
-   "words": [
-    "airtag",
-    "apple",
-    "finder",
-    "finding",
-    "generation",
-    "ipad",
-    "iphone",
-    "keychain",
-    "locator",
-    "more",
-    "precision",
-    "range",
-    "setup",
-    "simple",
-    "sound",
-    "tracker",
-    "wallet"
-   ]
-  },
-  {
-   "source": "camelcamelcamel popular",
    "title": "LG 65 inch Class LG OLED evo AI C6 4K Smart TV 2026",
    "link": "https://camelcamelcamel.com/product/B0GRK5D3RW?active=price_amazon",
    "asin": "B0GRK5D3RW",
-   "rank": 11,
+   "rank": 10,
    "label": "Best Price",
    "words": [
     "class",
@@ -216,7 +189,7 @@
    "title": "Hisense 65\" U7 Mini-LED ULED 4K UHD Best Premium Gaming HDR Smart Google TV (65U7SG, 2026 NEW) - Hi-QLED, Native 165Hz, VRR 330, HDR10+, Dolby Vision IQ\u00b7Atmos, IMAX Enhanced, Anti-Reflection, 2.1.2 Ch",
    "link": "https://camelcamelcamel.com/product/B0GR9BLPJ8?active=price_amazon",
    "asin": "B0GR9BLPJ8",
-   "rank": 12,
+   "rank": 11,
    "label": "Good Deal",
    "words": [
     "165hz",
@@ -243,10 +216,70 @@
   },
   {
    "source": "camelcamelcamel popular",
+   "title": "Hisense 75\" U7 Mini-LED ULED 4K UHD Best Premium Gaming HDR Smart Google TV (75U7SG, 2026 NEW) - Hi-QLED, Native 165Hz, VRR 330, HDR10+, Dolby Vision IQ\u00b7Atmos, IMAX Enhanced, Anti-Reflection, 2.1.2 Ch",
+   "link": "https://camelcamelcamel.com/product/B0GR9NR9XV?active=price_amazon",
+   "asin": "B0GR9NR9XV",
+   "rank": 12,
+   "label": "Best Price",
+   "words": [
+    "165hz",
+    "75u7sg",
+    "anti",
+    "atmos",
+    "best",
+    "dolby",
+    "enhanced",
+    "gaming",
+    "google",
+    "hdr10",
+    "hisense",
+    "imax",
+    "mini",
+    "native",
+    "premium",
+    "qled",
+    "reflection",
+    "smart",
+    "uled",
+    "vision"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Samsung 65-Inch Class The Frame Pro LS03HW Series Samsung Vision AI Smart TV (2026 Model, 65LS03HW) Glare Free with Neo QLED, Wireless One Connect, Slim Fit Wall Mount Included, Alexa Built-in - Vi...",
+   "link": "https://camelcamelcamel.com/product/B0GPY9FY4L?active=price_amazon",
+   "asin": "B0GPY9FY4L",
+   "rank": 13,
+   "label": "Best Price",
+   "words": [
+    "65ls03hw",
+    "alexa",
+    "built",
+    "class",
+    "connect",
+    "frame",
+    "glare",
+    "inch",
+    "included",
+    "ls03hw",
+    "model",
+    "mount",
+    "qled",
+    "samsung",
+    "series",
+    "slim",
+    "smart",
+    "vision",
+    "wall",
+    "wireless"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
    "title": "Samsung 77-Inch Class S90H Series, OLED, 4K, Smart TV, 2026 Model",
    "link": "https://camelcamelcamel.com/product/B0GPY2T4L2?active=price_amazon",
    "asin": "B0GPY2T4L2",
-   "rank": 13,
+   "rank": 14,
    "label": "Best Price",
    "words": [
     "class",
@@ -261,10 +294,29 @@
   },
   {
    "source": "camelcamelcamel popular",
+   "title": "TCL 65 Inch QM8L Series SQD-Mini LED QLED 4K Smart Google TV 65QM8L, 144Hz",
+   "link": "https://camelcamelcamel.com/product/B0GPSYT2KN?active=price_amazon",
+   "asin": "B0GPSYT2KN",
+   "rank": 15,
+   "label": "Best Price",
+   "words": [
+    "144hz",
+    "65qm8l",
+    "google",
+    "inch",
+    "mini",
+    "qled",
+    "qm8l",
+    "series",
+    "smart"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
    "title": "Hisense 65\" U6 Pro Series Mini\u2011LED ULED 4K UHD HDR Gaming AI Smart Fire TV (65U6SF Pro, 2026 New) \u2013 Hi-QLED, Native 144Hz, Motion Rate 480, Dolby Vision IQ \u00b7 Atmos, HDR10+, Glare-Free, Alexa+",
    "link": "https://camelcamelcamel.com/product/B0GT8GLWZH?active=price_amazon",
    "asin": "B0GT8GLWZH",
-   "rank": 14,
+   "rank": 16,
    "label": "Best Price",
    "words": [
     "144hz",
@@ -293,7 +345,7 @@
    "title": "LG 55-Inch Class OLED evo AI 4K C6 Series Smart TV, 2026 Model",
    "link": "https://camelcamelcamel.com/product/B0GRKGQ8HH?active=price_amazon",
    "asin": "B0GRKGQ8HH",
-   "rank": 15,
+   "rank": 17,
    "label": "Best Price",
    "words": [
     "class",
@@ -309,7 +361,7 @@
    "title": "Obsession (2026) - Collector's Edition 4K Ultra HD + Blu-ray + Digital",
    "link": "https://camelcamelcamel.com/product/B0GXMWGLWN?active=price_amazon",
    "asin": "B0GXMWGLWN",
-   "rank": 16,
+   "rank": 18,
    "label": "Best Price",
    "words": [
     "collector",
@@ -317,41 +369,6 @@
     "edition",
     "obsession",
     "ultra"
-   ]
-  },
-  {
-   "source": "camelcamelcamel popular",
-   "title": "Pok\u00e9mon TCG: 30th Celebration Elite Trainer Box",
-   "link": "https://camelcamelcamel.com/product/B0H78BB9TY?active=price_amazon",
-   "asin": "B0H78BB9TY",
-   "rank": 17,
-   "label": "Best Price",
-   "words": [
-    "30th",
-    "celebration",
-    "elite",
-    "trainer"
-   ]
-  },
-  {
-   "source": "camelcamelcamel popular",
-   "title": "Amazon Fire HD 10 tablet, built for relaxation, 10.1\" vibrant Full HD screen, octa-core processor, 4 GB RAM, 32 GB, Black",
-   "link": "https://camelcamelcamel.com/product/B0GVTPKJVT?active=price_amazon",
-   "asin": "B0GVTPKJVT",
-   "rank": 18,
-   "label": "Best Price",
-   "words": [
-    "black",
-    "built",
-    "core",
-    "fire",
-    "full",
-    "octa",
-    "processor",
-    "relaxation",
-    "screen",
-    "tablet",
-    "vibrant"
    ]
   },
   {
