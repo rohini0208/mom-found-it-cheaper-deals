@@ -101,6 +101,10 @@ CODE_FEEDS = {
     "Koupon Karen": "https://www.kouponkaren.com/feed/",
     "The Freebie Guy": "https://thefreebieguy.com/feed/",
     "Passionate Penny Pincher": "https://passionatepennypincher.com/feed/",
+    "Reddit r/deals": "https://www.reddit.com/r/deals/.rss",
+    "9to5Toys": "https://9to5toys.com/feed/",
+    "Bens Bargains": "https://www.bensbargains.com/rss.xml",
+    "Brads Deals": "https://www.bradsdeals.com/rss.xml",
 }
 
 PRICE_RE = re.compile(r"\$\s?(\d[\d,]*(?:\.\d{2})?)")
@@ -112,6 +116,10 @@ TAG_RE = re.compile(r"<[^>]+>")
 ASIN_RE = re.compile(r"amazon\.com/(?:[^\s\"'<>]*?/)?(?:dp|gp/product|gp/aw/d)/([A-Z0-9]{10})")
 HISTORY_FILE = Path("data/price_history.json")
 THUMBS_RE = re.compile(r"thumb score:\s*\+?(\d+)", re.I)
+# Words that mean a deal or code is dead. A code found next to these is never shown.
+EXPIRED_RE = re.compile(r"\b(expired|has ended|deal ended|ended|no longer (?:available|valid|working)|"
+                        r"sold out|out of stock|(?:code|coupon) (?:is )?(?:not working|doesn'?t work|invalid|maxed))\b", re.I)
+TESTED_FILE = Path("data/tested.json")
 WAS_RE = re.compile(r"(?:list price|reg(?:ularly)?\.?|was|originally|retail)\s*:?\s*\$\s?(\d[\d,]*(?:\.\d{2})?)", re.I)
 
 
@@ -176,6 +184,7 @@ def parse_feed(source, raw):
             "features": features_from(raw_desc),
             "new": bool(re.search(r"\b(new release|newly released|just launched|new arrival|2026 model)\b", blob)),
             "bestseller": bool(re.search(r"\b(best ?seller|#1 best)", blob)),
+            "expired": bool(EXPIRED_RE.search(blob)),
             "desc": desc[:500],
             "source": source,
             "link": link,
@@ -229,7 +238,8 @@ def cross_check(deals, extras):
     """Attach codes/coupons found for the same product on other deal sites.
     Match on Amazon product ID, or on at least 4 shared product-name words
     that make up most of the shorter name (strict, to avoid wrong codes)."""
-    useful = [e for e in extras if (e["code"] and e["code"] != "w/ code") or e["coupon"]]
+    useful = [e for e in extras
+              if ((e["code"] and e["code"] != "w/ code") or e["coupon"]) and not e.get("expired")]
     for e in useful:
         e["_words"] = name_words(e["title"])
     for d in deals:
@@ -257,6 +267,35 @@ def cross_check(deals, extras):
                 d["code"], d["code_from"] = sure["code"], sure["source"]
         if not d.get("coupon") and any(f["by_id"] and f["coupon"] for f in found):
             d["coupon"] = "clip coupon"
+    return deals
+
+
+def score_codes(deals):
+    """Give every deal with a code or coupon a confidence score and label.
+    Fresh + confirmed by other sites + tested by you = high. Old or 'expired' wording = low.
+    This is a guess from the data, NOT a live check: test in the cart before you post."""
+    tested = json.loads(TESTED_FILE.read_text()) if TESTED_FILE.exists() else {}
+    now = datetime.now(timezone.utc)
+    today = now.strftime("%b %d")
+    for d in deals:
+        has_code = bool(d.get("code") and d["code"] != "w/ code")
+        if not (has_code or d.get("coupon")):
+            d.pop("code_score", None); d.pop("code_label", None)
+            continue
+        if d.get("expired"):
+            d["code_score"], d["code_label"] = 0, "expired"
+            continue
+        age_h = (now - datetime.fromisoformat(d["seen"])).total_seconds() / 3600
+        score = 50 + (30 if age_h < 6 else 20 if age_h < 24 else 5 if age_h < 48 else -20)
+        agree = [f for f in d.get("also", []) if (f["code"] and f["code"] == d.get("code")) or (f["coupon"] and d.get("coupon"))]
+        score += 15 * min(len(agree), 2)
+        if d.get("thumbs", 0) >= 50:
+            score += 10
+        t = tested.get(d["id"])
+        if t:
+            score += 40 if t.get("date") == today else 15
+        d["code_score"] = max(0, min(100, score))
+        d["code_label"] = "likely works" if score >= 70 else "check first" if score >= 40 else "may be expired"
     return deals
 
 
@@ -291,6 +330,8 @@ def write_markdown(deals, errors):
         when = datetime.fromisoformat(d["seen"]).strftime("%b %d %H:%M")
         title = d["title"].replace("|", "/")
         extra = " / ".join(x for x in (d["code"], d["coupon"]) if x)
+        if extra and d.get("code_label"):
+            extra += f" ({d['code_label']})"
         lines.append(f"| {when} | [{title}]({d['link']}) | {d['price']} | {extra} | {d['source']} |")
     if errors:
         lines += ["", "Feeds that failed this run: " + ", ".join(errors)]
@@ -340,7 +381,7 @@ def main():
             status[name] = {"error": str(e)[:120]}
     DATA_FILE.parent.mkdir(exist_ok=True)
     update_price_history(new)
-    deals = cross_check(merge(load_history(), new), extras)
+    deals = score_codes(cross_check(merge(load_history(), new), extras))
     status["_matched_deals"] = sum(1 for d in deals if d.get("also"))
     Path("data/code_feeds.json").write_text(json.dumps(status, indent=1))
     DATA_FILE.write_text(json.dumps(deals, indent=1))
