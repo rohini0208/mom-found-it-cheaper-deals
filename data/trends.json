@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T06:34+00:00",
+ "updated": "2026-11-15T16:22+00:00",
  "status": {
   "TikTok Made Me Buy It (Reddit)": "error: HTTP Error 404: Not Found",
   "Amazon finds (Reddit)": "error: HTTP Error 429: Too Many Requests",
@@ -210,10 +210,24 @@
   },
   {
    "source": "camelcamelcamel popular",
+   "title": "New Surrender - 180-Gram Black Vinyl",
+   "link": "https://camelcamelcamel.com/product/B0FFFK9VLC?active=price_amazon",
+   "asin": "B0FFFK9VLC",
+   "rank": 13,
+   "label": "Best Price",
+   "words": [
+    "black",
+    "gram",
+    "surrender",
+    "vinyl"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
    "title": "LEGO Marvel Epic Battle: Spider-Man vs. Sandman 76334 76334",
    "link": "https://camelcamelcamel.com/product/B0FMSD393S?active=price_amazon",
    "asin": "B0FMSD393S",
-   "rank": 13,
+   "rank": 14,
    "label": "Best Price",
    "words": [
     "battle",
@@ -229,24 +243,10 @@
    "title": "Marillion.Com (5LP Box Set)",
    "link": "https://camelcamelcamel.com/product/B0G84MXCF9?active=price_amazon",
    "asin": "B0G84MXCF9",
-   "rank": 14,
-   "label": "Best Price",
-   "words": [
-    "marillion"
-   ]
-  },
-  {
-   "source": "camelcamelcamel popular",
-   "title": "LG 65 inch Class OLED evo AI C6 4K Smart TV 2026",
-   "link": "https://camelcamelcamel.com/product/B0GRK5D3RW?active=price_amazon",
-   "asin": "B0GRK5D3RW",
    "rank": 15,
    "label": "Best Price",
    "words": [
-    "class",
-    "inch",
-    "oled",
-    "smart"
+    "marillion"
    ]
   },
   {
@@ -298,17 +298,18 @@
   },
   {
    "source": "camelcamelcamel popular",
-   "title": "Obsession (2026) - Collector's Edition 4K Ultra HD + Blu-ray + Digital",
-   "link": "https://camelcamelcamel.com/product/B0GXMWGLWN?active=price_amazon",
-   "asin": "B0GXMWGLWN",
+   "title": "JBL Tune 530BT (2026) \u2013 Wireless On-Ear Bluetooth Headphones (Blue)",
+   "link": "https://camelcamelcamel.com/product/B0GHY652MM?active=price_amazon",
+   "asin": "B0GHY652MM",
    "rank": 19,
    "label": "Best Price",
    "words": [
-    "collector",
-    "digital",
-    "edition",
-    "obsession",
-    "ultra"
+    "530bt",
+    "blue",
+    "bluetooth",
+    "headphones",
+    "tune",
+    "wireless"
    ]
   },
   {
