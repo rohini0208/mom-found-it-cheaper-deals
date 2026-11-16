@@ -91,6 +91,14 @@ def pick_groups(deals, made):
     return [(cat, items) for _, cat, items in groups[:POSTS_PER_RUN]]
 
 
+COND_RE = re.compile(r"\s*\bw/\s*(?:S&S|Prime|Subscribe\s*&\s*Save|Coupon|Clip(?:pable)? Coupon)\b.*$", re.I)
+
+
+def tidy(title):
+    """Drop deal-site shorthand (w/ S&S, w/ Prime) that means nothing to shoppers."""
+    return COND_RE.sub("", title).strip(" -,")
+
+
 def draw_tile(img, i, deal, top):
     d = ImageDraw.Draw(img)
     d.rounded_rectangle([60, top, PW - 60, top + TILE_H], 36, fill=(255, 255, 255), outline=GOLD, width=3)
@@ -113,7 +121,7 @@ def draw_tile(img, i, deal, top):
         d.text((bx + (box - d.textlength(num, font=nf)) / 2, by + 48), num, font=nf, fill=GOLD)
     x, w = 340, PW - 60 - 30 - 340
     amazon = is_amazon(deal)
-    title = short_title(no_price_title(deal["title"]) if amazon else deal["title"])
+    title = tidy(short_title(no_price_title(deal["title"]) if amazon else deal["title"]))
     tf = fit(d, title, lambda s: serif(s, "SemiBold"), 44, w, max_lines=2, min_size=30)
     y = top + 28
     for line in wrap(d, title, tf, w)[:2]:
@@ -122,11 +130,13 @@ def draw_tile(img, i, deal, top):
     if amazon and AMAZON_PRICES == "hide":
         d.text((x, y + 10), "Price drop on Amazon", font=serif(46, "Bold"), fill=GOLD)
     else:
-        d.text((x, y + 4), deal["price"], font=serif(64, "Bold"), fill=GOLD)
-    code = clean_code(deal)
-    extra = (f"CODE {code}" if code else "CLIP THE COUPON" if deal.get("coupon") else "")
-    if extra:
-        d.text((x, top + TILE_H - 92), extra, font=sans(28, "SemiBold"), fill=CHAR)
+        pf = serif(64, "Bold")
+        d.text((x, y + 4), deal["price"], font=pf, fill=GOLD)
+        code = clean_code(deal)
+        extra = (f"CODE {code}" if code else "CLIP THE COUPON" if deal.get("coupon") else "")
+        if extra:        # beside the price, never on top of it
+            d.text((x + d.textlength(deal["price"], font=pf) + 30, y + 30), extra,
+                   font=sans(28, "SemiBold"), fill=CHAR)
     if amazon and AMAZON_PRICES != "hide":
         d.text((x, top + TILE_H - 50), f"Amazon price as of {as_of(deal['seen'])}",
                font=sans(24, "Medium"), fill=MUTED)
@@ -153,7 +163,7 @@ def link_for(deal):
 
 
 def texts(theme, items):
-    names = [short_title(no_price_title(i["title"])) for i in items]
+    names = [tidy(short_title(no_price_title(i["title"]))) for i in items]
     names = [" ".join(re.sub(r"^\[[^\]]*\]\s*", "", n).split(",")[0].split()[:5]).rstrip(".,;:- ") for n in names]
     caption = (f"✨ {theme} - {names[0]}, {names[1]} and {names[2]} on price drops!\n"
                f"{pick(PERSONAL, items[0]['id'], 'pp')}\n(AD)(Commission earned)\n\n{HASHTAGS}")
