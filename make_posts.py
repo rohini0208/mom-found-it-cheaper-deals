@@ -337,7 +337,20 @@ def make_image_single(path, deal, cat="Everything else"):
     d = ImageDraw.Draw(img)
     centered(d, 46, "MOM FOUND IT CHEAPER", sans(30, "SemiBold"), fg(img), spacing=8)
     d.rounded_rectangle([40, 100, PW - 40, 1066], 40, fill=(255, 255, 255))
-    _photo_into(img, deal, (70, 116), (PW - 140, 520))
+    narrow = False
+    ph = find_photo(deal)
+    if ph:
+        try:
+            im0 = Image.open(ph).convert("RGB")
+            bb = ImageOps.invert(im0).getbbox()               # trim white padding
+            w0, h0 = (bb[2] - bb[0], bb[3] - bb[1]) if bb else im0.size
+            narrow = w0 / h0 < 0.7
+        except Exception:
+            pass
+    if narrow:
+        _photo_into(img, deal, (110, 116), (400, 520))      # photo left, note on the right, no overlap
+    else:
+        _photo_into(img, deal, (70, 116), (PW - 140, 520))
     d = ImageDraw.Draw(img)
     y = _title(d, deal, 80, 668, PW - 160, 42, 2, 30)
     y = _price_row(img, deal, 80, y + 6, 76, PW - 160)
@@ -353,7 +366,7 @@ def make_image_single(path, deal, cat="Everything else"):
         nd.text((28, yy), ln, font=nf, fill=(60, 50, 20))
         yy += 56
     note = note.rotate(5, expand=True, resample=Image.BICUBIC)
-    img.paste(note, (PW - note.width - 30, 372), note)
+    img.paste(note, (PW - note.width - 30, 200 if narrow else 372), note)
     cta_pill(img, 1088, 74)
     d = ImageDraw.Draw(img)
     centered(d, 1182, "Prices checked today, they can change.", sans(28, "Medium"), fg(img), max_w=PW - 80)
@@ -615,10 +628,11 @@ def main():
         print(f"made post_{n}.png - {theme}: " + " | ".join(i["title"][:30] for i in items))
 
     # one extra single-product "Mom's pick" post: best-reviewed item with a photo
-    pool = [d for d in deals if is_amazon(d) and (META.get(d.get("asin", "")) or {}).get("reviews", 0) >= 100 and find_photo(d) and not qa_check(d)[0] and d["id"] not in made
+    pool = [d for d in deals if is_amazon(d) and (META.get(d.get("asin", "")) or {}).get("reviews", 0) >= 100 and find_photo(d) and not qa_check(d)[0] 
             and price_value(d.get("price", "")) and not any(w in d["title"].lower() for w in SKIP_WORDS)]
     if pool:
-        star = max(pool, key=lambda x: ((META.get(x.get("asin", "")) or {}).get("reviews", 0), pct_off(x)))
+        pool.sort(key=lambda x: x["id"])
+        star = pool[datetime.now(timezone.utc).toordinal() % len(pool)]   # rotates daily
         cat = star.get("category", "Everything else")
         PALETTES["_s"] = ROT[datetime.now(timezone.utc).toordinal() % len(ROT)]
         make_image_single(OUT / "post_single.png", star, "_s")
