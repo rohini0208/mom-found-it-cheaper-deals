@@ -32,6 +32,9 @@ FEEDS = {
     "Slickdeals Hot Deals": "https://slickdeals.net/newsearch.php?searchin=first&forumchoice%5B%5D=9&rss=1",
 }
 # camelcamelcamel: public RSS of the biggest Amazon price drops across ALL products.
+# Hip2Save: mom-focused, Amazon-heavy, every post has a product image (only items in its "Amazon" category are kept).
+for _p in (1, 2, 3):
+    FEEDS[f"Hip2Save p{_p}"] = "https://hip2save.com/feed/" + (f"?paged={_p}" if _p > 1 else "")
 FEEDS["Amazon price drops (daily)"] = "https://camelcamelcamel.com/top_drops/feed?t=daily"
 FEEDS["Amazon price drops (weekly)"] = "https://camelcamelcamel.com/top_drops/feed?t=weekly"
 # Long-tail Amazon finds (cheap beauty, kids, jewelry...) that the front-page feeds miss.
@@ -155,11 +158,34 @@ def features_from(raw_html):
     return feats[:3]
 
 
+HIP_CACHE = Path("data/hip2save_asin.json")
+_hip = json.loads(HIP_CACHE.read_text()) if HIP_CACHE.exists() else {}
+_hip_budget = [30]                                        # page fetches per run
+
+
+def hip_asin(link):
+    """Amazon product ID behind a Hip2Save post (cached; they link to Amazon inside the post)."""
+    if link in _hip:
+        return _hip[link]
+    if _hip_budget[0] <= 0:
+        return ""
+    _hip_budget[0] -= 1
+    try:
+        page = urllib.parse.unquote(urllib.parse.unquote(html.unescape(fetch(link))))
+        m = ASIN_RE.search(page) or re.search(r"/(?:dp|gp/product)/([A-Z0-9]{10})", page)
+        _hip[link] = m.group(1) if m else ""
+    except Exception:
+        _hip[link] = ""
+    return _hip[link]
+
+
 def parse_feed(source, raw):
     """Return a list of deal dicts from one RSS feed."""
     deals = []
     root = ET.fromstring(raw)
     for item in root.iter("item"):
+        if source.startswith("Hip2Save") and not any((c.text or "") == "Amazon" for c in item.findall("category")):
+            continue
         title = clean(item.findtext("title"))
         link = (item.findtext("link") or "").strip()
         raw_desc = item.findtext("description") or ""
@@ -183,6 +209,10 @@ def parse_feed(source, raw):
         for child in item:                       # DealNews: <media:thumbnail url=...> / <media:content url=...>
             if not image and child.tag.endswith(("thumbnail", "content")) and child.get("url"):
                 image = child.get("url")
+        if source.startswith("Hip2Save"):
+            for child in item:
+                if child.tag.endswith("thumbnail-image") and child.text:
+                    image = child.text.split("?")[0]               # full-size upload, not the 306px crop
         desc = re.sub(r"\s+", " ", clean(raw_desc))
         blob = f"{title} {desc}".lower()
         try:
@@ -196,6 +226,8 @@ def parse_feed(source, raw):
         # so decode twice before looking for the product ID.
         decoded = urllib.parse.unquote(urllib.parse.unquote(html.unescape(raw_desc + " " + link)))
         asin = ASIN_RE.search(decoded)
+        if not asin and source.startswith("Hip2Save"):
+            asin = re.match(r"(.+)", hip_asin(link) or "")
         was = WAS_RE.search(desc)
         deals.append({
             "id": link or title,
@@ -413,6 +445,7 @@ def main():
     status["_matched_deals"] = sum(1 for d in deals if d.get("also"))
     Path("data/code_feeds.json").write_text(json.dumps(status, indent=1))
     DATA_FILE.write_text(json.dumps(deals, indent=1))
+    HIP_CACHE.write_text(json.dumps(_hip, indent=1))
     write_markdown(deals, errors)
     write_html(deals)
     print(f"{len(new)} deals fetched, {len(deals)} on the list, {len(errors)} feeds failed")
