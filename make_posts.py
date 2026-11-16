@@ -50,6 +50,7 @@ THEMES = {
     "Everything else": "Today's top finds",
 }
 HASHTAGS = "#ad #amazonfinds #dealsforyou #founditcheaper #savemoney"
+HASHTAG_SET = HASHTAGS
 
 
 def clean_code(deal):
@@ -98,7 +99,13 @@ COND_RE = re.compile(r"\s*\bw/\s*(?:S&S|Prime|Subscribe\s*&\s*Save|Coupon|Clip(?
 
 def tidy(title):
     """Drop deal-site shorthand (w/ S&S, w/ Prime) that means nothing to shoppers."""
-    return COND_RE.sub("", title).strip(" -,")
+    t = COND_RE.sub("", title).strip(" -,")
+    if len(t) >= 85:                       # was cut at 90 characters: drop the broken last words
+        words = t.split()[:-1]
+        while words and len(words[-1].strip(",.")) <= 2:
+            words.pop()
+        t = " ".join(words)
+    return t
 
 
 def proof(deal):
@@ -272,6 +279,18 @@ def draw_tile_v2(img, i, deal, top, accent):
         d.text((x, top + V2_TILE_H - 36), f"Amazon price as of {as_of(deal['seen'])}", font=sans(22, "Medium"), fill=MUTED)
 
 
+def sticker(img, text, cx, cy, fill, ink=(255, 255, 255), angle=-8):
+    """Round-cornered sticker, slightly tilted, like the hand-made look of the big deal groups."""
+    f = sans(30, "Bold")
+    tmp = Image.new("RGBA", (330, 110), (0, 0, 0, 0))
+    td = ImageDraw.Draw(tmp)
+    w = td.textlength(text, font=f)
+    td.rounded_rectangle([10, 15, 10 + w + 44, 85], 35, fill=fill)
+    td.text((32, 32), text, font=f, fill=ink)
+    tmp = tmp.rotate(angle, expand=True, resample=Image.BICUBIC)
+    img.paste(tmp, (int(cx - tmp.width / 2), int(cy - tmp.height / 2)), tmp)
+
+
 def make_image_v2(path, theme, items, cat="Everything else"):
     bg, accent = PALETTES.get(cat, PALETTES["Everything else"])
     img = Image.new("RGB", (PW, PH), bg)
@@ -279,10 +298,13 @@ def make_image_v2(path, theme, items, cat="Everything else"):
     centered(d, 52, "MOM FOUND IT CHEAPER", sans(30, "SemiBold"), (255, 255, 255), spacing=8)
     head = theme.upper()
     hf = fit(d, head, lambda s: sans(s, "Bold"), 104, PW - 120, max_lines=1, min_size=56)
-    centered(d, 118, head, hf, (255, 255, 255))
+    centered(d, 118, head, hf, (255, 255, 255), max_w=PW - 60)
     centered(d, 118 + hf.size + 22, "TODAY'S PRICE DROPS", sans(34, "SemiBold"), accent, spacing=6)
     for i, deal in enumerate(items, 1):
         draw_tile_v2(img, i, deal, V2_TOP + (i - 1) * (V2_TILE_H + V2_GAP), accent)
+    star = best_item(items)
+    k = items.index(star)
+    sticker(img, "TOP PICK", 200, V2_TOP + k * (V2_TILE_H + V2_GAP) + V2_TILE_H - 22, (255, 193, 7), ink=(40, 40, 40))
     d = ImageDraw.Draw(img)
     centered(d, 1292, "PRICES CAN CHANGE  \u00b7  LINK IN COMMENTS  \u00b7  #AD", sans(24, "Medium"), (255, 255, 255), spacing=3, max_w=PW - 60)
     img.save(path)
@@ -292,11 +314,52 @@ def link_for(deal):
     return f"{SITE}#d-{hashlib.sha1(deal['id'].encode()).hexdigest()[:10]}"
 
 
+BANDS = [5, 10, 15, 20, 25, 30, 40, 50, 60, 75, 100, 150, 200, 300]
+
+
+def fun_theme(cat, items):
+    """'Games under $15' beats 'Toy finds': the price band tells people what they are getting."""
+    top = max(price_value(i["price"]) or 0 for i in items)
+    band = next((b for b in BANDS if top <= b), None)
+    base = THEMES.get(cat, "Today's top finds").replace(" finds", "").replace("Today's top", "Top")
+    return f"{base} under ${band}" if band else f"{base} worth a look"
+
+
+def score_tile(deal):
+    m = META.get(deal.get("asin", "")) or {}
+    return (m.get("reviews") or 0) ** 0.5 * (m.get("rating") or 0) + 3 * pct_off(deal)
+
+
+def best_item(items):
+    return max(items, key=score_tile)
+
+
+def story(items):
+    """One honest, specific line built from real numbers (never invented)."""
+    b = best_item(items)
+    name = " ".join(tidy(short_title(no_price_title(b["title"]))).split(",")[0].split()[:4])
+    m = META.get(b.get("asin", "")) or {}
+    off = pct_off(b)
+    bits = []
+    if off >= 15:
+        bits.append(f"{off}% under Amazon's list price")
+    if m.get("reviews", 0) >= 100 and m.get("rating", 0) >= 4.3:
+        n = m["reviews"]
+        bits.append(f"{m['rating']:.1f} stars from {n:,} shoppers")
+    return f"Our pick today: {name}, " + " and ".join(bits) + "." if bits else ""
+
+
+QUESTIONS = ["Which one is going in your cart?", "Which would you grab first?", "Any of these already on your list?",
+             "Tell us which one you want and we will keep an eye out for more like it.", "Which find surprised you most?"]
+
+
 def texts(theme, items):
     names = [tidy(short_title(no_price_title(i["title"]))) for i in items]
     names = [" ".join(re.sub(r"^\[[^\]]*\]\s*", "", n).split(",")[0].split()[:5]).rstrip(".,;:- ") for n in names]
-    caption = (f"✨ {theme} - {names[0]}, {names[1]} and {names[2]} on price drops!\n"
-               f"{pick(PERSONAL, items[0]['id'], 'pp')}\n(AD)(Commission earned)\n\n{HASHTAGS}")
+    st = story(items)
+    caption = (f"✨ {theme}: {names[0]}, {names[1]} and {names[2]}\n"
+               + (f"{st}\n" if st else "")
+               + f"{pick(QUESTIONS, items[0]['id'], 'q')}\n(AD)(Commission earned)\n\n{HASHTAG_SET}")
     lines = ["Shop here (prices and codes can change):"]
     for n, i in zip(names, items):
         code = clean_code(i)
@@ -313,7 +376,7 @@ def main():
     OUT.mkdir(exist_ok=True)
     groups = pick_groups(deals, made)
     for n, (cat, items) in enumerate(groups, 1):
-        theme = THEMES.get(cat, f"{cat} finds")
+        theme = fun_theme(cat, items)
         if os.environ.get("POST_LAYOUT", "v2") == "v2":
             make_image_v2(OUT / f"post_{n}.png", theme, items, cat)
         else:
