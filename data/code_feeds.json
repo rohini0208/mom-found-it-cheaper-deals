@@ -19,19 +19,9 @@
   "items": 60,
   "with_code_or_coupon": 1
  },
- "Reddit r/deals": {
-  "items": 0,
-  "with_code_or_coupon": 0
- },
  "9to5Toys": {
   "items": 50,
   "with_code_or_coupon": 4
  },
- "Bens Bargains": {
-  "error": "HTTP Error 403: Forbidden"
- },
- "Brads Deals": {
-  "error": "HTTP Error 404: Not Found"
- },
- "_matched_deals": 9
+ "_matched_deals": 8
 }
