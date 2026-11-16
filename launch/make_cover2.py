@@ -50,11 +50,21 @@ for i, c in enumerate(cards):
 # headline
 def center(y, text, font, fill):
     d.text(((W - d.textlength(text, font=font)) / 2, y), text, font=font, fill=fill)
-center(60, "MOM FOUND IT CHEAPER", sans(112, "Bold"), (255, 255, 255))
-center(196, "Real Amazon deals. Checked daily. With the was-price.", sans(46, "SemiBold"), INK)
+def fit(text, wt, maxw):
+    for sz in range(112, 40, -2):
+        f = sans(sz, wt)
+        if d.textlength(text, font=f) <= maxw:
+            return f
+    return f
+SAFE = int(W * 0.68)          # mobile crops the sides of group covers
+center(60, "MOM FOUND IT CHEAPER", fit("MOM FOUND IT CHEAPER", "Bold", SAFE), (255, 255, 255))
+center(196, "Real Amazon deals. Checked daily.", fit("Real Amazon deals. Checked daily.", "SemiBold", SAFE), INK)
 pills = [("UNDER $10 FINDS", (46, 125, 50)), ("GIFT IDEAS", (0, 121, 107)), ("STAR RATINGS", (21, 101, 192))]
 pf2 = sans(32, "Bold")
 total = sum(d.textlength(t, font=pf2) + 56 for t, _ in pills) + 24 * (len(pills) - 1)
+if total > SAFE:
+    pf2 = sans(26, "Bold")
+    total = sum(d.textlength(t, font=pf2) + 44 for t, _ in pills) + 18 * (len(pills) - 1)
 x = (W - total) / 2
 for t, col in pills:
     w = d.textlength(t, font=pf2) + 56

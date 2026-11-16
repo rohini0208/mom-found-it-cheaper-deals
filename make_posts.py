@@ -163,8 +163,14 @@ def seasonal_groups(deals, made, top=2):
 COND_RE = re.compile(r"\s*\bw/\s*(?:S&S|Prime|Subscribe\s*&\s*Save|Coupon|Clip(?:pable)? Coupon)\b.*$", re.I)
 
 
+_STORE_TAIL = re.compile(r"\s+(?:at|@|from|on)\s+(?:Target|Walmart|Best Buy|Lowe'?s|Home Depot|Costco|Kohl'?s|Macy'?s|Amazon)\b.*$", re.I)
+_DANGLE = {"and", "with", "for", "the", "a", "an", "of", "to", "in", "on", "or", "&", "-", "+", "x", "w/", "(2nd", "(3rd"}
+
+
 def tidy(title):
     """Drop deal-site shorthand (w/ S&S, w/ Prime) that means nothing to shoppers."""
+    title = _STORE_TAIL.sub("", title).replace("\u00ae", "").replace("\u2122", "")
+    title = re.sub(r"\s*\(20\d\d\)\s*:?", " ", title)
     t = AT_RE.sub("", COND_RE.sub("", title))
     for _ in range(2):
         t = JUNK_RE.sub("", t)
@@ -176,7 +182,10 @@ def tidy(title):
         while words and len(words[-1].strip(",.")) <= 2:
             words.pop()
         t = " ".join(words)
-    return t
+    ws = t.split()
+    while ws and (ws[-1].lower().strip(",.:;") in _DANGLE or ws[-1].startswith("(") and not ws[-1].endswith(")")):
+        ws.pop()                                    # never end on 'and', 'with', '(2nd' ...
+    return " ".join(ws).strip(" -,:")
 
 
 def proof(deal):
@@ -446,7 +455,8 @@ def make_image_single(path, deal, cat="Everything else"):
         nd.text((28, yy), ln, font=nf, fill=(60, 50, 20))
         yy += 56
     note = note.rotate(5, expand=True, resample=Image.BICUBIC)
-    img.paste(note, (PW - note.width - 30, 200 if narrow else 372), note)
+    note = note.resize((int(note.width * 0.74), int(note.height * 0.74)), Image.LANCZOS)
+    img.paste(note, (PW - note.width - 50, 900), note)          # right of the rating row, never on the product photo
     cta_pill(img, 1088, 74)
     d = ImageDraw.Draw(img)
     centered(d, 1182, "Prices can change, check before you buy.", sans(28, "Medium"), fg(img), max_w=PW - 80)
