@@ -171,12 +171,13 @@ def hip_asin(link):
         return ""
     _hip_budget[0] -= 1
     try:
-        page = urllib.parse.unquote(urllib.parse.unquote(html.unescape(fetch(link))))
+        page = urllib.parse.unquote(urllib.parse.unquote(html.unescape(fetch(link).decode('utf8', 'ignore'))))
         m = ASIN_RE.search(page) or re.search(r"/(?:dp|gp/product)/([A-Z0-9]{10})", page)
-        _hip[link] = m.group(1) if m else ""
-    except Exception:
-        _hip[link] = ""
-    return _hip[link]
+        if m:
+            _hip[link] = m.group(1)                 # only successes are cached; failures retry next run
+    except Exception as e:
+        print(f"[warn] hip2save page {link}: {e}")
+    return _hip.get(link, "")
 
 
 def parse_feed(source, raw):
