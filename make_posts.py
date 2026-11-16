@@ -134,8 +134,17 @@ def draw_tile(img, i, deal, top):
         d.text((x, y + 4), deal["price"], font=pf, fill=GOLD)
         code = clean_code(deal)
         extra = (f"CODE {code}" if code else "CLIP THE COUPON" if deal.get("coupon") else "")
+        was = deal.get("was", "")
+        if was and price_value(was) and price_value(deal["price"]) and price_value(was) > price_value(deal["price"]):
+            wf = sans(30, "Medium")        # struck-through earlier price, beside the new one
+            wx, wy = x + d.textlength(deal["price"], font=pf) + 24, y + 22
+            d.text((wx, wy), f"was {was}", font=wf, fill=MUTED)
+            d.line([(wx - 2, wy + 20), (wx + d.textlength(f"was {was}", font=wf) + 2, wy + 20)], fill=MUTED, width=3)
+            extra_x = wx + d.textlength(f"was {was}", font=wf) + 24
+        else:
+            extra_x = x + d.textlength(deal["price"], font=pf) + 30
         if extra:        # beside the price, never on top of it
-            d.text((x + d.textlength(deal["price"], font=pf) + 30, y + 30), extra,
+            d.text((extra_x, y + 30) if extra_x < PW - 360 else (x, y + 72), extra,
                    font=sans(28, "SemiBold"), fill=CHAR)
     if amazon and AMAZON_PRICES != "hide":
         d.text((x, top + TILE_H - 50), f"Amazon price as of {as_of(deal['seen'])}",
