@@ -1,0 +1,25 @@
+name: imgtest
+on: workflow_dispatch
+jobs:
+  t:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          python3 - <<'PY'
+          import urllib.request,re
+          H={"User-Agent":"Mozilla/5.0"}
+          feeds={"sd":"https://slickdeals.net/newsearch.php?mode=frontpage&searcharea=deals&searchin=first&rss=1","dn":"https://www.dealnews.com/c196/Home-Garden/?rss=1","camel":"https://camelcamelcamel.com/top_drops/feed?t=daily"}
+          for k,u in feeds.items():
+              try:
+                  x=urllib.request.urlopen(urllib.request.Request(u,headers=H),timeout=30).read().decode("utf8","ignore")
+                  print("==",k,len(x))
+                  imgs=re.findall(r'(?:src|url|href)=["\'](https?://[^"\']+\.(?:jpg|jpeg|png|webp)[^"\']*)',x)
+                  print("images:",len(imgs),imgs[:3])
+                  print(x[:700].replace("\n"," "))
+                  for im in imgs[:2]:
+                      try:
+                          b=urllib.request.urlopen(urllib.request.Request(im,headers=H),timeout=20).read()
+                          print("download ok",len(b),im)
+                      except Exception as e: print("download fail",im,e)
+              except Exception as e: print("==",k,"fail",e)
+          PY
