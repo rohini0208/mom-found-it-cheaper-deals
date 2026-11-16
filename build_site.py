@@ -299,6 +299,37 @@ def legal_page(title, body):
 <main>{body}<p style="color:#7a7068;font-size:13px">Last updated {LEGAL_UPDATED}.</p></main></body></html>"""
 
 
+def seasonal_sections(deals, history, tested, today=None):
+    """One curated block per upcoming shopping moment (see seasonal.py)."""
+    from seasonal import active, matches
+    out = []
+    for ev in active(today)[:3]:
+        ms = [d for d in matches(deals, ev) if not d.get("expired")]
+        ms.sort(key=lambda d: (bool(d.get("asin")), d.get("thumbs", 0)), reverse=True)
+        if not ms:
+            continue
+        when = "today" if ev["days"] == 0 else f"in {ev['days']} days" if ev["days"] > 1 else "tomorrow"
+        cards = "".join(card(d, history, tested) for d in ms[:12])
+        out.append(f'<section class="season"><h2>{html.escape(ev["theme"])}</h2>'
+                   f'<p class="sub">{html.escape(ev["name"])} is {when}. Hand-picked matches from today\'s deals.</p>'
+                   f'<div class="grid">{cards}</div></section>')
+    return "".join(out)
+
+
+def posts_gallery():
+    imgs = sorted(Path("webposts").glob("post_*.png"))
+    if not imgs:
+        return ""
+    OUT.mkdir(exist_ok=True)
+    (OUT / "posts").mkdir(exist_ok=True)
+    tiles = []
+    for p in imgs:
+        (OUT / "posts" / p.name).write_bytes(p.read_bytes())
+        tiles.append(f'<a href="posts/{p.name}" target="_blank" rel="noopener"><img src="posts/{p.name}" loading="lazy" alt="Today\'s deal post"></a>')
+    return ('<section><h2>Today\'s posts</h2><p class="sub">The same posts we share in the Facebook group. Tap one to see it full size.</p>'
+            f'<div class="gallery">{"".join(tiles)}</div></section>')
+
+
 def main():
     from deal_finder import category_of, store_of
     deals = load("deals.json", [])
@@ -338,6 +369,8 @@ def main():
 <p>Viral finds · promo codes · price drops — all in one place. Updated {now}.</p>
 <a class="join" href="https://www.facebook.com/groups/1815840112666601" target="_blank" rel="noopener">JOIN THE FREE FACEBOOK GROUP</a></header>
 <main>
+{posts_gallery()}
+{seasonal_sections(picked, history, tested)}
 {viral_section(viral)}
 <section><h2>Today's deals</h2><p class="sub">{len(picked)} deals across {len(cats)} categories from the last 3 days — top 100 per category. Codes marked &#10003; were tested by me personally.</p>
 <div class="cats"><button class="on" data-c="">All categories</button>{cat_buttons}</div>

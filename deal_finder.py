@@ -37,6 +37,16 @@ for _p in (1, 2, 3):
     FEEDS[f"Hip2Save p{_p}"] = "https://hip2save.com/feed/" + (f"?paged={_p}" if _p > 1 else "")
 FEEDS["Amazon price drops (daily)"] = "https://camelcamelcamel.com/top_drops/feed?t=daily"
 FEEDS["Amazon price drops (weekly)"] = "https://camelcamelcamel.com/top_drops/feed?t=weekly"
+# Seasonal searches: while an event (Thanksgiving, stocking stuffers, football...) is in its lead-up window
+# we also search the deal feeds for it. See seasonal.py.
+try:
+    from seasonal import active as _active
+    for _e in _active():
+        for _kw in _e["searches"]:
+            FEEDS[f"Slickdeals season: {_kw}"] = ("https://slickdeals.net/newsearch.php?q=" + urllib.parse.quote_plus(_kw)
+                                                  + "&searcharea=deals&searchin=first&rss=1")
+except Exception as _e:
+    print("[warn] seasonal feeds:", _e)
 # Long-tail Amazon finds (cheap beauty, kids, jewelry...) that the front-page feeds miss.
 # Slickdeals keyword searches, same RSS format as the feeds above.
 for _kw in ("amazon beauty", "amazon skincare", "amazon baby", "amazon kitchen", "amazon pet",

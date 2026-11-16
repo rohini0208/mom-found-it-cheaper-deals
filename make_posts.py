@@ -28,6 +28,7 @@ from make_videos import (AMAZON_PRICES, BRAND, CHAR, GOLD, IVORY, MUTED, SITE, S
 from trends_finder import load_signals, viral_sources
 
 SIGNALS = load_signals()
+WEB = Path("webposts")                                 # copies of today's posts for the website (tracked in git)
 PW, PH = 1080, 1350                                    # 4:5 feed image
 POSTS_PER_RUN = int(os.environ.get("POSTS_PER_RUN") or "8")
 MAX_PRICE = float(os.environ.get("POST_MAX_PRICE") or "0")   # 0 = no price cap (all categories)
@@ -99,8 +100,56 @@ def pick_groups(deals, made):
     return [(cat, items) for _, cat, items in groups[:POSTS_PER_RUN]]
 
 
+def price_groups(deals, made, tiers=(10, 15, 25), exclude=()):
+    """Cheapest-first posts: 'Under $10' pulls hardest, so these lead the batch."""
+    pool, seen = [], set(exclude)
+    for d in sorted(deals, key=lambda x: x["seen"], reverse=True):
+        price = price_value(d.get("price", ""))
+        key = product_key(d)
+        if (price is None or price < 1 or key in seen or d["id"] in made or d.get("expired")
+                or pct_off(d) < 10 or not find_photo(d) or qa_check(d)[0] or not is_amazon(d)
+                or any(w in d["title"].lower() for w in SKIP_WORDS)):
+            continue
+        seen.add(key)
+        pool.append((price, d))
+    out, used = [], set()
+    for t in tiers:
+        its = [d for p, d in pool if p <= t and d["id"] not in used]
+        if len(its) >= 3:
+            its.sort(key=score, reverse=True)
+            its = its[:3]
+            used.update(i["id"] for i in its)
+            out.append((f"Under ${t}", its, f"Under ${t} finds"))
+    return out
+
+
 AT_RE = re.compile(r"\s+@\w+.*$")
 JUNK_RE = re.compile(r"^(?:AMAZON Select Accounts|Amazon Prime Members|Prime Members):\s*|\s*\((?:Reg\.?|Regularly)[^)]*\)|\s*\+\s*Free Shipping.*$|\s+(?:at|on|from)\s+Amazon\b.*$|\s+or less$|\s+at$", re.I)
+def seasonal_groups(deals, made, top=2):
+    """Curated posts for the next shopping moments (Thanksgiving, stocking stuffers, game day...)."""
+    from seasonal import active, matches
+    out, used = [], set()
+    for ev in active():
+        pool = []
+        for d in matches(deals, ev):
+            if (d["id"] in made or d["id"] in used or not is_amazon(d) or not d.get("asin") or qa_check(d)[0]
+                    or pct_off(d) < 10 or not find_photo(d)
+                    or any(w in d["title"].lower() for w in SKIP_WORDS)):
+                continue
+            pool.append(d)
+        if len(pool) >= 3:
+            pool.sort(key=score, reverse=True)
+            items = pool[:3]
+            used.update(i["id"] for i in items)
+            top_price = max(price_value(i["price"]) or 0 for i in items)
+            band = next((b for b in (15, 25, 40, 60, 100, 200) if top_price <= b), None)
+            theme = ev["theme"] + (f" under ${band}" if band else "")
+            out.append((ev, theme, items))
+        if len(out) >= top:
+            break
+    return out
+
+
 COND_RE = re.compile(r"\s*\bw/\s*(?:S&S|Prime|Subscribe\s*&\s*Save|Coupon|Clip(?:pable)? Coupon)\b.*$", re.I)
 
 
@@ -631,9 +680,17 @@ def main():
         fix_price(_d)
     made = set(json.loads(MADE_FILE.read_text())) if MADE_FILE.exists() else set()
     OUT.mkdir(exist_ok=True)
-    groups = pick_groups(deals, made)
-    for n, (cat, items) in enumerate(groups, 1):
-        theme = fun_theme(cat, items)
+    for _old in WEB.glob("*.png"):
+        _old.unlink()                       # website gallery shows only today's posts
+    season = seasonal_groups(deals, made)
+    for _ev, _th, _its in season:
+        made.update(i["id"] for i in _its)
+    _pg = price_groups(deals, made)
+    _taken = {i["id"] for _c, its, _t in _pg for i in its}
+    groups = (_pg + [("Everything else", its, _th) for _ev, _th, its in season]
+              + [(c, i, None) for c, i in pick_groups(deals, made | _taken)])
+    for n, (cat, items, _theme) in enumerate(groups, 1):
+        theme = _theme or fun_theme(cat, items)
         k = datetime.now(timezone.utc).toordinal() + n
         base = PALETTES.get(cat, PALETTES["Everything else"])
         schemes = [base, ROT[(k // 3) % len(ROT)], base, ROT[(k // 3 + 1) % len(ROT)]]
@@ -650,10 +707,12 @@ def main():
         caption, comment = texts(theme, items)
         (OUT / f"post_{n}.txt").write_text(f"CAPTION:\n{caption}\n\nFIRST COMMENT (paste after posting):\n{comment}\n")
         made.update(i["id"] for i in items)
+        WEB.mkdir(exist_ok=True)
+        (WEB / f"post_{n}.png").write_bytes((OUT / f"post_{n}.png").read_bytes())
         print(f"made post_{n}.png - {theme}: " + " | ".join(i["title"][:30] for i in items))
 
     # one extra single-product "Mom's pick" post: best-reviewed item with a photo
-    used = {i["id"] for _, its in groups for i in its}
+    used = {i["id"] for _, its, _t in groups for i in its}
     pool = [d for d in deals if d["id"] not in used and pct_off(d) >= 10 and is_amazon(d) and ((META.get(d.get("asin", "")) or {}).get("reviews") or 0) >= 100 and find_photo(d) and not qa_check(d)[0] 
             and price_value(d.get("price", "")) and not any(w in d["title"].lower() for w in SKIP_WORDS)]
     if pool:
@@ -667,6 +726,8 @@ def main():
                f"(AD)(Commission earned) As an Amazon Associate I earn from qualifying purchases.\n\n{HASHTAG_SET}")
         cm = f"Shop here (prices and codes can change):\n{link_for(star)}\nAs an Amazon Associate I earn from qualifying purchases."
         (OUT / "post_single.txt").write_text(f"CAPTION:\n{cap}\n\nFIRST COMMENT (paste after posting):\n{cm}\n")
+        WEB.mkdir(exist_ok=True)
+        (WEB / "post_single.png").write_bytes((OUT / "post_single.png").read_bytes())
         print("made post_single.png")
     MADE_FILE.write_text(json.dumps(sorted(made)[-900:], indent=1))
     print(f"{len(groups)} posts made")
