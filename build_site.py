@@ -78,6 +78,49 @@ def badge(d, low):
     return ""
 
 
+META = json.loads(Path("data/product_meta.json").read_text()) if Path("data/product_meta.json").exists() else {}
+THUMBS = {}
+
+
+def thumb_for(d):
+    """Copy/shrink the product photo into site/photos and return its relative URL (or '')."""
+    try:
+        from make_videos import find_photo
+        src = find_photo(d)
+    except Exception:
+        src = None
+    if not src:
+        return ""
+    name = f"{deal_id(d)}.jpg"
+    dest = OUT / "photos" / name
+    try:
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            from PIL import Image
+            im = Image.open(src).convert("RGB")
+            im.thumbnail((520, 520))
+            im.save(dest, "JPEG", quality=82)
+        except ImportError:
+            dest.write_bytes(Path(src).read_bytes())
+    except Exception:
+        return ""
+    return f"photos/{name}"
+
+
+def savings(d):
+    """(list price, pct off, rating, reviews) from verified Amazon data, else blanks."""
+    m = META.get(d.get("asin", "")) or {}
+    p = price_num(d.get("price"))
+    try:
+        lst = float(m.get("list"))
+    except (TypeError, ValueError):
+        lst = None
+    pct = 0
+    if p and lst and p < lst <= 6 * p:
+        pct = round(100 * (1 - p / lst))
+    return (lst if pct >= 10 else None), (pct if pct >= 10 else 0), m.get("rating"), m.get("reviews") or 0
+
+
 def link_for(d):
     """Your own tagged Amazon link when possible; otherwise the source deal page."""
     if TAG and d.get("asin"):
@@ -118,8 +161,14 @@ def card(d, history, tested):
         "tested" if tested_on else "",
         "viral" if len(buzz) >= 2 else "",
     ]))
+    _lst, _pct, _rt, _rv = savings(d)
+    _th = thumb_for(d)
+    photo_html = (f'<a class="ph" href="{html.escape(url)}" target="_blank" rel="sponsored noopener"><img src="{_th}" loading="lazy" alt="">'
+                  + (f'<span class="off">-{_pct}%</span>' if _pct else "") + "</a>") if _th else ""
+    rating_html = (f'<div class="stars">&#9733; {_rt:.1f} <span>({_rv:,} reviews)</span></div>' if _rt and _rv >= 50 else "")
     return f"""
 <article class="card {tags}" id="d-{i}" data-title="{html.escape((no_price_title(d['title']) if amz else d['title']).lower())}" data-cat="{html.escape(d.get('category','Everything else'))}" data-store="{html.escape(d.get('store','Other'))}">
+  {photo_html}
   <div class="where">{html.escape(d.get('store','Other'))} · {html.escape(d.get('category','Everything else'))}</div>
   <div class="top">
     {f'<span class="badge">{html.escape(b)}</span>' if b else ''}
@@ -129,8 +178,9 @@ def card(d, history, tested):
   {f'<ul class="feats">{feats}</ul>' if feats else ''}
   {'<div class="amz">Price drop on Amazon &middot; tap to see today&rsquo;s price</div>' if amz else f"""<div class="price">
     <span class="now">{html.escape(d.get('price') or '')}</span>
-    {f'<span class="was">{html.escape(d["was"])}</span>' if d.get('was') else ''}
+    {f'<span class="was">${_lst:,.2f}</span>' if _lst else (f'<span class="was">{html.escape(d["was"])}</span>' if d.get('was') else '')}
   </div>"""}
+  {rating_html}
   {f'<button class="code" data-code="{html.escape(code)}">Code <b>{html.escape(code)}</b> <span>tap to copy</span></button>' if real_code else ''}
   {'<div class="coupon">Clip the coupon on the product page</div>' if d.get('coupon') else ''}
   {'<div class="coupon">Promo code in the deal</div>' if code == 'w/ code' else ''}
@@ -228,6 +278,23 @@ body.is-admin .admin{display:block}
 .viral span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#a99f93}
 .viral em{font-style:normal;font-size:14px;margin-top:6px}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 16px 50px;line-height:1.6}
+
+:root{--ivory:#FFF8EC;--char:#2b2118;--gold:#FF8F00;--muted:#7a6a5a;--blush:#ffd2a8}
+header{background:linear-gradient(135deg,#FF8F00,#FFB300 55%,#2EA05A);color:#fff;padding:34px 20px 28px}
+.kicker,h1 em{color:#fff3c4}header p{color:#fff}
+.rule{background:#fff}
+.join{background:#fff;color:#c25e00;border:0;font-weight:700;padding:12px 22px;box-shadow:0 3px 10px rgba(0,0,0,.18)}
+.ph{position:relative;display:block;margin:-20px -20px 4px;border-radius:18px 18px 0 0;overflow:hidden;background:#fff}
+.ph img{width:100%;aspect-ratio:4/3;object-fit:contain;display:block;background:#fff}
+.off{position:absolute;top:10px;left:10px;background:#d32f2f;color:#fff;font-weight:800;font-size:14px;padding:5px 10px;border-radius:20px}
+.stars{font-size:13px;color:#1565c0}.stars span{color:var(--muted)}
+.now{color:#2e7d32}
+.go{background:#FF8F00;color:#fff;font-size:16px;padding:14px}
+.cats button.on,.bar button.on{background:#FF8F00;border-color:#FF8F00;color:#fff}
+.badge{border-color:#2e7d32;color:#2e7d32}
+.stick{position:fixed;left:0;right:0;bottom:0;background:#2e7d32;color:#fff;text-align:center;padding:12px;font-weight:700;z-index:9;text-decoration:none;display:block}
+body{padding-bottom:52px}
+.card{padding:20px;overflow:hidden}
 """
 
 JS = """
@@ -394,6 +461,7 @@ We are not the seller and do not handle orders, shipping, returns or warranties 
 "Lowest price we've seen" is based only on prices we have recorded, not a guarantee of an all-time low. Product details come from the deal listing and the retailer; we do not guarantee them.<br>
 Deal sources: Slickdeals and DealNews community feeds, with thanks. Amazon and other store names are trademarks of their owners; we are not affiliated with or endorsed by them.<br>
 <a href="disclosure.html">Affiliate disclosure</a> · <a href="terms.html">Terms &amp; conditions</a> · <a href="privacy.html">Privacy policy</a></footer>
+<a class="stick" href="https://www.facebook.com/groups/1815840112666601" target="_blank" rel="noopener">Join the free group for daily deals</a>
 <script>{JS}</script></body></html>"""
     OUT.mkdir(exist_ok=True)
     (OUT / "index.html").write_text(page)
