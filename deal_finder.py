@@ -465,6 +465,9 @@ def main():
     deals = score_codes(cross_check(merge(load_history(), new), extras))
     status["_matched_deals"] = sum(1 for d in deals if d.get("also"))
     Path("data/code_feeds.json").write_text(json.dumps(status, indent=1))
+    for _d in deals:                                  # IDs the home PC found (older records keep their empty asin otherwise)
+        if not _d.get("asin") and ASIN_MAP.get(_d["id"]):
+            _d["asin"] = ASIN_MAP[_d["id"]]
     DATA_FILE.write_text(json.dumps(deals, indent=1))
     HIP_CACHE.write_text(json.dumps(_hip, indent=1))
     write_markdown(deals, errors)
