@@ -37,3 +37,15 @@ Verified was-price, ratings, price-tier "Under $10/$15/$25" posts, Mom's pick no
 6. Real-photo posts of finds when you shop.
 7. Disclosure in group About.
 8. Post in other groups only if their rules allow (Smart Savers: no).
+
+## Small / growing groups (added Nov 16)
+Seen in "amazon finds" search: Iamlonni's Amazon Finds (5.2K, 90+/day), Amazon Finds (7.6K, 90+/day), Walmart & Amazon Finds with Pey (1.4K, 80+/day),
+Amazing Deals - Codes/Coupons (2.3K), Prime Savvy Savings (7.2K), Best Amazon Finds & Hidden Deals (7.5K, 6/day).
+Opened: Iamlonni's.
+- Personal brand ("my favorite products"), niche: fashion, home, beauty.
+- ENGAGEMENT posts: "This or That? Earth Tones & Cozy Layers - which one is more your style?" with a 2-outfit collage. Comments = reach.
+- Seasonal themes (fall looks, cozy layers), outfit-style collages not product grids.
+- Group names that win: "Walmart & Amazon Finds - Freebies, Glitches & Codes | Daily Deals" = 1.2M members; "Cheap as Bleep | Deals, Steals, Glitches" = 228K;
+  "Hidden Clearance" / "Hidden Finds" words recur. Keywords people search: Walmart, Amazon, finds, freebies, glitches, codes, hidden, clearance, daily deals.
+Applied/To-do: add "This or That?" and "Which would you grab?" posts built from 2 products (comment bait);
+consider renaming/tagline the group: "Amazon & Walmart Finds | Daily Deals, Codes & Freebies" (search words) while keeping Mom Found It Cheaper brand.
