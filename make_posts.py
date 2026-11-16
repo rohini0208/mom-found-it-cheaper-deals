@@ -30,6 +30,8 @@ SIGNALS = load_signals()
 PW, PH = 1080, 1350                                    # 4:5 feed image
 POSTS_PER_RUN = int(os.environ.get("POSTS_PER_RUN") or "8")
 MAX_PRICE = float(os.environ.get("POST_MAX_PRICE") or "0")   # 0 = no price cap (all categories)
+META_FILE = Path("data/product_meta.json")
+META = json.loads(META_FILE.read_text()) if META_FILE.exists() else {}
 DEALS_FILE = Path("data/deals.json")
 MADE_FILE = Path("data/posts_made.json")
 OUT = Path("posts")
@@ -99,6 +101,15 @@ def tidy(title):
     return COND_RE.sub("", title).strip(" -,")
 
 
+def proof(deal):
+    """'4.8 stars, 7.6K reviews' when we have it (only for products with enough reviews to mean something)."""
+    m = META.get(deal.get("asin", ""))
+    if not m or not m.get("rating") or (m.get("reviews") or 0) < 100:
+        return ""
+    n = m["reviews"]
+    return f"{m['rating']:.1f} stars  |  " + (f"{n/1000:.1f}K" if n >= 1000 else str(n)) + " reviews"
+
+
 def draw_tile(img, i, deal, top):
     d = ImageDraw.Draw(img)
     d.rounded_rectangle([60, top, PW - 60, top + TILE_H], 36, fill=(255, 255, 255), outline=GOLD, width=3)
@@ -146,6 +157,10 @@ def draw_tile(img, i, deal, top):
         if extra:        # beside the price, never on top of it
             d.text((extra_x, y + 30) if extra_x < PW - 360 else (x, y + 72), extra,
                    font=sans(28, "SemiBold"), fill=CHAR)
+    pr = proof(deal)
+    if pr:
+        pf2 = sans(24, "SemiBold")          # right end of the bottom row, next to the price stamp
+        d.text((PW - 90 - d.textlength(pr, font=pf2), top + TILE_H - 96), pr, font=pf2, fill=GOLD)
     if amazon and AMAZON_PRICES != "hide":
         d.text((x, top + TILE_H - 50), f"Amazon price as of {as_of(deal['seen'])}",
                font=sans(24, "Medium"), fill=MUTED)
@@ -180,7 +195,8 @@ def texts(theme, items):
     for n, i in zip(names, items):
         code = clean_code(i)
         tip = f" - code {code}" if code else (" - clip the coupon" if i.get("coupon") else "")
-        lines.append(f"{n}{tip}\n{link_for(i)}")
+        hist = f"\nPrice history: https://camelcamelcamel.com/product/{i['asin']}" if i.get("asin") else ""
+        lines.append(f"{n}{tip}\n{link_for(i)}{hist}")
     lines.append("As an Amazon Associate I earn from qualifying purchases.")
     return caption, "\n".join(lines)
 
