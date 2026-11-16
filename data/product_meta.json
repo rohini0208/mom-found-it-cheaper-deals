@@ -535,5 +535,131 @@
   "list": "$949.99",
   "now": "$549.99",
   "v": 3
+ },
+ "B0CK4Y8YLG": {
+  "rating": 4.4,
+  "reviews": 1855,
+  "list": "$39.99",
+  "now": "$24.99",
+  "v": 3
+ },
+ "B0D4TYCYCM": {
+  "rating": 4.4,
+  "reviews": 616,
+  "list": "$4.06",
+  "now": "$39.99",
+  "v": 3
+ },
+ "B0DFVGMXT5": {
+  "rating": 4.6,
+  "reviews": 2155,
+  "list": "$17.75",
+  "now": "$60.36",
+  "v": 3
+ },
+ "B0G7XFLKQM": {
+  "rating": 3.9,
+  "reviews": 49,
+  "list": "$0.22",
+  "now": "$19.99",
+  "v": 3
+ },
+ "B0D3633DVB": {
+  "rating": 4.2,
+  "reviews": 962,
+  "list": "$329.95",
+  "now": "$169.95",
+  "v": 3
+ },
+ "B0FYRY7GKG": {
+  "rating": 4.4,
+  "reviews": 289,
+  "list": "$64.99",
+  "now": "$64.99",
+  "v": 3
+ },
+ "B0CYDBXH81": {
+  "rating": 4.6,
+  "reviews": 130,
+  "list": "$0.10",
+  "now": "$1.61",
+  "v": 3
+ },
+ "B0HF3Q21BF": {
+  "rating": 4.9,
+  "reviews": 120,
+  "list": "$6.50",
+  "now": "$12.99",
+  "v": 3
+ },
+ "B0H5KNS321": {
+  "rating": 4.3,
+  "reviews": 140,
+  "list": "$9.99",
+  "now": "$8.99",
+  "v": 3
+ },
+ "B0HFB8JYK3": {
+  "rating": 4.3,
+  "reviews": 100,
+  "list": "$69.99",
+  "now": "$38.00",
+  "v": 3
+ },
+ "B0D9BWSPWG": {
+  "rating": 4.2,
+  "reviews": 77,
+  "list": "$59.00",
+  "now": null,
+  "v": 3
+ },
+ "B0DVTF9RV5": {
+  "rating": 4.2,
+  "reviews": 1137,
+  "list": "$109.95",
+  "now": "$49.95",
+  "v": 3
+ },
+ "B0H72FFC44": {
+  "rating": 4.0,
+  "reviews": 30,
+  "list": null,
+  "now": "$9.99",
+  "v": 3
+ },
+ "B0HCW2SVW1": {
+  "rating": 4.7,
+  "reviews": 200,
+  "list": "$6.00",
+  "now": "$35.99",
+  "v": 3
+ },
+ "B0H2K6W7P9": {
+  "rating": 4.6,
+  "reviews": 220,
+  "list": "$69.99",
+  "now": "$34.99",
+  "v": 3
+ },
+ "B0CXZTT4MT": {
+  "rating": 4.3,
+  "reviews": 2204,
+  "list": "$249.99",
+  "now": "$139.99",
+  "v": 3
+ },
+ "B0HJ9QMTYM": {
+  "rating": 4.6,
+  "reviews": 1169,
+  "list": "$59.00",
+  "now": "$46.00",
+  "v": 3
+ },
+ "B0HN4TZ3DF": {
+  "rating": 4.8,
+  "reviews": 20,
+  "list": "$39.99",
+  "now": "$39.99",
+  "v": 3
  }
 }
