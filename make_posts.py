@@ -310,6 +310,154 @@ def make_image_v2(path, theme, items, cat="Everything else"):
     img.save(path)
 
 
+# ---------- layouts B and C ----------
+def _photo_into(img, deal, box_xy, size):
+    """Paste the product photo (contained, centered) or a soft brand tile."""
+    x0, y0 = box_xy
+    w, h = size
+    d = ImageDraw.Draw(img)
+    photo = find_photo(deal)
+    if photo:
+        try:
+            pic = ImageOps.contain(Image.open(photo).convert("RGB"), (w, h))
+            img.paste(pic, (x0 + (w - pic.width) // 2, y0 + (h - pic.height) // 2))
+            return
+        except Exception as e:
+            print(f"[warn] photo {photo}: {e}")
+    d.rounded_rectangle([x0, y0, x0 + w, y0 + h], 24, fill=(244, 241, 236))
+    word = (short_title(no_price_title(deal["title"])).split() or ["?"])[0][:10]
+    lf = fit(d, word, lambda s: sans(s, "Bold"), 64, w - 30, max_lines=1, min_size=26)
+    d.text((x0 + (w - d.textlength(word, font=lf)) / 2, y0 + h / 2 - lf.size / 2), word, font=lf, fill=(160, 150, 140))
+
+
+def _price_row(img, deal, x, y, big, max_w):
+    """Price pill, % off badge, was price. Returns y below the row."""
+    d = ImageDraw.Draw(img)
+    pf = sans(big, "Bold")
+    price = deal["price"]
+    pw_ = d.textlength(price, font=pf)
+    d.rounded_rectangle([x - 6, y, x + pw_ + 26, y + big + 22], 22, fill=CHAR)
+    d.text((x + 10, y + 6), price, font=pf, fill=(255, 255, 255))
+    off, was = pct_off(deal), was_of(deal)
+    cx = x + pw_ + 42
+    bf = sans(max(22, big // 2 - 6), "Bold")
+    if off >= 10:
+        label = f"{off}% OFF"
+        bw = d.textlength(label, font=bf) + 32
+        if cx + bw <= x + max_w:
+            d.rounded_rectangle([cx, y + 8, cx + bw, y + 8 + bf.size + 18], 24, fill=(229, 57, 53))
+            d.text((cx + 16, y + 15), label, font=bf, fill=(255, 255, 255))
+            cx += bw + 14
+    if was and off and cx + d.textlength(f"was {was}", font=sans(26)) <= x + max_w:
+        wf = sans(26, "Medium")
+        d.text((cx, y + 20), f"was {was}", font=wf, fill=MUTED)
+        d.line([(cx - 2, y + 35), (cx + d.textlength(f"was {was}", font=wf) + 2, y + 35)], fill=MUTED, width=3)
+    return y + big + 34
+
+
+def _chips(img, deal, x, y, max_w, size=26):
+    d = ImageDraw.Draw(img)
+    code = clean_code(deal)
+    extra = (f"CODE  {code}" if code else "CLIP THE COUPON" if deal.get("coupon") else "")
+    if extra:
+        ef = sans(size, "Bold")
+        ew = d.textlength(extra, font=ef)
+        d.rounded_rectangle([x - 6, y, x + ew + 24, y + size + 18], 22, outline=CHAR, width=3)
+        d.text((x + 9, y + 7), extra, font=ef, fill=CHAR)
+        y += size + 30
+    pr = proof(deal)
+    if pr:
+        d.text((x, y), pr.replace("stars", "\u2605"), font=sans(size - 2, "SemiBold"), fill=(190, 120, 0))
+        y += size + 8
+    if is_amazon(deal) and AMAZON_PRICES != "hide":
+        sf = sans(20, "Medium")
+        for line in wrap(d, f"Amazon price as of {as_of(deal['seen'])}", sf, max_w):
+            d.text((x, y), line, font=sf, fill=MUTED)
+            y += 24
+    return y
+
+
+def _header(img, theme, accent):
+    d = ImageDraw.Draw(img)
+    centered(d, 52, "MOM FOUND IT CHEAPER", sans(30, "SemiBold"), (255, 255, 255), spacing=8)
+    head = theme.upper()
+    hf = fit(d, head, lambda s: sans(s, "Bold"), 104, PW - 120, max_lines=1, min_size=56)
+    centered(d, 118, head, hf, (255, 255, 255), max_w=PW - 60)
+    centered(d, 118 + hf.size + 22, "TODAY'S PRICE DROPS", sans(34, "SemiBold"), accent, spacing=6)
+
+
+def _title(d, deal, x, y, w, start, lines=2, mn=26):
+    t = tidy(short_title(no_price_title(deal["title"])))
+    tf = fit(d, t, lambda s: sans(s, "Bold"), start, w, max_lines=lines, min_size=mn)
+    for line in wrap(d, t, tf, w)[:lines]:
+        d.text((x, y), line, font=tf, fill=CHAR)
+        y += tf.size + 6
+    return y
+
+
+def make_image_hero(path, theme, items, cat="Everything else"):
+    """B: one big hero deal, two smaller ones below."""
+    bg, accent = PALETTES.get(cat, PALETTES["Everything else"])
+    img = Image.new("RGB", (PW, PH), bg)
+    _header(img, theme, accent)
+    star = best_item(items)
+    rest = [i for i in items if i is not star][:2]
+    d = ImageDraw.Draw(img)
+    d.rounded_rectangle([40, 300, PW - 40, 790], 34, fill=(255, 255, 255))
+    _photo_into(img, star, (66, 326), (420, 438))
+    d = ImageDraw.Draw(img)
+    y = _title(d, star, 520, 336, PW - 40 - 30 - 520, 42, 3, 30)
+    y = _price_row(img, star, 520, y + 8, 84, PW - 40 - 30 - 520)
+    _chips(img, star, 520, y + 6, 480, 28)
+    sticker(img, "TOP PICK", 250, 770, (255, 193, 7), ink=(40, 40, 40))
+    for k, deal in enumerate(rest):
+        x0 = 40 + k * 510
+        d = ImageDraw.Draw(img)
+        d.rounded_rectangle([x0, 816, x0 + 490, 1272], 30, fill=(255, 255, 255))
+        _photo_into(img, deal, (x0 + 20, 830), (450, 150))
+        d = ImageDraw.Draw(img)
+        y = _title(d, deal, x0 + 24, 992, 442, 30, 2, 22)
+        y = _price_row(img, deal, x0 + 24, y + 4, 52, 442)
+        _chips(img, deal, x0 + 24, y + 2, 442, 22)
+    d = ImageDraw.Draw(img)
+    centered(d, 1300, "PRICES CAN CHANGE  \u00b7  LINK IN COMMENTS  \u00b7  #AD", sans(24, "Medium"), (255, 255, 255), spacing=3, max_w=PW - 60)
+    img.save(path)
+
+
+def make_image_trio(path, theme, items, cat="Everything else"):
+    """C: three tall poster cards side by side, photo on top."""
+    bg, accent = PALETTES.get(cat, PALETTES["Everything else"])
+    img = Image.new("RGB", (PW, PH), bg)
+    _header(img, theme, accent)
+    star = best_item(items)
+    cw, gap = 320, 20
+    for k, deal in enumerate(items[:3]):
+        x0 = 40 + k * (cw + gap)
+        d = ImageDraw.Draw(img)
+        d.rounded_rectangle([x0, 300, x0 + cw, 1085], 30, fill=(255, 255, 255))
+        _photo_into(img, deal, (x0 + 15, 316), (cw - 30, 290))
+        d = ImageDraw.Draw(img)
+        d.ellipse([x0 - 8, 292, x0 + 44, 344], fill=CHAR)
+        d.text((x0 + 36 - d.textlength(str(k + 1), font=sans(32, "Bold")) / 2, 298), str(k + 1), font=sans(32, "Bold"), fill=(255, 255, 255))
+        y = _title(d, deal, x0 + 18, 626, cw - 36, 30, 3, 22)
+        y = _price_row(img, deal, x0 + 18, y + 8, 56, cw - 36)
+        off = pct_off(deal)
+        d = ImageDraw.Draw(img)
+        if off >= 10:
+            d.text((x0 + 18, y), f"was {was_of(deal)}  ({off}% off)", font=sans(24, "Medium"), fill=MUTED)
+            y += 36
+        _chips(img, deal, x0 + 18, y + 6, cw - 36, 24)
+        if deal is star:
+            sticker(img, "TOP PICK", x0 + cw - 90, 330, (255, 193, 7), ink=(40, 40, 40), angle=10)
+    d = ImageDraw.Draw(img)
+    d.rounded_rectangle([40, 1110, PW - 40, 1250], 34, fill=accent)
+    ink = CHAR if sum(accent) > 560 else (255, 255, 255)
+    centered(d, 1134, "SHOP LINKS IN THE COMMENTS", sans(50, "Bold"), ink, max_w=PW - 100)
+    centered(d, 1198, "tap the first comment  \u00b7  prices can change", sans(26, "Medium"), ink, max_w=PW - 100)
+    centered(d, 1290, "#AD", sans(24, "Medium"), (255, 255, 255), spacing=4, max_w=PW - 60)
+    img.save(path)
+
+
 def link_for(deal):
     return f"{SITE}#d-{hashlib.sha1(deal['id'].encode()).hexdigest()[:10]}"
 
