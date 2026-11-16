@@ -661,7 +661,10 @@ def texts(theme, items):
     names = [tidy(short_title(no_price_title(i["title"]))) for i in items]
     names = [" ".join(re.sub(r"^\[[^\]]*\]\s*", "", n).split(",")[0].split()[:5]).rstrip(".,;:- ") for n in names]
     st = story(items)
-    caption = (f"✨ {theme}: {names[0]}, {names[1]} and {names[2]}\n"
+    _b = best_item(items); _off = pct_off(_b)
+    _bn = " ".join(tidy(short_title(no_price_title(_b["title"]))).split(",")[0].split()[:4])
+    lead = f"🔥 {_off}% OFF! {_bn}\n" if _off >= 15 else ""      # % off up front: what the biggest deal groups open with
+    caption = (lead + f"✨ {theme}: {names[0]}, {names[1]} and {names[2]}\n"
                + (f"{st}\n" if st else "")
                + f"{pick(QUESTIONS, items[0]['id'], 'q')}\nLinks are in the first comment. Join Mom Found It Cheaper for a daily list.\n(AD)(Commission earned) As an Amazon Associate I earn from qualifying purchases.\n\n{HASHTAG_SET}")
     lines = ["Shop here (prices and codes can change):"]
@@ -669,7 +672,8 @@ def texts(theme, items):
         code = clean_code(i)
         tip = f" - code {code}" if code else (" - clip the coupon" if i.get("coupon") else "")
         hist = f"\nPrice history: https://camelcamelcamel.com/product/{i['asin']}" if i.get("asin") else ""
-        lines.append(f"{n}{tip}\n{link_for(i)}{hist}")
+        _o = pct_off(i)
+        lines.append(f"{'' if _o < 10 else f'{_o}% OFF - '}{n}{tip}\n{link_for(i)}{hist}")
     lines.append("As an Amazon Associate I earn from qualifying purchases.")
     return caption, "\n".join(lines)
 
