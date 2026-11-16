@@ -745,7 +745,12 @@ def main():
     for _d in deals:
         _d["category"] = category_of(_d["title"])
         fix_price(_d)
-    made = set(json.loads(MADE_FILE.read_text())) if MADE_FILE.exists() else set()
+    today_n = datetime.now(timezone.utc).toordinal()
+    _raw = json.loads(MADE_FILE.read_text()) if MADE_FILE.exists() else {}
+    if isinstance(_raw, list):                       # old format: ids only -> treat as posted today
+        _raw = {i: today_n for i in _raw}
+    COOLDOWN_DAYS = 5                                # a deal can come back after 5 days (price may have changed)
+    made = {i for i, dn in _raw.items() if today_n - dn < COOLDOWN_DAYS}
     import shutil
     shutil.rmtree(OUT, ignore_errors=True)       # no stale posts from earlier runs
     OUT.mkdir(exist_ok=True)
@@ -827,7 +832,41 @@ def main():
         SEEN_ASIN.update([a.get("asin"), b.get("asin")])
         MANIFEST.append(dict(file="post_thisorthat", kind="thisorthat", theme="THIS or THAT", items=[_mf(a), _mf(b)]))
         print("made post_thisorthat.png")
-    MADE_FILE.write_text(json.dumps(sorted(made)[-900:], indent=1))
+    # quick single-deal posts: every other good deal gets its own post (big groups post 20-90 a day)
+    QUICK_MAX = int(os.environ.get("QUICK_POSTS") or "10")
+    qc = [d for d in deals if d["id"] not in made and pct_off(d) >= 10 and is_amazon(d) and d.get("asin") and d.get("asin") not in SEEN_ASIN
+          and find_photo(d) and not qa_check(d)[0] and price_value(d.get("price", "")) and not d.get("expired")
+          and not any(w in d["title"].lower() for w in SKIP_WORDS)]
+    qc.sort(key=score, reverse=True)
+    seen_q = set()
+    qn = 0
+    for d in qc:
+        if qn >= QUICK_MAX:
+            break
+        k = product_key(d)
+        if k in seen_q:
+            continue
+        seen_q.add(k)
+        qn += 1
+        PALETTES["_q"] = ROT[(today_n + qn) % len(ROT)]
+        f = f"post_q{qn}"
+        make_image_single(OUT / f"{f}.png", d, "_q")
+        nm = tidy(short_title(no_price_title(d["title"])))
+        nm = nm if len(nm) <= 70 else " ".join(nm.split()[:9])
+        off = pct_off(d)
+        cap = (f"\U0001F525 {off}% OFF! {nm} is just {d['price']}.\n{mom_note(d)}\nLink is in the first comment.\n"
+               f"(AD)(Commission earned) As an Amazon Associate I earn from qualifying purchases.\n\n{HASHTAG_SET}")
+        cm = f"Shop here (prices and codes can change):\n{link_for(d)}\nAs an Amazon Associate I earn from qualifying purchases."
+        (OUT / f"{f}.txt").write_text(f"CAPTION:\n{cap}\n\nFIRST COMMENT (paste after posting):\n{cm}\n")
+        (WEB / f"{f}.png").write_bytes((OUT / f"{f}.png").read_bytes())
+        MANIFEST.append(dict(file=f, kind="quick", theme=f"Quick deal: {off}% OFF", items=[_mf(d)]))
+        SEEN_ASIN.add(d.get("asin"))
+        made.add(d["id"])
+    print(f"made {qn} quick deal posts")
+    for _i in made:
+        _raw.setdefault(_i, today_n)
+    _raw = {i: dn for i, dn in _raw.items() if today_n - dn < 30}
+    MADE_FILE.write_text(json.dumps(_raw, indent=0))
     (OUT / "manifest.json").write_text(json.dumps(MANIFEST, indent=1))
     print(f"{len(groups)} posts made")
 
