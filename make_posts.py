@@ -13,6 +13,7 @@ import hashlib
 import json
 import os
 import re
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -56,11 +57,15 @@ HASHTAG_SET = HASHTAGS
 
 
 def clean_code(deal):
-    """Show a code only when it looks usable; never one marked expired."""
+    """Show a code only when Amazon's own page (checked by the Lenovo in the last 36 h) shows it."""
     code = deal.get("code") or ""
     if not code or code == "w/ code" or deal.get("code_label") in ("expired", "may be expired"):
         return ""
-    return code
+    mm = META.get(deal.get("asin", "")) or {}
+    fresh = time.time() - (mm.get("checked") or 0) < 36 * 3600
+    if fresh and code.lower() in (mm.get("promo") or "").lower():
+        return code
+    return ""                                   # unverified -> never shown
 
 
 def score(deal):
@@ -639,7 +644,7 @@ _KSTOP = set("with pack piece pieces set for the and men mens women womens ladie
 
 def _mf(d):
     return dict(id=d["id"], asin=d.get("asin", ""), title=d["title"], price=d.get("price", ""), category=d.get("category", ""),
-                pct=pct_off(d), who=_who(d), kind=sorted(_kind(d)))
+                pct=pct_off(d), who=_who(d), kind=sorted(_kind(d)), code=clean_code(d))
 
 
 def _who(deal):
@@ -743,7 +748,7 @@ def texts(theme, items):
     lines = ["Shop here (prices and codes can change):"]
     for n, i in zip(names, items):
         code = clean_code(i)
-        tip = f" - code {code}" if code else (" - clip the coupon" if i.get("coupon") else "")
+        tip = f" - code {code}" if code else (" - clip the coupon" if i.get("coupon") and "coupon" in ((META.get(i.get("asin", "")) or {}).get("promo") or "").lower() else "")
         hist = f"\nPrice history: https://camelcamelcamel.com/product/{i['asin']}" if i.get("asin") else ""
         _o = pct_off(i)
         lines.append(f"{'' if _o < 10 else f'{_o}% OFF - '}{n}{tip}\n{link_for(i)}{hist}")

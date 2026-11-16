@@ -1,6 +1,6 @@
 """Pre-publish QA for posts. Reads posts/manifest.json + captions + PNGs, flags anything a shopper could call wrong.
 BLOCKER = post is moved to posts/blocked/ and removed from webposts/ (never goes out). WARN = listed in POST_QA.md."""
-import json, re, shutil, sys
+import json, os, re, shutil, sys, time
 from pathlib import Path
 
 TAG = "momfounditc08-20"
@@ -14,6 +14,45 @@ AUD = {"w": "women's", "m": "men's", "k": "kids'", "any": ""}
 def num(s):
     m = re.search(r"[\d,]+\.?\d*", str(s or ""))
     return float(m.group().replace(",", "")) if m else None
+
+
+STRICT = os.environ.get("POST_QA_STRICT", "0") == "1"      # 1 = unverified-by-Amazon-page data blocks the post
+STOP = set("the a an and with for of in to on by new pack set pcs pc piece inch oz black white blue red green pink gray grey silver gold".split())
+VARIANT = {"black", "white", "blue", "red", "green", "pink", "gray", "grey", "silver", "gold", "rose", "navy", "purple", "brown", "beige", "twin", "full", "queen", "king"}
+
+
+def words(s):
+    return {w for w in re.findall(r"[a-z0-9]+", (s or "").lower()) if len(w) > 2 and w not in STOP}
+
+
+def page_checks(i, out):
+    """Compare each product with what Amazon's own page said when the Lenovo last looked."""
+    m = META.get(i["asin"]) or {}
+    nm = i["title"][:40]
+    sev = "BLOCKER" if STRICT else "WARN"
+    ck = m.get("checked")
+    if not ck:
+        out.append((sev, f"never verified against the live Amazon page (v4): {nm}"))
+        return
+    age = (time.time() - ck) / 3600
+    if age > 36:
+        out.append((sev, f"Amazon page data is {age:.0f}h old: {nm}"))
+    av = (m.get("avail") or "").lower()
+    if "unavailable" in av or "out of stock" in av:
+        out.append(("BLOCKER", f"Amazon says unavailable: {nm}"))
+    at = m.get("title") or ""
+    if at:
+        ours, theirs = words(i["title"]), words(at)
+        if ours and len(ours & theirs) / len(ours) < 0.5:
+            out.append(("BLOCKER", f"title does not match Amazon page title '{at[:50]}': {nm}"))
+        mine = {w for w in re.findall(r"[a-z]+", i["title"].lower()) if w in VARIANT}
+        page = {w for w in re.findall(r"[a-z]+", (m.get("color", "") + " " + m.get("size", "") + " " + m.get("style", "")).lower()) if w in VARIANT}
+        if page and mine and not (mine & page):
+            out.append(("BLOCKER", f"variant on Amazon page ({', '.join(sorted(page))}) differs from our title: {nm}"))
+        elif page and not mine:
+            out.append(("WARN", f"price may only apply to variant '{m.get('color') or m.get('size')}' - name it: {nm}"))
+    if i.get("code") and i["code"].lower() not in (m.get("promo") or "").lower():
+        out.append(("BLOCKER", f"code {i['code']} not confirmed on Amazon page: {nm}"))
 
 
 def check_post(p, text):
@@ -36,6 +75,19 @@ def check_post(p, text):
     for l in amz:
         if not any(a and a in l for a in asins):
             out.append(("BLOCKER", f"link ASIN not in this post's products: {l[:60]}"))
+    for i in items:
+        if i.get("asin"):
+            page_checks(i, out)
+    pf = POSTS / f"{p['file']}.png"
+    tf = POSTS / f"{p['file']}.txt"
+    if pf.exists() and tf.exists() and abs(pf.stat().st_mtime - tf.stat().st_mtime) > 600:
+        out.append(("BLOCKER", "image and caption were generated at different times (stale file mix)"))
+    for i in items:
+        if not i.get("asin"):
+            continue
+        cap_has = re.search(r"\b" + re.escape(re.sub(r"\W+", " ", i["title"]).split()[0].lower()) + r"\b", re.sub(r"\W+", " ", cap).lower()) if i["title"].split() else True
+        if not cap_has and p["kind"] in ("single", "quick"):
+            out.append(("WARN", f"caption never names the product: {i['title'][:40]}"))
     for i in items:
         if not i["asin"]:
             out.append(("BLOCKER", f"no ASIN: {i['title'][:40]}"))

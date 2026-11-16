@@ -67,6 +67,25 @@ def resolve_asins(ctx, deals, limit=150):
     print(f"asin map: +{got} of {len(todo)} looked up")
 
 
+def stale(meta, a):
+    """Re-check a product when new fields are missing or the data is older than 20 hours."""
+    m = meta.get(a)
+    if not m or m.get("v") != 4 or not (PH / f"{a}.jpg").exists():
+        return True
+    return time.time() - m.get("checked", 0) > 20 * 3600
+
+
+PROMO_JS = """() => {
+    const t = (sel) => { const e = document.querySelector(sel); return e ? e.innerText.replace(/\\s+/g, ' ').trim() : ''; };
+    const root = document.querySelector('#ppd') || document.body;
+    const promo = [...root.querySelectorAll('#promoPriceBlockMessage_feature_div, #couponFeature, [id^=couponText], [id^=promoMessage], .promoPriceBlockMessage, #applicable_promotion_list_sec, #vpcButton, #couponBadgeRegularVpc')]
+        .map(e => e.innerText.replace(/\\s+/g, ' ').trim()).filter(Boolean).join(' | ').slice(0, 500);
+    return {promo: promo,
+            color: t('#variation_color_name .selection'), size: t('#variation_size_name .selection'),
+            style: t('#variation_style_name .selection'),
+            avail: t('#availability'), title: t('#productTitle'), seller: t('#merchant-info').slice(0, 120)}; }"""
+
+
 def main():
     from playwright.sync_api import sync_playwright
     sh(*GIT, "pull", "--rebase", "-q")
@@ -76,7 +95,7 @@ def main():
     todo, seen = [], set()
     for d in sorted(deals, key=lambda x: x.get("thumbs", 0), reverse=True):   # best deals first
         a = d.get("asin", "")
-        if a and a not in seen and not d.get("expired") and (a not in meta or meta[a].get("v") != 3 or not (PH / f"{a}.jpg").exists()):
+        if a and a not in seen and not d.get("expired") and stale(meta, a):
             seen.add(a)
             todo.append(a)
     done = 0
@@ -94,7 +113,7 @@ def main():
         amap0 = json.loads(ASIN_MAP.read_text()) if ASIN_MAP.exists() else {}
         for d in sorted(deals, key=lambda x: x.get("thumbs", 0), reverse=True):   # use freshly found IDs right away
             a = d.get("asin") or amap0.get(d["id"], "")
-            if a and a not in seen and not d.get("expired") and (a not in meta or meta[a].get("v") != 3 or not (PH / f"{a}.jpg").exists()):
+            if a and a not in seen and not d.get("expired") and stale(meta, a):
                 seen.add(a)
                 todo.append(a)
         for a in todo[:MAX_RUN]:
@@ -139,7 +158,12 @@ def main():
                 m = re.search(r'"hiRes":"(https:[^"]+)"', html)
                 meta[a] = {"rating": float(rt.group(1)) if rt else None,
                            "reviews": parse_reviews(rc.group(1)) if rc else None,
-                           "list": lp.group(0) if lp else None, "now": now.group(0) if now else None, "v": 3}
+                           "list": lp.group(0) if lp else None, "now": now.group(0) if now else None, "v": 4,
+                           "checked": int(time.time())}
+                try:                                    # coupons, promo codes, chosen variant, stock
+                    meta[a].update(page.evaluate(PROMO_JS))
+                except Exception:
+                    pass
                 if m:
                     img = ctx.request.get(re.sub(r"\._[^.]*_\.", "._SL600_.", m.group(1)))
                     (PH / f"{a}.jpg").write_bytes(img.body())

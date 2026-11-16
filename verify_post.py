@@ -31,6 +31,11 @@ def main(name, caption, comment):
         if p and p not in caption and name.startswith("post_q"):
             bad.append(f"price {p} not in caption")
     print("\n".join(("FAIL: " + b) for b in bad) or "OK: live post matches data")
+    import time, pathlib
+    led = pathlib.Path("data/posted_ledger.json")
+    L = json.loads(led.read_text()) if led.exists() else []
+    L.append({"post": name, "asins": sorted(want), "ok": not bad, "problems": bad, "at": int(time.time())})
+    led.write_text(json.dumps(L[-200:], indent=1))
     sys.exit(1 if bad else 0)
 
 
