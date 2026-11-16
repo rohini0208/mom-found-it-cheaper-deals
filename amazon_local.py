@@ -1,7 +1,7 @@
 """Run on YOUR home computer. Drives your real Chrome (needs: pip install playwright), so Amazon treats it like you browsing.
 Fetches Amazon product photo + rating + review count + list price for deals that lack them,
 saves into photos/ and data/product_meta.json, then pushes to GitHub. No Claude, no tokens.
-Temporary until the Amazon Creators API is available. Slow and polite on purpose (3-6 s apart, max 25/run).
+Temporary until the Amazon Creators API is available. Slow and polite on purpose (3-6 s apart, max 100/run).
 Setup: see SETUP_LENOVO.md.   Run:  python amazon_local.py
 """
 import json
@@ -12,7 +12,7 @@ import sys
 import time
 from pathlib import Path
 
-MAX_RUN = 25
+MAX_RUN = 100
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
       "Chrome/124.0 Safari/537.36")
 H = {"User-Agent": UA, "Accept-Language": "en-US,en;q=0.9", "Accept": "text/html,application/xhtml+xml"}
