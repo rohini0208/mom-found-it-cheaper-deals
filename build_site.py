@@ -128,7 +128,16 @@ def link_for(d):
     return d["link"], "Get this deal"
 
 
+def clean_title(t):
+    from deal_finder import lead_clean
+    t = lead_clean(t)
+    t = re.sub(r"^\$[\d,.]+\*?[:|]\s*", "", t)
+    t = re.sub(r"\s+(?:at|on|from)\s+Amazon\b.*$|\s+AC$|\s*\+\s*Free (?:S&H|Shipping).*$", "", t, flags=re.I)
+    return t.strip() or t
+
+
 def card(d, history, tested):
+    d = dict(d, title=clean_title(d["title"]))
     i = deal_id(d)
     t = tested.get(i, "")            # "Nov 12" (old) or {"date": ..., "asin": ...}
     price = price_num(d.get("price"))
@@ -176,10 +185,10 @@ def card(d, history, tested):
   </div>
   <h3>{html.escape(no_price_title(d['title']) if amz else d['title'])}</h3>
   {f'<ul class="feats">{feats}</ul>' if feats else ''}
-  {'<div class="amz">Price drop on Amazon &middot; tap to see today&rsquo;s price</div>' if amz else f"""<div class="price">
+  {'<div class="amz">Price drop on Amazon &middot; tap to see today&rsquo;s price</div>' if amz else (f"""<div class="price">
     <span class="now">{html.escape(d.get('price') or '')}</span>
     {f'<span class="was">${_lst:,.2f}</span>' if _lst else (f'<span class="was">{html.escape(d["was"])}</span>' if d.get('was') else '')}
-  </div>"""}
+  </div>""" if d.get('price') else '')}
   {rating_html}
   {f'<button class="code" data-code="{html.escape(code)}">Code <b>{html.escape(code)}</b> <span>tap to copy</span></button>' if real_code else ''}
   {'<div class="coupon">Clip the coupon on the product page</div>' if d.get('coupon') else ''}
@@ -375,8 +384,9 @@ def seasonal_sections(deals, history, tested, today=None):
     """One curated block per upcoming shopping moment (see seasonal.py)."""
     from seasonal import active, matches
     out = []
-    for ev in active(today)[:3]:
-        ms = [d for d in matches(deals, ev) if not d.get("expired")]
+    for ev in [e for e in active(today) if e["key"] in ("thanksgiving", "stocking", "football")][:3]:
+        ms = [d for d in matches(deals, ev) if not d.get("expired") and d.get("asin") and is_amazon(d)
+              and thumb_for(d) and savings(d)[1] >= 10]
         ms.sort(key=lambda d: (bool(d.get("asin")), d.get("thumbs", 0)), reverse=True)
         if not ms:
             continue

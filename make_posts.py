@@ -72,6 +72,9 @@ def score(deal):
     return s
 
 
+SEEN_ASIN = set()                       # one product, one post per run (same ASIN can appear as several deal ids)
+
+
 def pick_groups(deals, made):
     """Best 3 fresh deals per category, strongest categories first."""
     by_cat, seen_keys = {}, set()
@@ -85,7 +88,7 @@ def pick_groups(deals, made):
             continue                                   # no photo = looks like a scam to shoppers
         if qa_check(d)[0] or not is_amazon(d):      # Amazon-only: our affiliate link is Amazon
             continue
-        if (d["id"] in made or key in seen_keys or price is None or price < 1
+        if (d.get("asin") in SEEN_ASIN or d["id"] in made or key in seen_keys or price is None or price < 1
                 or (MAX_PRICE and price > MAX_PRICE) or d.get("expired")
                 or any(w in low for w in SKIP_WORDS)):
             continue
@@ -97,7 +100,11 @@ def pick_groups(deals, made):
         if len(items) >= 3:
             groups.append((sum(score(i) for i in items[:3]), cat, items[:3]))
     groups.sort(key=lambda g: g[0], reverse=True)
-    return [(cat, items) for _, cat, items in groups[:POSTS_PER_RUN]]
+    out = []
+    for _, cat, items in groups[:POSTS_PER_RUN]:
+        SEEN_ASIN.update(i.get("asin") for i in items)
+        out.append((cat, items))
+    return out
 
 
 def price_groups(deals, made, tiers=(10, 15, 25), exclude=()):
@@ -106,7 +113,7 @@ def price_groups(deals, made, tiers=(10, 15, 25), exclude=()):
     for d in sorted(deals, key=lambda x: x["seen"], reverse=True):
         price = price_value(d.get("price", ""))
         key = product_key(d)
-        if (price is None or price < 1 or key in seen or d["id"] in made or d.get("expired")
+        if (d.get("asin") in SEEN_ASIN or price is None or price < 1 or key in seen or d["id"] in made or d.get("expired")
                 or pct_off(d) < 10 or not find_photo(d) or qa_check(d)[0] or not is_amazon(d)
                 or any(w in d["title"].lower() for w in SKIP_WORDS)):
             continue
@@ -119,6 +126,7 @@ def price_groups(deals, made, tiers=(10, 15, 25), exclude=()):
             its.sort(key=score, reverse=True)
             its = its[:3]
             used.update(i["id"] for i in its)
+            SEEN_ASIN.update(i.get("asin") for i in its)
             out.append((f"Under ${t}", its, f"Under ${t} finds"))
     return out
 
@@ -132,7 +140,7 @@ def seasonal_groups(deals, made, top=2):
     for ev in active():
         pool = []
         for d in matches(deals, ev):
-            if (d["id"] in made or d["id"] in used or not is_amazon(d) or not d.get("asin") or qa_check(d)[0]
+            if (d.get("asin") in SEEN_ASIN or d["id"] in made or d["id"] in used or not is_amazon(d) or not d.get("asin") or qa_check(d)[0]
                     or pct_off(d) < 10 or not find_photo(d)
                     or any(w in d["title"].lower() for w in SKIP_WORDS)):
                 continue
@@ -141,6 +149,7 @@ def seasonal_groups(deals, made, top=2):
             pool.sort(key=score, reverse=True)
             items = pool[:3]
             used.update(i["id"] for i in items)
+            SEEN_ASIN.update(i.get("asin") for i in items)
             top_price = max(price_value(i["price"]) or 0 for i in items)
             band = next((b for b in (15, 25, 40, 60, 100, 200) if top_price <= b), None)
             theme = ev["theme"] + (f" under ${band}" if band else "")
