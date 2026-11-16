@@ -20,11 +20,12 @@ jobs:
         with:
           python-version: "3.12"
       - run: python deal_finder.py
+      - run: pip install pillow -q && python fetch_images.py
       - run: python trends_finder.py
       - name: Save the new list
         run: |
           git config user.name "deal-bot"
           git config user.email "deal-bot@users.noreply.github.com"
-          git add DEALS.md deals.html data/
+          git add DEALS.md deals.html data/ photos/
           git diff --cached --quiet || git commit -m "Update deal list"
           git pull --rebase -q && git push

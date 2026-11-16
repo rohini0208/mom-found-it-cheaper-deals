@@ -176,6 +176,13 @@ def parse_feed(source, raw):
         for child in item:
             if child.tag.endswith("encoded") and child.text:
                 raw_desc = child.text
+        image = ""
+        m_img = re.search(r'<img[^>]+src="([^"]+)"', raw_desc)
+        if m_img:
+            image = html.unescape(m_img.group(1))
+        for child in item:                       # DealNews: <media:thumbnail url=...> / <media:content url=...>
+            if not image and child.tag.endswith(("thumbnail", "content")) and child.get("url"):
+                image = child.get("url")
         desc = re.sub(r"\s+", " ", clean(raw_desc))
         blob = f"{title} {desc}".lower()
         try:
@@ -207,6 +214,7 @@ def parse_feed(source, raw):
             "expired": bool(EXPIRED_RE.search(blob)),
             "desc": desc[:500],
             "source": source,
+            "image": image,
             "link": link,
             "seen": when.isoformat(),
         })
