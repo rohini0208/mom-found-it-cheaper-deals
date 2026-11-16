@@ -30,6 +30,13 @@ FEEDS = {
     "DealNews Computers": "https://www.dealnews.com/c39/Computers/?rss=1",
     "Slickdeals Hot Deals": "https://slickdeals.net/newsearch.php?searchin=first&forumchoice%5B%5D=9&rss=1",
 }
+# Long-tail Amazon finds (cheap beauty, kids, jewelry...) that the front-page feeds miss.
+# Slickdeals keyword searches, same RSS format as the feeds above.
+for _kw in ("amazon beauty", "amazon skincare", "amazon baby", "amazon kitchen", "amazon pet",
+            "amazon tools", "amazon toys", "amazon jewelry", "amazon home", "amazon clothing"):
+    FEEDS["Slickdeals search: " + _kw.split()[1]] = (
+        "https://slickdeals.net/newsearch.php?q=" + urllib.parse.quote_plus(_kw)
+        + "&searcharea=deals&searchin=first&rss=1")
 
 STORES = ["Amazon", "Walmart", "Target", "Best Buy", "Costco", "Home Depot", "Lowe's", "Kohl's",
           "Macy's", "eBay", "Woot", "Sam's Club", "Old Navy", "Nike", "Adidas", "Wayfair", "Ulta",
@@ -101,10 +108,7 @@ CODE_FEEDS = {
     "Koupon Karen": "https://www.kouponkaren.com/feed/",
     "The Freebie Guy": "https://thefreebieguy.com/feed/",
     "Passionate Penny Pincher": "https://passionatepennypincher.com/feed/",
-    "Reddit r/deals": "https://www.reddit.com/r/deals/.rss",
     "9to5Toys": "https://9to5toys.com/feed/",
-    "Bens Bargains": "https://www.bensbargains.com/rss.xml",
-    "Brads Deals": "https://www.bradsdeals.com/rss.xml",
 }
 
 PRICE_RE = re.compile(r"\$\s?(\d[\d,]*(?:\.\d{2})?)")
