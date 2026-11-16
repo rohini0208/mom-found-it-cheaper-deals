@@ -40,7 +40,7 @@ def resolve_asins(ctx, deals, limit=60):
     Chrome, read the Amazon link behind 'Get Deal' and save deal id -> ASIN. deal_finder.py applies the map."""
     amap = json.loads(ASIN_MAP.read_text()) if ASIN_MAP.exists() else {}
     todo = [d for d in sorted(deals, key=lambda x: x.get("thumbs", 0), reverse=True)
-            if not d.get("asin") and d.get("store") == "Amazon" and not d.get("expired") and d["id"] not in amap
+            if not d.get("asin") and d.get("store") == "Amazon" and not d.get("expired") and not amap.get(d["id"])
             and str(d["id"]).startswith("http")][:limit]
     pg = ctx.new_page()
     got = 0
@@ -50,8 +50,10 @@ def resolve_asins(ctx, deals, limit=60):
             pg.wait_for_timeout(1500)
             html = pg.content().replace("%2F", "/")
             hrefs = pg.evaluate("() => [...document.querySelectorAll('a[href*=\"amazon.com\"], a[href*=\"amzn.to\"], a[data-href*=\"amazon\"]')].map(a => a.href || a.dataset.href)")
-            hit = None
-            for h in list(hrefs or []) + [html]:
+            hit = pg.evaluate("() => { const e = document.querySelector('[data-aps-asin]'); return e ? e.dataset.apsAsin : null; }")
+            if hit and not re.fullmatch(r"[A-Z0-9]{10}", hit):
+                hit = None
+            for h in ([] if hit else list(hrefs or []) + [html]):
                 m = ASIN_PAT.search(h or "")
                 if m:
                     hit = m.group(1)
