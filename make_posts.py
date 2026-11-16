@@ -97,12 +97,13 @@ def pick_groups(deals, made):
     return [(cat, items) for _, cat, items in groups[:POSTS_PER_RUN]]
 
 
+AT_RE = re.compile(r"\s+@\w+.*$")
 COND_RE = re.compile(r"\s*\bw/\s*(?:S&S|Prime|Subscribe\s*&\s*Save|Coupon|Clip(?:pable)? Coupon)\b.*$", re.I)
 
 
 def tidy(title):
     """Drop deal-site shorthand (w/ S&S, w/ Prime) that means nothing to shoppers."""
-    t = COND_RE.sub("", title).strip(" -,")
+    t = AT_RE.sub("", COND_RE.sub("", title)).strip(" -,")
     if len(t) >= 85:                       # was cut at 90 characters: drop the broken last words
         words = t.split()[:-1]
         while words and len(words[-1].strip(",.")) <= 2:
@@ -614,7 +615,7 @@ def main():
         print(f"made post_{n}.png - {theme}: " + " | ".join(i["title"][:30] for i in items))
 
     # one extra single-product "Mom's pick" post: best-reviewed item with a photo
-    pool = [d for d in deals if is_amazon(d) and d.get("asin") in META and find_photo(d) and not qa_check(d)[0] and d["id"] not in made
+    pool = [d for d in deals if is_amazon(d) and (META.get(d.get("asin", "")) or {}).get("reviews", 0) >= 100 and find_photo(d) and not qa_check(d)[0] and d["id"] not in made
             and price_value(d.get("price", "")) and not any(w in d["title"].lower() for w in SKIP_WORDS)]
     if pool:
         star = max(pool, key=lambda x: ((META.get(x.get("asin", "")) or {}).get("reviews", 0), pct_off(x)))
