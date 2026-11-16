@@ -9,6 +9,7 @@ Run:  python deal_finder.py
 
 import html
 import json
+import os
 import re
 import urllib.parse
 import urllib.request
@@ -30,6 +31,9 @@ FEEDS = {
     "DealNews Computers": "https://www.dealnews.com/c39/Computers/?rss=1",
     "Slickdeals Hot Deals": "https://slickdeals.net/newsearch.php?searchin=first&forumchoice%5B%5D=9&rss=1",
 }
+# camelcamelcamel: public RSS of the biggest Amazon price drops across ALL products.
+FEEDS["Amazon price drops (daily)"] = "https://camelcamelcamel.com/top_drops/feed?t=daily"
+FEEDS["Amazon price drops (weekly)"] = "https://camelcamelcamel.com/top_drops/feed?t=weekly"
 # Long-tail Amazon finds (cheap beauty, kids, jewelry...) that the front-page feeds miss.
 # Slickdeals keyword searches, same RSS format as the feeds above.
 for _kw in ("amazon beauty", "amazon skincare", "amazon baby", "amazon kitchen", "amazon pet",
@@ -118,6 +122,9 @@ PRICE_RE = re.compile(r"\$\s?(\d[\d,]*(?:\.\d{2})?)")
 CODE_RE = re.compile(r"(?i:code|coupon)[:\s]+[\"']?([A-Z0-9]{4,20})\b")
 TAG_RE = re.compile(r"<[^>]+>")
 ASIN_RE = re.compile(r"amazon\.com/(?:[^\s\"'<>]*?/)?(?:dp|gp/product|gp/aw/d)/([A-Z0-9]{10})")
+CAMEL_RE = re.compile(r"(.+?) - down ([\d.]+)% \(\$[\d,.]+\) to \$([\d,]+\.\d{2}) from \$([\d,]+\.\d{2})")
+CAMEL_MAX_PRICE = float(os.environ.get("CAMEL_MAX_PRICE") or "150")
+CAMEL_MIN_DROP = float(os.environ.get("CAMEL_MIN_DROP") or "20")
 HISTORY_FILE = Path("data/price_history.json")
 THUMBS_RE = re.compile(r"thumb score:\s*\+?(\d+)", re.I)
 # Words that mean a deal or code is dead. A code found next to these is never shown.
@@ -156,6 +163,15 @@ def parse_feed(source, raw):
         title = clean(item.findtext("title"))
         link = (item.findtext("link") or "").strip()
         raw_desc = item.findtext("description") or ""
+        cc = CAMEL_RE.match(title) if "camelcamelcamel.com/product/" in link else None
+        if cc:
+            # Price-drop feed of ALL Amazon products. Keep only family-size prices and real drops.
+            now_p, was_p = (float(cc.group(i).replace(",", "")) for i in (3, 4))
+            if now_p > CAMEL_MAX_PRICE or float(cc.group(2)) < CAMEL_MIN_DROP:
+                continue
+            title = f"{cc.group(1).strip()} - ${cc.group(3)} (was ${cc.group(4)}, down {cc.group(2)}%)"
+            raw_desc = f"List price: ${cc.group(4)}. Amazon price drop. {link}"
+            link = link.replace("camelcamelcamel.com/product/", "www.amazon.com/dp/")
         # Slickdeals puts the full text in content:encoded
         for child in item:
             if child.tag.endswith("encoded") and child.text:
