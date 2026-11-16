@@ -621,6 +621,27 @@ def make_image_trio(path, theme, items, cat="Everything else"):
     img.save(path)
 
 
+_KSTOP = set("with pack piece pieces set for the and men mens women womens ladies kids boys girls large small black white blue pink gray grey inch pcs count".split())
+
+
+def _who(deal):
+    """Audience (men / women / kids / any): never compare a men's shirt with a women's one."""
+    t = " " + deal["title"].lower().replace("'", "").replace("\u2019", "") + " "
+    if re.search(r"\b(women|womens|woman|ladies|lady|girls?|her)\b", t):
+        return "w"
+    if re.search(r"\b(men|mens|man|boys?|him)\b", t):
+        return "m"
+    if re.search(r"\b(kids?|toddlers?|baby|infant)\b", t):
+        return "k"
+    return "any"
+
+
+def _kind(deal):
+    """Product-type words, so 'THIS or THAT' compares like with like (hoodie vs jacket, not hoodie vs vacuum)."""
+    ws = re.findall(r"[a-z]{4,}", no_price_title(deal["title"]).lower())
+    return {w.rstrip("s") for w in ws[:12] if w not in _KSTOP}
+
+
 def make_image_thisorthat(path, a, b, palette):
     """Comment-bait: two products side by side, 'THIS or THAT?'. Engagement posts get ~40x the comments of plain deal posts."""
     bg, accent = palette
@@ -778,7 +799,8 @@ def main():
     pair = None
     for i, x in enumerate(cands[:30]):
         for y in cands[i + 1:30]:
-            if x.get("category") == y.get("category") and product_key(x) != product_key(y) and abs(price_value(x["price"]) - price_value(y["price"])) <= 15:
+            if (x.get("category") == y.get("category") and product_key(x) != product_key(y) and abs(price_value(x["price"]) - price_value(y["price"])) <= 15
+                    and _kind(x) & _kind(y) and _who(x) == _who(y)):
                 pair = (x, y)
                 break
         if pair:
