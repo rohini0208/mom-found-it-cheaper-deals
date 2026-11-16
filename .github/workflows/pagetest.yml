@@ -1,0 +1,16 @@
+name: pagetest
+on: workflow_dispatch
+jobs:
+  t:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          python3 - <<'PY'
+          import urllib.request,re,html
+          H={"User-Agent":"Mozilla/5.0 (compatible; deal-bot)"}
+          p=urllib.request.urlopen(urllib.request.Request("https://hip2save.com/deals/wireless-meat-thermometer/",headers=H),timeout=30).read().decode("utf8","ignore")
+          print("S len",len(p))
+          for m in sorted(set(re.findall(r'href=["\']([^"\']*(?:amazon|/go/|/out/|amzn|geni\.us|click)[^"\']*)',p)))[:15]: print("S href",m[:200])
+          print("S asin-like",set(re.findall(r"B0[A-Z0-9]{8}",p)))
+          print("S og",re.findall(r'og:image"[^>]*content="([^"]+)"',p)[:2])
+          PY
