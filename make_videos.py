@@ -94,7 +94,7 @@ def find_photo(deal):
         if f.suffix.lower() not in PHOTO_EXT:
             continue
         stem = f.stem.lower()
-        if stem == did:
+        if stem == did or (deal.get("asin") and stem == deal["asin"].lower()):
             return f
         words = [w for w in re.split(r"[^a-z0-9]+", stem) if w]
         if words and all(w in words_in_title for w in words):
