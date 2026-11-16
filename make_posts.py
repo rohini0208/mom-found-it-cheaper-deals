@@ -18,6 +18,8 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageOps
 
+from copy_bank import PERSONAL, pick
+from qa import check as qa_check
 from deal_finder import is_amazon, no_price_title, product_key
 from make_videos import (AMAZON_PRICES, BRAND, CHAR, GOLD, IVORY, MUTED, SITE, SKIP_WORDS,
                          as_of, centered, find_photo, fit, masthead, price_value, rule, sans,
@@ -72,6 +74,8 @@ def pick_groups(deals, made):
         price = price_value(d.get("price", ""))
         low = d["title"].lower()
         key = product_key(d)
+        if qa_check(d)[0] or not is_amazon(d):      # Amazon-only: our affiliate link is Amazon
+            continue
         if (d["id"] in made or key in seen_keys or price is None or price < 1
                 or (MAX_PRICE and price > MAX_PRICE) or d.get("expired")
                 or any(w in low for w in SKIP_WORDS)):
@@ -152,7 +156,7 @@ def texts(theme, items):
     names = [short_title(no_price_title(i["title"])) for i in items]
     names = [" ".join(re.sub(r"^\[[^\]]*\]\s*", "", n).split(",")[0].split()[:5]).rstrip(".,;:- ") for n in names]
     caption = (f"✨ {theme} - {names[0]}, {names[1]} and {names[2]} on price drops!\n"
-               f"(AD)(Commission earned)\n\n{HASHTAGS}")
+               f"{pick(PERSONAL, items[0]['id'], 'pp')}\n(AD)(Commission earned)\n\n{HASHTAGS}")
     lines = ["Shop here (prices and codes can change):"]
     for n, i in zip(names, items):
         code = clean_code(i)

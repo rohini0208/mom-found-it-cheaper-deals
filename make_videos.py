@@ -11,6 +11,8 @@ Out:  videos/deal_1.mp4 + deal_1.txt (caption to paste), ...
 
 import asyncio
 import hashlib
+from copy_bank import CLOSERS, FEATURES_TITLES, OPENERS, hook_for, pick
+from qa import check as qa_check
 import json
 import os
 import random
@@ -43,7 +45,7 @@ AB_VOICE = os.environ.get("AB_VOICE") or "en-US-EmmaMultilingualNeural"
 VOICE_RATE = os.environ.get("VOICE_RATE", "+6%")
 VOICE_PITCH = os.environ.get("VOICE_PITCH", "+2Hz")
 VIDEOS_PER_RUN = int(os.environ.get("VIDEOS_PER_RUN") or "20")   # Reels per day (private repo: ~2,000 free Actions min/month)
-MAX_PRICE = 60.0
+MAX_PRICE = float(os.environ.get("VIDEO_MAX_PRICE") or "0")   # 0 = no cap (all categories)
 SKIP_WORDS = ("ebook", "ps5", "xbox", "steam", "pcdd", "gog", "resale", "kindle", "watch (")
 DEALS_FILE = Path("data/deals.json")
 MADE_FILE = Path("data/videos_made.json")
@@ -104,9 +106,11 @@ def find_photo(deal):
 def pick_deals(deals, made):
     good = []
     for d in deals:
+        if qa_check(d)[0]:
+            continue                                  # quality gate: blocked deals never get a Reel
         price = price_value(d.get("price", ""))
         low = d["title"].lower()
-        if d["id"] in made or price is None or price > MAX_PRICE or price < 1:
+        if d["id"] in made or price is None or (MAX_PRICE and price > MAX_PRICE) or price < 1:
             continue
         if any(w in low for w in SKIP_WORDS):
             continue
@@ -278,11 +282,11 @@ def scene_product(path, title, deal):
     img.save(path)
 
 
-def scene_features(path, features):
+def scene_features(path, features, title="Why it's a good find"):
     img = Image.new("RGB", (W, H), IVORY)
     d = ImageDraw.Draw(img)
     masthead(d, CHAR)
-    centered(d, 520, "Why moms love it", serif(96, "Regular", italic=True), CHAR)
+    centered(d, 520, title, serif(96, "Regular", italic=True), CHAR)
     rule(d, 670, 160)
     y = 800
     for i, feat in enumerate(features[:3], 1):
@@ -450,7 +454,7 @@ def make_one(n, deal, work):
     title = short_title(no_price_title(deal["title"]) if amazon else deal["title"])
     price, code, coupon = deal["price"], deal.get("code", ""), deal.get("coupon", "")
     was, feats = deal.get("was", ""), deal.get("features", [])
-    hook = random.choice(HOOKS)
+    hook = hook_for(deal.get("category", ""), deal["id"])
     scenes, durations = [], []
 
     def add(name, dur, fn, *args):
@@ -462,7 +466,7 @@ def make_one(n, deal, work):
     add("hook", 2.2, scene_hook, hook)
     add("product", 3.6, scene_product, title, deal)
     if feats:
-        add("features", 4.2, scene_features, feats)
+        add("features", 4.2, scene_features, feats, pick(FEATURES_TITLES, deal["id"], "ft"))
     if amazon:
         was = ""          # no "was" price either
     add("price", 3.8, scene_price, price, was, code, coupon, amazon, stamp)
@@ -474,15 +478,13 @@ def make_one(n, deal, work):
     said_was = f" It's usually {was}." if was else ""
     said_low = " That's the lowest price I've seen on it." if not amazon and is_lowest_seen(deal) else ""
     said_feats = (" " + ". ".join(feats[:2]) + ".") if feats else ""
-    opener = random.choice(["Okay, you need to see this!", "Oh, this one's good.", "Mama, stop scrolling for a sec!",
-                            "I just found something you're going to love."])
+    opener = pick(OPENERS, deal["id"], "op")
     spoken = " ".join(title.split()[:7]).rstrip(".!?,;: -")      # keep the spoken name short
     if amazon:
         body = f"{spoken} just had a price drop on Amazon! Tap the link to see today's price.{said_feats}"
     else:
         body = f"{spoken}, only {price}!{said_was}{said_low}{said_feats}"   # price in the first seconds
-    cta = (f"Deals like this don't usually last, so grab it while you can. "
-           f"The link is in the caption, and there's more every day at {BRAND}.")
+    cta = pick(CLOSERS, deal["id"], "cl").format(brand=BRAND)
     parts = [(opener, "+12%", "+4Hz", 0),            # excited hook
              (body, VOICE_RATE, VOICE_PITCH, 0.15)]  # then warm and calm
     if said_code:

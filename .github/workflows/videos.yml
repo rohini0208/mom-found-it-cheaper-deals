@@ -25,6 +25,8 @@ jobs:
         env:
           YT_API_KEY: ${{ secrets.YT_API_KEY }}
         run: python viral_finder.py
+      - name: Quality report
+        run: python qa.py
       - name: Make today's videos
         env:
           VOICE: ${{ vars.VOICE }}
@@ -39,7 +41,7 @@ jobs:
         run: |
           git config user.name "deal-bot"
           git config user.email "deal-bot@users.noreply.github.com"
-          git add data/videos_made.json data/posts_made.json
+          git add data/videos_made.json data/posts_made.json QA_REPORT.md
           if [ -f VIRAL.md ]; then git add VIRAL.md data/viral.json; fi
           git diff --cached --quiet || git commit -m "Update videos list"
           git pull --rebase -q && git push
