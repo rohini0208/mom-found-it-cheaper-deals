@@ -1,6 +1,5 @@
 # Photos needed (products in the next posts that have no photo yet)
 
-- [ ] B09H7C4NPV.jpg  G Gradual Men's Tapered Sweatpants w/ 3 Zipper Pockets (vari  https://www.amazon.com/dp/B09H7C4NPV?tag=momfounditc08-20
 - [ ] B0FJDS4V86.jpg  Pixel Panda Winter Gloves Men Women with 3M Thinsulate, Wate  https://www.amazon.com/dp/B0FJDS4V86?tag=momfounditc08-20
 - [ ] B0HD7FRMM6.jpg  WIZEKA Kitchen Knife Set, 15 Piece Knife Block Set with Shar  https://www.amazon.com/dp/B0HD7FRMM6?tag=momfounditc08-20
 - [ ] 1223063151.jpg  Winning Moves Tile Lock Scrabble Board Game $15.60  https://www.amazon.com/dp/1223063151?tag=momfounditc08-20
