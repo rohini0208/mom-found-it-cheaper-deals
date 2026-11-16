@@ -40,10 +40,11 @@ def main():
     todo, seen = [], set()
     for d in sorted(deals, key=lambda x: x.get("thumbs", 0), reverse=True):   # best deals first
         a = d.get("asin", "")
-        if a and a not in seen and not d.get("expired") and (a not in meta or not (PH / f"{a}.jpg").exists()):
+        if a and a not in seen and not d.get("expired") and (a not in meta or meta[a].get("v") != 2 or not (PH / f"{a}.jpg").exists()):
             seen.add(a)
             todo.append(a)
     done = 0
+    dbg = 0
     with sync_playwright() as p:
         # your real Chrome, with its own saved profile folder (cookies stay between runs)
         ctx = p.chromium.launch_persistent_context(str(Path.home() / ".mfic_chrome"), channel="chrome",
@@ -68,10 +69,25 @@ def main():
                     const el = root.querySelector('.basisPrice .a-offscreen, [data-a-strike="true"] .a-offscreen, .a-price.a-text-price .a-offscreen');
                     return el ? el.textContent : null; }""")
                 lp = re.search(r"\$[\d,.]+", lp or "")
+                if not lp:                                  # fallback: "List Price: $X" / "Typical price: $X" text
+                    try:
+                        txt = page.inner_text("#ppd", timeout=5000)
+                    except Exception:
+                        txt = ""
+                    lp = re.search(r"(?:List Price|Typical price|Was|M\.?S\.?R\.?P\.?)[:\s]*(\$[\d,.]+)", txt)
+                    if lp:
+                        lp = re.match(r"\$[\d,.]+", lp.group(1))
+                if not lp and dbg < 4:                      # still nothing: keep the price section so it can be fixed
+                    dbg += 1
+                    Path("data/price_debug").mkdir(parents=True, exist_ok=True)
+                    try:
+                        Path(f"data/price_debug/{a}.txt").write_text(page.inner_text("#ppd", timeout=5000)[:3000])
+                    except Exception:
+                        pass
                 m = re.search(r'"hiRes":"(https:[^"]+)"', html)
                 meta[a] = {"rating": float(rt.group(1)) if rt else None,
                            "reviews": parse_reviews(rc.group(1)) if rc else None,
-                           "list": lp.group(0) if lp else None}
+                           "list": lp.group(0) if lp else None, "v": 2}
                 if m:
                     img = ctx.request.get(re.sub(r"\._[^.]*_\.", "._SL600_.", m.group(1)))
                     (PH / f"{a}.jpg").write_bytes(img.body())
@@ -82,7 +98,7 @@ def main():
             time.sleep(random.uniform(3, 6))
         ctx.close()
     META.write_text(json.dumps(meta, indent=1))
-    sh(*GIT, "add", "photos", "data/product_meta.json")
+    sh(*GIT, "add", "photos", "data/product_meta.json", "data/price_debug")
     if sh(*GIT, "diff", "--cached", "--quiet").returncode:
         sh(*GIT, "commit", "-qm", f"Amazon photos and ratings ({done} products, from home computer)")
         sh(*GIT, "pull", "--rebase", "-q")
