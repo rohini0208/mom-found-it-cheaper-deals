@@ -182,6 +182,104 @@ def make_image(path, theme, items):
     img.save(path)
 
 
+
+# ---------- layout v2: bold, photo-first (closer to the big deal groups) ----------
+PALETTES = {                      # (background, accent) per category
+    "Baby & Kids": ((255, 183, 77), (216, 67, 21)),
+    "Toys & Games": ((126, 87, 194), (255, 202, 40)),
+    "Beauty & Health": ((236, 100, 140), (255, 255, 255)),
+    "Home & Kitchen": ((0, 137, 123), (255, 213, 79)),
+    "Fashion": ((40, 53, 147), (255, 138, 128)),
+    "Tech & Electronics": ((21, 101, 192), (255, 235, 59)),
+    "Grocery & Household": ((67, 160, 71), (255, 241, 118)),
+    "Pets": ((239, 108, 0), (255, 255, 255)),
+    "Outdoor & Tools": ((55, 71, 79), (255, 193, 7)),
+    "Everything else": ((216, 67, 21), (255, 235, 59)),
+}
+V2_TILE_H, V2_GAP, V2_TOP = 300, 18, 310
+
+
+def pct_off(deal):
+    a, b = price_value(deal.get("price", "")), price_value(deal.get("was", ""))
+    return round((1 - a / b) * 100) if a and b and b > a else 0
+
+
+def draw_tile_v2(img, i, deal, top, accent):
+    d = ImageDraw.Draw(img)
+    d.rounded_rectangle([40, top, PW - 40, top + V2_TILE_H], 30, fill=(255, 255, 255))
+    box = 250
+    bx, by = 62, top + (V2_TILE_H - box) // 2
+    photo = find_photo(deal)
+    shown = False
+    if photo:
+        try:
+            pic = ImageOps.contain(Image.open(photo).convert("RGB"), (box, box))
+            img.paste(pic, (bx + (box - pic.width) // 2, by + (box - pic.height) // 2))
+            shown = True
+        except Exception as e:
+            print(f"[warn] photo {photo}: {e}")
+    d = ImageDraw.Draw(img)
+    if not shown:                  # no photo yet: soft tile with the first letters of the product
+        d.rounded_rectangle([bx, by, bx + box, by + box], 24, fill=(244, 241, 236))
+        word = (short_title(no_price_title(deal["title"])).split() or ["?"])[0][:10]
+        lf = fit(d, word, lambda s: sans(s, "Bold"), 56, box - 30, max_lines=1, min_size=26)
+        d.text((bx + (box - d.textlength(word, font=lf)) / 2, by + box / 2 - lf.size / 2), word, font=lf, fill=(160, 150, 140))
+    d.ellipse([bx - 14, top - 14, bx + 46, top + 46], fill=CHAR)        # number badge
+    d.text((bx + 16 - d.textlength(str(i), font=sans(34, "Bold")) / 2 + 14, top - 6), str(i), font=sans(34, "Bold"), fill=(255, 255, 255))
+    x, w = 340, PW - 40 - 30 - 340
+    title = tidy(short_title(no_price_title(deal["title"])))
+    tf = fit(d, title, lambda s: sans(s, "Bold"), 38, w, max_lines=2, min_size=28)
+    y = top + 24
+    for line in wrap(d, title, tf, w)[:2]:
+        d.text((x, y), line, font=tf, fill=CHAR)
+        y += tf.size + 6
+    pf = sans(66, "Bold")
+    price = deal["price"]
+    pw_ = d.textlength(price, font=pf)
+    d.rounded_rectangle([x - 6, y + 4, x + pw_ + 26, y + 86], 22, fill=accent[0] if False else CHAR)
+    d.text((x + 10, y + 8), price, font=pf, fill=(255, 255, 255))
+    cx = x + pw_ + 44
+    off, was = pct_off(deal), deal.get("was", "")
+    if off >= 10:
+        d.rounded_rectangle([cx, y + 16, cx + 150, y + 70], 27, fill=(229, 57, 53))
+        d.text((cx + 16, y + 24), f"{off}% OFF", font=sans(30, "Bold"), fill=(255, 255, 255))
+        cx += 168
+    if was and off:
+        wf = sans(28, "Medium")
+        d.text((cx, y + 30), f"was {was}", font=wf, fill=MUTED)
+        d.line([(cx - 2, y + 46), (cx + d.textlength(f"was {was}", font=wf) + 2, y + 46)], fill=MUTED, width=3)
+    code = clean_code(deal)
+    extra = (f"CODE  {code}" if code else "CLIP THE COUPON" if deal.get("coupon") else "")
+    row = y + 100
+    if extra:
+        ef = sans(28, "Bold")
+        ew = d.textlength(extra, font=ef)
+        d.rounded_rectangle([x - 6, row, x + ew + 26, row + 46], 23, outline=CHAR, width=3)
+        d.text((x + 10, row + 6), extra, font=ef, fill=CHAR)
+    pr = proof(deal)
+    if pr:
+        sf = sans(26, "SemiBold")
+        d.text((PW - 70 - d.textlength(pr, font=sf), row + 8), pr.replace("stars", "\u2605"), font=sf, fill=(190, 120, 0))
+    if is_amazon(deal) and AMAZON_PRICES != "hide":
+        d.text((x, top + V2_TILE_H - 36), f"Amazon price as of {as_of(deal['seen'])}", font=sans(22, "Medium"), fill=MUTED)
+
+
+def make_image_v2(path, theme, items, cat="Everything else"):
+    bg, accent = PALETTES.get(cat, PALETTES["Everything else"])
+    img = Image.new("RGB", (PW, PH), bg)
+    d = ImageDraw.Draw(img)
+    centered(d, 52, "MOM FOUND IT CHEAPER", sans(30, "SemiBold"), (255, 255, 255), spacing=8)
+    head = theme.upper()
+    hf = fit(d, head, lambda s: sans(s, "Bold"), 104, PW - 120, max_lines=1, min_size=56)
+    centered(d, 118, head, hf, (255, 255, 255))
+    centered(d, 118 + hf.size + 22, "TODAY'S PRICE DROPS", sans(34, "SemiBold"), accent, spacing=6)
+    for i, deal in enumerate(items, 1):
+        draw_tile_v2(img, i, deal, V2_TOP + (i - 1) * (V2_TILE_H + V2_GAP), accent)
+    d = ImageDraw.Draw(img)
+    centered(d, 1292, "PRICES CAN CHANGE  \u00b7  LINK IN COMMENTS  \u00b7  #AD", sans(24, "Medium"), (255, 255, 255), spacing=3, max_w=PW - 60)
+    img.save(path)
+
+
 def link_for(deal):
     return f"{SITE}#d-{hashlib.sha1(deal['id'].encode()).hexdigest()[:10]}"
 
@@ -208,7 +306,10 @@ def main():
     groups = pick_groups(deals, made)
     for n, (cat, items) in enumerate(groups, 1):
         theme = THEMES.get(cat, f"{cat} finds")
-        make_image(OUT / f"post_{n}.png", theme, items)
+        if os.environ.get("POST_LAYOUT", "v2") == "v2":
+            make_image_v2(OUT / f"post_{n}.png", theme, items, cat)
+        else:
+            make_image(OUT / f"post_{n}.png", theme, items)
         caption, comment = texts(theme, items)
         (OUT / f"post_{n}.txt").write_text(f"CAPTION:\n{caption}\n\nFIRST COMMENT (paste after posting):\n{comment}\n")
         made.update(i["id"] for i in items)
