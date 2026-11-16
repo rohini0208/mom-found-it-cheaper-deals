@@ -12,7 +12,7 @@ import sys
 import time
 from pathlib import Path
 
-MAX_RUN = 100
+MAX_RUN = 250
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
       "Chrome/124.0 Safari/537.36")
 H = {"User-Agent": UA, "Accept-Language": "en-US,en;q=0.9", "Accept": "text/html,application/xhtml+xml"}
@@ -81,6 +81,7 @@ def main():
             todo.append(a)
     done = 0
     dbg = 0
+    amap0 = json.loads(ASIN_MAP.read_text()) if ASIN_MAP.exists() else {}
     with sync_playwright() as p:
         # your real Chrome, with its own saved profile folder (cookies stay between runs)
         ctx = p.chromium.launch_persistent_context(str(Path.home() / ".mfic_chrome"), channel="chrome",
@@ -90,6 +91,12 @@ def main():
             resolve_asins(ctx, deals)
         except Exception as e:
             print("asin resolver skipped:", str(e)[:100])
+        amap0 = json.loads(ASIN_MAP.read_text()) if ASIN_MAP.exists() else {}
+        for d in sorted(deals, key=lambda x: x.get("thumbs", 0), reverse=True):   # use freshly found IDs right away
+            a = d.get("asin") or amap0.get(d["id"], "")
+            if a and a not in seen and not d.get("expired") and (a not in meta or meta[a].get("v") != 3 or not (PH / f"{a}.jpg").exists()):
+                seen.add(a)
+                todo.append(a)
         for a in todo[:MAX_RUN]:
             try:
                 page.goto(f"https://www.amazon.com/dp/{a}", wait_until="domcontentloaded", timeout=45000)
