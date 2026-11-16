@@ -4,6 +4,7 @@ check(deal) -> list of BLOCK reasons (deal is skipped) and WARN notes (deal kept
 Run:  python qa.py        -> writes QA_REPORT.md for today's deals
 """
 
+import json
 import re
 from collections import Counter
 from pathlib import Path
@@ -17,6 +18,17 @@ def _num(p):
         return float(str(p).replace("$", "").replace(",", ""))
     except ValueError:
         return None
+
+
+_META = None
+
+
+def _meta():
+    global _META
+    if _META is None:
+        p = Path("data/product_meta.json")
+        _META = json.loads(p.read_text()) if p.exists() else {}
+    return _META
 
 
 def check(deal):
@@ -37,6 +49,9 @@ def check(deal):
         block.append("price not below was-price")
     if price and was and price < was * 0.1:
         block.append("price under 10% of was-price (likely a data error)")
+    now = _num((_meta().get(deal.get("asin", "")) or {}).get("now") or "")
+    if price and now and now > price * 1.15 and not (deal.get("code") or deal.get("coupon")):
+        block.append(f"Amazon shows ${now:g}, higher than the deal price (stale or needs a coupon)")
     code = deal.get("code", "")
     if code and code != "w/ code" and deal.get("code_label") in ("expired", "may be expired"):
         warn.append("code may be expired, will be hidden")

@@ -40,7 +40,7 @@ def main():
     todo, seen = [], set()
     for d in sorted(deals, key=lambda x: x.get("thumbs", 0), reverse=True):   # best deals first
         a = d.get("asin", "")
-        if a and a not in seen and not d.get("expired") and (a not in meta or meta[a].get("v") != 2 or not (PH / f"{a}.jpg").exists()):
+        if a and a not in seen and not d.get("expired") and (a not in meta or meta[a].get("v") != 3 or not (PH / f"{a}.jpg").exists()):
             seen.add(a)
             todo.append(a)
     done = 0
@@ -69,6 +69,11 @@ def main():
                     const el = root.querySelector('.basisPrice .a-offscreen, [data-a-strike="true"] .a-offscreen, .a-price.a-text-price .a-offscreen');
                     return el ? el.textContent : null; }""")
                 lp = re.search(r"\$[\d,.]+", lp or "")
+                now = page.evaluate("""() => {
+                    const root = document.querySelector('#ppd') || document;
+                    const el = root.querySelector('.priceToPay .a-offscreen, #corePrice_feature_div .a-price:not(.a-text-price) .a-offscreen, .a-price:not(.a-text-price) .a-offscreen');
+                    return el ? el.textContent : null; }""")
+                now = re.search(r"\$[\d,.]+", now or "")
                 if not lp:                                  # fallback: "List Price: $X" / "Typical price: $X" text
                     try:
                         txt = page.inner_text("#ppd", timeout=5000)
@@ -87,7 +92,7 @@ def main():
                 m = re.search(r'"hiRes":"(https:[^"]+)"', html)
                 meta[a] = {"rating": float(rt.group(1)) if rt else None,
                            "reviews": parse_reviews(rc.group(1)) if rc else None,
-                           "list": lp.group(0) if lp else None, "v": 2}
+                           "list": lp.group(0) if lp else None, "now": now.group(0) if now else None, "v": 3}
                 if m:
                     img = ctx.request.get(re.sub(r"\._[^.]*_\.", "._SL600_.", m.group(1)))
                     (PH / f"{a}.jpg").write_bytes(img.body())
