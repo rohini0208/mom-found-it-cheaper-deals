@@ -42,7 +42,7 @@ def check_post(p, text):
         m = META.get(i["asin"]) or {}
         now, price = num(m.get("now")), num(i["price"])
         if now and price and price < now * 0.7:
-            out.append(("WARN", f"price ${price} well below Amazon page ${now} (coupon?): {i['title'][:40]}"))
+            out.append(("BLOCKER", f"price ${price} well below Amazon page ${now} (coupon?): {i['title'][:40]}"))
         if now and price and price > now * 1.15:
             out.append(("BLOCKER", f"price ${price} above Amazon page ${now}: {i['title'][:40]}"))
         if i["pct"] and i["pct"] >= 15:
