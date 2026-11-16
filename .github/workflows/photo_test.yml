@@ -1,0 +1,12 @@
+name: Photo fetch test (one product)
+on:
+  workflow_dispatch: {}
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: One public product page, one request
+        run: |
+          code=$(curl -s -m 30 -o page.html -w "%{http_code}" -A "Mozilla/5.0" https://www.amazon.com/dp/B07ZPFGRMC)
+          echo "status=$code size=$(wc -c < page.html)"
+          if grep -qi "captcha\|robot check\|automated access" page.html; then echo "RESULT: blocked (captcha/bot page)"; else echo "RESULT: page served"; grep -o 'data-old-hires="[^"]*"' page.html | head -1; grep -o 'id="landingImage"' page.html | head -1; fi
