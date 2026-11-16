@@ -35,7 +35,7 @@ ASIN_MAP = Path("data/asin_map.json")
 ASIN_PAT = re.compile(r"(?:/dp/|/gp/product/|/gp/aw/d/|asin=)([A-Z0-9]{10})(?:[/?&\"' ]|$)")
 
 
-def resolve_asins(ctx, deals, limit=60):
+def resolve_asins(ctx, deals, limit=150):
     """Most Amazon deals from the feeds carry no product ID (only ~1 in 5 do). Open each deal page in your
     Chrome, read the Amazon link behind 'Get Deal' and save deal id -> ASIN. deal_finder.py applies the map."""
     amap = json.loads(ASIN_MAP.read_text()) if ASIN_MAP.exists() else {}
