@@ -182,7 +182,8 @@ def tidy(title):
         while words and len(words[-1].strip(",.")) <= 2:
             words.pop()
         t = " ".join(words)
-    ws = t.split()
+    t = re.split(r",| \(| - | \| | w/ | with ", t)[0]       # product name only: drop spec tails
+    ws = t.split()[:9]
     while ws and (ws[-1].lower().strip(",.:;") in _DANGLE or ws[-1].startswith("(") and not ws[-1].endswith(")")):
         ws.pop()                                    # never end on 'and', 'with', '(2nd' ...
     return " ".join(ws).strip(" -,:")
@@ -479,7 +480,7 @@ def make_image_v2(path, theme, items, cat="Everything else"):
         draw_tile_v2(img, i, deal, V2_TOP + (i - 1) * (V2_TILE_H + V2_GAP), accent)
     star = best_item(items)
     k = items.index(star)
-    sticker(img, "MOM'S PICK", 200, V2_TOP + k * (V2_TILE_H + V2_GAP) + V2_TILE_H - 22, (255, 193, 7), ink=(40, 40, 40))
+    pass
     d = ImageDraw.Draw(img)
     cta_pill(img, 1262)
     img.save(path)
@@ -584,7 +585,7 @@ def make_image_hero(path, theme, items, cat="Everything else"):
     y = _title(d, star, 520, 322, PW - 40 - 30 - 520, 42, 3, 30)
     y = _price_row(img, star, 520, y + 8, 84, PW - 40 - 30 - 520)
     _chips(img, star, 520, y + 6, 480, 28)
-    sticker(img, "MOM'S PICK", 250, 722, (255, 193, 7), ink=(40, 40, 40))
+    pass
     for k, deal in enumerate(rest):
         x0 = 40 + k * 510
         d = ImageDraw.Draw(img)
@@ -623,7 +624,7 @@ def make_image_trio(path, theme, items, cat="Everything else"):
             y += 36
         _chips(img, deal, x0 + 18, y + 6, cw - 36, 24)
         if deal is star:
-            sticker(img, "MOM'S PICK", x0 + cw - 90, 330, (255, 193, 7), ink=(40, 40, 40), angle=10)
+            pass
     d = ImageDraw.Draw(img)
     d.rounded_rectangle([40, 1110, PW - 40, 1250], 34, fill=accent)
     ink = CHAR if sum(accent) > 480 else (255, 255, 255)
@@ -731,10 +732,10 @@ QUESTIONS = ["Which one is going in your cart?", "Which would you grab first?", 
 
 def texts(theme, items):
     names = [tidy(short_title(no_price_title(i["title"]))) for i in items]
-    names = [" ".join(re.sub(r"^\[[^\]]*\]\s*", "", n).split(",")[0].split()[:5]).rstrip(".,;:- ") for n in names]
+    names = [re.sub(r"^\[[^\]]*\]\s*", "", n).rstrip(".,;:- ") for n in names]
     st = story(items)
     _b = best_item(items); _off = pct_off(_b)
-    _bn = " ".join(tidy(short_title(no_price_title(_b["title"]))).split(",")[0].split()[:4])
+    _bn = tidy(short_title(no_price_title(_b["title"])))
     lead = f"🔥 {_off}% OFF! {_bn}\n" if _off >= 15 else ""      # % off up front: what the biggest deal groups open with
     caption = (lead + f"✨ {theme}: {names[0]}, {names[1]} and {names[2]}\n"
                + (f"{st}\n" if st else "")
@@ -767,6 +768,8 @@ def main():
             mm = META.get(d.get("asin", "")) or {}
             if mm.get("rating") and mm["rating"] < 3.8:
                 return False
+            if rv < 100 and mm.get("list") and pv and pv < 0.45 * (price_value(str(mm["list"])) or 0):
+                return False                      # big claimed discount on few reviews = suspicious list price
             nw = price_value(str(mm.get("now") or "")) if mm.get("now") else 0
             if nw and pv and pv < nw * 0.7:
                 return False
@@ -832,7 +835,7 @@ def main():
     # one extra single-product "Mom's pick" post: best-reviewed item with a photo
     used = {i["id"] for _, its, _t in groups for i in its}
     pool = [d for d in deals if d["id"] not in used and pct_off(d) >= 10 and is_amazon(d) and ((META.get(d.get("asin", "")) or {}).get("reviews") or 0) >= 100 and find_photo(d) and not qa_check(d)[0] 
-            and price_value(d.get("price", "")) and brand_ok(d) and not any(w in d["title"].lower() for w in SKIP_WORDS)]
+            and price_value(d.get("price", "")) and brand_ok(d) and not clean_code(d) and not any(w in d["title"].lower() for w in SKIP_WORDS)]
     if pool:
         pool.sort(key=lambda x: x["id"])
         star = pool[datetime.now(timezone.utc).toordinal() % len(pool)]   # rotates daily
@@ -852,7 +855,7 @@ def main():
     # engagement post: THIS or THAT from two different, well-reviewed products
     used2 = used | ({star["id"]} if pool else set())
     cands = [d for d in deals if d["id"] not in used2 and pct_off(d) >= 10 and is_amazon(d) and d.get("asin") not in SEEN_ASIN
-             and find_photo(d) and not qa_check(d)[0] and price_value(d.get("price", "")) and brand_ok(d) and _who(d) != "m"
+             and find_photo(d) and not qa_check(d)[0] and price_value(d.get("price", "")) and brand_ok(d) and not clean_code(d) and _who(d) != "m"
              and not any(w in d["title"].lower() for w in SKIP_WORDS)]
     cands.sort(key=score, reverse=True)
     pair = None
@@ -868,7 +871,7 @@ def main():
         a, b = pair
         make_image_thisorthat(OUT / "post_thisorthat.png", a, b, ROT[(datetime.now(timezone.utc).toordinal() + 2) % len(ROT)])
         na, nb = (" ".join(tidy(short_title(no_price_title(z["title"]))).split(",")[0].split()[:5]) for z in pair)
-        cap = (f"THIS or THAT? 🛒\nA: {na}\nB: {nb}\nComment A or B and tell us why. We read every one!\n"
+        cap = (f"THIS or THAT? 🛒\nA: {na}\nB: {nb}\nWhich would you pick? Tell us why - we read every one!\n"
                f"(AD)(Commission earned) As an Amazon Associate I earn from qualifying purchases.\n\n{HASHTAG_SET}")
         cm = f"Shop here (prices and codes can change):\nA: {link_for(a)}\nB: {link_for(b)}\nAs an Amazon Associate I earn from qualifying purchases."
         (OUT / "post_thisorthat.txt").write_text(f"CAPTION:\n{cap}\n\nFIRST COMMENT (paste after posting):\n{cm}\n")
@@ -889,7 +892,7 @@ def main():
         if qn >= QUICK_MAX:
             break
         k = product_key(d)
-        if k in seen_q or not brand_ok(d) or _who(d) == "m":
+        if k in seen_q or not brand_ok(d) or _who(d) == "m" or clean_code(d):
             continue
         seen_q.add(k)
         BRANDS.add(brand(d))
