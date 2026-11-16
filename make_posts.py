@@ -72,6 +72,7 @@ def score(deal):
     return s
 
 
+MANIFEST = []                           # every post written this run, checked by post_qa.py
 SEEN_ASIN = set()                       # one product, one post per run (same ASIN can appear as several deal ids)
 
 
@@ -624,6 +625,11 @@ def make_image_trio(path, theme, items, cat="Everything else"):
 _KSTOP = set("with pack piece pieces set for the and men mens women womens ladies kids boys girls large small black white blue pink gray grey inch pcs count".split())
 
 
+def _mf(d):
+    return dict(id=d["id"], asin=d.get("asin", ""), title=d["title"], price=d.get("price", ""), category=d.get("category", ""),
+                pct=pct_off(d), who=_who(d), kind=sorted(_kind(d)))
+
+
 def _who(deal):
     """Audience (men / women / kids / any): never compare a men's shirt with a women's one."""
     t = " " + deal["title"].lower().replace("'", "").replace("\u2019", "") + " "
@@ -740,6 +746,8 @@ def main():
         _d["category"] = category_of(_d["title"])
         fix_price(_d)
     made = set(json.loads(MADE_FILE.read_text())) if MADE_FILE.exists() else set()
+    import shutil
+    shutil.rmtree(OUT, ignore_errors=True)       # no stale posts from earlier runs
     OUT.mkdir(exist_ok=True)
     for _old in WEB.glob("*.png"):
         _old.unlink()                       # website gallery shows only today's posts
@@ -768,6 +776,7 @@ def main():
         caption, comment = texts(theme, items)
         (OUT / f"post_{n}.txt").write_text(f"CAPTION:\n{caption}\n\nFIRST COMMENT (paste after posting):\n{comment}\n")
         made.update(i["id"] for i in items)
+        MANIFEST.append(dict(file=f"post_{n}", kind="group", theme=theme, items=[_mf(i) for i in items]))
         WEB.mkdir(exist_ok=True)
         (WEB / f"post_{n}.png").write_bytes((OUT / f"post_{n}.png").read_bytes())
         print(f"made post_{n}.png - {theme}: " + " | ".join(i["title"][:30] for i in items))
@@ -789,6 +798,7 @@ def main():
         (OUT / "post_single.txt").write_text(f"CAPTION:\n{cap}\n\nFIRST COMMENT (paste after posting):\n{cm}\n")
         WEB.mkdir(exist_ok=True)
         (WEB / "post_single.png").write_bytes((OUT / "post_single.png").read_bytes())
+        MANIFEST.append(dict(file="post_single", kind="single", theme="Mom's pick", items=[_mf(star)]))
         print("made post_single.png")
     # engagement post: THIS or THAT from two different, well-reviewed products
     used2 = used | ({star["id"]} if pool else set())
@@ -815,8 +825,10 @@ def main():
         (OUT / "post_thisorthat.txt").write_text(f"CAPTION:\n{cap}\n\nFIRST COMMENT (paste after posting):\n{cm}\n")
         (WEB / "post_thisorthat.png").write_bytes((OUT / "post_thisorthat.png").read_bytes())
         SEEN_ASIN.update([a.get("asin"), b.get("asin")])
+        MANIFEST.append(dict(file="post_thisorthat", kind="thisorthat", theme="THIS or THAT", items=[_mf(a), _mf(b)]))
         print("made post_thisorthat.png")
     MADE_FILE.write_text(json.dumps(sorted(made)[-900:], indent=1))
+    (OUT / "manifest.json").write_text(json.dumps(MANIFEST, indent=1))
     print(f"{len(groups)} posts made")
 
 
