@@ -94,7 +94,7 @@ PRICE_TEXT_RE = re.compile(
 PCT_OFF_RE = re.compile(r"\s*\(?\b(?:save\s+|up\s+to\s+)?\d+\s?%\s*off\b\)?", re.I)
 
 
-LEAD_RE = re.compile(r"^\s*(?:\*[A-Za-z ]{2,12}\*\s*)?(?:(?:amazon\s+)?(?:prime members?|select accounts?|prime)\s*[:\-]\s*)?(?:\[[^\]]*\]\s*)*(?:\$\s?[\d,.]+\*?\s*[:|\-]\s*)?(?:\[[^\]]*\]\s*)*")
+LEAD_RE = re.compile(r"^\s*(?:\*[A-Za-z ]{2,12}\*\s*)?(?i:(?:amazon\s+)?(?:prime members?|select accounts?|prime)\s*[:\-]\s*)?(?:\[[^\]]*\]\s*)*(?:\$\s?[\d,.]+\*?\s*[:|\-]\s*)?(?:\[[^\]]*\]\s*)*")
 
 
 def lead_clean(title):
