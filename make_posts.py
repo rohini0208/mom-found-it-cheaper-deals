@@ -413,10 +413,11 @@ def mom_note(deal):
     m = META.get(deal.get("asin", "")) or {}
     off = pct_off(deal)
     if (m.get("reviews") or 0) >= 100 and (m.get("rating") or 0) >= 4.3:
-        return f"{m['rating']:.1f} stars from {m['reviews']:,} shoppers. I'd grab this one!"
+        n = m["reviews"]
+        return f"{m['rating']:.1f} stars, " + (f"{n/1000:.1f}K" if n >= 1000 else str(n)) + " reviews. I'd grab it!"
     if off >= 15:
-        return f"{off}% below the list price. Worth a look!"
-    return "Found this one for you. Check the price first!"
+        return f"{off}% below list. Worth a look!"
+    return "Found this for you. Check price!"
 
 
 def make_image_single(path, deal, cat="Everything else"):
@@ -755,6 +756,30 @@ def main():
     for _d in deals:
         _d["category"] = category_of(_d["title"])
         fix_price(_d)
+    def _ok(d):                                   # QA lessons: real reviews, sane price, no scraped tails
+        pv = price_value(d.get("price", "")) or 0
+        if pv > 150:
+            return False
+        if is_amazon(d):
+            rv = (META.get(d.get("asin", "")) or {}).get("reviews") or 0
+            if rv < 50:
+                return False
+            mm = META.get(d.get("asin", "")) or {}
+            if mm.get("rating") and mm["rating"] < 3.8:
+                return False
+            nw = price_value(str(mm.get("now") or "")) if mm.get("now") else 0
+            if nw and pv and pv < nw * 0.7:
+                return False
+        d["title"] = re.sub(r"\s*(?:-|:|\|)?\s*Amazon(?:\.com)?\s*$", "", d["title"]).strip()
+        d["title"] = re.sub(r"^Amazon:\s*", "", d["title"])
+        return True
+    deals = [d for d in deals if _ok(d)]
+    BRANDS = set()
+    def brand(d):
+        w = re.sub(r"[^a-z0-9]", "", (tidy(d["title"]).split() or [""])[0].lower())
+        return w
+    def brand_ok(d):
+        return brand(d) not in BRANDS
     today_n = datetime.now(timezone.utc).toordinal()
     _raw = json.loads(MADE_FILE.read_text()) if MADE_FILE.exists() else {}
     if isinstance(_raw, list):                       # old format: ids only -> treat as posted today
@@ -767,6 +792,13 @@ def main():
     for _old in WEB.glob("*.png"):
         _old.unlink()                       # website gallery shows only today's posts
     season = seasonal_groups(deals, made)
+    _s2 = []
+    for _ev, _th, _its in season:
+        if "stocking" in (str(_ev) + str(_th)).lower():
+            _its = [i for i in _its if (price_value(i.get("price", "")) or 99) <= 25]
+        if len(_its) >= 3:
+            _s2.append((_ev, _th, _its))
+    season = _s2
     for _ev, _th, _its in season:
         made.update(i["id"] for i in _its)
     _pg = price_groups(deals, made)
@@ -791,6 +823,7 @@ def main():
         caption, comment = texts(theme, items)
         (OUT / f"post_{n}.txt").write_text(f"CAPTION:\n{caption}\n\nFIRST COMMENT (paste after posting):\n{comment}\n")
         made.update(i["id"] for i in items)
+        BRANDS.update(brand(i) for i in items)
         MANIFEST.append(dict(file=f"post_{n}", kind="group", theme=theme, items=[_mf(i) for i in items]))
         WEB.mkdir(exist_ok=True)
         (WEB / f"post_{n}.png").write_bytes((OUT / f"post_{n}.png").read_bytes())
@@ -799,12 +832,13 @@ def main():
     # one extra single-product "Mom's pick" post: best-reviewed item with a photo
     used = {i["id"] for _, its, _t in groups for i in its}
     pool = [d for d in deals if d["id"] not in used and pct_off(d) >= 10 and is_amazon(d) and ((META.get(d.get("asin", "")) or {}).get("reviews") or 0) >= 100 and find_photo(d) and not qa_check(d)[0] 
-            and price_value(d.get("price", "")) and not any(w in d["title"].lower() for w in SKIP_WORDS)]
+            and price_value(d.get("price", "")) and brand_ok(d) and not any(w in d["title"].lower() for w in SKIP_WORDS)]
     if pool:
         pool.sort(key=lambda x: x["id"])
         star = pool[datetime.now(timezone.utc).toordinal() % len(pool)]   # rotates daily
         cat = star.get("category", "Everything else")
         PALETTES["_s"] = ROT[datetime.now(timezone.utc).toordinal() % len(ROT)]
+        BRANDS.add(brand(star))
         make_image_single(OUT / "post_single.png", star, "_s")
         nm = tidy(short_title(no_price_title(star["title"])))
         cap = (f"Mom's pick today: {nm}.\n{mom_note(star)}\nLink is in the first comment. Join Mom Found It Cheaper for a daily list.\n"
@@ -818,7 +852,7 @@ def main():
     # engagement post: THIS or THAT from two different, well-reviewed products
     used2 = used | ({star["id"]} if pool else set())
     cands = [d for d in deals if d["id"] not in used2 and pct_off(d) >= 10 and is_amazon(d) and d.get("asin") not in SEEN_ASIN
-             and find_photo(d) and not qa_check(d)[0] and price_value(d.get("price", ""))
+             and find_photo(d) and not qa_check(d)[0] and price_value(d.get("price", "")) and brand_ok(d) and _who(d) != "m"
              and not any(w in d["title"].lower() for w in SKIP_WORDS)]
     cands.sort(key=score, reverse=True)
     pair = None
@@ -840,6 +874,7 @@ def main():
         (OUT / "post_thisorthat.txt").write_text(f"CAPTION:\n{cap}\n\nFIRST COMMENT (paste after posting):\n{cm}\n")
         (WEB / "post_thisorthat.png").write_bytes((OUT / "post_thisorthat.png").read_bytes())
         SEEN_ASIN.update([a.get("asin"), b.get("asin")])
+        BRANDS.update([brand(a), brand(b)])
         MANIFEST.append(dict(file="post_thisorthat", kind="thisorthat", theme="THIS or THAT", items=[_mf(a), _mf(b)]))
         print("made post_thisorthat.png")
     # quick single-deal posts: every other good deal gets its own post (big groups post 20-90 a day)
@@ -854,9 +889,10 @@ def main():
         if qn >= QUICK_MAX:
             break
         k = product_key(d)
-        if k in seen_q:
+        if k in seen_q or not brand_ok(d) or _who(d) == "m":
             continue
         seen_q.add(k)
+        BRANDS.add(brand(d))
         qn += 1
         PALETTES["_q"] = ROT[(today_n + qn) % len(ROT)]
         f = f"post_q{qn}"
