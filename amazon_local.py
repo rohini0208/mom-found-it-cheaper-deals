@@ -31,6 +31,40 @@ def parse_reviews(t):
     return int(float(t[:-1]) * 1000) if t[-1:] in "Kk" else int(float(t))
 
 
+ASIN_MAP = Path("data/asin_map.json")
+ASIN_PAT = re.compile(r"(?:/dp/|/gp/product/|/gp/aw/d/|asin=)([A-Z0-9]{10})(?:[/?&\"' ]|$)")
+
+
+def resolve_asins(ctx, deals, limit=60):
+    """Most Amazon deals from the feeds carry no product ID (only ~1 in 5 do). Open each deal page in your
+    Chrome, read the Amazon link behind 'Get Deal' and save deal id -> ASIN. deal_finder.py applies the map."""
+    amap = json.loads(ASIN_MAP.read_text()) if ASIN_MAP.exists() else {}
+    todo = [d for d in sorted(deals, key=lambda x: x.get("thumbs", 0), reverse=True)
+            if not d.get("asin") and d.get("store") == "Amazon" and not d.get("expired") and d["id"] not in amap
+            and str(d["id"]).startswith("http")][:limit]
+    pg = ctx.new_page()
+    got = 0
+    for d in todo:
+        try:
+            pg.goto(d["id"], wait_until="domcontentloaded", timeout=40000)
+            pg.wait_for_timeout(1500)
+            html = pg.content().replace("%2F", "/")
+            hrefs = pg.evaluate("() => [...document.querySelectorAll('a[href*=\"amazon.com\"], a[href*=\"amzn.to\"], a[data-href*=\"amazon\"]')].map(a => a.href || a.dataset.href)")
+            hit = None
+            for h in list(hrefs or []) + [html]:
+                m = ASIN_PAT.search(h or "")
+                if m:
+                    hit = m.group(1)
+                    break
+            amap[d["id"]] = hit or ""            # empty = looked, none found (do not retry forever)
+            got += bool(hit)
+        except Exception as e:
+            print("asin lookup failed:", str(e)[:80])
+    pg.close()
+    ASIN_MAP.write_text(json.dumps(amap, indent=0))
+    print(f"asin map: +{got} of {len(todo)} looked up")
+
+
 def main():
     from playwright.sync_api import sync_playwright
     sh(*GIT, "pull", "--rebase", "-q")
@@ -50,6 +84,10 @@ def main():
         ctx = p.chromium.launch_persistent_context(str(Path.home() / ".mfic_chrome"), channel="chrome",
                                                    headless=False, viewport={"width": 1200, "height": 800})
         page = ctx.pages[0] if ctx.pages else ctx.new_page()
+        try:
+            resolve_asins(ctx, deals)
+        except Exception as e:
+            print("asin resolver skipped:", str(e)[:100])
         for a in todo[:MAX_RUN]:
             try:
                 page.goto(f"https://www.amazon.com/dp/{a}", wait_until="domcontentloaded", timeout=45000)
@@ -103,7 +141,7 @@ def main():
             time.sleep(random.uniform(3, 6))
         ctx.close()
     META.write_text(json.dumps(meta, indent=1))
-    sh(*GIT, "add", "photos", "data/product_meta.json", "data/price_debug")
+    sh(*GIT, "add", "photos", "data/product_meta.json", "data/price_debug", "data/asin_map.json")
     if sh(*GIT, "diff", "--cached", "--quiet").returncode:
         sh(*GIT, "commit", "-qm", f"Amazon photos and ratings ({done} products, from home computer)")
         sh(*GIT, "pull", "--rebase", "-q")

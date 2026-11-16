@@ -177,6 +177,7 @@ def features_from(raw_html):
     return feats[:3]
 
 
+ASIN_MAP = json.loads(Path('data/asin_map.json').read_text()) if Path('data/asin_map.json').exists() else {}   # made by amazon_local.py on the home PC
 HIP_CACHE = Path("data/hip2save_asin.json")
 _hip = json.loads(HIP_CACHE.read_text()) if HIP_CACHE.exists() else {}
 _hip_budget = [30]                                        # page fetches per run
@@ -255,7 +256,7 @@ def parse_feed(source, raw):
             "price": f"${price.group(1)}" if price else "",
             "code": code.group(1).upper() if code else ("w/ code" if "w/ code" in blob or "promo code" in blob else ""),
             "coupon": "clip coupon" if "clip" in blob and "coupon" in blob else "",
-            "asin": asin.group(1) if asin else "",
+            "asin": asin.group(1) if asin else ASIN_MAP.get(link, ""),
             "store": store_of(f"{title} {desc}"),
             "category": category_of(title),
             "thumbs": int(thumbs.group(1)) if thumbs else 0,
