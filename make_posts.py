@@ -192,21 +192,24 @@ def make_image(path, theme, items):
 
 # ---------- layout v2: bold, photo-first (closer to the big deal groups) ----------
 TRUST = (21, 101, 192)   # blue = trust, used for ratings
-PALETTES = {                      # (background, accent) per category
-    "Baby & Kids": ((255, 183, 77), (216, 67, 21)),
-    "Toys & Games": ((126, 87, 194), (255, 202, 40)),
-    "Beauty & Health": ((236, 100, 140), (255, 255, 255)),
-    "Home & Kitchen": ((0, 137, 123), (255, 213, 79)),
-    "Fashion": ((186, 104, 200), (255, 241, 118)),
-    "Tech & Electronics": ((46, 160, 90), (255, 235, 59)),
-    "Grocery & Household": ((67, 160, 71), (255, 241, 118)),
-    "Pets": ((239, 108, 0), (255, 255, 255)),
-    "Outdoor & Tools": ((102, 187, 106), (255, 255, 255)),
-    "Everything else": ((255, 143, 0), (255, 255, 255)),
+ORANGE = ((255, 143, 0), (255, 255, 255))
+GREEN = ((46, 160, 90), (255, 235, 59))
+TEAL = ((0, 137, 123), (255, 213, 79))
+GOLD = ((255, 193, 7), (27, 94, 32))
+ROT = [ORANGE, GREEN, TEAL, GOLD]
+PALETTES = {                      # locked set: orange, green, teal, golden yellow
+    "Baby & Kids": GOLD, "Toys & Games": ORANGE, "Beauty & Health": TEAL,
+    "Home & Kitchen": GREEN, "Fashion": ORANGE, "Tech & Electronics": TEAL,
+    "Grocery & Household": GREEN, "Pets": GOLD, "Outdoor & Tools": GREEN,
+    "Everything else": ORANGE,
 }
-ROT = [((46, 160, 90), (255, 235, 59)), ((255, 143, 0), (255, 255, 255)),
-       ((230, 81, 0), (255, 255, 255)), ((0, 137, 123), (255, 213, 79))]  # sky blue, bright orange, deep orange, teal
 V2_TILE_H, V2_GAP, V2_TOP = 300, 18, 310
+
+
+def fg(img):
+    """Text color for the poster background: white on dark, deep green-brown on light."""
+    r, g, b = img.getpixel((3, 3))
+    return (33, 33, 33) if 0.299 * r + 0.587 * g + 0.114 * b > 170 else (255, 255, 255)
 
 
 def was_of(deal):
@@ -298,10 +301,10 @@ def make_image_v2(path, theme, items, cat="Everything else"):
     bg, accent = PALETTES.get(cat, PALETTES["Everything else"])
     img = Image.new("RGB", (PW, PH), bg)
     d = ImageDraw.Draw(img)
-    centered(d, 52, "MOM FOUND IT CHEAPER", sans(30, "SemiBold"), (255, 255, 255), spacing=8)
+    centered(d, 52, "MOM FOUND IT CHEAPER", sans(30, "SemiBold"), fg(img), spacing=8)
     head = theme.upper()
     hf = fit(d, head, lambda s: sans(s, "Bold"), 104, PW - 120, max_lines=1, min_size=56)
-    centered(d, 118, head, hf, (255, 255, 255), max_w=PW - 60)
+    centered(d, 118, head, hf, fg(img), max_w=PW - 60)
     centered(d, 118 + hf.size + 22, "TODAY'S PRICE DROPS", sans(34, "SemiBold"), accent, spacing=6)
     for i, deal in enumerate(items, 1):
         draw_tile_v2(img, i, deal, V2_TOP + (i - 1) * (V2_TILE_H + V2_GAP), accent)
@@ -309,7 +312,7 @@ def make_image_v2(path, theme, items, cat="Everything else"):
     k = items.index(star)
     sticker(img, "TOP PICK", 200, V2_TOP + k * (V2_TILE_H + V2_GAP) + V2_TILE_H - 22, (255, 193, 7), ink=(40, 40, 40))
     d = ImageDraw.Draw(img)
-    centered(d, 1292, "PRICES CHECKED TODAY  \u00b7  REAL SHOPPER RATINGS  \u00b7  JOIN FREE  \u00b7  #AD", sans(23, "SemiBold"), (255, 255, 255), spacing=3, max_w=PW - 60)
+    centered(d, 1292, "PRICES CHECKED TODAY  \u00b7  REAL SHOPPER RATINGS  \u00b7  JOIN FREE  \u00b7  #AD", sans(23, "SemiBold"), fg(img), spacing=3, max_w=PW - 60)
     img.save(path)
 
 
@@ -382,10 +385,10 @@ def _chips(img, deal, x, y, max_w, size=26):
 
 def _header(img, theme, accent):
     d = ImageDraw.Draw(img)
-    centered(d, 52, "MOM FOUND IT CHEAPER", sans(30, "SemiBold"), (255, 255, 255), spacing=8)
+    centered(d, 52, "MOM FOUND IT CHEAPER", sans(30, "SemiBold"), fg(img), spacing=8)
     head = theme.upper()
     hf = fit(d, head, lambda s: sans(s, "Bold"), 104, PW - 120, max_lines=1, min_size=56)
-    centered(d, 118, head, hf, (255, 255, 255), max_w=PW - 60)
+    centered(d, 118, head, hf, fg(img), max_w=PW - 60)
     centered(d, 118 + hf.size + 22, "TODAY'S PRICE DROPS", sans(34, "SemiBold"), accent, spacing=6)
 
 
@@ -423,7 +426,7 @@ def make_image_hero(path, theme, items, cat="Everything else"):
         y = _price_row(img, deal, x0 + 24, y + 4, 52, 442)
         _chips(img, deal, x0 + 24, y + 2, 442, 22)
     d = ImageDraw.Draw(img)
-    centered(d, 1300, "PRICES CHECKED TODAY  \u00b7  REAL SHOPPER RATINGS  \u00b7  JOIN FREE  \u00b7  #AD", sans(23, "SemiBold"), (255, 255, 255), spacing=3, max_w=PW - 60)
+    centered(d, 1300, "PRICES CHECKED TODAY  \u00b7  REAL SHOPPER RATINGS  \u00b7  JOIN FREE  \u00b7  #AD", sans(23, "SemiBold"), fg(img), spacing=3, max_w=PW - 60)
     img.save(path)
 
 
@@ -457,7 +460,7 @@ def make_image_trio(path, theme, items, cat="Everything else"):
     ink = CHAR if sum(accent) > 480 else (255, 255, 255)
     centered(d, 1134, "SHOP LINKS IN THE COMMENTS", sans(50, "Bold"), ink, max_w=PW - 100)
     centered(d, 1198, "tap the first comment  \u00b7  prices checked today, can change", sans(26, "Medium"), ink, max_w=PW - 100)
-    centered(d, 1290, "REAL SHOPPER RATINGS  \u00b7  JOIN FREE  \u00b7  #AD", sans(23, "SemiBold"), (255, 255, 255), spacing=3, max_w=PW - 60)
+    centered(d, 1290, "REAL SHOPPER RATINGS  \u00b7  JOIN FREE  \u00b7  #AD", sans(23, "SemiBold"), fg(img), spacing=3, max_w=PW - 60)
     img.save(path)
 
 
