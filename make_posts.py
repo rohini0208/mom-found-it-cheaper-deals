@@ -109,6 +109,8 @@ def tidy(title):
     t = AT_RE.sub("", COND_RE.sub("", title))
     for _ in range(2):
         t = JUNK_RE.sub("", t)
+    if t.count("(") > t.count(")"):
+        t = t[:t.rindex("(")]                       # drop a cut-off "(2x USB-C + 1x"
     t = t.strip(" -,")
     if len(t) >= 85:                       # was cut at 90 characters: drop the broken last words
         words = t.split()[:-1]
@@ -179,7 +181,7 @@ def draw_tile(img, i, deal, top):
         pf2 = sans(24, "SemiBold")          # right end of the bottom row, next to the price stamp
         d.text((PW - 90 - d.textlength(pr, font=pf2), top + TILE_H - 96), pr, font=pf2, fill=GOLD)
     if amazon and AMAZON_PRICES != "hide":
-        d.text((x, top + TILE_H - 50), f"Amazon price as of {as_of(deal['seen'])}",
+        d.text((x, top + TILE_H - 50), f"Price as of {as_of(deal['seen'])}",
                font=sans(24, "Medium"), fill=MUTED)
 
 
@@ -219,7 +221,16 @@ V2_TILE_H, V2_GAP, V2_TOP = 300, 18, 310
 def fg(img):
     """Text color for the poster background: white on dark, deep green-brown on light."""
     r, g, b = img.getpixel((3, 3))
-    return (33, 33, 33) if 0.299 * r + 0.587 * g + 0.114 * b > 170 else (255, 255, 255)
+    return (33, 33, 33) if 0.299 * r + 0.587 * g + 0.114 * b > 150 else (255, 255, 255)
+
+
+def fix_price(deal):
+    """Show Amazon's exact current price (e.g. $34.99) when it is within 5% of the deal price (not a rounded '$35')."""
+    now = ((META.get(deal.get("asin", "")) or {}).get("now")) or ""
+    p, n = price_value(deal.get("price", "")), price_value(now)
+    if p and n and abs(n - p) / p <= 0.05:
+        deal["price"] = now
+    return deal
 
 
 def was_of(deal):
@@ -283,7 +294,7 @@ def draw_tile_v2(img, i, deal, top, accent):
         d.text((cx, y + 30), f"was {was}", font=wf, fill=MUTED)
         d.line([(cx - 2, y + 46), (cx + d.textlength(f"was {was}", font=wf) + 2, y + 46)], fill=MUTED, width=3)
     code = clean_code(deal)
-    extra = (f"CODE  {code}" if code else "CLIP THE COUPON" if deal.get("coupon") else "")
+    extra = (f"WITH CODE  {code}" if code else "WITH COUPON" if deal.get("coupon") else "")
     row = y + 100
     if extra:
         ef = sans(28, "Bold")
@@ -295,7 +306,7 @@ def draw_tile_v2(img, i, deal, top, accent):
         sf = sans(26, "SemiBold")
         d.text((PW - 70 - d.textlength(pr, font=sf), row + 8), pr.replace("stars", "\u2605"), font=sf, fill=TRUST)
     if is_amazon(deal) and AMAZON_PRICES != "hide":
-        d.text((x, top + V2_TILE_H - 36), f"Amazon price as of {as_of(deal['seen'])}", font=sans(22, "Medium"), fill=MUTED)
+        d.text((x, top + V2_TILE_H - 36), f"Price as of {as_of(deal['seen'])}", font=sans(22, "Medium"), fill=MUTED)
 
 
 def sticker(img, text, cx, cy, fill, ink=(255, 255, 255), angle=-8):
@@ -314,9 +325,10 @@ def cta_pill(img, y=1260, h=68):
     """Bold, readable footer: where the links are + why to join."""
     d = ImageDraw.Draw(img)
     d.rounded_rectangle([40, y, PW - 40, y + h], h // 2, fill=(255, 255, 255))
-    t = "LINKS IN THE 1ST COMMENT  \u00b7  JOIN FREE FOR DAILY DEALS"
-    f = fit(d, t, lambda z: sans(z, "Bold"), 32, PW - 140, max_lines=1, min_size=22)
-    centered(d, y + (h - f.size) // 2 - 4, t, f, (33, 33, 33), max_w=PW - 120)
+    t = "LINKS IN THE 1ST COMMENT  \u00b7  JOIN FREE"
+    f = fit(d, t, lambda z: sans(z, "Bold"), 32, PW - 240, max_lines=1, min_size=22)
+    centered(d, y + (h - f.size) // 2 - 4, t, f, (33, 33, 33), max_w=PW - 220)
+    d.text((PW - 40 - 20 - d.textlength("#AD", font=sans(26, "Bold")), y + h // 2 - 15), "#AD", font=sans(26, "Bold"), fill=(120, 120, 120))
 
 HAND = Path(__file__).parent / "fonts" / "Caveat-Bold.ttf"
 
@@ -378,7 +390,7 @@ def make_image_single(path, deal, cat="Everything else"):
     img.paste(note, (PW - note.width - 30, 200 if narrow else 372), note)
     cta_pill(img, 1088, 74)
     d = ImageDraw.Draw(img)
-    centered(d, 1182, "Prices checked today, they can change.", sans(28, "Medium"), fg(img), max_w=PW - 80)
+    centered(d, 1182, "Prices can change, check before you buy.", sans(28, "Medium"), fg(img), max_w=PW - 80)
     centered(d, 1230, "#AD  \u00b7  AMAZON ASSOCIATE, I EARN FROM QUALIFYING PURCHASES", sans(22, "SemiBold"), fg(img), spacing=2, max_w=PW - 60)
     img.save(path)
 
@@ -451,7 +463,7 @@ def _price_row(img, deal, x, y, big, max_w):
 def _chips(img, deal, x, y, max_w, size=26):
     d = ImageDraw.Draw(img)
     code = clean_code(deal)
-    extra = (f"CODE  {code}" if code else "CLIP THE COUPON" if deal.get("coupon") else "")
+    extra = (f"WITH CODE  {code}" if code else "WITH COUPON" if deal.get("coupon") else "")
     if extra:
         ef = sans(size, "Bold")
         ew = d.textlength(extra, font=ef)
@@ -464,7 +476,7 @@ def _chips(img, deal, x, y, max_w, size=26):
         y += size + 8
     if is_amazon(deal) and AMAZON_PRICES != "hide":
         sf = sans(20, "Medium")
-        for line in wrap(d, f"Amazon price as of {as_of(deal['seen'])}", sf, max_w):
+        for line in wrap(d, f"Price as of {as_of(deal['seen'])}", sf, max_w):
             d.text((x, y), line, font=sf, fill=MUTED)
             y += 24
     return y
@@ -546,7 +558,7 @@ def make_image_trio(path, theme, items, cat="Everything else"):
     d.rounded_rectangle([40, 1110, PW - 40, 1250], 34, fill=accent)
     ink = CHAR if sum(accent) > 480 else (255, 255, 255)
     centered(d, 1134, "LINKS IN THE 1ST COMMENT", sans(50, "Bold"), ink, max_w=PW - 100)
-    centered(d, 1198, "join free for daily deals  \u00b7  prices checked today, can change", sans(26, "Medium"), ink, max_w=PW - 100)
+    centered(d, 1198, "join free for daily deals  \u00b7  prices can change, check before you buy", sans(26, "Medium"), ink, max_w=PW - 100)
     centered(d, 1290, "#AD  \u00b7  AMAZON ASSOCIATE, I EARN FROM QUALIFYING PURCHASES", sans(23, "SemiBold"), fg(img), spacing=3, max_w=PW - 60)
     img.save(path)
 
@@ -613,6 +625,10 @@ def texts(theme, items):
 
 def main():
     deals = json.loads(DEALS_FILE.read_text()) if DEALS_FILE.exists() else []
+    from deal_finder import category_of
+    for _d in deals:
+        _d["category"] = category_of(_d["title"])
+        fix_price(_d)
     made = set(json.loads(MADE_FILE.read_text())) if MADE_FILE.exists() else set()
     OUT.mkdir(exist_ok=True)
     groups = pick_groups(deals, made)
@@ -637,7 +653,8 @@ def main():
         print(f"made post_{n}.png - {theme}: " + " | ".join(i["title"][:30] for i in items))
 
     # one extra single-product "Mom's pick" post: best-reviewed item with a photo
-    pool = [d for d in deals if pct_off(d) >= 10 and is_amazon(d) and ((META.get(d.get("asin", "")) or {}).get("reviews") or 0) >= 100 and find_photo(d) and not qa_check(d)[0] 
+    used = {i["id"] for _, its in groups for i in its}
+    pool = [d for d in deals if d["id"] not in used and pct_off(d) >= 10 and is_amazon(d) and ((META.get(d.get("asin", "")) or {}).get("reviews") or 0) >= 100 and find_photo(d) and not qa_check(d)[0] 
             and price_value(d.get("price", "")) and not any(w in d["title"].lower() for w in SKIP_WORDS)]
     if pool:
         pool.sort(key=lambda x: x["id"])

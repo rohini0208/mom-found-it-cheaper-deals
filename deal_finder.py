@@ -53,12 +53,12 @@ CATEGORIES = {
     "Baby & Kids": ["baby", "toddler", "kids", "infant", "diaper", "stroller", "car seat", "nursery"],
     "Toys & Games": ["toy", "lego", "game", "puzzle", "plush", "playset", "doll", "nerf"],
     "Beauty & Health": ["beauty", "skin", "hair", "makeup", "vitamin", "supplement", "massager", "toothbrush", "shaver", "trimmer", "health"],
-    "Home & Kitchen": ["kitchen", "pan", "cook", "knife", "air fryer", "vacuum", "mattress", "bedding", "towel", "rug", "home", "storage", "cleaner", "detergent", "light", "fan"],
+    "Home & Kitchen": ["kitchen", "pan", "cook", "knife", "air fryer", "vacuum", "mattress", "bedding", "towel", "rug", "home", "storage", "cleaner", "detergent", "light", "fan", "scissors", "fiskars", "cuisinart", "blender", "measuring", "tumbler", "rope"],
     "Fashion": ["women's", "men's", "shirt", "dress", "jeans", "shoes", "sneakers", "jacket", "socks", "bag", "pants", "sweater", "boots"],
-    "Tech & Electronics": ["charger", "usb", "headphones", "earbuds", "laptop", "monitor", "tv", "ssd", "phone", "power bank", "camera", "speaker", "tablet"],
+    "Tech & Electronics": ["charger", "usb", "headphones", "earbuds", "laptop", "monitor", "tv", "ssd", "phone", "power bank", "camera", "speaker", "tablet", "jbl", "bluetooth", "soundbar", "gaming", "fire tv", "qled"],
     "Grocery & Household": ["snack", "coffee", "chips", "soup", "candy", "paper towel", "toilet paper", "laundry", "trash bags", "water"],
     "Pets": ["dog", "cat", "pet", "litter"],
-    "Outdoor & Tools": ["tool", "drill", "garden", "grill", "outdoor", "camping", "screwdriver", "tire", "generator"],
+    "Outdoor & Tools": ["tool", "drill", "garden", "grill", "outdoor", "camping", "screwdriver", "tire", "generator", "electrician", "wrench", "socket", "hammer", "pliers", "crimper", "backpack", "hiking", "flashlight", "osprey", "daypack", "klein", "gearwrench", "craftsman", "dewalt", "milwaukee"],
 }
 
 
