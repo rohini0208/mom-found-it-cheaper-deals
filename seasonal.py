@@ -16,7 +16,8 @@ EVENTS = [
          words=["thanksgiving", "turkey", "stuffing", "gravy", "cranberry", "pumpkin", "pie", "roasting pan", "baking",
                 "casserole", "dinnerware", "tablecloth", "napkin", "serving", "carving", "dutch oven", "slow cooker",
                 "instant pot", "air fryer", "mixer", "baking dish", "glass bakeware", "pantry", "broth", "butter", "flour",
-                "mashed potato", "sweet potato", "fall decor", "harvest"],
+                "mashed potato", "sweet potato", "fall decor", "harvest", "hostess", "host gift", "gift set", "gift basket",
+                "candle", "charcuterie", "cheese board", "wine glass", "throw blanket", "fire pit", "cozy", "mug set", "gift"],
          searches=["thanksgiving", "turkey", "baking", "kitchen cookware"]),
     dict(key="football", name="Football season", date=date(2027, 2, 14), window=170, theme="Game day",
          words=["nfl", "football", "tailgate", "game day", "wings", "chips", "salsa", "dip", "grill", "jersey", "soundbar",
@@ -62,7 +63,7 @@ def active(today=None):
 
 
 def _hit(words, text):
-    return [w for w in words if re.search(r"\b" + re.escape(w), text)]
+    return [w for w in words if re.search(r"\b" + re.escape(w) + r"s?\b", text)]
 
 
 def matches(deals, event):
