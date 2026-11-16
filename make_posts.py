@@ -16,7 +16,8 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageOps
+from pathlib import Path
+from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 from copy_bank import PERSONAL, pick
 from qa import check as qa_check
@@ -307,6 +308,58 @@ def cta_pill(img, y=1260, h=68):
     f = fit(d, t, lambda z: sans(z, "Bold"), 32, PW - 140, max_lines=1, min_size=22)
     centered(d, y + (h - f.size) // 2 - 4, t, f, (33, 33, 33), max_w=PW - 120)
 
+HAND = Path(__file__).parent / "fonts" / "Caveat-Bold.ttf"
+
+
+def hand(size):
+    try:
+        return ImageFont.truetype(str(HAND), size)
+    except OSError:
+        return sans(size, "Bold")
+
+
+def mom_note(deal):
+    """Short first-person line built only from real numbers."""
+    m = META.get(deal.get("asin", "")) or {}
+    off = pct_off(deal)
+    if m.get("reviews", 0) >= 100 and m.get("rating", 0) >= 4.3:
+        return f"{m['rating']:.1f} stars from {m['reviews']:,} shoppers. I'd grab this one!"
+    if off >= 15:
+        return f"{off}% below the list price. Worth a look!"
+    return "Found this one for you. Check the price first!"
+
+
+def make_image_single(path, deal, cat="Everything else"):
+    """One product, big photo, handwritten mom note. Feels like a friend's find, not a flyer."""
+    bg, accent = PALETTES.get(cat, PALETTES["Everything else"])
+    img = Image.new("RGB", (PW, PH), bg)
+    d = ImageDraw.Draw(img)
+    centered(d, 46, "MOM FOUND IT CHEAPER", sans(30, "SemiBold"), fg(img), spacing=8)
+    d.rounded_rectangle([40, 100, PW - 40, 1066], 40, fill=(255, 255, 255))
+    _photo_into(img, deal, (70, 116), (PW - 140, 520))
+    d = ImageDraw.Draw(img)
+    y = _title(d, deal, 80, 668, PW - 160, 42, 2, 30)
+    y = _price_row(img, deal, 80, y + 6, 76, PW - 160)
+    _chips(img, deal, 80, y + 4, PW - 160, 30)
+    # sticky note, tilted
+    note = Image.new("RGBA", (560, 200), (0, 0, 0, 0))
+    nd = ImageDraw.Draw(note)
+    nd.rounded_rectangle([8, 8, 552, 192], 14, fill=(255, 247, 170))
+    nf = hand(46)
+    lines = wrap(nd, "Mom's pick: " + mom_note(deal), nf, 500)[:3]
+    yy = 24
+    for ln in lines:
+        nd.text((28, yy), ln, font=nf, fill=(60, 50, 20))
+        yy += 56
+    note = note.rotate(5, expand=True, resample=Image.BICUBIC)
+    img.paste(note, (PW - note.width - 30, 372), note)
+    cta_pill(img, 1088, 74)
+    d = ImageDraw.Draw(img)
+    centered(d, 1182, "Prices checked today, they can change.", sans(28, "Medium"), fg(img), max_w=PW - 80)
+    centered(d, 1230, "#AD  \u00b7  AMAZON ASSOCIATE, I EARN FROM QUALIFYING PURCHASES", sans(22, "SemiBold"), fg(img), spacing=2, max_w=PW - 60)
+    img.save(path)
+
+
 
 def make_image_v2(path, theme, items, cat="Everything else"):
     bg, accent = PALETTES.get(cat, PALETTES["Everything else"])
@@ -559,6 +612,21 @@ def main():
         (OUT / f"post_{n}.txt").write_text(f"CAPTION:\n{caption}\n\nFIRST COMMENT (paste after posting):\n{comment}\n")
         made.update(i["id"] for i in items)
         print(f"made post_{n}.png - {theme}: " + " | ".join(i["title"][:30] for i in items))
+
+    # one extra single-product "Mom's pick" post: best-reviewed item with a photo
+    pool = [d for d in deals if is_amazon(d) and d.get("asin") in META and find_photo(d) and not qa_check(d)[0] and d["id"] not in made
+            and price_value(d.get("price", "")) and not any(w in d["title"].lower() for w in SKIP_WORDS)]
+    if pool:
+        star = max(pool, key=lambda x: ((META.get(x.get("asin", "")) or {}).get("reviews", 0), pct_off(x)))
+        cat = star.get("category", "Everything else")
+        PALETTES["_s"] = ROT[datetime.now(timezone.utc).toordinal() % len(ROT)]
+        make_image_single(OUT / "post_single.png", star, "_s")
+        nm = tidy(short_title(no_price_title(star["title"])))
+        cap = (f"Mom's pick today: {nm}.\n{mom_note(star)}\nLink is in the first comment. Join Mom Found It Cheaper for a daily list.\n"
+               f"(AD)(Commission earned) As an Amazon Associate I earn from qualifying purchases.\n\n{HASHTAG_SET}")
+        cm = f"Shop here (prices and codes can change):\n{link_for(star)}\nAs an Amazon Associate I earn from qualifying purchases."
+        (OUT / "post_single.txt").write_text(f"CAPTION:\n{cap}\n\nFIRST COMMENT (paste after posting):\n{cm}\n")
+        print("made post_single.png")
     MADE_FILE.write_text(json.dumps(sorted(made)[-900:], indent=1))
     print(f"{len(groups)} posts made")
 
