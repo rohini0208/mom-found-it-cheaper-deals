@@ -5,22 +5,28 @@
   "list": "$14.99"
  },
  "B00U0P0GHM": {
-  "rating": 4.8,
+  "rating": 4.1,
   "reviews": 7593,
-  "list": "$79.97"
+  "list": "$79.97",
+  "v": 2
  },
  "B0H46YSXY4": {
   "rating": 4.5,
   "reviews": 131,
-  "list": "$49.99"
+  "list": "$29.99",
+  "v": 2
  },
  "B0HFWY2LQT": {
   "rating": 5.0,
-  "reviews": 17
+  "reviews": 17,
+  "list": null,
+  "v": 2
  },
  "B09H7C4NPV": {
   "rating": 4.5,
-  "reviews": 13799
+  "reviews": 13799,
+  "list": null,
+  "v": 2
  },
  "B0FJDS4V86": {
   "rating": 4.5,
@@ -35,107 +41,128 @@
  "1223063151": {
   "rating": 4.4,
   "reviews": 10882,
-  "list": "$29.99"
+  "list": "$29.99",
+  "v": 2
  },
  "B0C4YTB56H": {
   "rating": 4.3,
   "reviews": 4986,
-  "list": null
+  "list": "$49.99",
+  "v": 2
  },
  "B0CK9GTLJY": {
   "rating": 4.7,
   "reviews": 207738,
-  "list": null
+  "list": "$45.00",
+  "v": 2
  },
  "B0GQT6DWXN": {
   "rating": 4.8,
   "reviews": 543,
-  "list": null
+  "list": null,
+  "v": 2
  },
  "B0D14G7L3Z": {
   "rating": 4.3,
   "reviews": 103,
-  "list": null
+  "list": "$29.99",
+  "v": 2
  },
  "B0DSQX5N64": {
-  "rating": 4.7,
+  "rating": 4.8,
   "reviews": 1459,
-  "list": null
+  "list": "$110.00",
+  "v": 2
  },
  "B0DW9JZKWK": {
   "rating": 4.2,
   "reviews": 1292,
-  "list": null
+  "list": "$399.99",
+  "v": 2
  },
  "B0FG9GSJPD": {
   "rating": 4.5,
   "reviews": 161,
-  "list": null
+  "list": "$54.99",
+  "v": 2
  },
  "B0G2SXJKWZ": {
   "rating": 4.9,
   "reviews": 139,
-  "list": null
+  "list": "$49.99",
+  "v": 2
  },
  "B0CLYPSRXY": {
   "rating": 4.6,
   "reviews": 354,
-  "list": null
+  "list": "$24.98",
+  "v": 2
  },
  "B001LOVEGS": {
   "rating": 4.7,
   "reviews": 735,
-  "list": null
+  "list": "$24.99",
+  "v": 2
  },
  "B0FPSXPK2M": {
   "rating": 4.9,
   "reviews": 292,
-  "list": null
+  "list": "$19.99",
+  "v": 2
  },
  "B0B81SXXJZ": {
-  "rating": 4.8,
+  "rating": 4.4,
   "reviews": 1765,
-  "list": null
+  "list": "$0.09",
+  "v": 2
  },
  "B0FLPJ4GCW": {
   "rating": 4.1,
   "reviews": 69,
-  "list": null
+  "list": null,
+  "v": 2
  },
  "B0D74PL45R": {
-  "rating": 4.3,
+  "rating": 4.8,
   "reviews": 671,
-  "list": null
+  "list": "$27.99",
+  "v": 2
  },
  "B0GHZV62MT": {
-  "rating": 4.7,
+  "rating": 4.8,
   "reviews": 46,
-  "list": null
+  "list": null,
+  "v": 2
  },
  "B0D5TTKNZD": {
   "rating": 4.8,
   "reviews": 522,
-  "list": null
+  "list": "$180.06",
+  "v": 2
  },
  "B09VMPBBY5": {
   "rating": 4.4,
   "reviews": 3787,
-  "list": null
+  "list": "$299.95",
+  "v": 2
  },
  "B0FP2Y697Z": {
   "rating": 4.3,
   "reviews": 829,
-  "list": null
+  "list": "$129.99",
+  "v": 2
  },
  "B0BQPZ7DMV": {
   "rating": 3.8,
   "reviews": 10054,
-  "list": null
+  "list": "$54.95",
+  "v": 2
  },
  "B0FF5FPPSP": {
   "rating": 4.4,
   "reviews": 170,
-  "list": null
+  "list": null,
+  "v": 2
  },
  "B0BQPGJ9LQ": {
   "rating": 4.2,
