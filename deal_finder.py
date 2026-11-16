@@ -84,9 +84,18 @@ PRICE_TEXT_RE = re.compile(
 PCT_OFF_RE = re.compile(r"\s*\(?\b(?:save\s+|up\s+to\s+)?\d+\s?%\s*off\b\)?", re.I)
 
 
+LEAD_RE = re.compile(r"^\s*(?:\[[^\]]*\]\s*)*(?:\$\s?[\d,.]+\*?\s*[:|\-]\s*)?(?:\[[^\]]*\]\s*)*")
+
+
+def lead_clean(title):
+    """'[NEW] $12.59 | PAW Patrol Set' -> 'PAW Patrol Set' (deal-site price/tag prefixes)."""
+    t = LEAD_RE.sub("", title or "", count=1).strip()
+    return t or title
+
+
 def no_price_title(title):
     """'Wyze Cam OG for $19.98 + free shipping (40% off)' -> 'Wyze Cam OG'"""
-    t = PRICE_TEXT_RE.sub("", title)
+    t = PRICE_TEXT_RE.sub("", lead_clean(title))
     t = PCT_OFF_RE.sub("", t)
     t = re.sub(r"\(\s*\)|\s{2,}", " ", t)
     return t.strip(" -–,|:/+*")

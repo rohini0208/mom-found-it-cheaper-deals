@@ -98,12 +98,16 @@ def pick_groups(deals, made):
 
 
 AT_RE = re.compile(r"\s+@\w+.*$")
+JUNK_RE = re.compile(r"^(?:AMAZON Select Accounts|Amazon Prime Members|Prime Members):\s*|\s*\((?:Reg\.?|Regularly)[^)]*\)|\s*\+\s*Free Shipping.*$|\s+(?:at|on|from)\s+Amazon\b.*$|\s+or less$|\s+at$", re.I)
 COND_RE = re.compile(r"\s*\bw/\s*(?:S&S|Prime|Subscribe\s*&\s*Save|Coupon|Clip(?:pable)? Coupon)\b.*$", re.I)
 
 
 def tidy(title):
     """Drop deal-site shorthand (w/ S&S, w/ Prime) that means nothing to shoppers."""
-    t = AT_RE.sub("", COND_RE.sub("", title)).strip(" -,")
+    t = AT_RE.sub("", COND_RE.sub("", title))
+    for _ in range(2):
+        t = JUNK_RE.sub("", t)
+    t = t.strip(" -,")
     if len(t) >= 85:                       # was cut at 90 characters: drop the broken last words
         words = t.split()[:-1]
         while words and len(words[-1].strip(",.")) <= 2:
@@ -326,7 +330,7 @@ def mom_note(deal):
     """Short first-person line built only from real numbers."""
     m = META.get(deal.get("asin", "")) or {}
     off = pct_off(deal)
-    if m.get("reviews", 0) >= 100 and m.get("rating", 0) >= 4.3:
+    if (m.get("reviews") or 0) >= 100 and (m.get("rating") or 0) >= 4.3:
         return f"{m['rating']:.1f} stars from {m['reviews']:,} shoppers. I'd grab this one!"
     if off >= 15:
         return f"{off}% below the list price. Worth a look!"
@@ -578,7 +582,7 @@ def story(items):
     bits = []
     if off >= 15:
         bits.append(f"{off}% under Amazon's list price")
-    if m.get("reviews", 0) >= 100 and m.get("rating", 0) >= 4.3:
+    if (m.get("reviews") or 0) >= 100 and (m.get("rating") or 0) >= 4.3:
         n = m["reviews"]
         bits.append(f"{m['rating']:.1f} stars from {n:,} shoppers")
     return f"Our pick today: {name}, " + " and ".join(bits) + "." if bits else ""
@@ -631,7 +635,7 @@ def main():
         print(f"made post_{n}.png - {theme}: " + " | ".join(i["title"][:30] for i in items))
 
     # one extra single-product "Mom's pick" post: best-reviewed item with a photo
-    pool = [d for d in deals if is_amazon(d) and (META.get(d.get("asin", "")) or {}).get("reviews", 0) >= 100 and find_photo(d) and not qa_check(d)[0] 
+    pool = [d for d in deals if is_amazon(d) and ((META.get(d.get("asin", "")) or {}).get("reviews") or 0) >= 100 and find_photo(d) and not qa_check(d)[0] 
             and price_value(d.get("price", "")) and not any(w in d["title"].lower() for w in SKIP_WORDS)]
     if pool:
         pool.sort(key=lambda x: x["id"])

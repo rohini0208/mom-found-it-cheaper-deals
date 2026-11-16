@@ -34,7 +34,8 @@ def _meta():
 def check(deal):
     block, warn = [], []
     price, was = _num(deal.get("price", "")), _num(deal.get("was", ""))
-    title = deal.get("title", "")
+    from deal_finder import lead_clean
+    title = lead_clean(deal.get("title", ""))
     if price is None or price <= 0:
         block.append("no price")
     if deal.get("expired"):
