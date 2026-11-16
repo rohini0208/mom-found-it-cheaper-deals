@@ -621,6 +621,31 @@ def make_image_trio(path, theme, items, cat="Everything else"):
     img.save(path)
 
 
+def make_image_thisorthat(path, a, b, palette):
+    """Comment-bait: two products side by side, 'THIS or THAT?'. Engagement posts get ~40x the comments of plain deal posts."""
+    bg, accent = palette
+    img = Image.new("RGB", (PW, PH), bg)
+    d = ImageDraw.Draw(img)
+    centered(d, 52, "MOM FOUND IT CHEAPER", sans(30, "SemiBold"), fg(img), spacing=8)
+    hf = sans(120, "Bold")
+    centered(d, 108, "THIS OR THAT?", hf, fg(img), max_w=PW - 60)
+    centered(d, 252, "Which one is going in your cart?", sans(38, "SemiBold"), accent, max_w=PW - 100)
+    for k, deal in enumerate((a, b)):
+        x0 = 40 + k * 520
+        d.rounded_rectangle([x0, 330, x0 + 480, 1190], 36, fill=(255, 255, 255))
+        d.ellipse([x0 + 20, 346, x0 + 100, 426], fill=accent)
+        centered(d, 362, "AB"[k], sans(48, "Bold"), fg_on(accent), max_w=80, ) if False else d.text((x0 + 60 - sans(48, "Bold").getlength("AB"[k]) / 2, 356), "AB"[k], font=sans(48, "Bold"), fill=fg_on(accent))
+        _photo_into(img, deal, (x0 + 30, 440), (420, 420))
+        _title(d, deal, x0 + 30, 880, 420, 36, lines=2, mn=24)
+        _price_row(img, deal, x0 + 30, 1010, 56, 420)
+    cta_pill(img, 1235, 70)
+    img.save(path)
+
+
+def fg_on(rgb):
+    return (255, 255, 255) if (0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]) < 150 else (30, 30, 30)
+
+
 def link_for(deal):
     if deal.get("asin"):                       # straight to Amazon with our Associates tag (one click less)
         return f"https://www.amazon.com/dp/{deal['asin']}?tag={os.environ.get('AMAZON_TAG', 'momfounditc08-20')}"
@@ -744,6 +769,31 @@ def main():
         WEB.mkdir(exist_ok=True)
         (WEB / "post_single.png").write_bytes((OUT / "post_single.png").read_bytes())
         print("made post_single.png")
+    # engagement post: THIS or THAT from two different, well-reviewed products
+    used2 = used | ({star["id"]} if pool else set())
+    cands = [d for d in deals if d["id"] not in used2 and pct_off(d) >= 10 and is_amazon(d) and d.get("asin") not in SEEN_ASIN
+             and find_photo(d) and not qa_check(d)[0] and price_value(d.get("price", ""))
+             and not any(w in d["title"].lower() for w in SKIP_WORDS)]
+    cands.sort(key=score, reverse=True)
+    pair = None
+    for i, x in enumerate(cands[:30]):
+        for y in cands[i + 1:30]:
+            if x.get("category") == y.get("category") and product_key(x) != product_key(y) and abs(price_value(x["price"]) - price_value(y["price"])) <= 15:
+                pair = (x, y)
+                break
+        if pair:
+            break
+    if pair:
+        a, b = pair
+        make_image_thisorthat(OUT / "post_thisorthat.png", a, b, ROT[(datetime.now(timezone.utc).toordinal() + 2) % len(ROT)])
+        na, nb = (" ".join(tidy(short_title(no_price_title(z["title"]))).split(",")[0].split()[:5]) for z in pair)
+        cap = (f"THIS or THAT? 🛒\nA: {na}\nB: {nb}\nComment A or B and tell us why. We read every one!\n"
+               f"(AD)(Commission earned) As an Amazon Associate I earn from qualifying purchases.\n\n{HASHTAG_SET}")
+        cm = f"Shop here (prices and codes can change):\nA: {link_for(a)}\nB: {link_for(b)}\nAs an Amazon Associate I earn from qualifying purchases."
+        (OUT / "post_thisorthat.txt").write_text(f"CAPTION:\n{cap}\n\nFIRST COMMENT (paste after posting):\n{cm}\n")
+        (WEB / "post_thisorthat.png").write_bytes((OUT / "post_thisorthat.png").read_bytes())
+        SEEN_ASIN.update([a.get("asin"), b.get("asin")])
+        print("made post_thisorthat.png")
     MADE_FILE.write_text(json.dumps(sorted(made)[-900:], indent=1))
     print(f"{len(groups)} posts made")
 
