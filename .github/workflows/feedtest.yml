@@ -1,0 +1,24 @@
+name: feedtest
+on: workflow_dispatch
+jobs:
+  t:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          python3 - <<'PY'
+          import urllib.request,re
+          H={"User-Agent":"Mozilla/5.0 (compatible; deal-bot)"}
+          F={"reddit_amazondeals":"https://www.reddit.com/r/amazondeals/.rss","reddit_deals":"https://www.reddit.com/r/deals/.rss",
+          "bensbargains":"https://bensbargains.com/rss.xml","dealsea":"https://dealsea.com/rss.xml","bradsdeals":"https://www.bradsdeals.com/feed",
+          "techbargains":"https://www.techbargains.com/rss.xml","dealnews_amazon":"https://www.dealnews.com/s/Amazon/?rss=1",
+          "slick_amazon":"https://slickdeals.net/newsearch.php?q=amazon&searcharea=deals&searchin=first&rss=1",
+          "woot":"https://www.woot.com/blog/feed","hip2save":"https://hip2save.com/feed/","kinja":"https://kinjadeals.theinventory.com/rss",
+          "dealsplus":"https://www.dealsplus.com/rss/hot","wirecutter":"https://www.nytimes.com/wirecutter/deals/feed/","amazon_goldbox":"https://www.amazon.com/gp/goldbox"}
+          for k,u in F.items():
+              try:
+                  x=urllib.request.urlopen(urllib.request.Request(u,headers=H),timeout=25).read().decode("utf8","ignore")
+                  items=x.count("<item")+x.count("<entry")
+                  amz=len(re.findall(r"amazon",x,re.I)); img=len(re.findall(r"\.(?:jpg|jpeg|png|webp|thumb)",x))
+                  print("OK",k,len(x),"items",items,"amazon_mentions",amz,"images",img)
+              except Exception as e: print("FAIL",k,str(e)[:60])
+          PY
