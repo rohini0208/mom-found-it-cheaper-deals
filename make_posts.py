@@ -77,6 +77,8 @@ def pick_groups(deals, made):
         price = price_value(d.get("price", ""))
         low = d["title"].lower()
         key = product_key(d)
+        if os.environ.get("REQUIRE_PHOTO", "1") == "1" and not find_photo(d):
+            continue                                   # no photo = looks like a scam to shoppers
         if qa_check(d)[0] or not is_amazon(d):      # Amazon-only: our affiliate link is Amazon
             continue
         if (d["id"] in made or key in seen_keys or price is None or price < 1
@@ -297,6 +299,15 @@ def sticker(img, text, cx, cy, fill, ink=(255, 255, 255), angle=-8):
     img.paste(tmp, (int(cx - tmp.width / 2), int(cy - tmp.height / 2)), tmp)
 
 
+def cta_pill(img, y=1260, h=68):
+    """Bold, readable footer: where the links are + why to join."""
+    d = ImageDraw.Draw(img)
+    d.rounded_rectangle([40, y, PW - 40, y + h], h // 2, fill=(255, 255, 255))
+    t = "LINKS IN THE 1ST COMMENT  \u00b7  JOIN FREE FOR DAILY DEALS"
+    f = fit(d, t, lambda z: sans(z, "Bold"), 32, PW - 140, max_lines=1, min_size=22)
+    centered(d, y + (h - f.size) // 2 - 4, t, f, (33, 33, 33), max_w=PW - 120)
+
+
 def make_image_v2(path, theme, items, cat="Everything else"):
     bg, accent = PALETTES.get(cat, PALETTES["Everything else"])
     img = Image.new("RGB", (PW, PH), bg)
@@ -310,9 +321,9 @@ def make_image_v2(path, theme, items, cat="Everything else"):
         draw_tile_v2(img, i, deal, V2_TOP + (i - 1) * (V2_TILE_H + V2_GAP), accent)
     star = best_item(items)
     k = items.index(star)
-    sticker(img, "TOP PICK", 200, V2_TOP + k * (V2_TILE_H + V2_GAP) + V2_TILE_H - 22, (255, 193, 7), ink=(40, 40, 40))
+    sticker(img, "MOM'S PICK", 200, V2_TOP + k * (V2_TILE_H + V2_GAP) + V2_TILE_H - 22, (255, 193, 7), ink=(40, 40, 40))
     d = ImageDraw.Draw(img)
-    centered(d, 1292, "PRICES CHECKED TODAY  \u00b7  REAL SHOPPER RATINGS  \u00b7  JOIN FREE  \u00b7  #AD", sans(23, "SemiBold"), fg(img), spacing=3, max_w=PW - 60)
+    cta_pill(img, 1262)
     img.save(path)
 
 
@@ -409,24 +420,24 @@ def make_image_hero(path, theme, items, cat="Everything else"):
     star = best_item(items)
     rest = [i for i in items if i is not star][:2]
     d = ImageDraw.Draw(img)
-    d.rounded_rectangle([40, 300, PW - 40, 790], 34, fill=(255, 255, 255))
-    _photo_into(img, star, (66, 326), (420, 438))
+    d.rounded_rectangle([40, 290, PW - 40, 740], 34, fill=(255, 255, 255))
+    _photo_into(img, star, (66, 308), (420, 410))
     d = ImageDraw.Draw(img)
-    y = _title(d, star, 520, 336, PW - 40 - 30 - 520, 42, 3, 30)
+    y = _title(d, star, 520, 322, PW - 40 - 30 - 520, 42, 3, 30)
     y = _price_row(img, star, 520, y + 8, 84, PW - 40 - 30 - 520)
     _chips(img, star, 520, y + 6, 480, 28)
-    sticker(img, "TOP PICK", 250, 770, (255, 193, 7), ink=(40, 40, 40))
+    sticker(img, "MOM'S PICK", 250, 722, (255, 193, 7), ink=(40, 40, 40))
     for k, deal in enumerate(rest):
         x0 = 40 + k * 510
         d = ImageDraw.Draw(img)
-        d.rounded_rectangle([x0, 816, x0 + 490, 1272], 30, fill=(255, 255, 255))
-        _photo_into(img, deal, (x0 + 20, 830), (450, 150))
+        d.rounded_rectangle([x0, 762, x0 + 490, 1244], 30, fill=(255, 255, 255))
+        _photo_into(img, deal, (x0 + 20, 778), (450, 190))
         d = ImageDraw.Draw(img)
-        y = _title(d, deal, x0 + 24, 992, 442, 30, 2, 22)
+        y = _title(d, deal, x0 + 24, 980, 442, 30, 2, 22)
         y = _price_row(img, deal, x0 + 24, y + 4, 52, 442)
         _chips(img, deal, x0 + 24, y + 2, 442, 22)
     d = ImageDraw.Draw(img)
-    centered(d, 1300, "PRICES CHECKED TODAY  \u00b7  REAL SHOPPER RATINGS  \u00b7  JOIN FREE  \u00b7  #AD", sans(23, "SemiBold"), fg(img), spacing=3, max_w=PW - 60)
+    cta_pill(img, 1262)
     img.save(path)
 
 
@@ -454,13 +465,13 @@ def make_image_trio(path, theme, items, cat="Everything else"):
             y += 36
         _chips(img, deal, x0 + 18, y + 6, cw - 36, 24)
         if deal is star:
-            sticker(img, "TOP PICK", x0 + cw - 90, 330, (255, 193, 7), ink=(40, 40, 40), angle=10)
+            sticker(img, "MOM'S PICK", x0 + cw - 90, 330, (255, 193, 7), ink=(40, 40, 40), angle=10)
     d = ImageDraw.Draw(img)
     d.rounded_rectangle([40, 1110, PW - 40, 1250], 34, fill=accent)
     ink = CHAR if sum(accent) > 480 else (255, 255, 255)
-    centered(d, 1134, "SHOP LINKS IN THE COMMENTS", sans(50, "Bold"), ink, max_w=PW - 100)
-    centered(d, 1198, "tap the first comment  \u00b7  prices checked today, can change", sans(26, "Medium"), ink, max_w=PW - 100)
-    centered(d, 1290, "REAL SHOPPER RATINGS  \u00b7  JOIN FREE  \u00b7  #AD", sans(23, "SemiBold"), fg(img), spacing=3, max_w=PW - 60)
+    centered(d, 1134, "LINKS IN THE 1ST COMMENT", sans(50, "Bold"), ink, max_w=PW - 100)
+    centered(d, 1198, "join free for daily deals  \u00b7  prices checked today, can change", sans(26, "Medium"), ink, max_w=PW - 100)
+    centered(d, 1290, "#AD  \u00b7  AMAZON ASSOCIATE, I EARN FROM QUALIFYING PURCHASES", sans(23, "SemiBold"), fg(img), spacing=3, max_w=PW - 60)
     img.save(path)
 
 
@@ -513,7 +524,7 @@ def texts(theme, items):
     st = story(items)
     caption = (f"✨ {theme}: {names[0]}, {names[1]} and {names[2]}\n"
                + (f"{st}\n" if st else "")
-               + f"{pick(QUESTIONS, items[0]['id'], 'q')}\n(AD)(Commission earned)\n\n{HASHTAG_SET}")
+               + f"{pick(QUESTIONS, items[0]['id'], 'q')}\nLinks are in the first comment. Join Mom Found It Cheaper for a daily list.\n(AD)(Commission earned) As an Amazon Associate I earn from qualifying purchases.\n\n{HASHTAG_SET}")
     lines = ["Shop here (prices and codes can change):"]
     for n, i in zip(names, items):
         code = clean_code(i)
