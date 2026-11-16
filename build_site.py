@@ -349,6 +349,9 @@ def main():
     count, picked = {}, []
     for d in sorted(deals, key=rank, reverse=True):
         c = d.get("category", "Everything else")
+        _t = tested.get(deal_id(d))
+        if is_amazon(d) and not d.get("asin") and not (isinstance(_t, dict) and _t.get("asin")):
+            continue                  # Amazon deal with no ASIN = no affiliate link; skip
         if count.get(c, 0) < PER_CATEGORY:
             count[c] = count.get(c, 0) + 1
             picked.append(d)
