@@ -143,7 +143,7 @@ THUMBS_RE = re.compile(r"thumb score:\s*\+?(\d+)", re.I)
 EXPIRED_RE = re.compile(r"\b(expired|has ended|deal ended|ended|no longer (?:available|valid|working)|"
                         r"sold out|out of stock|(?:code|coupon) (?:is )?(?:not working|doesn'?t work|invalid|maxed))\b", re.I)
 TESTED_FILE = Path("data/tested.json")
-WAS_RE = re.compile(r"(?:list price|reg(?:ularly)?\.?|was|originally|retail)\s*:?\s*\$\s?(\d[\d,]*(?:\.\d{2})?)", re.I)
+WAS_RE = re.compile(r"(?:list price|reg(?:ularly)?\.?|was|originally|retail|typically|normally)\s*:?\s*\$\s?(\d[\d,]*(?:\.\d{2})?)", re.I)
 
 
 def fetch(url):
@@ -238,7 +238,7 @@ def parse_feed(source, raw):
         asin = ASIN_RE.search(decoded)
         if not asin and source.startswith("Hip2Save"):
             asin = re.match(r"(.+)", hip_asin(link) or "")
-        was = WAS_RE.search(desc)
+        was = WAS_RE.search(f"{title} {desc}")
         deals.append({
             "id": link or title,
             "title": title,

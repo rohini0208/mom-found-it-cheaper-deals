@@ -78,6 +78,8 @@ def pick_groups(deals, made):
         price = price_value(d.get("price", ""))
         low = d["title"].lower()
         key = product_key(d)
+        if os.environ.get("REQUIRE_WAS", "1") == "1" and pct_off(d) < 10:
+            continue                                   # every post shows a real saving (verified was-price)
         if os.environ.get("REQUIRE_PHOTO", "1") == "1" and not find_photo(d):
             continue                                   # no photo = looks like a scam to shoppers
         if qa_check(d)[0] or not is_amazon(d):      # Amazon-only: our affiliate link is Amazon
@@ -635,7 +637,7 @@ def main():
         print(f"made post_{n}.png - {theme}: " + " | ".join(i["title"][:30] for i in items))
 
     # one extra single-product "Mom's pick" post: best-reviewed item with a photo
-    pool = [d for d in deals if is_amazon(d) and ((META.get(d.get("asin", "")) or {}).get("reviews") or 0) >= 100 and find_photo(d) and not qa_check(d)[0] 
+    pool = [d for d in deals if pct_off(d) >= 10 and is_amazon(d) and ((META.get(d.get("asin", "")) or {}).get("reviews") or 0) >= 100 and find_photo(d) and not qa_check(d)[0] 
             and price_value(d.get("price", "")) and not any(w in d["title"].lower() for w in SKIP_WORDS)]
     if pool:
         pool.sort(key=lambda x: x["id"])
