@@ -199,8 +199,16 @@ PALETTES = {                      # (background, accent) per category
 V2_TILE_H, V2_GAP, V2_TOP = 300, 18, 310
 
 
+def was_of(deal):
+    """Earlier price: from the deal itself, else Amazon's list price (read from the product page)."""
+    w = deal.get("was", "")
+    if not w:
+        w = (META.get(deal.get("asin", "")) or {}).get("list") or ""
+    return w
+
+
 def pct_off(deal):
-    a, b = price_value(deal.get("price", "")), price_value(deal.get("was", ""))
+    a, b = price_value(deal.get("price", "")), price_value(was_of(deal))
     return round((1 - a / b) * 100) if a and b and b > a else 0
 
 
@@ -239,7 +247,7 @@ def draw_tile_v2(img, i, deal, top, accent):
     d.rounded_rectangle([x - 6, y + 4, x + pw_ + 26, y + 86], 22, fill=accent[0] if False else CHAR)
     d.text((x + 10, y + 8), price, font=pf, fill=(255, 255, 255))
     cx = x + pw_ + 44
-    off, was = pct_off(deal), deal.get("was", "")
+    off, was = pct_off(deal), was_of(deal)
     if off >= 10:
         d.rounded_rectangle([cx, y + 16, cx + 150, y + 70], 27, fill=(229, 57, 53))
         d.text((cx + 16, y + 24), f"{off}% OFF", font=sans(30, "Bold"), fill=(255, 255, 255))

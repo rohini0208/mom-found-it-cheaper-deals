@@ -1,1 +1,40 @@
-{"B0D87PKYYK":{"rating":4.8,"reviews":4058},"B00U0P0GHM":{"rating":4.8,"reviews":7593},"B0H46YSXY4":{"rating":4.5,"reviews":131},"B0HFWY2LQT":{"rating":5.0,"reviews":17},"B09H7C4NPV":{"rating":4.5,"reviews":13799},"B0FJDS4V86":{"rating":4.5,"reviews":1254},"B0HD7FRMM6":{"rating":4.7,"reviews":236}}
+{
+"B0D87PKYYK": {
+"rating": 4.8,
+"reviews": 4058,
+"list": "$14.99"
+},
+"B00U0P0GHM": {
+"rating": 4.8,
+"reviews": 7593,
+"list": "$79.97"
+},
+"B0H46YSXY4": {
+"rating": 4.5,
+"reviews": 131,
+"list": "$49.99"
+},
+"B0HFWY2LQT": {
+"rating": 5.0,
+"reviews": 17
+},
+"B09H7C4NPV": {
+"rating": 4.5,
+"reviews": 13799
+},
+"B0FJDS4V86": {
+"rating": 4.5,
+"reviews": 1254,
+"list": "$19.98"
+},
+"B0HD7FRMM6": {
+"rating": 4.7,
+"reviews": 236,
+"list": "$109.99"
+},
+"1223063151": {
+"rating": 4.4,
+"reviews": 10882,
+"list": "$29.99"
+}
+}
