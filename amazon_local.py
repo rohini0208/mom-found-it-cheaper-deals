@@ -64,8 +64,8 @@ def main():
                 rt = re.search(r'([\d.]+) out of 5 stars', html)
                 rc = re.search(r'id="acrCustomerReviewText"[^>]*>\(?([\d,KkMm.]+)', html)
                 lp = page.evaluate("""() => {
-                    const root = document.querySelector('#corePriceDisplay_desktop_feature_div, #corePrice_feature_div, #apex_desktop');
-                    const el = root && root.querySelector('.basisPrice .a-offscreen, [data-a-strike="true"] .a-offscreen');
+                    const root = document.querySelector('#ppd') || document.querySelector('#centerCol') || document;
+                    const el = root.querySelector('.basisPrice .a-offscreen, [data-a-strike="true"] .a-offscreen, .a-price.a-text-price .a-offscreen');
                     return el ? el.textContent : null; }""")
                 lp = re.search(r"\$[\d,.]+", lp or "")
                 m = re.search(r'"hiRes":"(https:[^"]+)"', html)
