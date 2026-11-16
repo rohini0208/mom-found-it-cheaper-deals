@@ -7,7 +7,7 @@ After setup it runs by itself every day: no Claude, no tokens.
 2. Open Command Prompt:
    `git clone https://github.com/rohini0208/mom-found-it-cheaper-deals.git`
    (sign in to GitHub when asked)
-3. Test: `cd mom-found-it-cheaper-deals` then `python amazon_local.py`
+3. Run once: `pip install playwright` then `python amazon_local.py` (a Chrome window opens, leave it alone; solve a captcha in it if shown)
    It should print "ok B0..." lines and push photos.
 4. Run daily: open Task Scheduler > Create Basic Task > Daily 6:00 AM >
    Action "Start a program": `python`, arguments `amazon_local.py`,

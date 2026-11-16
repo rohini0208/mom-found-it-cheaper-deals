@@ -1,4 +1,4 @@
-"""Run on YOUR home computer (home internet address, so Amazon does not show the cloud captcha).
+"""Run on YOUR home computer. Drives your real Chrome (needs: pip install playwright), so Amazon treats it like you browsing.
 Fetches Amazon product photo + rating + review count + list price for deals that lack them,
 saves into photos/ and data/product_meta.json, then pushes to GitHub. No Claude, no tokens.
 Temporary until the Amazon Creators API is available. Slow and polite on purpose (3-6 s apart, max 25/run).
@@ -10,7 +10,6 @@ import re
 import subprocess
 import sys
 import time
-import urllib.request
 from pathlib import Path
 
 MAX_RUN = 25
@@ -20,17 +19,21 @@ H = {"User-Agent": UA, "Accept-Language": "en-US,en;q=0.9", "Accept": "text/html
 PH, META = Path("photos"), Path("data/product_meta.json")
 
 
-def get(url, binary=False):
-    r = urllib.request.urlopen(urllib.request.Request(url, headers=H), timeout=30).read()
-    return r if binary else r.decode("utf8", "ignore")
-
-
 def sh(*a):
     return subprocess.run(a, capture_output=True, text=True)
 
 
+GIT = ["git", "-c", "user.name=photo-bot", "-c", "user.email=photo-bot@users.noreply.github.com"]
+
+
+def parse_reviews(t):
+    t = t.replace(",", "")
+    return int(float(t[:-1]) * 1000) if t[-1:] in "Kk" else int(float(t))
+
+
 def main():
-    sh("git", "pull", "--rebase", "-q")
+    from playwright.sync_api import sync_playwright
+    sh(*GIT, "pull", "--rebase", "-q")
     deals = json.loads(Path("data/deals.json").read_text())
     meta = json.loads(META.read_text()) if META.exists() else {}
     PH.mkdir(exist_ok=True)
@@ -41,34 +44,46 @@ def main():
             seen.add(a)
             todo.append(a)
     done = 0
-    for a in todo[:MAX_RUN]:
-        try:
-            page = get(f"https://www.amazon.com/dp/{a}")
-            if re.search(r"captcha|robot check", page, re.I) and "landingImage" not in page:
-                print("captcha, stopping (try again later)")
-                break
-            rt = re.search(r'([\d.]+) out of 5 stars', page)
-            rc = re.search(r'id="acrCustomerReviewText"[^>]*>\(?([\d,KkMm.]+)', page)
-            lp = re.search(r'(?:basisPrice|a-text-price)[^$]{0,400}(\$[\d,.]+)', page)
-            m = re.search(r'"hiRes":"(https:[^"]+)"', page)
-            reviews = None
-            if rc:
-                t = rc.group(1).replace(",", "")
-                reviews = int(float(t[:-1]) * 1000) if t[-1:] in "Kk" else int(float(t))
-            meta[a] = {"rating": float(rt.group(1)) if rt else None, "reviews": reviews,
-                       "list": lp.group(1) if lp else None}
-            if m:
-                (PH / f"{a}.jpg").write_bytes(get(re.sub(r"\._[^.]*_\.", "._SL600_.", m.group(1)), True))
-            done += 1
-            print("ok", a, meta[a])
-        except Exception as e:
-            print("fail", a, e)
-        time.sleep(random.uniform(3, 6))
+    with sync_playwright() as p:
+        # your real Chrome, with its own saved profile folder (cookies stay between runs)
+        ctx = p.chromium.launch_persistent_context(str(Path.home() / ".mfic_chrome"), channel="chrome",
+                                                   headless=False, viewport={"width": 1200, "height": 800})
+        page = ctx.pages[0] if ctx.pages else ctx.new_page()
+        for a in todo[:MAX_RUN]:
+            try:
+                page.goto(f"https://www.amazon.com/dp/{a}", wait_until="domcontentloaded", timeout=45000)
+                html = page.content()
+                if re.search(r"captcha|robot check", html, re.I) and "landingImage" not in html:
+                    print("Amazon wants a captcha. Solve it in the Chrome window (you have 90 seconds)...")
+                    try:
+                        page.wait_for_selector("#landingImage, #imgTagWrapperId", timeout=90000)
+                        html = page.content()
+                    except Exception:
+                        print("captcha not solved, stopping (try again later)")
+                        break
+                rt = re.search(r'([\d.]+) out of 5 stars', html)
+                rc = re.search(r'id="acrCustomerReviewText"[^>]*>\(?([\d,KkMm.]+)', html)
+                lp = re.search(r'(?:basisPrice|a-text-price)[^$]{0,400}(\$[\d,.]+)', html)
+                m = re.search(r'"hiRes":"(https:[^"]+)"', html)
+                meta[a] = {"rating": float(rt.group(1)) if rt else None,
+                           "reviews": parse_reviews(rc.group(1)) if rc else None,
+                           "list": lp.group(1) if lp else None}
+                if m:
+                    img = ctx.request.get(re.sub(r"\._[^.]*_\.", "._SL600_.", m.group(1)))
+                    (PH / f"{a}.jpg").write_bytes(img.body())
+                done += 1
+                print("ok", a, meta[a])
+            except Exception as e:
+                print("fail", a, str(e)[:100])
+            time.sleep(random.uniform(3, 6))
+        ctx.close()
     META.write_text(json.dumps(meta, indent=1))
-    sh("git", "add", "photos", "data/product_meta.json")
-    if sh("git", "diff", "--cached", "--quiet").returncode:
-        sh("git", "commit", "-qm", f"Amazon photos and ratings ({done} products, from home computer)")
-        print(sh("git", "pull", "--rebase", "-q").stderr, sh("git", "push", "-q").stderr)
+    sh(*GIT, "add", "photos", "data/product_meta.json")
+    if sh(*GIT, "diff", "--cached", "--quiet").returncode:
+        sh(*GIT, "commit", "-qm", f"Amazon photos and ratings ({done} products, from home computer)")
+        sh(*GIT, "pull", "--rebase", "-q")
+        r = sh(*GIT, "push", "-q")
+        print("pushed" if r.returncode == 0 else r.stderr)
     print(f"{done} products done, {len(todo) - done} still waiting")
 
 
