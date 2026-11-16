@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T12:27+00:00",
+ "updated": "2026-11-16T19:38+00:00",
  "status": {
   "TikTok Made Me Buy It (Reddit)": "error: HTTP Error 404: Not Found",
   "Amazon finds (Reddit)": "error: HTTP Error 429: Too Many Requests",
@@ -185,10 +185,34 @@
   },
   {
    "source": "camelcamelcamel popular",
+   "title": "Bose SoundLink Plus Portable Bluetooth Speaker, Wireless Outdoor Speaker, Up to 20 Hours Battery Life, Waterproof and Dustproof, Black",
+   "link": "https://camelcamelcamel.com/product/B0F7HVC62G?active=price_amazon",
+   "asin": "B0F7HVC62G",
+   "rank": 11,
+   "label": "Best Price",
+   "words": [
+    "battery",
+    "black",
+    "bluetooth",
+    "bose",
+    "dustproof",
+    "hours",
+    "life",
+    "outdoor",
+    "plus",
+    "portable",
+    "soundlink",
+    "speaker",
+    "waterproof",
+    "wireless"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
    "title": "EXIT: The Game - Adventures on Catan | Escape Game",
    "link": "https://camelcamelcamel.com/product/B0DSCN12B7?active=price_amazon",
    "asin": "B0DSCN12B7",
-   "rank": 11,
+   "rank": 12,
    "label": "Best Price",
    "words": [
     "adventures",
@@ -203,7 +227,7 @@
    "title": "Persona 3 Reload: Launch Edition - Nintendo Switch 2",
    "link": "https://camelcamelcamel.com/product/B0FKNJHYR9?active=price_amazon",
    "asin": "B0FKNJHYR9",
-   "rank": 12,
+   "rank": 13,
    "label": "Best Price",
    "words": [
     "edition",
@@ -219,7 +243,7 @@
    "title": "New Surrender - 180-Gram Black Vinyl",
    "link": "https://camelcamelcamel.com/product/B0FFFK9VLC?active=price_amazon",
    "asin": "B0FFFK9VLC",
-   "rank": 13,
+   "rank": 14,
    "label": "Best Price",
    "words": [
     "black",
@@ -233,7 +257,7 @@
    "title": "LEGO Marvel Epic Battle: Spider-Man vs. Sandman 76334 76334",
    "link": "https://camelcamelcamel.com/product/B0FMSD393S?active=price_amazon",
    "asin": "B0FMSD393S",
-   "rank": 14,
+   "rank": 15,
    "label": "Best Price",
    "words": [
     "battle",
@@ -249,7 +273,7 @@
    "title": "Marillion.Com (5LP Box Set)",
    "link": "https://camelcamelcamel.com/product/B0G84MXCF9?active=price_amazon",
    "asin": "B0G84MXCF9",
-   "rank": 15,
+   "rank": 16,
    "label": "Best Price",
    "words": [
     "marillion"
@@ -260,7 +284,7 @@
    "title": "The Art of Kingdom Come Deliverance II",
    "link": "https://camelcamelcamel.com/product/1506756158?active=price_amazon",
    "asin": "1506756158",
-   "rank": 16,
+   "rank": 17,
    "label": "Good Deal",
    "words": [
     "come",
@@ -273,7 +297,7 @@
    "title": "LEGO Editions Cristiano Ronaldo \u2013 Soccer Highlights 43012",
    "link": "https://camelcamelcamel.com/product/B0FNXM77MD?active=price_amazon",
    "asin": "B0FNXM77MD",
-   "rank": 17,
+   "rank": 18,
    "label": "Best Price",
    "words": [
     "cristiano",
@@ -289,7 +313,7 @@
    "title": "JBL Tune 530BT (2026) \u2013 Wireless On-Ear Bluetooth Headphones (Blue)",
    "link": "https://camelcamelcamel.com/product/B0GHY652MM?active=price_amazon",
    "asin": "B0GHY652MM",
-   "rank": 18,
+   "rank": 19,
    "label": "Best Price",
    "words": [
     "530bt",
@@ -298,21 +322,6 @@
     "headphones",
     "tune",
     "wireless"
-   ]
-  },
-  {
-   "source": "camelcamelcamel popular",
-   "title": "LEGO Friends Creative Flower Shop 42693",
-   "link": "https://camelcamelcamel.com/product/B0G2T5KS7B?active=price_amazon",
-   "asin": "B0G2T5KS7B",
-   "rank": 19,
-   "label": "Good Deal",
-   "words": [
-    "creative",
-    "flower",
-    "friends",
-    "lego",
-    "shop"
    ]
   },
   {

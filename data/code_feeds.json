@@ -1,7 +1,7 @@
 {
  "Hip2Save": {
-  "items": 45,
-  "with_code_or_coupon": 33
+  "items": 36,
+  "with_code_or_coupon": 25
  },
  "Fabulessly Frugal": {
   "items": 100,
@@ -13,15 +13,15 @@
  },
  "The Freebie Guy": {
   "items": 40,
-  "with_code_or_coupon": 17
+  "with_code_or_coupon": 14
  },
  "Passionate Penny Pincher": {
   "items": 60,
-  "with_code_or_coupon": 1
+  "with_code_or_coupon": 0
  },
  "9to5Toys": {
   "items": 50,
-  "with_code_or_coupon": 3
+  "with_code_or_coupon": 2
  },
- "_matched_deals": 14
+ "_matched_deals": 15
 }
