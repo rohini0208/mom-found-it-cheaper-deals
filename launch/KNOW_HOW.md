@@ -49,3 +49,13 @@ Opened: Iamlonni's.
   "Hidden Clearance" / "Hidden Finds" words recur. Keywords people search: Walmart, Amazon, finds, freebies, glitches, codes, hidden, clearance, daily deals.
 Applied/To-do: add "This or That?" and "Which would you grab?" posts built from 2 products (comment bait);
 consider renaming/tagline the group: "Amazon & Walmart Finds | Daily Deals, Codes & Freebies" (search words) while keeping Mom Found It Cheaper brand.
+
+## Round 3 (Nov 16): ~90 groups scanned from search lists, 6 opened
+Big public names: Walmart & Amazon Finds - Freebies, Glitches & Codes 1.2M (and clones 126K/409K private), Walmart Hidden Clearance Sales 362K,
+Couponing at Walmart 187K (private), Cheap as Bleep 228K, TFG 248K, Smart Savers 206K. Clones with the same name keep appearing: the name is the growth engine.
+Opened Walmart & Amazon Finds | Daily Deals (25K, mod posts):
+- Deal posts: "80% OFF THIS LUXURIOUSLY SOFT THROW! Cozy Haven Lush Plush Throw is just $15!" / "44% OFF SKECHERS! The GO WALK JOY ... now just $37". Caps % OFF + product + "just $X". Only ~1 comment each.
+- Nostalgia quiz post ("How many have you done??? What's your score?" 20-item checklist image): 42 comments, 3 shares, 11 likes = 40x the comments of a deal post.
+  => Mix in 1 engagement post for every 3-4 deal posts (nostalgia checklists, This or That, "which would you grab").
+- Walmart is the biggest keyword: "hidden clearance", "clearance finds". Amazon-only groups are smaller.
+Not copied: AI-student-giveaway style posts (off-topic).
