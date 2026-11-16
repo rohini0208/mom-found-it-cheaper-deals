@@ -8,17 +8,11 @@ jobs:
           python3 - <<'PY'
           import urllib.request,re
           H={"User-Agent":"Mozilla/5.0 (compatible; deal-bot)"}
-          F={"reddit_amazondeals":"https://www.reddit.com/r/amazondeals/.rss","reddit_deals":"https://www.reddit.com/r/deals/.rss",
-          "bensbargains":"https://bensbargains.com/rss.xml","dealsea":"https://dealsea.com/rss.xml","bradsdeals":"https://www.bradsdeals.com/feed",
-          "techbargains":"https://www.techbargains.com/rss.xml","dealnews_amazon":"https://www.dealnews.com/s/Amazon/?rss=1",
-          "slick_amazon":"https://slickdeals.net/newsearch.php?q=amazon&searcharea=deals&searchin=first&rss=1",
-          "woot":"https://www.woot.com/blog/feed","hip2save":"https://hip2save.com/feed/","kinja":"https://kinjadeals.theinventory.com/rss",
-          "dealsplus":"https://www.dealsplus.com/rss/hot","wirecutter":"https://www.nytimes.com/wirecutter/deals/feed/","amazon_goldbox":"https://www.amazon.com/gp/goldbox"}
-          for k,u in F.items():
-              try:
-                  x=urllib.request.urlopen(urllib.request.Request(u,headers=H),timeout=25).read().decode("utf8","ignore")
-                  items=x.count("<item")+x.count("<entry")
-                  amz=len(re.findall(r"amazon",x,re.I)); img=len(re.findall(r"\.(?:jpg|jpeg|png|webp|thumb)",x))
-                  print("OK",k,len(x),"items",items,"amazon_mentions",amz,"images",img)
-              except Exception as e: print("FAIL",k,str(e)[:60])
+          def g(u): return urllib.request.urlopen(urllib.request.Request(u,headers=H),timeout=25).read().decode("utf8","ignore")
+          for k,u in {"TB":"https://www.techbargains.com/rss.xml","HIP":"https://hip2save.com/feed/"}.items():
+              x=g(u); it=x.split("<item>")[1:3]
+              for i in it: print("S",k,re.sub(r"\s+"," ",i)[:1500])
+          x=g("https://www.amazon.com/gp/goldbox")
+          print("S GB captcha?",bool(re.search("captcha|robot",x,re.I)),"asins",len(set(re.findall(r"/dp/(B[0-9A-Z]{9})",x))),"imgs",re.findall(r"https://m\.media-amazon\.com/images/I/[^\"' ]+",x)[:3])
+          print("S GB title",re.findall(r"<title>([^<]*)",x)[:1])
           PY
