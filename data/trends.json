@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T06:31+00:00",
+ "updated": "2026-11-16T11:34+00:00",
  "status": {
   "TikTok Made Me Buy It (Reddit)": "error: HTTP Error 404: Not Found",
   "Amazon finds (Reddit)": "error: HTTP Error 429: Too Many Requests",
@@ -11,10 +11,25 @@
  "signals": [
   {
    "source": "camelcamelcamel popular",
+   "title": "LEGO Classic Medium Creative Brick Box 10696",
+   "link": "https://camelcamelcamel.com/product/B00NHQFA1I?active=price_amazon",
+   "asin": "B00NHQFA1I",
+   "rank": 1,
+   "label": "Good Deal",
+   "words": [
+    "brick",
+    "classic",
+    "creative",
+    "lego",
+    "medium"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
    "title": "LEGO Botanicals Succulents 10309",
    "link": "https://camelcamelcamel.com/product/B09Q4GWMZQ?active=price_amazon",
    "asin": "B09Q4GWMZQ",
-   "rank": 1,
+   "rank": 2,
    "label": "Best Price",
    "words": [
     "botanicals",
@@ -27,7 +42,7 @@
    "title": "Sonic Origins Plus - Nintendo Switch",
    "link": "https://camelcamelcamel.com/product/B0BZFGSY5W?active=price_amazon",
    "asin": "B0BZFGSY5W",
-   "rank": 2,
+   "rank": 3,
    "label": "Best Price",
    "words": [
     "nintendo",
@@ -35,24 +50,6 @@
     "plus",
     "sonic",
     "switch"
-   ]
-  },
-  {
-   "source": "camelcamelcamel popular",
-   "title": "Garmin Forerunner\u00ae 265, Running Smartwatch, 46mm, Black/Powder Gray",
-   "link": "https://camelcamelcamel.com/product/B0BS1T9J4Y?active=price_amazon",
-   "asin": "B0BS1T9J4Y",
-   "rank": 3,
-   "label": "Best Price",
-   "words": [
-    "46mm",
-    "black",
-    "forerunner",
-    "garmin",
-    "gray",
-    "powder",
-    "running",
-    "smartwatch"
    ]
   },
   {
@@ -119,27 +116,10 @@
   },
   {
    "source": "camelcamelcamel popular",
-   "title": "Garmin Instinct\u00ae 3 AMOLED, Rugged GPS Smartwatch, 45mm, Black",
-   "link": "https://camelcamelcamel.com/product/B0DSC8JF59?active=price_amazon",
-   "asin": "B0DSC8JF59",
-   "rank": 8,
-   "label": "Best Price",
-   "words": [
-    "45mm",
-    "amoled",
-    "black",
-    "garmin",
-    "instinct",
-    "rugged",
-    "smartwatch"
-   ]
-  },
-  {
-   "source": "camelcamelcamel popular",
    "title": "LEGO Icons Williams Racing FW14B & Nigel Mansell F1 Model Car Kit - Building Set for Adults, Ages 18+ - F1 DIY Craft for Display - Gifts for Birthdays - 10353",
    "link": "https://camelcamelcamel.com/product/B0DJ19PWQF?active=price_amazon",
    "asin": "B0DJ19PWQF",
-   "rank": 9,
+   "rank": 8,
    "label": "Best Price",
    "words": [
     "adults",
@@ -157,6 +137,32 @@
     "nigel",
     "racing",
     "williams"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Lenovo Slim 7i Aura Edition - 2025 - Copilot+ PC - Core Ultra 7 Processor 256V - 14\" WUXGA OLED Display - 16 GB Memory - 1 TB Storage - Luna Grey",
+   "link": "https://camelcamelcamel.com/product/B0DTC5N26L?active=price_amazon",
+   "asin": "B0DTC5N26L",
+   "rank": 9,
+   "label": "Best Price",
+   "words": [
+    "256v",
+    "aura",
+    "copilot",
+    "core",
+    "display",
+    "edition",
+    "grey",
+    "lenovo",
+    "luna",
+    "memory",
+    "oled",
+    "processor",
+    "slim",
+    "storage",
+    "ultra",
+    "wuxga"
    ]
   },
   {
@@ -280,28 +286,10 @@
   },
   {
    "source": "camelcamelcamel popular",
-   "title": "Samsung 77-Inch Class S90H Series, OLED, 4K, Smart TV, 2026 Model",
-   "link": "https://camelcamelcamel.com/product/B0GPY2T4L2?active=price_amazon",
-   "asin": "B0GPY2T4L2",
-   "rank": 18,
-   "label": "Best Price",
-   "words": [
-    "class",
-    "inch",
-    "model",
-    "oled",
-    "s90h",
-    "samsung",
-    "series",
-    "smart"
-   ]
-  },
-  {
-   "source": "camelcamelcamel popular",
    "title": "JBL Tune 530BT (2026) \u2013 Wireless On-Ear Bluetooth Headphones (Blue)",
    "link": "https://camelcamelcamel.com/product/B0GHY652MM?active=price_amazon",
    "asin": "B0GHY652MM",
-   "rank": 19,
+   "rank": 18,
    "label": "Best Price",
    "words": [
     "530bt",
@@ -310,6 +298,21 @@
     "headphones",
     "tune",
     "wireless"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "LEGO Friends Creative Flower Shop 42693",
+   "link": "https://camelcamelcamel.com/product/B0G2T5KS7B?active=price_amazon",
+   "asin": "B0G2T5KS7B",
+   "rank": 19,
+   "label": "Good Deal",
+   "words": [
+    "creative",
+    "flower",
+    "friends",
+    "lego",
+    "shop"
    ]
   },
   {
