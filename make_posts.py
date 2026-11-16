@@ -613,6 +613,8 @@ def make_image_trio(path, theme, items, cat="Everything else"):
 
 
 def link_for(deal):
+    if deal.get("asin"):                       # straight to Amazon with our Associates tag (one click less)
+        return f"https://www.amazon.com/dp/{deal['asin']}?tag={os.environ.get('AMAZON_TAG', 'momfounditc08-20')}"
     return f"{SITE}#d-{hashlib.sha1(deal['id'].encode()).hexdigest()[:10]}"
 
 
