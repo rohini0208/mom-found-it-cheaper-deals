@@ -191,18 +191,21 @@ def make_image(path, theme, items):
 
 
 # ---------- layout v2: bold, photo-first (closer to the big deal groups) ----------
+TRUST = (21, 101, 192)   # blue = trust, used for ratings
 PALETTES = {                      # (background, accent) per category
     "Baby & Kids": ((255, 183, 77), (216, 67, 21)),
     "Toys & Games": ((126, 87, 194), (255, 202, 40)),
     "Beauty & Health": ((236, 100, 140), (255, 255, 255)),
     "Home & Kitchen": ((0, 137, 123), (255, 213, 79)),
-    "Fashion": ((40, 53, 147), (255, 138, 128)),
-    "Tech & Electronics": ((21, 101, 192), (255, 235, 59)),
+    "Fashion": ((136, 14, 79), (255, 171, 145)),
+    "Tech & Electronics": ((20, 20, 26), (255, 214, 10)),
     "Grocery & Household": ((67, 160, 71), (255, 241, 118)),
     "Pets": ((239, 108, 0), (255, 255, 255)),
     "Outdoor & Tools": ((55, 71, 79), (255, 193, 7)),
     "Everything else": ((216, 67, 21), (255, 235, 59)),
 }
+ROT = [((20, 20, 26), (255, 214, 10)), ((198, 40, 40), (255, 235, 59)),
+       ((230, 81, 0), (255, 255, 255)), ((0, 137, 123), (255, 213, 79))]  # black, red, orange, teal
 V2_TILE_H, V2_GAP, V2_TOP = 300, 18, 310
 
 
@@ -274,7 +277,7 @@ def draw_tile_v2(img, i, deal, top, accent):
     pr = proof(deal)
     if pr:
         sf = sans(26, "SemiBold")
-        d.text((PW - 70 - d.textlength(pr, font=sf), row + 8), pr.replace("stars", "\u2605"), font=sf, fill=(190, 120, 0))
+        d.text((PW - 70 - d.textlength(pr, font=sf), row + 8), pr.replace("stars", "\u2605"), font=sf, fill=TRUST)
     if is_amazon(deal) and AMAZON_PRICES != "hide":
         d.text((x, top + V2_TILE_H - 36), f"Amazon price as of {as_of(deal['seen'])}", font=sans(22, "Medium"), fill=MUTED)
 
@@ -367,7 +370,7 @@ def _chips(img, deal, x, y, max_w, size=26):
         y += size + 30
     pr = proof(deal)
     if pr:
-        d.text((x, y), pr.replace("stars", "\u2605"), font=sans(size - 2, "SemiBold"), fill=(190, 120, 0))
+        d.text((x, y), pr.replace("stars", "\u2605"), font=sans(size - 2, "SemiBold"), fill=TRUST)
         y += size + 8
     if is_amazon(deal) and AMAZON_PRICES != "hide":
         sf = sans(20, "Medium")
@@ -451,7 +454,7 @@ def make_image_trio(path, theme, items, cat="Everything else"):
             sticker(img, "TOP PICK", x0 + cw - 90, 330, (255, 193, 7), ink=(40, 40, 40), angle=10)
     d = ImageDraw.Draw(img)
     d.rounded_rectangle([40, 1110, PW - 40, 1250], 34, fill=accent)
-    ink = CHAR if sum(accent) > 560 else (255, 255, 255)
+    ink = CHAR if sum(accent) > 480 else (255, 255, 255)
     centered(d, 1134, "SHOP LINKS IN THE COMMENTS", sans(50, "Bold"), ink, max_w=PW - 100)
     centered(d, 1198, "tap the first comment  \u00b7  prices can change", sans(26, "Medium"), ink, max_w=PW - 100)
     centered(d, 1290, "#AD", sans(24, "Medium"), (255, 255, 255), spacing=4, max_w=PW - 60)
@@ -525,10 +528,19 @@ def main():
     groups = pick_groups(deals, made)
     for n, (cat, items) in enumerate(groups, 1):
         theme = fun_theme(cat, items)
-        if os.environ.get("POST_LAYOUT", "v2") == "v2":
-            make_image_v2(OUT / f"post_{n}.png", theme, items, cat)
+        k = datetime.now(timezone.utc).toordinal() + n
+        base = PALETTES.get(cat, PALETTES["Everything else"])
+        schemes = [base, ROT[(k // 3) % len(ROT)], base, ROT[(k // 3 + 1) % len(ROT)]]
+        PALETTES[cat] = schemes[k % 4]
+        layout = os.environ.get("POST_LAYOUT") or ["list", "hero", "trio"][k % 3]
+        p = OUT / f"post_{n}.png"
+        if layout == "hero":
+            make_image_hero(p, theme, items, cat)
+        elif layout == "trio":
+            make_image_trio(p, theme, items, cat)
         else:
-            make_image(OUT / f"post_{n}.png", theme, items)
+            make_image_v2(p, theme, items, cat)
+        PALETTES[cat] = base
         caption, comment = texts(theme, items)
         (OUT / f"post_{n}.txt").write_text(f"CAPTION:\n{caption}\n\nFIRST COMMENT (paste after posting):\n{comment}\n")
         made.update(i["id"] for i in items)
