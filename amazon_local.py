@@ -63,11 +63,15 @@ def main():
                         break
                 rt = re.search(r'([\d.]+) out of 5 stars', html)
                 rc = re.search(r'id="acrCustomerReviewText"[^>]*>\(?([\d,KkMm.]+)', html)
-                lp = re.search(r'(?:basisPrice|a-text-price)[^$]{0,400}(\$[\d,.]+)', html)
+                lp = page.evaluate("""() => {
+                    const root = document.querySelector('#corePriceDisplay_desktop_feature_div, #corePrice_feature_div, #apex_desktop');
+                    const el = root && root.querySelector('.basisPrice .a-offscreen, [data-a-strike="true"] .a-offscreen');
+                    return el ? el.textContent : null; }""")
+                lp = re.search(r"\$[\d,.]+", lp or "")
                 m = re.search(r'"hiRes":"(https:[^"]+)"', html)
                 meta[a] = {"rating": float(rt.group(1)) if rt else None,
                            "reviews": parse_reviews(rc.group(1)) if rc else None,
-                           "list": lp.group(1) if lp else None}
+                           "list": lp.group(0) if lp else None}
                 if m:
                     img = ctx.request.get(re.sub(r"\._[^.]*_\.", "._SL600_.", m.group(1)))
                     (PH / f"{a}.jpg").write_bytes(img.body())

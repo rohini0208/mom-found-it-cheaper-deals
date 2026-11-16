@@ -221,6 +221,9 @@ def was_of(deal):
     w = deal.get("was", "")
     if not w:
         w = (META.get(deal.get("asin", "")) or {}).get("list") or ""
+        p, q = price_value(deal.get("price", "")), price_value(w)
+        if not (p and q and p < q <= 6 * p):               # reject list prices that cannot be this product's
+            return ""
     return w
 
 
