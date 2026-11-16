@@ -196,6 +196,11 @@ h2{font-family:'Playfair Display',Georgia,serif;font-size:30px;margin:28px 0 4px
 .bar select{padding:10px 12px;border:1px solid #d8cfc3;border-radius:30px;background:#fff;font-size:14px}
 .where{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 footer a{color:var(--muted)}
+.gallery{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 14px;-webkit-overflow-scrolling:touch}
+.gallery a{flex:0 0 220px;scroll-snap-align:start;display:block}
+.gallery img{width:220px;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.15);display:block}
+@media(min-width:700px){.gallery a{flex-basis:260px}.gallery img{width:260px}}
+.card img,.card .photo{max-width:100%;height:auto}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
 .card{background:#fff;border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 0 #e6ddd1}
 .top{display:flex;gap:6px;flex-wrap:wrap;min-height:4px}
