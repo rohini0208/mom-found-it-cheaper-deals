@@ -33,11 +33,13 @@ jobs:
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
           ELEVENLABS_VOICE_ID: ${{ vars.ELEVENLABS_VOICE_ID }}
         run: python make_videos.py
+      - name: Make today's collage posts
+        run: python make_posts.py
       - name: Save lists
         run: |
           git config user.name "deal-bot"
           git config user.email "deal-bot@users.noreply.github.com"
-          git add data/videos_made.json
+          git add data/videos_made.json data/posts_made.json
           if [ -f VIRAL.md ]; then git add VIRAL.md data/viral.json; fi
           git diff --cached --quiet || git commit -m "Update videos list"
           git pull --rebase -q && git push
@@ -46,7 +48,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release delete todays-videos --yes --cleanup-tag || true
-          ls videos/*.mp4 >/dev/null 2>&1 || { echo "No new deals for videos today"; exit 0; }
-          gh release create todays-videos videos/* \
-            --title "Today's videos ($(date -u +%Y-%m-%d))" \
-            --notes "Download a video and its .txt caption. Check the price first, then post with your own SiteStripe link in the group."
+          files=$(ls videos/* posts/* 2>/dev/null || true)
+          [ -n "$files" ] || { echo "Nothing new today"; exit 0; }
+          gh release create todays-videos $files \
+            --title "Today's videos and posts ($(date -u +%Y-%m-%d))" \
+            --notes "Videos: download a video and its .txt caption. Posts: download post_N.png and paste the caption and first comment from post_N.txt. Check the price first, then post with your own SiteStripe link in our group only. Do not post our group link in other groups without moderator permission."
