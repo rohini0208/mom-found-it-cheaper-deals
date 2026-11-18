@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-17T16:01+00:00",
+ "updated": "2026-11-18T00:58+00:00",
  "status": {
   "TikTok Made Me Buy It (Reddit)": "error: HTTP Error 404: Not Found",
   "Amazon finds (Reddit)": "error: HTTP Error 429: Too Many Requests",
@@ -159,25 +159,10 @@
   },
   {
    "source": "camelcamelcamel popular",
-   "title": "EXIT: The Game - Adventures on Catan | Escape Game",
-   "link": "https://camelcamelcamel.com/product/B0DSCN12B7?active=price_amazon",
-   "asin": "B0DSCN12B7",
-   "rank": 10,
-   "label": "Best Price",
-   "words": [
-    "adventures",
-    "catan",
-    "escape",
-    "exit",
-    "game"
-   ]
-  },
-  {
-   "source": "camelcamelcamel popular",
    "title": "Persona 3 Reload: Launch Edition - Nintendo Switch 2",
    "link": "https://camelcamelcamel.com/product/B0FKNJHYR9?active=price_amazon",
    "asin": "B0FKNJHYR9",
-   "rank": 11,
+   "rank": 10,
    "label": "Best Price",
    "words": [
     "edition",
@@ -193,7 +178,7 @@
    "title": "New Surrender - 180-Gram Black Vinyl",
    "link": "https://camelcamelcamel.com/product/B0FFFK9VLC?active=price_amazon",
    "asin": "B0FFFK9VLC",
-   "rank": 12,
+   "rank": 11,
    "label": "Best Price",
    "words": [
     "black",
@@ -207,7 +192,7 @@
    "title": "LEGO Marvel Epic Battle: Spider-Man vs. Sandman 76334 76334",
    "link": "https://camelcamelcamel.com/product/B0FMSD393S?active=price_amazon",
    "asin": "B0FMSD393S",
-   "rank": 13,
+   "rank": 12,
    "label": "Best Price",
    "words": [
     "battle",
@@ -223,7 +208,7 @@
    "title": "Marillion.Com (5LP Box Set)",
    "link": "https://camelcamelcamel.com/product/B0G84MXCF9?active=price_amazon",
    "asin": "B0G84MXCF9",
-   "rank": 14,
+   "rank": 13,
    "label": "Best Price",
    "words": [
     "marillion"
@@ -234,7 +219,7 @@
    "title": "LG 65 inch Class OLED evo AI C6 4K Smart TV 2026",
    "link": "https://camelcamelcamel.com/product/B0GRK5D3RW?active=price_amazon",
    "asin": "B0GRK5D3RW",
-   "rank": 15,
+   "rank": 14,
    "label": "Best Price",
    "words": [
     "class",
@@ -248,7 +233,7 @@
    "title": "The Art of Kingdom Come Deliverance II",
    "link": "https://camelcamelcamel.com/product/1506756158?active=price_amazon",
    "asin": "1506756158",
-   "rank": 16,
+   "rank": 15,
    "label": "Good Deal",
    "words": [
     "come",
@@ -261,7 +246,7 @@
    "title": "JBL Tune 530BT (2026) \u2013 Wireless On-Ear Bluetooth Headphones (Blue)",
    "link": "https://camelcamelcamel.com/product/B0GHY652MM?active=price_amazon",
    "asin": "B0GHY652MM",
-   "rank": 17,
+   "rank": 16,
    "label": "Best Price",
    "words": [
     "530bt",
@@ -277,7 +262,7 @@
    "title": "LEGO Friends Creative Flower Shop 42693",
    "link": "https://camelcamelcamel.com/product/B0G2T5KS7B?active=price_amazon",
    "asin": "B0G2T5KS7B",
-   "rank": 18,
+   "rank": 17,
    "label": "Good Deal",
    "words": [
     "creative",
@@ -292,7 +277,7 @@
    "title": "XBOX Series X | X25 Special Edition Gaming Console | 1TB SSD",
    "link": "https://camelcamelcamel.com/product/B0HFM9NTC1?active=price_amazon",
    "asin": "B0HFM9NTC1",
-   "rank": 19,
+   "rank": 18,
    "label": "Best Price",
    "words": [
     "console",
@@ -308,7 +293,7 @@
    "title": "Apple Watch Series 12 GPS 42mm Smartwatch",
    "link": "https://camelcamelcamel.com/product/B0HJBCX8VS?active=price_amazon",
    "asin": "B0HJBCX8VS",
-   "rank": 20,
+   "rank": 19,
    "label": "Best Price",
    "words": [
     "42mm",
@@ -316,6 +301,30 @@
     "series",
     "smartwatch",
     "watch"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Amazon Fire TV Stick 4K (newest model), simple 4K streaming, new Fire TV Remote, all your apps in one place, free & live TV, find shows faster with Alexa+",
+   "link": "https://camelcamelcamel.com/product/B0G4XRP464?active=price_amazon",
+   "asin": "B0G4XRP464",
+   "rank": 20,
+   "label": "Best Price",
+   "words": [
+    "alexa",
+    "apps",
+    "faster",
+    "find",
+    "fire",
+    "live",
+    "model",
+    "newest",
+    "place",
+    "remote",
+    "shows",
+    "simple",
+    "stick",
+    "streaming"
    ]
   }
  ]
