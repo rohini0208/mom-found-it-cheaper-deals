@@ -1,11 +1,10 @@
 {
  "Hip2Save": {
-  "items": 42,
-  "with_code_or_coupon": 30
+  "items": 51,
+  "with_code_or_coupon": 16
  },
  "Fabulessly Frugal": {
-  "items": 100,
-  "with_code_or_coupon": 8
+  "error": "The read operation timed out"
  },
  "Koupon Karen": {
   "items": 50,
@@ -13,7 +12,7 @@
  },
  "The Freebie Guy": {
   "items": 40,
-  "with_code_or_coupon": 9
+  "with_code_or_coupon": 6
  },
  "Passionate Penny Pincher": {
   "items": 60,
@@ -21,7 +20,7 @@
  },
  "9to5Toys": {
   "items": 50,
-  "with_code_or_coupon": 2
+  "with_code_or_coupon": 5
  },
- "_matched_deals": 18
+ "_matched_deals": 10
 }
