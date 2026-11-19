@@ -111,6 +111,16 @@ def youtube_signals():
             {"YouTube Shorts": len(vids)})
 
 
+EXTRA = Path("data/trends_amazon.json")        # written by amazon_local.py on the home computer
+
+
+def amazon_signals():
+    if not EXTRA.exists():
+        return [], {}
+    sigs = json.loads(EXTRA.read_text()).get("signals", [])
+    return sigs, {"Amazon Movers & Shakers": len(sigs)}
+
+
 def load_signals():
     return json.loads(OUT.read_text()).get("signals", []) if OUT.exists() else []
 
@@ -138,13 +148,16 @@ def viral_sources(deal, signals):
 
 def main():
     sigs, status = [], {}
-    for fn in (reddit_signals, camel_signals, youtube_signals):
+    for fn in (reddit_signals, camel_signals, youtube_signals, amazon_signals):
         s, st = fn()
         sigs += s
         status.update(st)
     for s in sigs:
         s["words"] = sorted(name_words(s["title"]))
     OUT.parent.mkdir(exist_ok=True)
+    if not sigs and OUT.exists() and json.loads(OUT.read_text()).get("signals"):
+        print("no signals this run; keeping the last good data/trends.json", status)
+        return
     OUT.write_text(json.dumps({"updated": datetime.now(timezone.utc).isoformat(timespec="minutes"),
                                "status": status, "signals": sigs}, indent=1))
     print(f"{len(sigs)} trend signals;", status)

@@ -172,9 +172,32 @@ def main():
             except Exception as e:
                 print("fail", a, str(e)[:100])
             time.sleep(random.uniform(3, 6))
+        try:
+            sigs = []
+            for label, url in (("Amazon Movers & Shakers", "https://www.amazon.com/gp/movers-and-shakers"),
+                               ("Amazon Best Sellers", "https://www.amazon.com/Best-Sellers/zgbs")):
+                page.goto(url, wait_until="domcontentloaded", timeout=45000)
+                items = page.evaluate("""() => [...document.querySelectorAll('a[href*="/dp/"]')].map(a => {
+                    const m = a.href.match(/\\/dp\\/([A-Z0-9]{10})/); const t = (a.innerText || a.querySelector('img')?.alt || '').trim();
+                    return m && t.length > 15 ? [m[1], t.slice(0, 120)] : null; }).filter(Boolean)""")
+                seen_a = set()
+                for asin, title in items:
+                    if asin not in seen_a:
+                        seen_a.add(asin)
+                        sigs.append({"source": label, "title": title, "link": f"https://www.amazon.com/dp/{asin}",
+                                     "asin": asin, "rank": len(seen_a)})
+            Path("data/trends_amazon.json").write_text(json.dumps({"signals": sigs[:150]}, indent=1))
+            print("amazon trend items:", len(sigs))
+        except Exception as e:
+            print("amazon trends skipped:", str(e)[:100])
         ctx.close()
     META.write_text(json.dumps(meta, indent=1))
-    sh(*GIT, "add", "photos", "data/product_meta.json", "data/price_debug", "data/asin_map.json")
+    try:                                                    # trends from the home computer (cloud is blocked)
+        import trends_finder
+        trends_finder.main()
+    except Exception as e:
+        print("trends skipped:", str(e)[:100])
+    sh(*GIT, "add", "data/trends.json", "data/trends_amazon.json", "photos", "data/product_meta.json", "data/price_debug", "data/asin_map.json")
     if sh(*GIT, "diff", "--cached", "--quiet").returncode:
         sh(*GIT, "commit", "-qm", f"Amazon photos and ratings ({done} products, from home computer)")
         sh(*GIT, "pull", "--rebase", "-q")
