@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-19T20:39+00:00",
+ "updated": "2026-11-20T02:21+00:00",
  "status": {
   "TikTok Made Me Buy It (Reddit)": "error: HTTP Error 404: Not Found",
   "Amazon finds (Reddit)": "error: HTTP Error 429: Too Many Requests",
@@ -26,26 +26,10 @@
   },
   {
    "source": "camelcamelcamel popular",
-   "title": "Sonos Beam Gen 2 - Black - Soundbar with Dolby Atmos",
-   "link": "https://camelcamelcamel.com/product/B09GPYL7BJ?active=price_amazon",
-   "asin": "B09GPYL7BJ",
-   "rank": 2,
-   "label": "Best Price",
-   "words": [
-    "atmos",
-    "beam",
-    "black",
-    "dolby",
-    "sonos",
-    "soundbar"
-   ]
-  },
-  {
-   "source": "camelcamelcamel popular",
    "title": "LEGO Botanicals Succulents 10309",
    "link": "https://camelcamelcamel.com/product/B09Q4GWMZQ?active=price_amazon",
    "asin": "B09Q4GWMZQ",
-   "rank": 3,
+   "rank": 2,
    "label": "Best Price",
    "words": [
     "botanicals",
@@ -58,7 +42,7 @@
    "title": "Amazon Fire TV Cube, with AI-powered Fire TV Search, Hands-free streaming device, find shows faster with Alexa+, Wi-Fi 6E, 4K Ultra HD",
    "link": "https://camelcamelcamel.com/product/B09BZZ3MM7?active=price_amazon",
    "asin": "B09BZZ3MM7",
-   "rank": 4,
+   "rank": 3,
    "label": "Best Price",
    "words": [
     "alexa",
@@ -80,7 +64,7 @@
    "title": "Bose QuietComfort Bluetooth Headphones, Wireless Headphones with Active Over Ear Noise Cancelling and Mic, Deep Bass, Up to 24 Hours of Playtime, Cypress Green - Limited Edition",
    "link": "https://camelcamelcamel.com/product/B0CCZ1SQ8G?active=price_amazon",
    "asin": "B0CCZ1SQ8G",
-   "rank": 5,
+   "rank": 4,
    "label": "Best Price",
    "words": [
     "active",
@@ -107,7 +91,7 @@
    "title": "Garmin v\u00edvoactive\u00ae 5, Health & Fitness GPS Smartwatch, 42mm, Black",
    "link": "https://camelcamelcamel.com/product/B0CG6NR413?active=price_amazon",
    "asin": "B0CG6NR413",
-   "rank": 6,
+   "rank": 5,
    "label": "Best Price",
    "words": [
     "42mm",
@@ -124,7 +108,7 @@
    "title": "Gothic 1 Remake: Collector's Edition - Xbox Series X",
    "link": "https://camelcamelcamel.com/product/B0D2P9DTBL?active=price_amazon",
    "asin": "B0D2P9DTBL",
-   "rank": 7,
+   "rank": 6,
    "label": "Best Price",
    "words": [
     "collector",
@@ -140,7 +124,7 @@
    "title": "Amazon Kindle Paperwhite 16GB (2024 model) \u2013 7\" glare-free display and weeks of battery life \u2013 Black",
    "link": "https://camelcamelcamel.com/product/B0CFPJYX7P?active=price_amazon",
    "asin": "B0CFPJYX7P",
-   "rank": 8,
+   "rank": 7,
    "label": "Good Deal",
    "words": [
     "16gb",
@@ -160,7 +144,7 @@
    "title": "WINIX 5510 Air Purifier (New Generation of 5500-2 with App Support) for Home Large Room Up to 1881 Ft\u00b2 in 1 Hr, True HEPA, High Deodorization Carbon Filter and Auto Mode, Captures Pet Allergies, Smoke",
    "link": "https://camelcamelcamel.com/product/B0DJG1731C?active=price_amazon",
    "asin": "B0DJG1731C",
-   "rank": 9,
+   "rank": 8,
    "label": "Good Deal",
    "words": [
     "allergies",
@@ -188,7 +172,7 @@
    "title": "LEGO Icons Williams Racing FW14B & Nigel Mansell F1 Model Car Kit - Building Set for Adults, Ages 18+ - F1 DIY Craft for Display - Gifts for Birthdays - 10353",
    "link": "https://camelcamelcamel.com/product/B0DJ19PWQF?active=price_amazon",
    "asin": "B0DJ19PWQF",
-   "rank": 10,
+   "rank": 9,
    "label": "Best Price",
    "words": [
     "adults",
@@ -213,7 +197,7 @@
    "title": "Sony WH-1000XM6 The Best Noise Cancelling Wireless Headphones, Black",
    "link": "https://camelcamelcamel.com/product/B0F3PQHWTZ?active=price_amazon",
    "asin": "B0F3PQHWTZ",
-   "rank": 11,
+   "rank": 10,
    "label": "Best Price",
    "words": [
     "1000xm6",
@@ -223,6 +207,23 @@
     "headphones",
     "noise",
     "sony",
+    "wireless"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Logitech MX Master 4 Ergonomic Wireless Mouse with Haptics - Graphite",
+   "link": "https://camelcamelcamel.com/product/B0FC5SJNQX?active=price_amazon",
+   "asin": "B0FC5SJNQX",
+   "rank": 11,
+   "label": "Best Price",
+   "words": [
+    "ergonomic",
+    "graphite",
+    "haptics",
+    "logitech",
+    "master",
+    "mouse",
     "wireless"
    ]
   },
