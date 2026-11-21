@@ -188,7 +188,7 @@ def tidy(title):
         while words and len(words[-1].strip(",.")) <= 2:
             words.pop()
         t = " ".join(words)
-    t = re.split(r",| \(| - | \| | w/ | with ", t)[0]       # product name only: drop spec tails
+    t = re.split(r",(?!\d)| \(| - | \| | w/ | with ", t)[0]       # product name only: drop spec tails
     ws = t.split()[:9]
     while ws and (ws[-1].lower().strip(",.:;") in _DANGLE or ws[-1].startswith("(") and not ws[-1].endswith(")")):
         ws.pop()                                    # never end on 'and', 'with', '(2nd' ...
