@@ -1,12 +1,13 @@
 {
- "updated": "2026-11-20T20:22+00:00",
+ "updated": "2026-11-21T01:06+00:00",
  "status": {
   "TikTok Made Me Buy It (Reddit)": "error: HTTP Error 404: Not Found",
   "Amazon finds (Reddit)": "error: HTTP Error 429: Too Many Requests",
   "Shut Up And Take My Money (Reddit)": "error: HTTP Error 429: Too Many Requests",
   "camelcamelcamel popular": 20,
   "camelcamelcamel top price drops": "error: HTTP Error 404: Not Found",
-  "YouTube Shorts": "no data (add YT_API_KEY)"
+  "YouTube Shorts": "no data (add YT_API_KEY)",
+  "Amazon Movers & Shakers": 36
  },
  "signals": [
   {
@@ -370,6 +371,704 @@
     "simple",
     "stick",
     "streaming"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "PlayStation DualSense\u2122 Wireless Controller \u2013 Midnight Black - For PS5, PC, MAC & Mobile",
+   "link": "https://www.amazon.com/dp/B0FY6Y9WZT",
+   "asin": "B0FY6Y9WZT",
+   "rank": 1,
+   "words": [
+    "black",
+    "controller",
+    "dualsense",
+    "midnight",
+    "mobile",
+    "playstation",
+    "wireless"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "$100 PlayStation Store Gift Card [Digital Code]",
+   "link": "https://www.amazon.com/dp/B00K59HKIQ",
+   "asin": "B00K59HKIQ",
+   "rank": 2,
+   "words": [
+    "card",
+    "digital",
+    "gift",
+    "playstation",
+    "store"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Grand Theft Auto VI - PlayStation 5 (Code in Box) | Code in Box - Playable 11/19/26, No physical disc in box",
+   "link": "https://www.amazon.com/dp/B0H6K928WL",
+   "asin": "B0H6K928WL",
+   "rank": 3,
+   "words": [
+    "auto",
+    "disc",
+    "grand",
+    "physical",
+    "playable",
+    "playstation",
+    "theft"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "EA Sports Madden NFL 27 - Standard Edition PS5 |Disc I VideoGame",
+   "link": "https://www.amazon.com/dp/B0H2K3RD7C",
+   "asin": "B0H2K3RD7C",
+   "rank": 4,
+   "words": [
+    "disc",
+    "edition",
+    "madden",
+    "sports",
+    "standard",
+    "videogame"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "XBOX Wireless Gaming Controller | Carbon Black | Textured triggers and bumpers, Hybrid D-pad, XBOX Wireless, Bluetooth, ",
+   "link": "https://www.amazon.com/dp/B0F1HX3WXX",
+   "asin": "B0F1HX3WXX",
+   "rank": 5,
+   "words": [
+    "black",
+    "bluetooth",
+    "bumpers",
+    "carbon",
+    "controller",
+    "gaming",
+    "hybrid",
+    "textured",
+    "triggers",
+    "wireless",
+    "xbox"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "$100 XBOX Gift Card [Digital Code]",
+   "link": "https://www.amazon.com/dp/B00F4CFHFC",
+   "asin": "B00F4CFHFC",
+   "rank": 6,
+   "words": [
+    "card",
+    "digital",
+    "gift",
+    "xbox"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "ANRABESS Women Long Sleeve Shirts Ribbed Fitted Tops | Slim Basic Tee,2026 Fall Outfits,Lightweight Knit T-Shirt,Soft Un",
+   "link": "https://www.amazon.com/dp/B0CYZM5RSM",
+   "asin": "B0CYZM5RSM",
+   "rank": 7,
+   "words": [
+    "anrabess",
+    "basic",
+    "fall",
+    "fitted",
+    "knit",
+    "lightweight",
+    "long",
+    "outfits",
+    "ribbed",
+    "shirt",
+    "shirts",
+    "sleeve",
+    "slim",
+    "soft",
+    "tops"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Hanes Men's Zip-up Hoodie, Ecosmart Fleece Full-zip Hoodie for Men, Hooded Sweatshirt",
+   "link": "https://www.amazon.com/dp/B00JUM4DKC",
+   "asin": "B00JUM4DKC",
+   "rank": 8,
+   "words": [
+    "ecosmart",
+    "fleece",
+    "full",
+    "hanes",
+    "hooded",
+    "hoodie",
+    "sweatshirt"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Hanes Men's Hoodie - EcoSmart Fleece Hooded Sweatshirt for Men & Women - Midweight Fleece - Big & Tall Available",
+   "link": "https://www.amazon.com/dp/B00JUM2VAQ",
+   "asin": "B00JUM2VAQ",
+   "rank": 9,
+   "words": [
+    "available",
+    "ecosmart",
+    "fleece",
+    "hanes",
+    "hooded",
+    "hoodie",
+    "midweight",
+    "sweatshirt",
+    "tall"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Trendy Queen Womens Long Sleeve T Shirts Fall Fashion Basic Y2K Tops 2026 | Buttery-Soft, Super Stretchy, Fitted Cute To",
+   "link": "https://www.amazon.com/dp/B0BW8ZFMDJ",
+   "asin": "B0BW8ZFMDJ",
+   "rank": 10,
+   "words": [
+    "basic",
+    "buttery",
+    "cute",
+    "fall",
+    "fashion",
+    "fitted",
+    "long",
+    "queen",
+    "shirts",
+    "sleeve",
+    "soft",
+    "stretchy",
+    "super",
+    "tops",
+    "trendy"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Hanes Men's Sweatshirt, EcoSmart Fleece Crewneck Sweatshirt, Big & Tall Available, 1 or 2-Pack",
+   "link": "https://www.amazon.com/dp/B01L8JJ57U",
+   "asin": "B01L8JJ57U",
+   "rank": 11,
+   "words": [
+    "available",
+    "crewneck",
+    "ecosmart",
+    "fleece",
+    "hanes",
+    "sweatshirt",
+    "tall"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Fruit of the Loom Eversoft Fleece Elastic Bottom Sweatpants with Pockets, Relaxed Fit, Moisture Wicking, Breathable",
+   "link": "https://www.amazon.com/dp/B08YHLVJN3",
+   "asin": "B08YHLVJN3",
+   "rank": 12,
+   "words": [
+    "bottom",
+    "breathable",
+    "elastic",
+    "eversoft",
+    "fleece",
+    "fruit",
+    "loom",
+    "moisture",
+    "pockets",
+    "relaxed",
+    "sweatpants",
+    "wicking"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "STANLEY Quencher H2.0 Flow State Tumbler, 40 oz, Rose Quartz 2.0 | Handle and Straw | 3-Position Lid | Cup Holder Compat",
+   "link": "https://www.amazon.com/dp/B0CP9Z56SW",
+   "asin": "B0CP9Z56SW",
+   "rank": 13,
+   "words": [
+    "compat",
+    "flow",
+    "handle",
+    "holder",
+    "position",
+    "quartz",
+    "quencher",
+    "rose",
+    "stanley",
+    "state",
+    "straw",
+    "tumbler"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Owala FreeSip Stainless Steel Water Bottle 24 oz Shy Marshmallow",
+   "link": "https://www.amazon.com/dp/B085DV8T75",
+   "asin": "B085DV8T75",
+   "rank": 14,
+   "words": [
+    "bottle",
+    "freesip",
+    "marshmallow",
+    "owala",
+    "stainless",
+    "steel",
+    "water"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "KITCHENAID Ribbed Soft Silicone Oven Mitt 2-Pack Set, 7.5\"x13\", Milkshake Tan",
+   "link": "https://www.amazon.com/dp/B08J8GZXKZ",
+   "asin": "B08J8GZXKZ",
+   "rank": 15,
+   "words": [
+    "kitchenaid",
+    "milkshake",
+    "mitt",
+    "oven",
+    "ribbed",
+    "silicone",
+    "soft"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "bella Fits-Anywhere\u2122 2-Slice Slim Toaster, Long Slot & Extra Wide, Oatmilk",
+   "link": "https://www.amazon.com/dp/B0CYJBB2JQ",
+   "asin": "B0CYJBB2JQ",
+   "rank": 16,
+   "words": [
+    "anywhere",
+    "bella",
+    "extra",
+    "fits",
+    "long",
+    "oatmilk",
+    "slice",
+    "slim",
+    "slot",
+    "toaster",
+    "wide"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Alpha Grillers Meat Thermometer Digital, Stocking Stuffers Gifts for Men | 1-2 Second Ultra-Fast Response Time, Bright B",
+   "link": "https://www.amazon.com/dp/B00S93EQUK",
+   "asin": "B00S93EQUK",
+   "rank": 17,
+   "words": [
+    "alpha",
+    "bright",
+    "digital",
+    "fast",
+    "gifts",
+    "grillers",
+    "meat",
+    "response",
+    "second",
+    "stocking",
+    "stuffers",
+    "thermometer",
+    "time",
+    "ultra"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Owala SmoothSip Slider Insulated Stainless Steel Coffee Tumbler, Reusable Iced Coffee Cup, Hot Coffee Travel Mug, BPA Fr",
+   "link": "https://www.amazon.com/dp/B0DF472VMZ",
+   "asin": "B0DF472VMZ",
+   "rank": 18,
+   "words": [
+    "coffee",
+    "iced",
+    "insulated",
+    "owala",
+    "reusable",
+    "slider",
+    "smoothsip",
+    "stainless",
+    "steel",
+    "travel",
+    "tumbler"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "medicube Toner Pads Zero Pore Pad 2.0 for Exfoliation and Pore Care | Dual-Textured Facial Pad with 4.5% AHA Lactic Acid",
+   "link": "https://www.amazon.com/dp/B09V7Z4TJG",
+   "asin": "B09V7Z4TJG",
+   "rank": 19,
+   "words": [
+    "acid",
+    "care",
+    "dual",
+    "exfoliation",
+    "facial",
+    "lactic",
+    "medicube",
+    "pads",
+    "pore",
+    "textured",
+    "toner",
+    "zero"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "BIODANCE Bio-Collagen Real Deep Mask for Hydrating & Plumping (4ea) | Overnight Hydrogel Hydrating Face Masks, Glass Ski",
+   "link": "https://www.amazon.com/dp/B0B2RM68G2",
+   "asin": "B0B2RM68G2",
+   "rank": 20,
+   "words": [
+    "biodance",
+    "collagen",
+    "deep",
+    "face",
+    "glass",
+    "hydrating",
+    "hydrogel",
+    "mask",
+    "masks",
+    "overnight",
+    "plumping",
+    "real"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "eos Shea Better Body Lotion- Vanilla Cashmere, 24-Hour Moisture, 16 fl oz | Natural Shea Butter & Oil, Whipped Vanilla &",
+   "link": "https://www.amazon.com/dp/B08KT2Z93D",
+   "asin": "B08KT2Z93D",
+   "rank": 21,
+   "words": [
+    "better",
+    "body",
+    "butter",
+    "cashmere",
+    "hour",
+    "lotion",
+    "moisture",
+    "natural",
+    "shea",
+    "vanilla",
+    "whipped"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "medicube Jelly Gel Mask with Salmon DNA PDRN Pink Collagen, Plump & Hydrate | Overnight Face Mask for Glass Glow Skin - ",
+   "link": "https://www.amazon.com/dp/B0DGTMR754",
+   "asin": "B0DGTMR754",
+   "rank": 22,
+   "words": [
+    "collagen",
+    "face",
+    "glass",
+    "glow",
+    "hydrate",
+    "jelly",
+    "mask",
+    "medicube",
+    "overnight",
+    "pdrn",
+    "pink",
+    "plump",
+    "salmon",
+    "skin"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Mighty Patch Hero Cosmetics Original Nighttime Acne Pimple Patches, 36 Ct | #1 Hydrocolloid Acne Patches, Shrinking Zits",
+   "link": "https://www.amazon.com/dp/B074PVTPBW",
+   "asin": "B074PVTPBW",
+   "rank": 23,
+   "words": [
+    "acne",
+    "cosmetics",
+    "hero",
+    "hydrocolloid",
+    "mighty",
+    "nighttime",
+    "original",
+    "patch",
+    "patches",
+    "pimple",
+    "shrinking",
+    "zits"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "medicube PDRN Pink Peptide Serum with Salmon DNA, Firmer, Even-Looking Skin | Pink Glow Serum with Peptides & Niacinamid",
+   "link": "https://www.amazon.com/dp/B0DBF65JYY",
+   "asin": "B0DBF65JYY",
+   "rank": 24,
+   "words": [
+    "even",
+    "firmer",
+    "glow",
+    "looking",
+    "medicube",
+    "niacinamid",
+    "pdrn",
+    "peptide",
+    "peptides",
+    "pink",
+    "salmon",
+    "serum",
+    "skin"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "blink plus plan with monthly auto-renewal",
+   "link": "https://www.amazon.com/dp/B08JHCVHTY",
+   "asin": "B08JHCVHTY",
+   "rank": 25,
+   "words": [
+    "auto",
+    "blink",
+    "monthly",
+    "plan",
+    "plus",
+    "renewal"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Apple EarPods Headphones with USB-C Plug, Wired Ear Buds with Built-in Remote to Control Music, Phone Calls, and Volume",
+   "link": "https://www.amazon.com/dp/B0DCH8VDXF",
+   "asin": "B0DCH8VDXF",
+   "rank": 26,
+   "words": [
+    "apple",
+    "buds",
+    "built",
+    "calls",
+    "control",
+    "earpods",
+    "headphones",
+    "music",
+    "phone",
+    "plug",
+    "remote",
+    "volume",
+    "wired"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Apple AirPods Pro 3 Wireless Earbuds with Active Noise Cancellation | Live Translation, Heart Rate Sensing, Hearing Aid ",
+   "link": "https://www.amazon.com/dp/B0FQFB8FMG",
+   "asin": "B0FQFB8FMG",
+   "rank": 27,
+   "words": [
+    "active",
+    "airpods",
+    "apple",
+    "cancellation",
+    "earbuds",
+    "hearing",
+    "heart",
+    "live",
+    "noise",
+    "rate",
+    "sensing",
+    "translation",
+    "wireless"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Apple AirTag (2nd Generation): Tracker for Keychain, Wallet, and More; Locator with Sound; Simple One-Tap Setup with iPh",
+   "link": "https://www.amazon.com/dp/B0GJTFXNRX",
+   "asin": "B0GJTFXNRX",
+   "rank": 28,
+   "words": [
+    "airtag",
+    "apple",
+    "generation",
+    "keychain",
+    "locator",
+    "more",
+    "setup",
+    "simple",
+    "sound",
+    "tracker",
+    "wallet"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Roku Streaming Stick HD with Voice Remote | Compact HD Streaming Device for TV with Roku Voice Remote & Long-Range Wi-Fi",
+   "link": "https://www.amazon.com/dp/B0DXXYS4BJ",
+   "asin": "B0DXXYS4BJ",
+   "rank": 29,
+   "words": [
+    "compact",
+    "device",
+    "long",
+    "range",
+    "remote",
+    "roku",
+    "stick",
+    "streaming",
+    "voice"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Beats Solo 4 On-Ear Headphones, 50 Hours Battery Life - Matte Black | Rich, Bass-Forward Sound Quality, Spatial Audio, U",
+   "link": "https://www.amazon.com/dp/B0CZPLV566",
+   "asin": "B0CZPLV566",
+   "rank": 30,
+   "words": [
+    "audio",
+    "bass",
+    "battery",
+    "beats",
+    "black",
+    "forward",
+    "headphones",
+    "hours",
+    "life",
+    "matte",
+    "quality",
+    "rich",
+    "solo",
+    "sound",
+    "spatial"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Scott ComfortPlus Toilet Paper, 12 Triple Rolls, 231 Sheets per Roll, Septic-Safe, 1-Ply Toilet Tissue",
+   "link": "https://www.amazon.com/dp/B07BGLT25K",
+   "asin": "B07BGLT25K",
+   "rank": 31,
+   "words": [
+    "comfortplus",
+    "paper",
+    "roll",
+    "rolls",
+    "safe",
+    "scott",
+    "septic",
+    "sheets",
+    "tissue",
+    "toilet",
+    "triple"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Bounty Paper Towels Quick Size, White, 16 Family Rolls = 40 Regular Rolls",
+   "link": "https://www.amazon.com/dp/B079VP6DH5",
+   "asin": "B079VP6DH5",
+   "rank": 32,
+   "words": [
+    "bounty",
+    "family",
+    "paper",
+    "quick",
+    "regular",
+    "rolls",
+    "size",
+    "towels",
+    "white"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Amazon Basics 48-Pack AA Alkaline High-Performance Batteries, 1.5 Volt, 10-Year Shelf Life, Long-lasting, No Leakage",
+   "link": "https://www.amazon.com/dp/B00MNV8E0C",
+   "asin": "B00MNV8E0C",
+   "rank": 33,
+   "words": [
+    "alkaline",
+    "basics",
+    "batteries",
+    "high",
+    "lasting",
+    "leakage",
+    "life",
+    "long",
+    "performance",
+    "shelf",
+    "volt",
+    "year"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Kleenex Ultra Soft Facial Tissues, 8 Cube Boxes, 80 Tissues per Box",
+   "link": "https://www.amazon.com/dp/B0CTD36YKK",
+   "asin": "B0CTD36YKK",
+   "rank": 34,
+   "words": [
+    "boxes",
+    "cube",
+    "facial",
+    "kleenex",
+    "soft",
+    "tissues",
+    "ultra"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Angel Soft Toilet Paper, 2-Ply, 18 Rolls | Long-lasting bath tissue with softness and strength, septic safe; household e",
+   "link": "https://www.amazon.com/dp/B0FN4NH4K8",
+   "asin": "B0FN4NH4K8",
+   "rank": 35,
+   "words": [
+    "angel",
+    "bath",
+    "household",
+    "lasting",
+    "long",
+    "paper",
+    "rolls",
+    "safe",
+    "septic",
+    "soft",
+    "softness",
+    "strength",
+    "tissue",
+    "toilet"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Amazon Basics Everyday Disposable Paper Plates, 8.62 Inch, Microwave-Safe, Cut Resistant, Soak-Proof, 100 Count, Packagi",
+   "link": "https://www.amazon.com/dp/B0C2CY22B8",
+   "asin": "B0C2CY22B8",
+   "rank": 36,
+   "words": [
+    "basics",
+    "count",
+    "disposable",
+    "everyday",
+    "inch",
+    "microwave",
+    "packagi",
+    "paper",
+    "plates",
+    "proof",
+    "resistant",
+    "safe",
+    "soak"
    ]
   }
  ]
