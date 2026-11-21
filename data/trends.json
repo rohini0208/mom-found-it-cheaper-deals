@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-21T11:04+00:00",
+ "updated": "2026-11-21T19:17+00:00",
  "status": {
   "TikTok Made Me Buy It (Reddit)": "error: HTTP Error 404: Not Found",
   "Amazon finds (Reddit)": "error: HTTP Error 429: Too Many Requests",
@@ -96,26 +96,10 @@
   },
   {
    "source": "camelcamelcamel popular",
-   "title": "Gothic 1 Remake: Collector's Edition - Xbox Series X",
-   "link": "https://camelcamelcamel.com/product/B0D2P9DTBL?active=price_amazon",
-   "asin": "B0D2P9DTBL",
-   "rank": 6,
-   "label": "Best Price",
-   "words": [
-    "collector",
-    "edition",
-    "gothic",
-    "remake",
-    "series",
-    "xbox"
-   ]
-  },
-  {
-   "source": "camelcamelcamel popular",
    "title": "Beats Solo 4 On-Ear Headphones, 50 Hours Battery Life - Matte Black",
    "link": "https://camelcamelcamel.com/product/B0CZPLV566?active=price_amazon",
    "asin": "B0CZPLV566",
-   "rank": 7,
+   "rank": 6,
    "label": "Good Deal",
    "words": [
     "battery",
@@ -126,6 +110,20 @@
     "life",
     "matte",
     "solo"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Rocky 6-Film Coll. (4KUHD+DIG)",
+   "link": "https://camelcamelcamel.com/product/B0D4VRGCFY?active=price_amazon",
+   "asin": "B0D4VRGCFY",
+   "rank": 7,
+   "label": "Best Price",
+   "words": [
+    "4kuhd",
+    "coll",
+    "film",
+    "rocky"
    ]
   },
   {
@@ -319,18 +317,16 @@
   },
   {
    "source": "camelcamelcamel popular",
-   "title": "JBL Tune 530BT (2026) \u2013 Wireless On-Ear Bluetooth Headphones (Blue)",
-   "link": "https://camelcamelcamel.com/product/B0GHY652MM?active=price_amazon",
-   "asin": "B0GHY652MM",
+   "title": "Pok\u00e9mon TCG: 30th Celebration Knock Out Collection",
+   "link": "https://camelcamelcamel.com/product/B0H7FDBNSB?active=price_amazon",
+   "asin": "B0H7FDBNSB",
    "rank": 18,
-   "label": "Best Price",
+   "label": "Good Deal",
    "words": [
-    "530bt",
-    "blue",
-    "bluetooth",
-    "headphones",
-    "tune",
-    "wireless"
+    "30th",
+    "celebration",
+    "collection",
+    "knock"
    ]
   },
   {
