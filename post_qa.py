@@ -17,7 +17,7 @@ def num(s):
 
 
 STRICT = os.environ.get("POST_QA_STRICT", "0") == "1"      # 1 = unverified-by-Amazon-page data blocks the post
-STOP = set("the a an and with for of in to on by new pack set pcs pc piece inch oz black white blue red green pink gray grey silver gold".split())
+STOP = set("the a an and with for of in to on by new pack set pcs pc piece inch oz black white blue red green pink gray grey silver gold only just from amazon shipped shipping prime free off sale deal deals count women womens mens men's per each select members member at via after coupon code subscribe save black friday early".split())
 VARIANT = {"black", "white", "blue", "red", "green", "pink", "gray", "grey", "silver", "gold", "rose", "navy", "purple", "brown", "beige", "twin", "full", "queen", "king"}
 
 
@@ -95,6 +95,8 @@ def check_post(p, text):
         now, price = num(m.get("now")), num(i["price"])
         if now and price and price < now * 0.7:
             out.append(("BLOCKER", f"price ${price} well below Amazon page ${now} (coupon?): {i['title'][:40]}"))
+        if now and price and abs(price - now) / now > 0.08:
+            out.append(("BLOCKER", f"post price ${price} differs >8% from Amazon page ${now}: {i['title'][:40]}"))
         if now and price and price > now * 1.15:
             out.append(("BLOCKER", f"price ${price} above Amazon page ${now}: {i['title'][:40]}"))
         if i["pct"] and i["pct"] >= 15:

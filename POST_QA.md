@@ -1,5 +1,6 @@
 # Post QA
 
-## post_single (Mom's pick): ok with warnings
-- WARN: Amazon page data is 101h old: [Prime] $18.04* | SONGMICS 12-Slot Watch
-- WARN: caption never names the product: [Prime] $18.04* | SONGMICS 12-Slot Watch
+## post_single (Mom's pick): ok
+## post_thisorthat (THIS or THAT): BLOCKED
+- BLOCKER: title does not match Amazon page title 'Yesteel 925 Sterling Silver Hug Ring for Granddaug': Engraved Sterling Silver Hug Ring Just $
+- BLOCKER: THIS-or-THAT prices too far apart ($4.99 vs $13.99)

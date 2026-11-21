@@ -176,6 +176,7 @@ def tidy(title):
     """Drop deal-site shorthand (w/ S&S, w/ Prime) that means nothing to shoppers."""
     title = _STORE_TAIL.sub("", title).replace("\u00ae", "").replace("\u2122", "")
     title = re.sub(r"\s*\(20\d\d\)\s*:?", " ", title)
+    title = re.sub(r"\s+(?:Shipped|Free Shipping|Shipped Free|w/ Prime|Prime)\s*$", "", title, flags=re.I)
     t = AT_RE.sub("", COND_RE.sub("", title))
     for _ in range(2):
         t = JUNK_RE.sub("", t)
@@ -766,6 +767,8 @@ def main():
         pv = price_value(d.get("price", "")) or 0
         if pv > 150:
             return False
+        if re.search(r"\bfrom \$\d|up to \d+% off|\bas low as\b|\bselect (?:items|styles|colors)\b", d["title"], re.I):
+            return False                          # a price RANGE for many products can't be pinned to one ASIN
         if is_amazon(d):
             rv = (META.get(d.get("asin", "")) or {}).get("reviews") or 0
             if rv < 50:
@@ -776,6 +779,8 @@ def main():
             if rv < 100 and mm.get("list") and pv and pv < 0.45 * (price_value(str(mm["list"])) or 0):
                 return False                      # big claimed discount on few reviews = suspicious list price
             nw = price_value(str(mm.get("now") or "")) if mm.get("now") else 0
+            if nw and pv and abs(pv - nw) / nw > 0.08 and pv > 0:
+                return False                      # deal-site price differs >8% from Amazon's own page price
             if nw and pv and pv < nw * 0.7:
                 return False
         d["title"] = re.sub(r"\s*(?:-|:|\|)?\s*Amazon(?:\.com)?\s*$", "", d["title"]).strip()
