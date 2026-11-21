@@ -138,7 +138,7 @@ def price_groups(deals, made, tiers=(10, 15, 25), exclude=()):
 
 
 AT_RE = re.compile(r"\s+@\w+.*$")
-JUNK_RE = re.compile(r"^(?:AMAZON Select Accounts|Amazon Prime Members|Prime Members):\s*|\s*\((?:Reg\.?|Regularly)[^)]*\)|\s*\+\s*Free Shipping.*$|\s+(?:at|on|from)\s+Amazon\b.*$|\s+or less$|\s+at$", re.I)
+JUNK_RE = re.compile(r"^(?:AMAZON Select Accounts|Amazon Prime Members|Prime Members|Price Drop|Lightning Deal|Deal of the Day|Deal|Sale|Hot|New):\s*|\s*\((?:Reg\.?|Regularly)[^)]*\)|\s*\+\s*Free Shipping.*$|\s+(?:at|on|from)\s+Amazon\b.*$|\s+or less$|\s+at$", re.I)
 def seasonal_groups(deals, made, top=2):
     """Curated posts for the next shopping moments (Thanksgiving, stocking stuffers, game day...)."""
     from seasonal import active, matches
@@ -189,7 +189,7 @@ def tidy(title):
             words.pop()
         t = " ".join(words)
     t = re.split(r",(?!\d)| \(| - | \| | w/ | with ", t)[0]       # product name only: drop spec tails
-    ws = t.split()[:9]
+    ws = t.split()[:11]
     while ws and (ws[-1].lower().strip(",.:;") in _DANGLE or ws[-1].startswith("(") and not ws[-1].endswith(")")):
         ws.pop()                                    # never end on 'and', 'with', '(2nd' ...
     return " ".join(ws).strip(" -,:")
@@ -526,6 +526,8 @@ def _price_row(img, deal, x, y, big, max_w):
     if off >= 10:
         label = f"{off}% OFF"
         bw = d.textlength(label, font=bf) + 32
+        while cx + bw > x + max_w and bf.size > 18:
+            bf = sans(bf.size - 2, "Bold"); bw = d.textlength(label, font=bf) + 32
         if cx + bw <= x + max_w:
             d.rounded_rectangle([cx, y + 8, cx + bw, y + 8 + bf.size + 18], 24, fill=(229, 57, 53))
             d.text((cx + 16, y + 15), label, font=bf, fill=(255, 255, 255))
@@ -619,8 +621,8 @@ def make_image_trio(path, theme, items, cat="Everything else"):
         d.rounded_rectangle([x0, 300, x0 + cw, 1085], 30, fill=(255, 255, 255))
         _photo_into(img, deal, (x0 + 15, 316), (cw - 30, 290))
         d = ImageDraw.Draw(img)
-        d.ellipse([x0 - 8, 292, x0 + 44, 344], fill=CHAR)
-        d.text((x0 + 36 - d.textlength(str(k + 1), font=sans(32, "Bold")) / 2, 298), str(k + 1), font=sans(32, "Bold"), fill=(255, 255, 255))
+        d.ellipse([x0 + 6, 292, x0 + 58, 344], fill=CHAR)
+        d.text((x0 + 50 - d.textlength(str(k + 1), font=sans(32, "Bold")) / 2, 298), str(k + 1), font=sans(32, "Bold"), fill=(255, 255, 255))
         y = _title(d, deal, x0 + 18, 626, cw - 36, 30, 3, 22)
         y = _price_row(img, deal, x0 + 18, y + 8, 56, cw - 36)
         off = pct_off(deal)

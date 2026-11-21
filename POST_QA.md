@@ -16,7 +16,8 @@
 ## post_6 (Tech under $100): ok
 ## post_7 (Top under $60): ok
 ## post_8 (Home & kitchen under $100): ok
-## post_single (Mom's pick): ok
+## post_single (Mom's pick): ok with warnings
+- WARN: caption never names the product: Price Drop: Mini Brands Masterpieces Adv
 ## post_thisorthat (THIS or THAT): BLOCKED
 - BLOCKER: claims 39% off without a valid list price: Monster Energy 15-Pack Only $15.81 Shipp
 ## post_q1 (Quick deal: 34% OFF): ok
