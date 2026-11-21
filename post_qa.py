@@ -40,6 +40,9 @@ def page_checks(i, out):
     av = (m.get("avail") or "").lower()
     if "unavailable" in av or "out of stock" in av:
         out.append(("BLOCKER", f"Amazon says unavailable: {nm}"))
+    sl = (m.get("seller") or "").lower()
+    if "resale" in sl or "warehouse" in sl or "renewed" in (m.get("title") or "").lower():
+        out.append(("BLOCKER", f"used/open-box seller ({m.get('seller','')[:30]}): {nm}"))
     at = m.get("title") or ""
     if at:
         ours, theirs = words(i["title"]), words(at)
