@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T13:45+00:00",
+ "updated": "2026-11-22T11:38+00:00",
  "status": {
   "TikTok Made Me Buy It (Reddit)": "error: HTTP Error 404: Not Found",
   "Amazon finds (Reddit)": "error: HTTP Error 429: Too Many Requests",
@@ -28,54 +28,10 @@
   },
   {
    "source": "camelcamelcamel popular",
-   "title": "Breville BOV900BSS Smart Oven Air Fryer Pro, Brushed Stainless Steel",
-   "link": "https://camelcamelcamel.com/product/B01N5UPTZS?active=price_amazon",
-   "asin": "B01N5UPTZS",
-   "rank": 2,
-   "label": "Best Price",
-   "words": [
-    "bov900bss",
-    "breville",
-    "brushed",
-    "fryer",
-    "oven",
-    "smart",
-    "stainless",
-    "steel"
-   ]
-  },
-  {
-   "source": "camelcamelcamel popular",
-   "title": "Root: A Game of Woodland Might and Right | Asymmetric Strategy Board Game by Leder Games | 2\u20134 Players | Ages 14+ | Adventure, Conflict & Area Control",
-   "link": "https://camelcamelcamel.com/product/B07F454YF3?active=price_amazon",
-   "asin": "B07F454YF3",
-   "rank": 3,
-   "label": "Best Price",
-   "words": [
-    "adventure",
-    "ages",
-    "area",
-    "asymmetric",
-    "board",
-    "conflict",
-    "control",
-    "game",
-    "games",
-    "leder",
-    "might",
-    "players",
-    "right",
-    "root",
-    "strategy",
-    "woodland"
-   ]
-  },
-  {
-   "source": "camelcamelcamel popular",
    "title": "Epson EcoTank Photo ET-8550 Wireless Wide-Format All-in-One Tank Printer",
    "link": "https://camelcamelcamel.com/product/B08R5M2HDH?active=price_amazon",
    "asin": "B08R5M2HDH",
-   "rank": 4,
+   "rank": 2,
    "label": "Best Price",
    "words": [
     "ecotank",
@@ -90,10 +46,10 @@
   },
   {
    "source": "camelcamelcamel popular",
-   "title": "LEGO Botanicals Succulents 10309",
-   "link": "https://camelcamelcamel.com/product/B09Q4GWMZQ?active=price_amazon",
-   "asin": "B09Q4GWMZQ",
-   "rank": 5,
+   "title": "Sonos Beam Gen 2 - Black - Soundbar with Dolby Atmos",
+   "link": "https://camelcamelcamel.com/product/B09GPYL7BJ?active=price_amazon",
+   "asin": "B09GPYL7BJ",
+   "rank": 3,
    "label": "Best Price",
    "words": [
     "botanicals",
@@ -128,7 +84,7 @@
    "title": "Garmin v\u00edvoactive\u00ae 5, Health & Fitness GPS Smartwatch, 42mm, Black",
    "link": "https://camelcamelcamel.com/product/B0CG6NR413?active=price_amazon",
    "asin": "B0CG6NR413",
-   "rank": 7,
+   "rank": 4,
    "label": "Best Price",
    "words": [
     "42mm",
@@ -142,18 +98,29 @@
   },
   {
    "source": "camelcamelcamel popular",
-   "title": "Apple Pencil (USB-C): Device Compatibility Check Required",
-   "link": "https://camelcamelcamel.com/product/B0CL7J12YK?active=price_amazon",
-   "asin": "B0CL7J12YK",
-   "rank": 8,
+   "title": "Asmodee Harmonies Board Game - Create Oneiric Landscapes, Strategic & Poetic Gameplay, Fun Family Game for Kids & Adults, Ages 10+, 1-4 Players, 30 Min Playtime, (Multilingual Edition)",
+   "link": "https://camelcamelcamel.com/product/B0CVNPHPZY?active=price_amazon",
+   "asin": "B0CVNPHPZY",
+   "rank": 5,
    "label": "Best Price",
    "words": [
-    "apple",
-    "check",
-    "compatibility",
-    "device",
-    "pencil",
-    "required"
+    "adults",
+    "ages",
+    "asmodee",
+    "board",
+    "create",
+    "edition",
+    "family",
+    "game",
+    "gameplay",
+    "harmonies",
+    "landscapes",
+    "multilingual",
+    "oneiric",
+    "players",
+    "playtime",
+    "poetic",
+    "strategic"
    ]
   },
   {
@@ -161,7 +128,7 @@
    "title": "Beats Solo 4 On-Ear Headphones, 50 Hours Battery Life - Matte Black",
    "link": "https://camelcamelcamel.com/product/B0CZPLV566?active=price_amazon",
    "asin": "B0CZPLV566",
-   "rank": 9,
+   "rank": 6,
    "label": "Good Deal",
    "words": [
     "battery",
@@ -176,10 +143,24 @@
   },
   {
    "source": "camelcamelcamel popular",
+   "title": "Rocky 6-Film Coll. (4KUHD+DIG)",
+   "link": "https://camelcamelcamel.com/product/B0D4VRGCFY?active=price_amazon",
+   "asin": "B0D4VRGCFY",
+   "rank": 7,
+   "label": "Best Price",
+   "words": [
+    "4kuhd",
+    "coll",
+    "film",
+    "rocky"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
    "title": "Amazon Kindle Paperwhite 16GB (2024 model) \u2013 7\" glare-free display and weeks of battery life \u2013 Black",
    "link": "https://camelcamelcamel.com/product/B0CFPJYX7P?active=price_amazon",
    "asin": "B0CFPJYX7P",
-   "rank": 10,
+   "rank": 8,
    "label": "Good Deal",
    "words": [
     "16gb",
@@ -196,20 +177,27 @@
   },
   {
    "source": "camelcamelcamel popular",
-   "title": "Ninja Luxe Caf\u00e9 Pro 4-in-1 Espresso Machine, Drip Coffee, & Cold Brew",
-   "link": "https://camelcamelcamel.com/product/B0F5JFTR1Q?active=price_amazon",
-   "asin": "B0F5JFTR1Q",
-   "rank": 11,
-   "label": "Good Deal",
+   "title": "LEGO Icons Williams Racing FW14B & Nigel Mansell F1 Model Car Kit - Building Set for Adults, Ages 18+ - F1 DIY Craft for Display - Gifts for Birthdays - 10353",
+   "link": "https://camelcamelcamel.com/product/B0DJ19PWQF?active=price_amazon",
+   "asin": "B0DJ19PWQF",
+   "rank": 9,
+   "label": "Best Price",
    "words": [
-    "brew",
-    "coffee",
-    "cold",
-    "drip",
-    "espresso",
-    "luxe",
-    "machine",
-    "ninja"
+    "adults",
+    "ages",
+    "birthdays",
+    "building",
+    "craft",
+    "display",
+    "fw14b",
+    "gifts",
+    "icons",
+    "lego",
+    "mansell",
+    "model",
+    "nigel",
+    "racing",
+    "williams"
    ]
   },
   {
@@ -217,7 +205,7 @@
    "title": "Sony WH-1000XM6 The Best Noise Cancelling Wireless Headphones, Black",
    "link": "https://camelcamelcamel.com/product/B0F3PQHWTZ?active=price_amazon",
    "asin": "B0F3PQHWTZ",
-   "rank": 12,
+   "rank": 10,
    "label": "Best Price",
    "words": [
     "1000xm6",
@@ -232,29 +220,103 @@
   },
   {
    "source": "camelcamelcamel popular",
-   "title": "Apple AirTag (2nd Generation): Tracker for Keychain, Wallet, and More; Locator with Sound; Simple One-Tap Setup with iPhone or iPad; Key Finder with up to 1.5X Precision Finding Range",
-   "link": "https://camelcamelcamel.com/product/B0GJTFXNRX?active=price_amazon",
-   "asin": "B0GJTFXNRX",
+   "title": "Apple AirPods Pro 3 Wireless Earbuds with Active Noise Cancellation",
+   "link": "https://camelcamelcamel.com/product/B0FQFB8FMG?active=price_amazon",
+   "asin": "B0FQFB8FMG",
+   "rank": 11,
+   "label": "Good Deal",
+   "words": [
+    "active",
+    "airpods",
+    "apple",
+    "cancellation",
+    "earbuds",
+    "noise",
+    "wireless"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Amazon Echo Dot Max (newest model), Alexa speaker with room-filling sound and nearly 2x bass, Great for living rooms and medium-sized spaces, Designed for Alexa+, Graphite",
+   "link": "https://camelcamelcamel.com/product/B0D6SX8VLQ?active=price_amazon",
+   "asin": "B0D6SX8VLQ",
+   "rank": 12,
+   "label": "Best Price",
+   "words": [
+    "alexa",
+    "bass",
+    "designed",
+    "echo",
+    "filling",
+    "graphite",
+    "great",
+    "living",
+    "medium",
+    "model",
+    "nearly",
+    "newest",
+    "room",
+    "rooms",
+    "sized",
+    "sound",
+    "spaces",
+    "speaker"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "ASUS ROG XG27AQWMG 27 Inch 1440p 280Hz Tandem OLED G-SYNC Gaming Monitor",
+   "link": "https://camelcamelcamel.com/product/B0FP152SJW?active=price_amazon",
+   "asin": "B0FP152SJW",
    "rank": 13,
    "label": "Best Price",
    "words": [
-    "airtag",
-    "apple",
-    "finder",
-    "finding",
-    "generation",
-    "ipad",
-    "iphone",
-    "keychain",
-    "locator",
-    "more",
-    "precision",
-    "range",
-    "setup",
-    "simple",
-    "sound",
-    "tracker",
-    "wallet"
+    "1440p",
+    "280hz",
+    "asus",
+    "gaming",
+    "inch",
+    "monitor",
+    "oled",
+    "sync",
+    "tandem",
+    "xg27aqwmg"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Samsung Galaxy Buds 4 Pro (2026) AI True Wireless Bluetooth Earbuds, Black",
+   "link": "https://camelcamelcamel.com/product/B0G1PJLWLZ?active=price_amazon",
+   "asin": "B0G1PJLWLZ",
+   "rank": 14,
+   "label": "Best Price",
+   "words": [
+    "black",
+    "bluetooth",
+    "buds",
+    "earbuds",
+    "galaxy",
+    "samsung",
+    "true",
+    "wireless"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "ECOVACS DEEBOT T90 PRO Omni Robot Vacuum and Mop, 30000Pa Blast Suction",
+   "link": "https://camelcamelcamel.com/product/B0GJ5S4V78?active=price_amazon",
+   "asin": "B0GJ5S4V78",
+   "rank": 15,
+   "label": "Best Price",
+   "words": [
+    "30000pa",
+    "blast",
+    "deebot",
+    "ecovacs",
+    "omni",
+    "robot",
+    "suction",
+    "vacuum"
    ]
   },
   {
@@ -262,8 +324,8 @@
    "title": "LG 65 inch Class OLED evo AI C6 4K Smart TV 2026",
    "link": "https://camelcamelcamel.com/product/B0GRK5D3RW?active=price_amazon",
    "asin": "B0GRK5D3RW",
-   "rank": 14,
-   "label": "Good Deal",
+   "rank": 16,
+   "label": "Best Price",
    "words": [
     "class",
     "inch",
@@ -276,7 +338,21 @@
    "title": "Pok\u00e9mon TCG: 30th Celebration Knock Out Collection",
    "link": "https://camelcamelcamel.com/product/B0H7FDBNSB?active=price_amazon",
    "asin": "B0H7FDBNSB",
-   "rank": 15,
+   "rank": 17,
+   "label": "Good Deal",
+   "words": [
+    "30th",
+    "celebration",
+    "collection",
+    "knock"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "JBL Tune 530BT (2026) \u2013 Wireless On-Ear Bluetooth Headphones (Blue)",
+   "link": "https://camelcamelcamel.com/product/B0GHY652MM?active=price_amazon",
+   "asin": "B0GHY652MM",
+   "rank": 18,
    "label": "Best Price",
    "words": [
     "30th",
@@ -392,24 +468,10 @@
   },
   {
    "source": "Amazon Best Sellers",
-   "title": "$100 PlayStation Store Gift Card [Digital Code]",
-   "link": "https://www.amazon.com/dp/B00K59HKIQ",
-   "asin": "B00K59HKIQ",
-   "rank": 2,
-   "words": [
-    "card",
-    "digital",
-    "gift",
-    "playstation",
-    "store"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
    "title": "Grand Theft Auto VI - PlayStation 5 (Code in Box) | Code in Box - Playable 11/19/26, No physical disc in box",
    "link": "https://www.amazon.com/dp/B0H6K928WL",
    "asin": "B0H6K928WL",
-   "rank": 3,
+   "rank": 2,
    "words": [
     "auto",
     "disc",
@@ -422,17 +484,34 @@
   },
   {
    "source": "Amazon Best Sellers",
-   "title": "EA Sports Madden NFL 27 - Standard Edition PS5 |Disc I VideoGame",
-   "link": "https://www.amazon.com/dp/B0H2K3RD7C",
-   "asin": "B0H2K3RD7C",
+   "title": "$100 PlayStation Store Gift Card [Digital Code]",
+   "link": "https://www.amazon.com/dp/B00K59HKIQ",
+   "asin": "B00K59HKIQ",
+   "rank": 3,
+   "words": [
+    "card",
+    "digital",
+    "gift",
+    "playstation",
+    "store"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Roblox Digital Gift Card - 1,000 Robux [Includes Exclusive Virtual Item] [Digital Code]",
+   "link": "https://www.amazon.com/dp/B07RZ74VLR",
+   "asin": "B07RZ74VLR",
    "rank": 4,
    "words": [
-    "disc",
-    "edition",
-    "madden",
-    "sports",
-    "standard",
-    "videogame"
+    "card",
+    "digital",
+    "exclusive",
+    "gift",
+    "includes",
+    "item",
+    "roblox",
+    "robux",
+    "virtual"
    ]
   },
   {
@@ -457,39 +536,35 @@
   },
   {
    "source": "Amazon Best Sellers",
-   "title": "$100 XBOX Gift Card [Digital Code]",
-   "link": "https://www.amazon.com/dp/B00F4CFHFC",
-   "asin": "B00F4CFHFC",
+   "title": "EA Sports Madden NFL 27 - Standard Edition PS5 |Disc I VideoGame",
+   "link": "https://www.amazon.com/dp/B0H2K3RD7C",
+   "asin": "B0H2K3RD7C",
    "rank": 6,
    "words": [
-    "card",
-    "digital",
-    "gift",
-    "xbox"
+    "disc",
+    "edition",
+    "madden",
+    "sports",
+    "standard",
+    "videogame"
    ]
   },
   {
    "source": "Amazon Best Sellers",
-   "title": "ANRABESS Women Long Sleeve Shirts Ribbed Fitted Tops | Slim Basic Tee,2026 Fall Outfits,Lightweight Knit T-Shirt,Soft Un",
-   "link": "https://www.amazon.com/dp/B0CYZM5RSM",
-   "asin": "B0CYZM5RSM",
+   "title": "Hanes Men's Hoodie - EcoSmart Fleece Hooded Sweatshirt for Men & Women - Midweight Fleece - Big & Tall Available",
+   "link": "https://www.amazon.com/dp/B00JUM2VAQ",
+   "asin": "B00JUM2VAQ",
    "rank": 7,
    "words": [
-    "anrabess",
-    "basic",
-    "fall",
-    "fitted",
-    "knit",
-    "lightweight",
-    "long",
-    "outfits",
-    "ribbed",
-    "shirt",
-    "shirts",
-    "sleeve",
-    "slim",
-    "soft",
-    "tops"
+    "available",
+    "ecosmart",
+    "fleece",
+    "hanes",
+    "hooded",
+    "hoodie",
+    "midweight",
+    "sweatshirt",
+    "tall"
    ]
   },
   {
@@ -510,18 +585,40 @@
   },
   {
    "source": "Amazon Best Sellers",
-   "title": "Hanes Men's Hoodie - EcoSmart Fleece Hooded Sweatshirt for Men & Women - Midweight Fleece - Big & Tall Available",
-   "link": "https://www.amazon.com/dp/B00JUM2VAQ",
-   "asin": "B00JUM2VAQ",
+   "title": "ANRABESS Women Long Sleeve Shirts Ribbed Fitted Tops | Slim Basic Tee,2026 Fall Outfits,Lightweight Knit T-Shirt,Soft Un",
+   "link": "https://www.amazon.com/dp/B0CYZM5RSM",
+   "asin": "B0CYZM5RSM",
    "rank": 9,
    "words": [
+    "anrabess",
+    "basic",
+    "fall",
+    "fitted",
+    "knit",
+    "lightweight",
+    "long",
+    "outfits",
+    "ribbed",
+    "shirt",
+    "shirts",
+    "sleeve",
+    "slim",
+    "soft",
+    "tops"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Hanes Men's Sweatshirt, EcoSmart Fleece Crewneck Sweatshirt, Big & Tall Available, 1 or 2-Pack",
+   "link": "https://www.amazon.com/dp/B01L8JJ57U",
+   "asin": "B01L8JJ57U",
+   "rank": 10,
+   "words": [
     "available",
+    "crewneck",
     "ecosmart",
     "fleece",
     "hanes",
-    "hooded",
-    "hoodie",
-    "midweight",
     "sweatshirt",
     "tall"
    ]
@@ -531,7 +628,7 @@
    "title": "Trendy Queen Womens Long Sleeve T Shirts Fall Fashion Basic Y2K Tops 2026 | Buttery-Soft, Super Stretchy, Fitted Cute To",
    "link": "https://www.amazon.com/dp/B0BW8ZFMDJ",
    "asin": "B0BW8ZFMDJ",
-   "rank": 10,
+   "rank": 11,
    "words": [
     "basic",
     "buttery",
@@ -548,22 +645,6 @@
     "super",
     "tops",
     "trendy"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "Hanes Men's Sweatshirt, EcoSmart Fleece Crewneck Sweatshirt, Big & Tall Available, 1 or 2-Pack",
-   "link": "https://www.amazon.com/dp/B01L8JJ57U",
-   "asin": "B01L8JJ57U",
-   "rank": 11,
-   "words": [
-    "available",
-    "crewneck",
-    "ecosmart",
-    "fleece",
-    "hanes",
-    "sweatshirt",
-    "tall"
    ]
   },
   {
@@ -589,10 +670,133 @@
   },
   {
    "source": "Amazon Best Sellers",
+   "title": "medicube Toner Pads Zero Pore Pad 2.0 for Exfoliation and Pore Care | Dual-Textured Facial Pad with 4.5% AHA Lactic Acid",
+   "link": "https://www.amazon.com/dp/B09V7Z4TJG",
+   "asin": "B09V7Z4TJG",
+   "rank": 13,
+   "words": [
+    "acid",
+    "care",
+    "dual",
+    "exfoliation",
+    "facial",
+    "lactic",
+    "medicube",
+    "pads",
+    "pore",
+    "textured",
+    "toner",
+    "zero"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "BIODANCE Bio-Collagen Real Deep Mask for Hydrating & Plumping (4ea) | Overnight Hydrogel Hydrating Face Masks, Glass Ski",
+   "link": "https://www.amazon.com/dp/B0B2RM68G2",
+   "asin": "B0B2RM68G2",
+   "rank": 14,
+   "words": [
+    "biodance",
+    "collagen",
+    "deep",
+    "face",
+    "glass",
+    "hydrating",
+    "hydrogel",
+    "mask",
+    "masks",
+    "overnight",
+    "plumping",
+    "real"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "medicube Jelly Gel Mask with Salmon DNA PDRN Pink Collagen, Plump & Hydrate | Overnight Face Mask for Glass Glow Skin - ",
+   "link": "https://www.amazon.com/dp/B0DGTMR754",
+   "asin": "B0DGTMR754",
+   "rank": 15,
+   "words": [
+    "collagen",
+    "face",
+    "glass",
+    "glow",
+    "hydrate",
+    "jelly",
+    "mask",
+    "medicube",
+    "overnight",
+    "pdrn",
+    "pink",
+    "plump",
+    "salmon",
+    "skin"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "eos Shea Better Body Lotion- Vanilla Cashmere, 24-Hour Moisture, 16 fl oz | Natural Shea Butter & Oil, Whipped Vanilla &",
+   "link": "https://www.amazon.com/dp/B08KT2Z93D",
+   "asin": "B08KT2Z93D",
+   "rank": 16,
+   "words": [
+    "better",
+    "body",
+    "butter",
+    "cashmere",
+    "hour",
+    "lotion",
+    "moisture",
+    "natural",
+    "shea",
+    "vanilla",
+    "whipped"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "medicube Collagen Jelly Cream, Moisturizing Cream for Plump Skin, 1.69fl.oz | medicube Collagen Jelly Cream for Skin Bar",
+   "link": "https://www.amazon.com/dp/B0DGPSZVW3",
+   "asin": "B0DGPSZVW3",
+   "rank": 17,
+   "words": [
+    "69fl",
+    "collagen",
+    "cream",
+    "jelly",
+    "medicube",
+    "moisturizing",
+    "plump",
+    "skin"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Mighty Patch Hero Cosmetics Original Nighttime Acne Pimple Patches, 36 Ct | #1 Hydrocolloid Acne Patches, Shrinking Zits",
+   "link": "https://www.amazon.com/dp/B074PVTPBW",
+   "asin": "B074PVTPBW",
+   "rank": 18,
+   "words": [
+    "acne",
+    "cosmetics",
+    "hero",
+    "hydrocolloid",
+    "mighty",
+    "nighttime",
+    "original",
+    "patch",
+    "patches",
+    "pimple",
+    "shrinking",
+    "zits"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
    "title": "STANLEY Quencher H2.0 Flow State Tumbler, 40 oz, Rose Quartz 2.0 | Handle and Straw | 3-Position Lid | Cup Holder Compat",
    "link": "https://www.amazon.com/dp/B0CP9Z56SW",
    "asin": "B0CP9Z56SW",
-   "rank": 13,
+   "rank": 19,
    "words": [
     "compat",
     "flow",
@@ -613,7 +817,7 @@
    "title": "Owala FreeSip Stainless Steel Water Bottle 24 oz Shy Marshmallow",
    "link": "https://www.amazon.com/dp/B085DV8T75",
    "asin": "B085DV8T75",
-   "rank": 14,
+   "rank": 20,
    "words": [
     "bottle",
     "freesip",
@@ -626,26 +830,10 @@
   },
   {
    "source": "Amazon Best Sellers",
-   "title": "KITCHENAID Ribbed Soft Silicone Oven Mitt 2-Pack Set, 7.5\"x13\", Milkshake Tan",
-   "link": "https://www.amazon.com/dp/B08J8GZXKZ",
-   "asin": "B08J8GZXKZ",
-   "rank": 15,
-   "words": [
-    "kitchenaid",
-    "milkshake",
-    "mitt",
-    "oven",
-    "ribbed",
-    "silicone",
-    "soft"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
    "title": "bella Fits-Anywhere\u2122 2-Slice Slim Toaster, Long Slot & Extra Wide, Oatmilk",
    "link": "https://www.amazon.com/dp/B0CYJBB2JQ",
    "asin": "B0CYJBB2JQ",
-   "rank": 16,
+   "rank": 21,
    "words": [
     "anywhere",
     "bella",
@@ -662,10 +850,33 @@
   },
   {
    "source": "Amazon Best Sellers",
+   "title": "HydroJug Traveler 32oz, Insulated Water Bottle with Handle, French Vanilla | Triple wall insulated, flip straw lid, leak",
+   "link": "https://www.amazon.com/dp/B0H2FQ5FV1",
+   "asin": "B0H2FQ5FV1",
+   "rank": 22,
+   "words": [
+    "32oz",
+    "bottle",
+    "flip",
+    "french",
+    "handle",
+    "hydrojug",
+    "insulated",
+    "leak",
+    "straw",
+    "traveler",
+    "triple",
+    "vanilla",
+    "wall",
+    "water"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
    "title": "Alpha Grillers Meat Thermometer Digital, Stocking Stuffers Gifts for Men | 1-2 Second Ultra-Fast Response Time, Bright B",
    "link": "https://www.amazon.com/dp/B00S93EQUK",
    "asin": "B00S93EQUK",
-   "rank": 17,
+   "rank": 23,
    "words": [
     "alpha",
     "bright",
@@ -688,7 +899,7 @@
    "title": "Owala SmoothSip Slider Insulated Stainless Steel Coffee Tumbler, Reusable Iced Coffee Cup, Hot Coffee Travel Mug, BPA Fr",
    "link": "https://www.amazon.com/dp/B0DF472VMZ",
    "asin": "B0DF472VMZ",
-   "rank": 18,
+   "rank": 24,
    "words": [
     "coffee",
     "iced",
@@ -701,134 +912,6 @@
     "steel",
     "travel",
     "tumbler"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "medicube Toner Pads Zero Pore Pad 2.0 for Exfoliation and Pore Care | Dual-Textured Facial Pad with 4.5% AHA Lactic Acid",
-   "link": "https://www.amazon.com/dp/B09V7Z4TJG",
-   "asin": "B09V7Z4TJG",
-   "rank": 19,
-   "words": [
-    "acid",
-    "care",
-    "dual",
-    "exfoliation",
-    "facial",
-    "lactic",
-    "medicube",
-    "pads",
-    "pore",
-    "textured",
-    "toner",
-    "zero"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "BIODANCE Bio-Collagen Real Deep Mask for Hydrating & Plumping (4ea) | Overnight Hydrogel Hydrating Face Masks, Glass Ski",
-   "link": "https://www.amazon.com/dp/B0B2RM68G2",
-   "asin": "B0B2RM68G2",
-   "rank": 20,
-   "words": [
-    "biodance",
-    "collagen",
-    "deep",
-    "face",
-    "glass",
-    "hydrating",
-    "hydrogel",
-    "mask",
-    "masks",
-    "overnight",
-    "plumping",
-    "real"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "eos Shea Better Body Lotion- Vanilla Cashmere, 24-Hour Moisture, 16 fl oz | Natural Shea Butter & Oil, Whipped Vanilla &",
-   "link": "https://www.amazon.com/dp/B08KT2Z93D",
-   "asin": "B08KT2Z93D",
-   "rank": 21,
-   "words": [
-    "better",
-    "body",
-    "butter",
-    "cashmere",
-    "hour",
-    "lotion",
-    "moisture",
-    "natural",
-    "shea",
-    "vanilla",
-    "whipped"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "medicube Jelly Gel Mask with Salmon DNA PDRN Pink Collagen, Plump & Hydrate | Overnight Face Mask for Glass Glow Skin - ",
-   "link": "https://www.amazon.com/dp/B0DGTMR754",
-   "asin": "B0DGTMR754",
-   "rank": 22,
-   "words": [
-    "collagen",
-    "face",
-    "glass",
-    "glow",
-    "hydrate",
-    "jelly",
-    "mask",
-    "medicube",
-    "overnight",
-    "pdrn",
-    "pink",
-    "plump",
-    "salmon",
-    "skin"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "Mighty Patch Hero Cosmetics Original Nighttime Acne Pimple Patches, 36 Ct | #1 Hydrocolloid Acne Patches, Shrinking Zits",
-   "link": "https://www.amazon.com/dp/B074PVTPBW",
-   "asin": "B074PVTPBW",
-   "rank": 23,
-   "words": [
-    "acne",
-    "cosmetics",
-    "hero",
-    "hydrocolloid",
-    "mighty",
-    "nighttime",
-    "original",
-    "patch",
-    "patches",
-    "pimple",
-    "shrinking",
-    "zits"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "medicube PDRN Pink Peptide Serum with Salmon DNA, Firmer, Even-Looking Skin | Pink Glow Serum with Peptides & Niacinamid",
-   "link": "https://www.amazon.com/dp/B0DBF65JYY",
-   "asin": "B0DBF65JYY",
-   "rank": 24,
-   "words": [
-    "even",
-    "firmer",
-    "glow",
-    "looking",
-    "medicube",
-    "niacinamid",
-    "pdrn",
-    "peptide",
-    "peptides",
-    "pink",
-    "salmon",
-    "serum",
-    "skin"
    ]
   },
   {
@@ -848,32 +931,10 @@
   },
   {
    "source": "Amazon Best Sellers",
-   "title": "Apple EarPods Headphones with USB-C Plug, Wired Ear Buds with Built-in Remote to Control Music, Phone Calls, and Volume",
-   "link": "https://www.amazon.com/dp/B0DCH8VDXF",
-   "asin": "B0DCH8VDXF",
-   "rank": 26,
-   "words": [
-    "apple",
-    "buds",
-    "built",
-    "calls",
-    "control",
-    "earpods",
-    "headphones",
-    "music",
-    "phone",
-    "plug",
-    "remote",
-    "volume",
-    "wired"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
    "title": "Apple AirPods Pro 3 Wireless Earbuds with Active Noise Cancellation | Live Translation, Heart Rate Sensing, Hearing Aid ",
    "link": "https://www.amazon.com/dp/B0FQFB8FMG",
    "asin": "B0FQFB8FMG",
-   "rank": 27,
+   "rank": 26,
    "words": [
     "active",
     "airpods",
@@ -888,6 +949,28 @@
     "sensing",
     "translation",
     "wireless"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Apple EarPods Headphones with USB-C Plug, Wired Ear Buds with Built-in Remote to Control Music, Phone Calls, and Volume",
+   "link": "https://www.amazon.com/dp/B0DCH8VDXF",
+   "asin": "B0DCH8VDXF",
+   "rank": 27,
+   "words": [
+    "apple",
+    "buds",
+    "built",
+    "calls",
+    "control",
+    "earpods",
+    "headphones",
+    "music",
+    "phone",
+    "plug",
+    "remote",
+    "volume",
+    "wired"
    ]
   },
   {
@@ -930,21 +1013,21 @@
   },
   {
    "source": "Amazon Best Sellers",
-   "title": "Beats Solo 4 On-Ear Headphones, 50 Hours Battery Life - Matte Black | Rich, Bass-Forward Sound Quality, Spatial Audio, U",
-   "link": "https://www.amazon.com/dp/B0CZPLV566",
-   "asin": "B0CZPLV566",
+   "title": "Beats Solo 4 On-Ear Headphones, 50 Hours Battery Life - Metallic Pink | Rich, Bass-Forward Sound Quality, Spatial Audio,",
+   "link": "https://www.amazon.com/dp/B0FHLPS8ZF",
+   "asin": "B0FHLPS8ZF",
    "rank": 30,
    "words": [
     "audio",
     "bass",
     "battery",
     "beats",
-    "black",
     "forward",
     "headphones",
     "hours",
     "life",
-    "matte",
+    "metallic",
+    "pink",
     "quality",
     "rich",
     "solo",
@@ -954,10 +1037,29 @@
   },
   {
    "source": "Amazon Best Sellers",
+   "title": "Bounty Quick-Size Paper Towels, White, 8 Family Triple Rolls = 27 Regular Rolls",
+   "link": "https://www.amazon.com/dp/B0DQYP1L95",
+   "asin": "B0DQYP1L95",
+   "rank": 31,
+   "words": [
+    "bounty",
+    "family",
+    "paper",
+    "quick",
+    "regular",
+    "rolls",
+    "size",
+    "towels",
+    "triple",
+    "white"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
    "title": "Scott ComfortPlus Toilet Paper, 12 Triple Rolls, 231 Sheets per Roll, Septic-Safe, 1-Ply Toilet Tissue",
    "link": "https://www.amazon.com/dp/B07BGLT25K",
    "asin": "B07BGLT25K",
-   "rank": 31,
+   "rank": 32,
    "words": [
     "comfortplus",
     "paper",
@@ -970,24 +1072,6 @@
     "tissue",
     "toilet",
     "triple"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "Bounty Paper Towels Quick Size, White, 16 Family Rolls = 40 Regular Rolls",
-   "link": "https://www.amazon.com/dp/B079VP6DH5",
-   "asin": "B079VP6DH5",
-   "rank": 32,
-   "words": [
-    "bounty",
-    "family",
-    "paper",
-    "quick",
-    "regular",
-    "rolls",
-    "size",
-    "towels",
-    "white"
    ]
   },
   {
@@ -1013,26 +1097,10 @@
   },
   {
    "source": "Amazon Best Sellers",
-   "title": "Kleenex Ultra Soft Facial Tissues, 8 Cube Boxes, 80 Tissues per Box",
-   "link": "https://www.amazon.com/dp/B0CTD36YKK",
-   "asin": "B0CTD36YKK",
-   "rank": 34,
-   "words": [
-    "boxes",
-    "cube",
-    "facial",
-    "kleenex",
-    "soft",
-    "tissues",
-    "ultra"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
    "title": "Angel Soft Toilet Paper, 2-Ply, 18 Rolls | Long-lasting bath tissue with softness and strength, septic safe; household e",
    "link": "https://www.amazon.com/dp/B0FN4NH4K8",
    "asin": "B0FN4NH4K8",
-   "rank": 35,
+   "rank": 34,
    "words": [
     "angel",
     "bath",
@@ -1052,24 +1120,39 @@
   },
   {
    "source": "Amazon Best Sellers",
-   "title": "Amazon Basics Everyday Disposable Paper Plates, 8.62 Inch, Microwave-Safe, Cut Resistant, Soak-Proof, 100 Count, Packagi",
-   "link": "https://www.amazon.com/dp/B0C2CY22B8",
-   "asin": "B0C2CY22B8",
+   "title": "Kleenex Ultra Soft Facial Tissues, 8 Cube Boxes, 80 Tissues per Box",
+   "link": "https://www.amazon.com/dp/B0CTD36YKK",
+   "asin": "B0CTD36YKK",
+   "rank": 35,
+   "words": [
+    "boxes",
+    "cube",
+    "facial",
+    "kleenex",
+    "soft",
+    "tissues",
+    "ultra"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Charmin Ultra Soft Cushiony Touch Toilet Paper, 24 Family Mega = 123 Regular Rolls, White",
+   "link": "https://www.amazon.com/dp/B0798DVT68",
+   "asin": "B0798DVT68",
    "rank": 36,
    "words": [
-    "basics",
-    "count",
-    "disposable",
-    "everyday",
-    "inch",
-    "microwave",
-    "packagi",
+    "charmin",
+    "cushiony",
+    "family",
+    "mega",
     "paper",
-    "plates",
-    "proof",
-    "resistant",
-    "safe",
-    "soak"
+    "regular",
+    "rolls",
+    "soft",
+    "toilet",
+    "touch",
+    "ultra",
+    "white"
    ]
   }
  ]
