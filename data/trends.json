@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-22T01:21+00:00",
+ "updated": "2026-11-22T11:27+00:00",
  "status": {
   "TikTok Made Me Buy It (Reddit)": "error: HTTP Error 404: Not Found",
   "Amazon finds (Reddit)": "error: HTTP Error 429: Too Many Requests",
@@ -30,25 +30,10 @@
   },
   {
    "source": "camelcamelcamel popular",
-   "title": "LEGO Classic Medium Creative Brick Box 10696",
-   "link": "https://camelcamelcamel.com/product/B00NHQFA1I?active=price_amazon",
-   "asin": "B00NHQFA1I",
-   "rank": 2,
-   "label": "Good Deal",
-   "words": [
-    "brick",
-    "classic",
-    "creative",
-    "lego",
-    "medium"
-   ]
-  },
-  {
-   "source": "camelcamelcamel popular",
    "title": "Epson EcoTank Photo ET-8550 Wireless Wide-Format All-in-One Tank Printer",
    "link": "https://camelcamelcamel.com/product/B08R5M2HDH?active=price_amazon",
    "asin": "B08R5M2HDH",
-   "rank": 3,
+   "rank": 2,
    "label": "Best Price",
    "words": [
     "ecotank",
@@ -66,7 +51,7 @@
    "title": "Sonos Beam Gen 2 - Black - Soundbar with Dolby Atmos",
    "link": "https://camelcamelcamel.com/product/B09GPYL7BJ?active=price_amazon",
    "asin": "B09GPYL7BJ",
-   "rank": 4,
+   "rank": 3,
    "label": "Best Price",
    "words": [
     "atmos",
@@ -82,7 +67,7 @@
    "title": "Garmin v\u00edvoactive\u00ae 5, Health & Fitness GPS Smartwatch, 42mm, Black",
    "link": "https://camelcamelcamel.com/product/B0CG6NR413?active=price_amazon",
    "asin": "B0CG6NR413",
-   "rank": 5,
+   "rank": 4,
    "label": "Best Price",
    "words": [
     "42mm",
@@ -99,7 +84,7 @@
    "title": "Beats Solo 4 On-Ear Headphones, 50 Hours Battery Life - Matte Black",
    "link": "https://camelcamelcamel.com/product/B0CZPLV566?active=price_amazon",
    "asin": "B0CZPLV566",
-   "rank": 6,
+   "rank": 5,
    "label": "Good Deal",
    "words": [
     "battery",
@@ -117,7 +102,7 @@
    "title": "Rocky 6-Film Coll. (4KUHD+DIG)",
    "link": "https://camelcamelcamel.com/product/B0D4VRGCFY?active=price_amazon",
    "asin": "B0D4VRGCFY",
-   "rank": 7,
+   "rank": 6,
    "label": "Best Price",
    "words": [
     "4kuhd",
@@ -131,7 +116,7 @@
    "title": "Sonos Arc Ultra Soundbar with Dolby Atmos - Black",
    "link": "https://camelcamelcamel.com/product/B0DFK28LBB?active=price_amazon",
    "asin": "B0DFK28LBB",
-   "rank": 8,
+   "rank": 7,
    "label": "Best Price",
    "words": [
     "atmos",
@@ -147,7 +132,7 @@
    "title": "Amazon Kindle Paperwhite 16GB (2024 model) \u2013 7\" glare-free display and weeks of battery life \u2013 Black",
    "link": "https://camelcamelcamel.com/product/B0CFPJYX7P?active=price_amazon",
    "asin": "B0CFPJYX7P",
-   "rank": 9,
+   "rank": 8,
    "label": "Good Deal",
    "words": [
     "16gb",
@@ -167,7 +152,7 @@
    "title": "LEGO Icons Williams Racing FW14B & Nigel Mansell F1 Model Car Kit - Building Set for Adults, Ages 18+ - F1 DIY Craft for Display - Gifts for Birthdays - 10353",
    "link": "https://camelcamelcamel.com/product/B0DJ19PWQF?active=price_amazon",
    "asin": "B0DJ19PWQF",
-   "rank": 10,
+   "rank": 9,
    "label": "Best Price",
    "words": [
     "adults",
@@ -192,7 +177,7 @@
    "title": "Dell 27 Monitor S2725QC, 4K UHD IPS, 120Hz, 99% sRGB, 4ms, FreeSync Premium",
    "link": "https://camelcamelcamel.com/product/B0F1GFD44G?active=price_amazon",
    "asin": "B0F1GFD44G",
-   "rank": 11,
+   "rank": 10,
    "label": "Best Price",
    "words": [
     "120hz",
@@ -209,7 +194,7 @@
    "title": "Sony WH-1000XM6 The Best Noise Cancelling Wireless Headphones, Black",
    "link": "https://camelcamelcamel.com/product/B0F3PQHWTZ?active=price_amazon",
    "asin": "B0F3PQHWTZ",
-   "rank": 12,
+   "rank": 11,
    "label": "Best Price",
    "words": [
     "1000xm6",
@@ -224,37 +209,10 @@
   },
   {
    "source": "camelcamelcamel popular",
-   "title": "ASUS ROG Strix G16 (2025) Gaming Laptop, 16\u201d FHD+ 16:10 165Hz/3ms, NVIDIA\u00ae GeForce RTX 5060, Intel\u00ae Core i7 Processor 14650HX, 16GB DDR5, 1TB Gen 4 SSD, Wi-Fi 7, Windows 11 Home, G615JMR-AS74",
-   "link": "https://camelcamelcamel.com/product/B0DZZWMB2L?active=price_amazon",
-   "asin": "B0DZZWMB2L",
-   "rank": 13,
-   "label": "Best Price",
-   "words": [
-    "14650hx",
-    "165hz",
-    "16gb",
-    "as74",
-    "asus",
-    "core",
-    "ddr5",
-    "g615jmr",
-    "gaming",
-    "geforce",
-    "home",
-    "intel",
-    "laptop",
-    "nvidia",
-    "processor",
-    "strix",
-    "windows"
-   ]
-  },
-  {
-   "source": "camelcamelcamel popular",
    "title": "LEGO Creator 3 in 1 Wild Animals: Majestic Rhino with Birds 31171",
    "link": "https://camelcamelcamel.com/product/B0DRW69H11?active=price_amazon",
    "asin": "B0DRW69H11",
-   "rank": 14,
+   "rank": 12,
    "label": "Best Price",
    "words": [
     "animals",
@@ -268,10 +226,27 @@
   },
   {
    "source": "camelcamelcamel popular",
+   "title": "Apple AirPods Pro 3 Wireless Earbuds with Active Noise Cancellation",
+   "link": "https://camelcamelcamel.com/product/B0FQFB8FMG?active=price_amazon",
+   "asin": "B0FQFB8FMG",
+   "rank": 13,
+   "label": "Good Deal",
+   "words": [
+    "active",
+    "airpods",
+    "apple",
+    "cancellation",
+    "earbuds",
+    "noise",
+    "wireless"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
    "title": "Logitech MX Master 4 Ergonomic Wireless Mouse with Haptics - Graphite",
    "link": "https://camelcamelcamel.com/product/B0FC5SJNQX?active=price_amazon",
    "asin": "B0FC5SJNQX",
-   "rank": 15,
+   "rank": 14,
    "label": "Best Price",
    "words": [
     "ergonomic",
@@ -288,7 +263,7 @@
    "title": "ECOVACS DEEBOT T90 PRO Omni Robot Vacuum and Mop, 30000Pa Blast Suction",
    "link": "https://camelcamelcamel.com/product/B0GJ5S4V78?active=price_amazon",
    "asin": "B0GJ5S4V78",
-   "rank": 16,
+   "rank": 15,
    "label": "Best Price",
    "words": [
     "30000pa",
@@ -306,13 +281,42 @@
    "title": "LG 65 inch Class OLED evo AI C6 4K Smart TV 2026",
    "link": "https://camelcamelcamel.com/product/B0GRK5D3RW?active=price_amazon",
    "asin": "B0GRK5D3RW",
-   "rank": 17,
+   "rank": 16,
    "label": "Best Price",
    "words": [
     "class",
     "inch",
     "oled",
     "smart"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Hisense 65\" U6 Pro Series Mini\u2011LED ULED 4K UHD HDR Gaming AI Smart Fire TV (65U6SF Pro, 2026 New) \u2013 Hi-QLED, Native 144Hz, Motion Rate 480, Dolby Vision IQ \u00b7 Atmos, HDR10+, Glare-Free, Alexa+",
+   "link": "https://camelcamelcamel.com/product/B0GT8GLWZH?active=price_amazon",
+   "asin": "B0GT8GLWZH",
+   "rank": 17,
+   "label": "Best Price",
+   "words": [
+    "144hz",
+    "65u6sf",
+    "alexa",
+    "atmos",
+    "dolby",
+    "fire",
+    "gaming",
+    "glare",
+    "hdr10",
+    "hisense",
+    "mini",
+    "motion",
+    "native",
+    "qled",
+    "rate",
+    "series",
+    "smart",
+    "uled",
+    "vision"
    ]
   },
   {
