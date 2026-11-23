@@ -1,15 +1,388 @@
 {
- "updated": "2026-11-23T01:45+00:00",
+ "updated": "2026-11-23T12:44+00:00",
  "status": {
   "TikTok Made Me Buy It (Reddit)": "error: HTTP Error 404: Not Found",
   "Amazon finds (Reddit)": "error: HTTP Error 429: Too Many Requests",
   "Shut Up And Take My Money (Reddit)": "error: HTTP Error 429: Too Many Requests",
-  "camelcamelcamel popular": "error: HTTP Error 403: Forbidden",
-  "camelcamelcamel top price drops": "error: HTTP Error 403: Forbidden",
+  "camelcamelcamel popular": 20,
+  "camelcamelcamel top price drops": "error: HTTP Error 404: Not Found",
   "YouTube Shorts": "no data (add YT_API_KEY)",
   "Amazon Movers & Shakers": 36
  },
  "signals": [
+  {
+   "source": "camelcamelcamel popular",
+   "title": "MAGNA-TILES Classic 100-Piece Magnetic Construction Set, The Original Magnetic Building Brand",
+   "link": "https://camelcamelcamel.com/product/B000CBSNRY?active=price_amazon",
+   "asin": "B000CBSNRY",
+   "rank": 1,
+   "label": "Best Price",
+   "words": [
+    "brand",
+    "building",
+    "classic",
+    "construction",
+    "magna",
+    "magnetic",
+    "original",
+    "tiles"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Breville BOV900BSS Smart Oven Air Fryer Pro, Brushed Stainless Steel",
+   "link": "https://camelcamelcamel.com/product/B01N5UPTZS?active=price_amazon",
+   "asin": "B01N5UPTZS",
+   "rank": 2,
+   "label": "Best Price",
+   "words": [
+    "bov900bss",
+    "breville",
+    "brushed",
+    "fryer",
+    "oven",
+    "smart",
+    "stainless",
+    "steel"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Instant Pot Duo Plus 6 Qt 9-in-1 Electric Pressure Cooker, Stainless Steel",
+   "link": "https://camelcamelcamel.com/product/B01NBKTPTS?active=price_amazon",
+   "asin": "B01NBKTPTS",
+   "rank": 3,
+   "label": "Good Deal",
+   "words": [
+    "cooker",
+    "electric",
+    "instant",
+    "plus",
+    "pressure",
+    "stainless",
+    "steel"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Root: A Game of Woodland Might and Right | Asymmetric Strategy Board Game by Leder Games | 2\u20134 Players | Ages 14+ | Adventure, Conflict & Area Control",
+   "link": "https://camelcamelcamel.com/product/B07F454YF3?active=price_amazon",
+   "asin": "B07F454YF3",
+   "rank": 4,
+   "label": "Best Price",
+   "words": [
+    "adventure",
+    "ages",
+    "area",
+    "asymmetric",
+    "board",
+    "conflict",
+    "control",
+    "game",
+    "games",
+    "leder",
+    "might",
+    "players",
+    "right",
+    "root",
+    "strategy",
+    "woodland"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Epson EcoTank Photo ET-8550 Wireless Wide-Format All-in-One Tank Printer",
+   "link": "https://camelcamelcamel.com/product/B08R5M2HDH?active=price_amazon",
+   "asin": "B08R5M2HDH",
+   "rank": 5,
+   "label": "Best Price",
+   "words": [
+    "ecotank",
+    "epson",
+    "format",
+    "photo",
+    "printer",
+    "tank",
+    "wide",
+    "wireless"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Sonos Beam Gen 2 - Black - Soundbar with Dolby Atmos",
+   "link": "https://camelcamelcamel.com/product/B09GPYL7BJ?active=price_amazon",
+   "asin": "B09GPYL7BJ",
+   "rank": 6,
+   "label": "Best Price",
+   "words": [
+    "atmos",
+    "beam",
+    "black",
+    "dolby",
+    "sonos",
+    "soundbar"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Garmin v\u00edvoactive\u00ae 5, Health & Fitness GPS Smartwatch, 42mm, Black",
+   "link": "https://camelcamelcamel.com/product/B0CG6NR413?active=price_amazon",
+   "asin": "B0CG6NR413",
+   "rank": 7,
+   "label": "Best Price",
+   "words": [
+    "42mm",
+    "black",
+    "fitness",
+    "garmin",
+    "health",
+    "smartwatch",
+    "voactive"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Beats Solo 4 On-Ear Headphones, 50 Hours Battery Life - Matte Black",
+   "link": "https://camelcamelcamel.com/product/B0CZPLV566?active=price_amazon",
+   "asin": "B0CZPLV566",
+   "rank": 8,
+   "label": "Good Deal",
+   "words": [
+    "battery",
+    "beats",
+    "black",
+    "headphones",
+    "hours",
+    "life",
+    "matte",
+    "solo"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Amazon Kindle Paperwhite 16GB (2024 model) \u2013 7\" glare-free display and weeks of battery life \u2013 Black",
+   "link": "https://camelcamelcamel.com/product/B0CFPJYX7P?active=price_amazon",
+   "asin": "B0CFPJYX7P",
+   "rank": 9,
+   "label": "Good Deal",
+   "words": [
+    "16gb",
+    "battery",
+    "black",
+    "display",
+    "glare",
+    "kindle",
+    "life",
+    "model",
+    "paperwhite",
+    "weeks"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Ninja Luxe Caf\u00e9 Pro 4-in-1 Espresso Machine, Drip Coffee, & Cold Brew",
+   "link": "https://camelcamelcamel.com/product/B0F5JFTR1Q?active=price_amazon",
+   "asin": "B0F5JFTR1Q",
+   "rank": 10,
+   "label": "Best Price",
+   "words": [
+    "brew",
+    "coffee",
+    "cold",
+    "drip",
+    "espresso",
+    "luxe",
+    "machine",
+    "ninja"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Sony WH-1000XM6 The Best Noise Cancelling Wireless Headphones, Black",
+   "link": "https://camelcamelcamel.com/product/B0F3PQHWTZ?active=price_amazon",
+   "asin": "B0F3PQHWTZ",
+   "rank": 11,
+   "label": "Best Price",
+   "words": [
+    "1000xm6",
+    "best",
+    "black",
+    "cancelling",
+    "headphones",
+    "noise",
+    "sony",
+    "wireless"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Apple AirPods Pro 3 Wireless Earbuds with Active Noise Cancellation",
+   "link": "https://camelcamelcamel.com/product/B0FQFB8FMG?active=price_amazon",
+   "asin": "B0FQFB8FMG",
+   "rank": 12,
+   "label": "Best Price",
+   "words": [
+    "active",
+    "airpods",
+    "apple",
+    "cancellation",
+    "earbuds",
+    "noise",
+    "wireless"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Amazon Echo Dot Max (newest model), Alexa speaker with room-filling sound and nearly 2x bass, Great for living rooms and medium-sized spaces, Designed for Alexa+, Graphite",
+   "link": "https://camelcamelcamel.com/product/B0D6SX8VLQ?active=price_amazon",
+   "asin": "B0D6SX8VLQ",
+   "rank": 13,
+   "label": "Best Price",
+   "words": [
+    "alexa",
+    "bass",
+    "designed",
+    "echo",
+    "filling",
+    "graphite",
+    "great",
+    "living",
+    "medium",
+    "model",
+    "nearly",
+    "newest",
+    "room",
+    "rooms",
+    "sized",
+    "sound",
+    "spaces",
+    "speaker"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Samsung Galaxy Buds 4 Pro (2026) AI True Wireless Bluetooth Earbuds, Black",
+   "link": "https://camelcamelcamel.com/product/B0G1PJLWLZ?active=price_amazon",
+   "asin": "B0G1PJLWLZ",
+   "rank": 14,
+   "label": "Best Price",
+   "words": [
+    "black",
+    "bluetooth",
+    "buds",
+    "earbuds",
+    "galaxy",
+    "samsung",
+    "true",
+    "wireless"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "ECOVACS DEEBOT T90 PRO OMNI Robot Vacuum and Mop, 30000Pa BLAST Suction",
+   "link": "https://camelcamelcamel.com/product/B0GJ5S4V78?active=price_amazon",
+   "asin": "B0GJ5S4V78",
+   "rank": 15,
+   "label": "Best Price",
+   "words": [
+    "30000pa",
+    "blast",
+    "deebot",
+    "ecovacs",
+    "omni",
+    "robot",
+    "suction",
+    "vacuum"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "LG 65 inch Class OLED evo AI C6 4K Smart TV 2026",
+   "link": "https://camelcamelcamel.com/product/B0GRK5D3RW?active=price_amazon",
+   "asin": "B0GRK5D3RW",
+   "rank": 16,
+   "label": "Best Price",
+   "words": [
+    "class",
+    "inch",
+    "oled",
+    "smart"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Pok\u00e9mon TCG: 30th Celebration Knock Out Collection",
+   "link": "https://camelcamelcamel.com/product/B0H7FDBNSB?active=price_amazon",
+   "asin": "B0H7FDBNSB",
+   "rank": 17,
+   "label": "Best Price",
+   "words": [
+    "30th",
+    "celebration",
+    "collection",
+    "knock"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "XBOX Series X | X25 Special Edition Gaming Console | 1TB SSD",
+   "link": "https://camelcamelcamel.com/product/B0HFM9NTC1?active=price_amazon",
+   "asin": "B0HFM9NTC1",
+   "rank": 18,
+   "label": "Best Price",
+   "words": [
+    "console",
+    "edition",
+    "gaming",
+    "series",
+    "special",
+    "xbox"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Nintendo Switch 2 + Mario Kart World Bundle (includes 3-month NSO Individual Membership)",
+   "link": "https://camelcamelcamel.com/product/B0HGHB3V16?active=price_amazon",
+   "asin": "B0HGHB3V16",
+   "rank": 19,
+   "label": "Best Price",
+   "words": [
+    "bundle",
+    "includes",
+    "individual",
+    "kart",
+    "mario",
+    "membership",
+    "month",
+    "nintendo",
+    "switch",
+    "world"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Amazon Fire TV Stick 4K (newest model), simple 4K streaming, new Fire TV Remote, all your apps in one place, free & live TV, find shows faster with Alexa+",
+   "link": "https://camelcamelcamel.com/product/B0G4XRP464?active=price_amazon",
+   "asin": "B0G4XRP464",
+   "rank": 20,
+   "label": "Best Price",
+   "words": [
+    "alexa",
+    "apps",
+    "faster",
+    "find",
+    "fire",
+    "live",
+    "model",
+    "newest",
+    "place",
+    "remote",
+    "shows",
+    "simple",
+    "stick",
+    "streaming"
+   ]
+  },
   {
    "source": "Amazon Best Sellers",
    "title": "PlayStation DualSense\u2122 Wireless Controller \u2013 Midnight Black - For PS5, PC, MAC & Mobile",
