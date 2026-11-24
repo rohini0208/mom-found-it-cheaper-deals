@@ -103,6 +103,27 @@ def _find_photo(deal):
     return best[1] if best else None
 
 
+def _fresh_price(asin):
+    """Amazon price read by the Lenovo within 48h, as (now, list, rating, reviews, stamp) or None."""
+    import time
+    m = META.get(asin) or {}
+    if not m.get("now") or not m.get("checked") or time.time() - m["checked"] > 48 * 3600:
+        return None
+    return m
+
+
+def _price_html(asin):
+    m = _fresh_price(asin)
+    if not m:
+        return ""
+    import time
+    was = f' <s style="opacity:.6;font-weight:400">{m["list"]}</s>' if m.get("list") and price_num(m["list"]) and price_num(m["now"]) and price_num(m["list"]) > price_num(m["now"]) else ""
+    rt = f' &middot; {m["rating"]:.1f}&#9733; ({m["reviews"]:,})' if m.get("rating") and (m.get("reviews") or 0) >= 100 else ""
+    stamp = time.strftime("%b %d", time.localtime(m["checked"]))
+    return (f'<b style="font-size:20px;color:#f5c542;font-family:Inter,sans-serif">{html.escape(m["now"])}{was}</b>'
+            f'<small style="color:#a99f93">Amazon price as of {stamp}{rt}</small>')
+
+
 def thumb_for(d):
     """Copy/shrink the product photo into site/photos and return its relative URL (or '')."""
     src = _find_photo(d)
@@ -227,13 +248,14 @@ def trending_section():
         by_src.setdefault(s["source"], []).append(s)
     picks = []
     for src, items in by_src.items():
-        have = [s for s in items if s.get("asin") and _find_photo({"id": s["link"], "title": s["title"], "asin": s["asin"]})]
+        have = [s for s in items if s.get("asin") and _fresh_price(s["asin"]) and _find_photo({"id": s["link"], "title": s["title"], "asin": s["asin"]})]
         picks += sorted(have, key=lambda s: s.get("rank", 99))[:3]      # only trends with a real photo
     if not picks:
         return ""
     cells = "".join(
         f'<a class="viral" href="{html.escape(s["link"])}" target="_blank" rel="noopener">'
         f'<img src="{thumb_for({"id": s["link"], "title": s["title"], "asin": s["asin"]})}" alt="" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:contain;background:#fff;border-radius:10px;margin-bottom:8px">'
+        f'{_price_html(s["asin"])}'
         f'<span>{html.escape(s["source"])}{(" · " + html.escape(s["label"])) if s.get("label") else ""}</span>'
         f'<em>{html.escape(s["title"][:80])}</em></a>' for s in picks[:12])
     return ('<section><h2>Trending right now</h2><p class="sub">What people are buying and talking about '
