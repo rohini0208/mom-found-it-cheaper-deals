@@ -32,7 +32,10 @@ AMAZON_PRICES = os.environ.get("AMAZON_PRICES", "show").strip().lower()
 
 def as_of(iso):
     from zoneinfo import ZoneInfo
-    t = datetime.fromisoformat(iso).astimezone(ZoneInfo("America/New_York"))
+    if isinstance(iso, (int, float)):
+        t = datetime.fromtimestamp(iso, ZoneInfo("America/New_York"))
+    else:
+        t = datetime.fromisoformat(iso).astimezone(ZoneInfo("America/New_York"))
     return t.strftime("%b %-d, %-I:%M %p ET")
 
 DATA = Path("data")
@@ -111,11 +114,23 @@ def _words(s):
     return {w for w in re.findall(r"[a-z0-9]+", re.sub(r"&#?\w+;", "", html.unescape(s)).lower()) if w not in _STOP and len(w) > 2}
 
 
+def _amz_title(d):
+    m = META.get(d.get("asin", "")) or {}
+    if m.get("v", 0) < 4 or not m.get("title"):
+        return ""
+    t = html.unescape(m["title"])
+    t = re.split(r",(?!\d)| \| | - | \(", t)[0]
+    return " ".join(t.split()[:12])
+
+
 def link_verified(d):
     """Shared name + price check (verify_link.py) against the live Amazon page."""
     import verify_link
     asin = d.get("asin", "")
     t, p = verify_link.amazon_side(asin, META, _LC)
+    m = META.get(asin) or {}
+    if not (m.get("v", 0) >= 4 and m.get("title")) and re.search(r"^up to|shipped|\.\.\.|\$\d|\bjust\b|\bonly\b", clean_title(d["title"]), re.I):
+        return False                      # headline-style title and no Amazon title to replace it
     return verify_link.check(clean_title(d["title"]), d.get("price", ""), t, p)[0]
 
 
@@ -170,7 +185,7 @@ def savings(d):
     except (TypeError, ValueError):
         lst = None
     pct = 0
-    if p and lst and p < lst <= 6 * p:
+    if p and lst and p < lst <= 4 * p:
         pct = round(100 * (1 - p / lst))
     return (lst if pct >= 10 else None), (pct if pct >= 10 else 0), m.get("rating"), m.get("reviews") or 0
 
@@ -197,7 +212,7 @@ def card(d, history, tested):
     price = price_num(d.get("price"))
     pts = [p for _, p in history.get(product_key(d), [])]
     lowest = min(pts) if pts else None
-    is_low = price is not None and len(pts) >= 2 and price <= lowest
+    is_low = price is not None and len(pts) >= 3 and max(pts) > lowest and price <= lowest
     b = badge(d, is_low)
     buzz = viral_sources(d, SIGNALS)
     if len(buzz) >= 2:
@@ -207,11 +222,12 @@ def card(d, history, tested):
     url, label = link_for(d)
     is_amz = is_amazon(d)
     amz = is_amz and AMAZON_PRICES == "hide"
-    stamp = f"Amazon price as of {as_of(d['seen'])} &middot; prices change, check before buying" if is_amz and not amz else ""
+    _mm = META.get(d.get("asin", "")) or {}
+    stamp = f"Amazon price as of {as_of(_mm['checked'] if _mm.get('checked') else d['seen'])} &middot; prices change, check before buying" if is_amz and not amz else ""
     if amz:                      # Amazon policy: no prices unless from Amazon's API
         price, pts, b = None, [], (b if b != "Lowest price we've seen" else "")
     code = d.get("code", "")
-    real_code = code and code != "w/ code"
+    real_code = bool(code and code != "w/ code" and code.lower() in str((META.get(d.get("asin", "")) or {}).get("promo", "")).lower())
     hist_txt = ""
     if len(pts) >= 2:
         hist_txt = f"Seen {len(pts)} times · low ${lowest:,.2f} · high ${max(pts):,.2f}"
@@ -237,11 +253,11 @@ def card(d, history, tested):
     {f'<span class="badge">{html.escape(b)}</span>' if b else ''}
     {f'<span class="tested-badge">&#10003; Tested {html.escape(tested_on)}</span>' if tested_on else ''}
   </div>
-  <h3>{html.escape(no_price_title(d['title']) if amz else d['title'])}</h3>
+  <h3>{html.escape(_amz_title(d) or (no_price_title(d['title']) if amz else d['title']))}</h3>
   {f'<ul class="feats">{feats}</ul>' if feats else ''}
   {'<div class="amz">Price drop on Amazon &middot; tap to see today&rsquo;s price</div>' if amz else (f"""<div class="price">
     <span class="now">{html.escape(d.get('price') or '')}</span>
-    {f'<span class="was">${_lst:,.2f}</span>' if _lst else (f'<span class="was">{html.escape(d["was"])}</span>' if d.get('was') else '')}
+    {f'<span class="was">${_lst:,.2f}</span>' if _lst else ''}
   </div>""" if d.get('price') else '')}
   {rating_html}
   {f'<button class="code" data-code="{html.escape(code)}">Code <b>{html.escape(code)}</b> <span>tap to copy</span></button>' if real_code else ''}
@@ -264,7 +280,7 @@ def trending_section():
         by_src.setdefault(s["source"], []).append(s)
     picks = []
     for src, items in by_src.items():
-        have = [s for s in items if s.get("asin") and _fresh_price(s["asin"]) and _find_photo({"id": s["link"], "title": s["title"], "asin": s["asin"]})]
+        have = [s for s in items if s.get("asin") and "gift card" not in s["title"].lower() and _fresh_price(s["asin"]) and _find_photo({"id": s["link"], "title": s["title"], "asin": s["asin"]})]
         picks += sorted(have, key=lambda s: s.get("rank", 99))[:3]      # only trends with a real photo
     if not picks:
         return ""
@@ -516,11 +532,11 @@ def main():
 {posts_gallery()}
 {seasonal_sections(picked, history, tested)}
 {viral_section(viral)}
-<section><h2>Today's deals</h2><p class="sub">{len(picked)} deals across {len(cats)} categories from the last 3 days — top 100 per category. Codes marked &#10003; were tested by me personally.</p>
+<section><h2>Today's deals</h2><p class="sub">{len(picked)} deals across {len(cats)} categories from the last 3 days — top 100 per category.</p>
 <div class="cats"><button class="on" data-c="">All categories</button>{cat_buttons}</div>
 <div class="bar"><input id="q" placeholder="Search deals…"><select id="store"><option value="">All stores</option>{store_opts}</select>
 <button class="on" data-f="all">All</button><button data-f="has-code">Codes</button>
-<button data-f="has-coupon">Coupons</button><button data-f="under25">Under $25</button><button data-f="tested">Tested</button><button data-f="viral">Viral</button></div>
+<button data-f="has-coupon">Coupons</button><button data-f="under25">Under $25</button><button data-f="viral">Viral</button></div>
 <div class="grid">{cards}</div></section>
 </main>
 <footer><b>Affiliate disclosure:</b> As an Amazon Associate I earn from qualifying purchases. Some links are affiliate links (#ad) — if you buy through them we may earn a commission at no extra cost to you.<br>
