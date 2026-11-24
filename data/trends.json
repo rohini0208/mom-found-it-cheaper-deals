@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T12:44+00:00",
+ "updated": "2026-11-24T02:13+00:00",
  "status": {
   "TikTok Made Me Buy It (Reddit)": "error: HTTP Error 404: Not Found",
   "Amazon finds (Reddit)": "error: HTTP Error 429: Too Many Requests",
@@ -184,7 +184,7 @@
    "link": "https://camelcamelcamel.com/product/B0F5JFTR1Q?active=price_amazon",
    "asin": "B0F5JFTR1Q",
    "rank": 10,
-   "label": "Best Price",
+   "label": "Good Deal",
    "words": [
     "brew",
     "coffee",
