@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T11:44+00:00",
+ "updated": "2026-11-24T20:31+00:00",
  "status": {
   "TikTok Made Me Buy It (Reddit)": "error: HTTP Error 404: Not Found",
   "Amazon finds (Reddit)": "error: HTTP Error 429: Too Many Requests",
@@ -90,23 +90,10 @@
   },
   {
    "source": "camelcamelcamel popular",
-   "title": "LEGO Botanicals Succulents 10309",
-   "link": "https://camelcamelcamel.com/product/B09Q4GWMZQ?active=price_amazon",
-   "asin": "B09Q4GWMZQ",
-   "rank": 5,
-   "label": "Best Price",
-   "words": [
-    "botanicals",
-    "lego",
-    "succulents"
-   ]
-  },
-  {
-   "source": "camelcamelcamel popular",
    "title": "Ninja NC501 CREAMi XL Deluxe 11-in-1 Ice Cream and Frozen Treat Maker, with 2 XL Family Size Pint Containers",
    "link": "https://camelcamelcamel.com/product/B0B9CZ6XBQ?active=price_amazon",
    "asin": "B0B9CZ6XBQ",
-   "rank": 6,
+   "rank": 5,
    "label": "Good Deal",
    "words": [
     "containers",
@@ -128,7 +115,7 @@
    "title": "Garmin v\u00edvoactive\u00ae 5, Health & Fitness GPS Smartwatch, 42mm, Black",
    "link": "https://camelcamelcamel.com/product/B0CG6NR413?active=price_amazon",
    "asin": "B0CG6NR413",
-   "rank": 7,
+   "rank": 6,
    "label": "Best Price",
    "words": [
     "42mm",
@@ -145,7 +132,7 @@
    "title": "Apple Pencil (USB-C): Device Compatibility Check Required",
    "link": "https://camelcamelcamel.com/product/B0CL7J12YK?active=price_amazon",
    "asin": "B0CL7J12YK",
-   "rank": 8,
+   "rank": 7,
    "label": "Best Price",
    "words": [
     "apple",
@@ -161,7 +148,7 @@
    "title": "Beats Solo 4 On-Ear Headphones, 50 Hours Battery Life - Matte Black",
    "link": "https://camelcamelcamel.com/product/B0CZPLV566?active=price_amazon",
    "asin": "B0CZPLV566",
-   "rank": 9,
+   "rank": 8,
    "label": "Good Deal",
    "words": [
     "battery",
@@ -179,7 +166,7 @@
    "title": "Amazon Kindle Paperwhite 16GB (2024 model) \u2013 7\" glare-free display and weeks of battery life \u2013 Black",
    "link": "https://camelcamelcamel.com/product/B0CFPJYX7P?active=price_amazon",
    "asin": "B0CFPJYX7P",
-   "rank": 10,
+   "rank": 9,
    "label": "Good Deal",
    "words": [
     "16gb",
@@ -199,8 +186,8 @@
    "title": "Ninja Luxe Caf\u00e9 Pro 4-in-1 Espresso Machine, Drip Coffee, & Cold Brew",
    "link": "https://camelcamelcamel.com/product/B0F5JFTR1Q?active=price_amazon",
    "asin": "B0F5JFTR1Q",
-   "rank": 11,
-   "label": "Good Deal",
+   "rank": 10,
+   "label": "Best Price",
    "words": [
     "brew",
     "coffee",
@@ -217,7 +204,7 @@
    "title": "Sony WH-1000XM6 The Best Noise Cancelling Wireless Headphones, Black",
    "link": "https://camelcamelcamel.com/product/B0F3PQHWTZ?active=price_amazon",
    "asin": "B0F3PQHWTZ",
-   "rank": 12,
+   "rank": 11,
    "label": "Best Price",
    "words": [
     "1000xm6",
@@ -227,6 +214,23 @@
     "headphones",
     "noise",
     "sony",
+    "wireless"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Apple AirPods Pro 3 Wireless Earbuds with Active Noise Cancellation",
+   "link": "https://camelcamelcamel.com/product/B0FQFB8FMG?active=price_amazon",
+   "asin": "B0FQFB8FMG",
+   "rank": 12,
+   "label": "Best Price",
+   "words": [
+    "active",
+    "airpods",
+    "apple",
+    "cancellation",
+    "earbuds",
+    "noise",
     "wireless"
    ]
   },
