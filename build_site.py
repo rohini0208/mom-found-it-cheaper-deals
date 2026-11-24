@@ -82,13 +82,30 @@ META = json.loads(Path("data/product_meta.json").read_text()) if Path("data/prod
 THUMBS = {}
 
 
+def _find_photo(deal):
+    """Lightweight photo lookup (no PIL/make_videos import, so it works on Cloudflare's build)."""
+    P = Path("photos")
+    if not P.is_dir():
+        return None
+    did = hashlib.sha1(deal["id"].encode()).hexdigest()[:10]
+    asin = (deal.get("asin") or "").lower()
+    title = set(re.sub(r"[^a-z0-9]+", " ", deal["title"].lower()).split())
+    best = None
+    for f in P.iterdir():
+        if f.suffix.lower() not in (".jpg", ".jpeg", ".png", ".webp"):
+            continue
+        stem = f.stem.lower()
+        if stem == did or (asin and stem == asin):
+            return f
+        words = [w for w in re.split(r"[^a-z0-9]+", stem) if w]
+        if words and all(w in title for w in words) and (best is None or len(words) > best[0]):
+            best = (len(words), f)
+    return best[1] if best else None
+
+
 def thumb_for(d):
     """Copy/shrink the product photo into site/photos and return its relative URL (or '')."""
-    try:
-        from make_videos import find_photo
-        src = find_photo(d)
-    except Exception:
-        src = None
+    src = _find_photo(d)
     if not src:
         return ""
     name = f"{deal_id(d)}.jpg"
