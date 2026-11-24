@@ -98,6 +98,15 @@ def main():
         if a and a not in seen and not d.get("expired") and stale(meta, a):
             seen.add(a)
             todo.append(a)
+    for _f in ("data/trends.json", "data/trends_amazon.json"):          # trending tiles need photos too
+        try:
+            for _s in json.loads(Path(_f).read_text()).get("signals", []):
+                _a = _s.get("asin", "")
+                if _a and _a not in seen and stale(meta, _a):
+                    seen.add(_a)
+                    todo.insert(0, _a)
+        except Exception:
+            pass
     done = 0
     dbg = 0
     amap0 = json.loads(ASIN_MAP.read_text()) if ASIN_MAP.exists() else {}

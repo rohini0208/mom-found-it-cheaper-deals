@@ -227,11 +227,13 @@ def trending_section():
         by_src.setdefault(s["source"], []).append(s)
     picks = []
     for src, items in by_src.items():
-        picks += sorted(items, key=lambda s: s.get("rank", 99))[:3]
+        have = [s for s in items if s.get("asin") and _find_photo({"id": s["link"], "title": s["title"], "asin": s["asin"]})]
+        picks += sorted(have, key=lambda s: s.get("rank", 99))[:3]      # only trends with a real photo
     if not picks:
         return ""
     cells = "".join(
         f'<a class="viral" href="{html.escape(s["link"])}" target="_blank" rel="noopener">'
+        f'<img src="{thumb_for({"id": s["link"], "title": s["title"], "asin": s["asin"]})}" alt="" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:contain;background:#fff;border-radius:10px;margin-bottom:8px">'
         f'<span>{html.escape(s["source"])}{(" · " + html.escape(s["label"])) if s.get("label") else ""}</span>'
         f'<em>{html.escape(s["title"][:80])}</em></a>' for s in picks[:12])
     return ('<section><h2>Trending right now</h2><p class="sub">What people are buying and talking about '
