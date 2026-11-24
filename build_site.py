@@ -253,7 +253,7 @@ def trending_section():
     if not picks:
         return ""
     cells = "".join(
-        f'<a class="viral" href="{html.escape(s["link"])}" target="_blank" rel="noopener">'
+        f'<a class="viral" href="{html.escape(f"https://www.amazon.com/dp/{s['asin']}?tag={TAG}" if TAG and s.get("asin") else s["link"])}" target="_blank" rel="noopener">'
         f'<img src="{thumb_for({"id": s["link"], "title": s["title"], "asin": s["asin"]})}" alt="" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:contain;background:#fff;border-radius:10px;margin-bottom:8px">'
         f'{_price_html(s["asin"])}'
         f'<span>{html.escape(s["source"])}{(" · " + html.escape(s["label"])) if s.get("label") else ""}</span>'
