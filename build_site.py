@@ -112,20 +112,11 @@ def _words(s):
 
 
 def link_verified(d):
-    """True only when the live Amazon page for this ASIN has a matching title AND a price within 12% of ours."""
+    """Shared name + price check (verify_link.py) against the live Amazon page."""
+    import verify_link
     asin = d.get("asin", "")
-    m = META.get(asin) or {}
-    title = m.get("title") if m.get("v", 0) >= 4 and m.get("checked") else None
-    now = m.get("now") if title else None
-    if not title:
-        lc = _LC.get(asin)
-        if not lc:
-            return False
-        title, now = lc["title32"], lc["now"]
-    A, B = _words(clean_title(d["title"])), _words(title)
-    o = max(len(A & B) / max(1, len(B)), len(A & B) / max(1, len(A)))
-    cp, pp = price_num(d.get("price")), price_num(now)
-    return o >= 0.5 and bool(cp and pp and abs(cp - pp) / pp <= 0.12)
+    t, p = verify_link.amazon_side(asin, META, _LC)
+    return verify_link.check(clean_title(d["title"]), d.get("price", ""), t, p)[0]
 
 
 def _fresh_price(asin):

@@ -5,6 +5,7 @@ Temporary until the Amazon Creators API is available. Slow and polite on purpose
 Setup: see SETUP_LENOVO.md.   Run:  python amazon_local.py
 """
 import json
+import verify_link
 import random
 import re
 import subprocess
@@ -41,7 +42,7 @@ def resolve_asins(ctx, deals, limit=150):
     amap = json.loads(ASIN_MAP.read_text()) if ASIN_MAP.exists() else {}
     todo = [d for d in sorted(deals, key=lambda x: x.get("thumbs", 0), reverse=True)
             if not d.get("asin") and d.get("store") == "Amazon" and not d.get("expired") and not amap.get(d["id"])
-            and str(d["id"]).startswith("http")][:limit]
+            and str(d["id"]).startswith("http") and not verify_link.ARTICLE.search(d.get("title", ""))][:limit]
     pg = ctx.new_page()
     got = 0
     for d in todo:
@@ -206,7 +207,16 @@ def main():
         trends_finder.main()
     except Exception as e:
         print("trends skipped:", str(e)[:100])
-    sh(*GIT, "add", "data/trends.json", "data/trends_amazon.json", "photos", "data/product_meta.json", "data/price_debug", "data/asin_map.json")
+    try:                                     # name + price check for every linked deal, saved for the site gate
+        _m = json.loads(META.read_text())
+        _rows = verify_link.report(json.loads(Path("data/deals.json").read_text()), _m, {})
+        _bad = [(k, v["why"]) for k, v in _rows.items() if not v["ok"]]
+        print(f"link check: {len(_rows) - len(_bad)} ok, {len(_bad)} rejected")
+        for k, w in _bad[:15]:
+            print("  REJECT", str(k)[-40:], w)
+    except Exception as e:
+        print("link check skipped:", str(e)[:100])
+    sh(*GIT, "add", "data/link_report.json", "data/trends.json", "data/trends_amazon.json", "photos", "data/product_meta.json", "data/price_debug", "data/asin_map.json")
     if sh(*GIT, "diff", "--cached", "--quiet").returncode:
         sh(*GIT, "commit", "-qm", f"Amazon photos and ratings ({done} products, from home computer)")
         sh(*GIT, "pull", "--rebase", "-q")
