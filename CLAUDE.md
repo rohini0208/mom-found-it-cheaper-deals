@@ -1,0 +1,9 @@
+# Mom Found It Cheaper - project memory (read first)
+Owner: Rohini. FB group "Mom Found It Cheaper" (id 1815840112666601), Amazon tag `momfounditc08-20`.
+Site: https://mom-found-it-cheaper-deals.pages.dev/ (Cloudflare Pages, built from site/ by build_site.py). Repo rohini0208/mom-found-it-cheaper-deals.
+Rules (stated by Rohini): every post/site item 100% accurate (right link, price, variant, real photo, was-price); no posting in other groups (Smart Savers Unite etc.) until their rules allow; bullets in answers; no-token code preferred; queue posts for her approval, never auto-post.
+Group status: suspended Nov 16 (fraudulent goods); status unconfirmed -> confirm restored before posting.
+Pipeline: deals.yml (3h: deal_finder, fetch_images, trends_finder), videos.yml (daily videos/posts/post_qa). Amazon blocked from cloud; Lenovo runs amazon_local.py (+run_daily.bat) for ratings/reviews/list/now/photos/ASINs/promo/seller -> data/product_meta.json, photos/<ASIN>.jpg.
+Posts: make_posts.py -> posts/, webposts/, manifest.json; gate: `POST_QA_STRICT=1 python post_qa.py`; show_post.py prints caption; verify_post.py read-back after posting; launch/POSTING_CHECKLIST.md. Reset data/posts_made.json to {} to re-render all.
+Site: shows only deals with a real photo (find_photo); price history = our own recorded points (data/price_history.json), shown when >=2.
+Status 2026-11-24: strict QA ready: post_7, post_single, post_q5, post_q9. Need fix: post_1, post_6, post_8, post_q1, post_q8. Nothing posted except De'Longhi single (earlier). Open: seller field blank (rerun Lenovo), PROMO_JS color/size selectors empty, Page+Graph API poster not built, Task Scheduler unconfirmed.
