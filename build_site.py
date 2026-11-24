@@ -103,6 +103,31 @@ def _find_photo(deal):
     return best[1] if best else None
 
 
+_LC = json.loads(Path("data/link_check.json").read_text()).get("items", {}) if Path("data/link_check.json").exists() else {}
+_STOP = set("the a an and of for with in on to by amazon only just from new black friday shipped women men womens mens kids pack pc set".split())
+
+
+def _words(s):
+    return {w for w in re.findall(r"[a-z0-9]+", re.sub(r"&#?\w+;", "", html.unescape(s)).lower()) if w not in _STOP and len(w) > 2}
+
+
+def link_verified(d):
+    """True only when the live Amazon page for this ASIN has a matching title AND a price within 12% of ours."""
+    asin = d.get("asin", "")
+    m = META.get(asin) or {}
+    title = m.get("title") if m.get("v", 0) >= 4 and m.get("checked") else None
+    now = m.get("now") if title else None
+    if not title:
+        lc = _LC.get(asin)
+        if not lc:
+            return False
+        title, now = lc["title32"], lc["now"]
+    A, B = _words(clean_title(d["title"])), _words(title)
+    o = max(len(A & B) / max(1, len(B)), len(A & B) / max(1, len(A)))
+    cp, pp = price_num(d.get("price")), price_num(now)
+    return o >= 0.5 and bool(cp and pp and abs(cp - pp) / pp <= 0.12)
+
+
 def _fresh_price(asin):
     """Amazon price read by the Lenovo within 48h, as (now, list, rating, reviews, stamp) or None."""
     import time
@@ -475,7 +500,7 @@ def main():
         _t = tested.get(deal_id(d))
         if is_amazon(d) and not d.get("asin") and not (isinstance(_t, dict) and _t.get("asin")):
             continue                  # Amazon deal with no ASIN = no affiliate link; skip
-        if not thumb_for(d):
+        if not thumb_for(d) or not link_verified(d):
             continue                  # site shows only deals with a real product photo
         if count.get(c, 0) < PER_CATEGORY:
             count[c] = count.get(c, 0) + 1
