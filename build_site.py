@@ -229,7 +229,7 @@ def card(d, history, tested):
     code = d.get("code", "")
     real_code = bool(code and code != "w/ code" and code.lower() in str((META.get(d.get("asin", "")) or {}).get("promo", "")).lower())
     hist_txt = ""
-    if len(pts) >= 2:
+    if len(pts) >= 2 and max(pts) > min(pts):
         hist_txt = f"Seen {len(pts)} times · low ${lowest:,.2f} · high ${max(pts):,.2f}"
     feats = "".join(f"<li>{html.escape(f)}</li>" for f in d.get("features", [])[:3])
     tested_on = t.get("date", "") if isinstance(t, dict) else t
