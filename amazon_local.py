@@ -36,7 +36,7 @@ ASIN_MAP = Path("data/asin_map.json")
 ASIN_PAT = re.compile(r"(?:/dp/|/gp/product/|/gp/aw/d/|asin=)([A-Z0-9]{10})(?:[/?&\"' ]|$)")
 
 
-def resolve_asins(ctx, deals, limit=150):
+def resolve_asins(ctx, deals, limit=450):
     """Most Amazon deals from the feeds carry no product ID (only ~1 in 5 do). Open each deal page in your
     Chrome, read the Amazon link behind 'Get Deal' and save deal id -> ASIN. deal_finder.py applies the map."""
     amap = json.loads(ASIN_MAP.read_text()) if ASIN_MAP.exists() else {}
@@ -59,7 +59,24 @@ def resolve_asins(ctx, deals, limit=150):
                 if m:
                     hit = m.group(1)
                     break
-            amap[d["id"]] = hit or ""            # empty = looked, none found (do not retry forever)
+            if not hit and "dealnews.com" in d["id"]:
+                # DealNews hides the Amazon link behind dealnews.com/lw/click.html?..; read the redirect chain
+                # headers only (no page load, so no DealNews affiliate cookie lands in this browser), keep just the ASIN.
+                try:
+                    click = pg.evaluate("() => { const a = [...document.querySelectorAll('a')].find(a => /dealnews\\.com\\/lw\\/click/.test(a.href)); return a ? a.href : ''; }")
+                    url = click
+                    for _ in range(6):
+                        if not url:
+                            break
+                        m = ASIN_PAT.search(url.replace("%2F", "/"))
+                        if m:
+                            hit = m.group(1)
+                            break
+                        r = ctx.request.get(url, max_redirects=0, timeout=20000)
+                        url = r.headers.get("location", "")
+                except Exception as e:
+                    print("dealnews redirect failed:", str(e)[:80])
+            amap[d["id"]] = hit or ""            # empty = looked, none found (retried on later runs)
             got += bool(hit)
         except Exception as e:
             print("asin lookup failed:", str(e)[:80])
