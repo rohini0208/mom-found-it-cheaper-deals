@@ -74,6 +74,7 @@ def short_title(title):
     t = re.sub(r"^(select accts?|select accounts|prime|amazon)\s*[:\-–]\s*", "", title, flags=re.I)
     t = re.split(r"\s+(?:for\s+)?(?:from\s+)?\$\d", t)[0]      # cut "... for $12 + free shipping"
     t = re.sub(r"^\$[\d.,]+\*?\s*/\s*", "", t)                   # "$28* / LEGO ..." -> "LEGO ..."
+    t = re.sub(r"\s*\+\s*free\s+(?:s&h|shipping).*$|\s+w/\s*prime(?:\s+or\s+on)?.*$|\s+w/\s*s&s.*$", "", t, flags=re.I)
     return t.strip(" -–,|")[:90]
 
 
@@ -104,6 +105,23 @@ def find_photo(deal):
     return best[1] if best else None
 
 
+def _verified_amazon(d):
+    import verify_link
+    a = d.get("asin")
+    if not a:
+        return False
+    try:
+        meta = json.loads(Path("data/product_meta.json").read_text())
+        lc = json.loads(Path("data/link_check.json").read_text())
+    except Exception:
+        return False
+    m = meta.get(a) or {}
+    if re.search(r"unavailable|out of stock|ships within \d+ to \d+ (?:month|week)|pre-?order", str(m.get("avail", "")), re.I):
+        return False
+    t, p = verify_link.amazon_side(a, meta, lc)
+    return verify_link.check(d["title"], d.get("price", ""), t, p)[0]
+
+
 def pick_deals(deals, made):
     good = []
     for d in deals:
@@ -115,6 +133,8 @@ def pick_deals(deals, made):
             continue
         if any(w in low for w in SKIP_WORDS):
             continue
+        if is_amazon(d) and AMAZON_PRICES == "hide" and not _verified_amazon(d):
+            continue                                  # right ASIN + matching Amazon title or no video
         score = (2 if d.get("code") and d["code"] != "w/ code" else 0) + (1 if d.get("coupon") else 0)
         score += 3 if find_photo(d) else 0          # deals with a real photo go first
         score += 2 * len(viral_sources(d, SIGNALS))  # buzzing in several places = viral
@@ -214,9 +234,9 @@ def badge_text(deal):
         return "BEST SELLER"
     t = deal.get("thumbs", 0)
     if t >= 30:
-        return f"COMMUNITY FAVORITE  ·  +{t} VOTES"
+        return f"POPULAR ON DEAL SITES  ·  +{t} VOTES"
     if t >= 10:
-        return f"TRENDING  ·  +{t} VOTES"
+        return f"TRENDING ON DEAL SITES  ·  +{t} VOTES"
     return "TODAY'S FIND"
 
 
@@ -263,7 +283,7 @@ def scene_product_photo(path, title, deal, photo):
 
 
 def scene_product(path, title, deal):
-    photo = find_photo(deal)
+    photo = None if (is_amazon(deal) and AMAZON_PRICES == "hide") else find_photo(deal)   # no scraped Amazon photos
     if photo:
         try:
             return scene_product_photo(path, title, deal, photo)
@@ -334,8 +354,8 @@ def scene_price(path, price, was, code, coupon, amazon=False, stamp=""):
 def scene_cta(path):
     img = Image.new("RGB", (W, H), IVORY)
     d = ImageDraw.Draw(img)
-    centered(d, 560, "The link is waiting in our", serif(76, "Regular", italic=True), CHAR)
-    centered(d, 680, "free Facebook group", serif(76, "Regular", italic=True), CHAR)
+    centered(d, 560, "Tap the link to see", serif(76, "Regular", italic=True), CHAR)
+    centered(d, 680, "today's price on Amazon", serif(76, "Regular", italic=True), CHAR)
     rule(d, 850, 160)
     centered(d, 920, "Mom Found", serif(150, "Bold"), CHAR)
     centered(d, 1090, "It Cheaper", serif(150, "Bold"), GOLD)
@@ -454,6 +474,10 @@ def make_one(n, deal, work):
     stamp = f"Amazon price as of {as_of(deal['seen'])}" if is_amazon(deal) and not amazon else ""
     title = short_title(no_price_title(deal["title"]) if amazon else deal["title"])
     price, code, coupon = deal["price"], deal.get("code", ""), deal.get("coupon", "")
+    if amazon:      # a code only if Amazon's own page showed it (Lenovo check); never from a deal feed alone
+        _pr = str((json.loads(Path("data/product_meta.json").read_text()).get(deal.get("asin", "")) or {}).get("promo", "")).lower()
+        if code and code.lower() not in _pr:
+            code = ""
     was, feats = deal.get("was", ""), deal.get("features", [])
     hook = hook_for(deal.get("category", ""), deal["id"])
     scenes, durations = [], []
