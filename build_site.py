@@ -129,6 +129,8 @@ def link_verified(d):
     asin = d.get("asin", "")
     t, p = verify_link.amazon_side(asin, META, _LC)
     m = META.get(asin) or {}
+    if re.search(r"unavailable|out of stock|ships within \d+ to \d+ (?:month|week)|temporarily|pre-?order|not available", str(m.get("avail", "")), re.I):
+        return False                      # not buyable now at the advertised price (Perplexity QA: Samsung S85H)
     if not (m.get("v", 0) >= 4 and m.get("title")) and re.search(r"^up to|shipped|\.\.\.|\$\d|\bjust\b|\bonly\b", clean_title(d["title"]), re.I):
         return False                      # headline-style title and no Amazon title to replace it
     return verify_link.check(clean_title(d["title"]), d.get("price", ""), t, p)[0]
@@ -206,6 +208,7 @@ def clean_title(t):
 
 
 def card(d, history, tested):
+    orig_title = d["title"]
     d = dict(d, title=clean_title(d["title"]))
     i = deal_id(d)
     t = tested.get(i, "")            # "Nov 12" (old) or {"date": ..., "asin": ...}
@@ -226,6 +229,11 @@ def card(d, history, tested):
     stamp = f"Amazon price as of {as_of(_mm['checked'] if _mm.get('checked') else d['seen'])} &middot; prices change, check before buying" if is_amz and not amz else ""
     if amz:                      # Amazon policy: no prices unless from Amazon's API
         price, pts, b = None, [], (b if b != "Lowest price we've seen" else "")
+    _now = price_num(_mm.get("now")) if _mm.get("v", 0) >= 4 else None
+    if is_amz and not amz and _now:
+        d = dict(d, price=f"${_now:,.2f}")          # show what Amazon shows, not the deal-site headline price
+    elif is_amz and not amz and not re.fullmatch(r"\$\d[\d,]*(?:\.\d\d)?", (d.get("price") or "").strip()):
+        d = dict(d, price="")                         # malformed price text (e.g. "$11,") is never shown
     code = d.get("code", "")
     real_code = bool(code and code != "w/ code" and code.lower() in str((META.get(d.get("asin", "")) or {}).get("promo", "")).lower())
     hist_txt = ""
@@ -263,12 +271,14 @@ def card(d, history, tested):
   {f'<button class="code" data-code="{html.escape(code)}">Code <b>{html.escape(code)}</b> <span>tap to copy</span></button>' if real_code else ''}
   {'<div class="coupon">Clip the coupon on the product page</div>' if d.get('coupon') else ''}
   {'<div class="coupon">Promo code in the deal</div>' if code == 'w/ code' else ''}
+  {'<div class="coupon">Price shown is with Subscribe &amp; Save</div>' if re.search(r"S&S|Sub(?:scribe)?\s*(?:&|and)\s*Save", orig_title, re.I) else ''}
   {f'<div class="asof">{stamp}</div>' if stamp else ''}
   {''.join(f'<div class="also">Also found: {("code <b>" + html.escape(a["code"]) + "</b>") if a["code"] else "clip coupon"} on <a href="{html.escape(a["link"])}" target="_blank" rel="noopener">{html.escape(a["source"])}</a></div>' for a in d.get("also", []))}
   {f'<div class="buzz">Buzzing on: {html.escape(", ".join(buzz))}</div>' if buzz else ''}
   {f'<div class="hist">{hist_txt}</div>' if hist_txt else ''}
   <div class="meta"><span class="ago" data-t="{d['seen']}"></span>{f' · +{d["thumbs"]} community votes' if d.get('thumbs') else ''}</div>
-  <a class="go" href="{html.escape(url)}" target="_blank" rel="sponsored noopener">{label}</a>
+  <a class="go" href="{html.escape(url)}" target="_blank" rel="sponsored noopener" aria-label="{html.escape(label)}: {html.escape(_amz_title(d) or no_price_title(d['title']))}">{label}</a>
+  <div class="paid">Paid link &middot; #ad &middot; we may earn a commission</div>
 </article>"""
 
 
@@ -284,7 +294,7 @@ def trending_section():
     if not picks:
         return ""
     cells = "".join(
-        f'<a class="viral" href="{html.escape(f"https://www.amazon.com/dp/{s['asin']}?tag={TAG}" if TAG and s.get("asin") else s["link"])}" target="_blank" rel="noopener">'
+        f'<a class="viral" href="{html.escape(f"https://www.amazon.com/dp/{s['asin']}?tag={TAG}" if TAG and s.get("asin") else s["link"])}" target="_blank" rel="sponsored noopener">'
         f'<img src="{thumb_for({"id": s["link"], "title": s["title"], "asin": s["asin"]})}" alt="{html.escape(s["title"][:100])}" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:contain;background:#fff;border-radius:10px;margin-bottom:8px">'
         f'{_price_html(s["asin"])}'
         f'<span>{html.escape(s["source"])}{(" · " + html.escape(s["label"])) if s.get("label") else ""}</span>'
@@ -370,8 +380,8 @@ header{background:linear-gradient(135deg,#FF8F00,#FFB300 55%,#2EA05A);color:#fff
 .off{position:absolute;top:10px;left:10px;background:#d32f2f;color:#fff;font-weight:800;font-size:14px;padding:5px 10px;border-radius:20px}
 .stars{font-size:13px;color:#1565c0}.stars span{color:var(--muted)}
 .now{color:#2e7d32}
-.go{background:#FF8F00;color:#fff;font-size:16px;padding:14px}
-.cats button.on,.bar button.on{background:#FF8F00;border-color:#FF8F00;color:#fff}
+.go{background:#B84300;color:#fff;font-size:16px;padding:14px}
+.cats button.on,.bar button.on{background:#B84300;border-color:#B84300;color:#fff;font-weight:700}.paid{font-size:11px;color:#6b5b4b;text-align:center;margin-top:6px}.empty{display:none;padding:24px;text-align:center;color:#6b5b4b}body{padding-bottom:64px}:focus-visible{outline:3px solid #1f4fd8;outline-offset:2px;scroll-margin-bottom:70px}.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:#fff;padding:8px;z-index:20}
 .badge{border-color:#2e7d32;color:#2e7d32}
 .stick{position:fixed;left:0;right:0;bottom:0;background:#2e7d32;color:#fff;text-align:center;padding:12px;font-weight:700;z-index:9;text-decoration:none;display:block}
 body{padding-bottom:52px}
@@ -385,13 +395,13 @@ document.querySelectorAll('.ago').forEach(e=>{const h=(Date.now()-new Date(e.dat
 document.querySelectorAll('.code').forEach(b=>b.onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(b.dataset.code);
  b.querySelector('span').textContent='copied!';});
 let filt='all',cat='';const q=document.getElementById('q'),st=document.getElementById('store');
-function apply(){const s=q.value.toLowerCase(),sv=st.value;document.querySelectorAll('.card').forEach(c=>{
+function apply(){const s=q.value.trim().toLowerCase(),sv=st.value;let n=0;document.querySelectorAll('.card').forEach(c=>{
  const ok=(filt==='all'||c.classList.contains(filt))&&(!s||c.dataset.title.includes(s))&&(!cat||c.dataset.cat===cat)&&(!sv||c.dataset.store===sv);
- c.style.display=ok?'':'none';});}
+ c.style.display=ok?'':'none';if(ok)n++;});const e=document.getElementById('empty'),k=document.getElementById('count');if(e)e.style.display=n?'none':'block';if(k)k.textContent=n+' deals shown';}
 document.querySelectorAll('.cats button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.cats button').forEach(x=>x.classList.remove('on'));
- b.classList.add('on');cat=b.dataset.c;apply();});st.onchange=apply;
+ b.classList.add('on');document.querySelectorAll('.cats button').forEach(x=>x.setAttribute('aria-pressed',x===b));cat=b.dataset.c;apply();});st.onchange=apply;
 document.querySelectorAll('.bar button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.bar button').forEach(x=>x.classList.remove('on'));
- b.classList.add('on');filt=b.dataset.f;apply();});q.oninput=apply;
+ b.classList.add('on');document.querySelectorAll('.bar button').forEach(x=>x.setAttribute('aria-pressed',x===b));filt=b.dataset.f;apply();});q.oninput=apply;
 try{if(location.search.includes('admin=1'))localStorage.setItem('mfic-admin','1');
  if(localStorage.getItem('mfic-admin'))document.body.classList.add('is-admin');}catch(e){}
 """
@@ -479,9 +489,15 @@ def posts_gallery():
     tiles = []
     for p in imgs:
         (OUT / "posts" / p.name).write_bytes(p.read_bytes())
-        tiles.append(f'<a href="posts/{p.name}" target="_blank" rel="noopener"><img src="posts/{p.name}" loading="lazy" alt="Today\'s deal post"></a>')
+        tiles.append(f'<a href="posts/{p.name}" target="_blank" rel="noopener"><img src="posts/{p.name}" loading="lazy" alt="Today\'s deal post {p.stem.split(chr(95))[-1]}"></a>')
     return ('<section><h2>Today\'s posts</h2><p class="sub">The same posts we share in the Facebook group. Tap one to see it full size.</p>'
             f'<div class="gallery">{"".join(tiles)}</div></section>')
+
+
+try:
+    BLOCK = set(json.loads(Path("data/blocklist.json").read_text()).get("asins", []))
+except Exception:
+    BLOCK = set()
 
 
 def main():
@@ -508,6 +524,8 @@ def main():
             continue                  # Amazon deal with no ASIN = no affiliate link; skip
         if not thumb_for(d) or not link_verified(d):
             continue                  # site shows only deals with a real product photo
+        if d.get("asin") in BLOCK:
+            continue                  # owner/QA blocklist (wrong variant etc.)
         if d.get("asin"):
             if d["asin"] in seen_asin:
                 continue              # one card per product
@@ -527,23 +545,28 @@ def main():
 <meta property="og:title" content="Mom Found It Cheaper | Daily Deals">
 <meta property="og:url" content="https://momfounditcheaper.com/">
 <meta property="og:type" content="website">
+<meta property="og:description" content="Daily deals, viral finds and price drops, checked against Amazon.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta name="description" content="A Tampa mom's daily finds: viral and proven products, promo codes, coupons and price drops in one place.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>{CSS}</style></head><body>
+<a class="skip" href="#todays">Skip to today's deals</a>
 <header><div class="kicker">A TAMPA MOM'S DAILY FINDS</div>
 <h1>Mom Found<br><em>It Cheaper</em></h1><div class="rule"></div>
 <p>Viral finds · promo codes · price drops — all in one place. Updated {now}.</p>
 <a class="join" href="https://www.facebook.com/groups/1815840112666601" target="_blank" rel="noopener">JOIN THE FREE FACEBOOK GROUP</a></header>
 <main>
+<p class="sub" style="padding:0 16px"><b>As an Amazon Associate I earn from qualifying purchases.</b> Buttons below are paid affiliate links (#ad).</p>
 {posts_gallery()}
 {seasonal_sections(picked, history, tested)}
 {viral_section(viral)}
-<section><h2>Today's deals</h2><p class="sub">{len(picked)} deals across {len(cats)} categories from the last 3 days — top 100 per category.</p>
+<section id="todays"><h2>Today's deals</h2><p class="sub">{len(picked)} deals across {len(cats)} categories from the last 3 days — top 100 per category.</p>
 <div class="cats"><button class="on" data-c="">All categories</button>{cat_buttons}</div>
-<div class="bar"><input id="q" placeholder="Search deals…"><select id="store"><option value="">All stores</option>{store_opts}</select>
+<div class="bar"><input id="q" placeholder="Search deals…" aria-label="Search deals"><select id="store" aria-label="Filter by store"><option value="">All stores</option>{store_opts}</select>
 <button class="on" data-f="all">All</button><button data-f="has-code">Codes</button>
 <button data-f="has-coupon">Coupons</button><button data-f="under25">Under $25</button><button data-f="viral">Viral</button></div>
+<div id="empty" class="empty" role="status">No deals match this filter right now. Try another category or clear the search.</div><div id="count" class="sub" aria-live="polite" role="status"></div>
 <div class="grid">{cards}</div></section>
 </main>
 <footer><b>Affiliate disclosure:</b> As an Amazon Associate I earn from qualifying purchases. Some links are affiliate links (#ad) — if you buy through them we may earn a commission at no extra cost to you.<br>
@@ -556,6 +579,10 @@ Deal sources: Slickdeals and DealNews community feeds, with thanks. Amazon and o
 <script>{JS}</script></body></html>"""
     OUT.mkdir(exist_ok=True)
     (OUT / "index.html").write_text(page)
+    (OUT / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#B84300"/><text x="32" y="44" font-size="34" font-weight="700" text-anchor="middle" fill="#fff" font-family="Arial">M</text></svg>')
+    (OUT / "robots.txt").write_text("User-agent: *\nAllow: /\nSitemap: https://momfounditcheaper.com/sitemap.xml\n")
+    (OUT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + "".join(f"<url><loc>https://momfounditcheaper.com/{u}</loc></url>" for u in ("", "disclosure.html", "privacy.html", "terms.html")) + "</urlset>\n")
+    (OUT / "404.html").write_text(legal_page("Page not found", "<p>That page does not exist. <a href=\"/\">Back to today&rsquo;s deals</a>.</p>"))
     for name, (title, body) in LEGAL.items():
         (OUT / name).write_text(legal_page(title, body))
     (OUT / ".nojekyll").write_text("")
