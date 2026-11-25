@@ -19,6 +19,10 @@ HOOKS = {
     "Tech & Electronics": [("Tech price", "drop."), ("Gadget alert,", "cheaper."), ("Upgrade for", "less.")],
     "Pets": [("Pet parents,", "look."), ("Spoil them,", "spend less."), ("Fur-baby find,", "cheaper today.")],
     "Grocery & Household": [("Pantry find,", "cheaper today."), ("Household", "savings."), ("Restock for", "less.")],
+    "Gaming & Entertainment": [("Game on,", "pay less."), ("Fun find,", "cheaper today.")],
+    "Sports & Fitness": [("Move more,", "spend less."), ("Fitness find,", "cheaper today.")],
+    "Holiday & Seasonal": [("Holiday find,", "cheaper today."), ("Deck the halls", "for less.")],
+    "Office & School": [("Desk upgrade,", "small price."), ("Back-to-it", "savings.")],
     "Outdoor & Tools": [("Tool deal,", "cheaper today."), ("Fix-it find", "for less."), ("Outdoor gear,", "price drop.")],
 }
 

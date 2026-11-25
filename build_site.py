@@ -489,7 +489,9 @@ def main():
     from deal_finder import category_of, store_of
     deals = load("deals.json", [])
     for d in deals:                      # older saved deals: tag them now
-        d.setdefault("category", category_of(d["title"]))
+        d["category"] = (category_of(_amz_title(d)) if _amz_title(d) else "Everything else")
+        if d["category"] == "Everything else":
+            d["category"] = category_of(d["title"])   # always recompute: keywords improve, saved tags go stale
         d.setdefault("store", store_of(d["title"] + " " + d.get("desc", "")))
     history = load("price_history.json", {})
     viral = load("viral.json", {})

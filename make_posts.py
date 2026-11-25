@@ -50,6 +50,10 @@ THEMES = {
     "Grocery & Household": "Household finds",
     "Pets": "Pet finds",
     "Outdoor & Tools": "Outdoor & tools finds",
+    "Gaming & Entertainment": "Gaming & fun finds",
+    "Sports & Fitness": "Sports & fitness finds",
+    "Holiday & Seasonal": "Holiday finds",
+    "Office & School": "Office & school finds",
     "Everything else": "Today's top finds",
 }
 HASHTAGS = "#ad #amazonfinds #dealsforyou #founditcheaper #savemoney"
@@ -288,6 +292,7 @@ PALETTES = {                      # locked set: orange, green, teal, golden yell
     "Baby & Kids": GOLD, "Toys & Games": ORANGE, "Beauty & Health": TEAL,
     "Home & Kitchen": GREEN, "Fashion": ORANGE, "Tech & Electronics": TEAL,
     "Grocery & Household": GREEN, "Pets": GOLD, "Outdoor & Tools": GREEN,
+    "Gaming & Entertainment": TEAL, "Sports & Fitness": GREEN, "Holiday & Seasonal": GOLD, "Office & School": ORANGE,
     "Everything else": ORANGE,
 }
 V2_TILE_H, V2_GAP, V2_TOP = 300, 18, 310

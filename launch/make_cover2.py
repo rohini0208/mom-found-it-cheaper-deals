@@ -44,7 +44,7 @@ for i, c in enumerate(cards):
     img.paste(pic, (x + (cw - pic.width) // 2, y0 + 20 + (270 - pic.height) // 2))
     lab = {"Toys & Games": "TOYS & GAMES", "Home & Kitchen": "HOME & KITCHEN", "Tech & Electronics": "TECH & GADGETS", "Fashion": "STYLE",
            "Beauty & Health": "BEAUTY & HEALTH", "Baby & Kids": "KIDS", "Pets": "PETS", "Outdoor & Tools": "OUTDOORS",
-           "Grocery & Household": "HOUSEHOLD"}.get(c.get("category"), "DAILY FINDS")
+           "Grocery & Household": "HOUSEHOLD", "Gaming & Entertainment": "GAMING", "Sports & Fitness": "FITNESS", "Holiday & Seasonal": "HOLIDAY", "Office & School": "OFFICE"}.get(c.get("category"), "DAILY FINDS")
     lf = sans(30, "Bold")
     d.text((x + (cw - d.textlength(lab, font=lf)) / 2, y0 + ch - 70), lab, font=lf, fill=(27, 94, 32))
 # headline
