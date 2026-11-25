@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25T11:37+00:00",
+ "updated": "2026-11-25T19:18+00:00",
  "status": {
   "TikTok Made Me Buy It (Reddit)": "error: HTTP Error 404: Not Found",
   "Amazon finds (Reddit)": "error: HTTP Error 429: Too Many Requests",
@@ -90,24 +90,46 @@
   },
   {
    "source": "camelcamelcamel popular",
-   "title": "Ninja NC501 CREAMi XL Deluxe 11-in-1 Ice Cream and Frozen Treat Maker, with 2 XL Family Size Pint Containers",
-   "link": "https://camelcamelcamel.com/product/B0B9CZ6XBQ?active=price_amazon",
-   "asin": "B0B9CZ6XBQ",
+   "title": "LEGO Botanicals Succulents 10309",
+   "link": "https://camelcamelcamel.com/product/B09Q4GWMZQ?active=price_amazon",
+   "asin": "B09Q4GWMZQ",
    "rank": 5,
+   "label": "Best Price",
+   "words": [
+    "botanicals",
+    "lego",
+    "succulents"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Baratza Encore ESP Coffee Grinder ZCG495BLK, Black",
+   "link": "https://camelcamelcamel.com/product/B0BW272XCV?active=price_amazon",
+   "asin": "B0BW272XCV",
+   "rank": 6,
    "label": "Good Deal",
    "words": [
-    "containers",
-    "cream",
-    "creami",
-    "deluxe",
-    "family",
-    "frozen",
-    "maker",
-    "nc501",
-    "ninja",
-    "pint",
-    "size",
-    "treat"
+    "baratza",
+    "black",
+    "coffee",
+    "encore",
+    "grinder",
+    "zcg495blk"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Final Fantasy VII Rebirth - Exclusive Amazon Edition (PS5)",
+   "link": "https://camelcamelcamel.com/product/B0CGXZQ4CD?active=price_amazon",
+   "asin": "B0CGXZQ4CD",
+   "rank": 7,
+   "label": "Best Price",
+   "words": [
+    "edition",
+    "exclusive",
+    "fantasy",
+    "final",
+    "rebirth"
    ]
   },
   {
@@ -115,8 +137,8 @@
    "title": "Garmin v\u00edvoactive\u00ae 5, Health & Fitness GPS Smartwatch, 42mm, Black",
    "link": "https://camelcamelcamel.com/product/B0CG6NR413?active=price_amazon",
    "asin": "B0CG6NR413",
-   "rank": 6,
-   "label": "Best Price",
+   "rank": 8,
+   "label": "Good Deal",
    "words": [
     "42mm",
     "black",
@@ -132,7 +154,7 @@
    "title": "Apple Pencil (USB-C): Device Compatibility Check Required",
    "link": "https://camelcamelcamel.com/product/B0CL7J12YK?active=price_amazon",
    "asin": "B0CL7J12YK",
-   "rank": 7,
+   "rank": 9,
    "label": "Best Price",
    "words": [
     "apple",
@@ -148,7 +170,7 @@
    "title": "Beats Solo 4 On-Ear Headphones, 50 Hours Battery Life - Matte Black",
    "link": "https://camelcamelcamel.com/product/B0CZPLV566?active=price_amazon",
    "asin": "B0CZPLV566",
-   "rank": 8,
+   "rank": 10,
    "label": "Good Deal",
    "words": [
     "battery",
@@ -166,7 +188,7 @@
    "title": "Amazon Kindle Paperwhite 16GB (2024 model) \u2013 7\" glare-free display and weeks of battery life \u2013 Black",
    "link": "https://camelcamelcamel.com/product/B0CFPJYX7P?active=price_amazon",
    "asin": "B0CFPJYX7P",
-   "rank": 9,
+   "rank": 11,
    "label": "Good Deal",
    "words": [
     "16gb",
@@ -183,28 +205,10 @@
   },
   {
    "source": "camelcamelcamel popular",
-   "title": "Ninja Luxe Caf\u00e9 Pro 4-in-1 Espresso Machine, Drip Coffee, & Cold Brew",
-   "link": "https://camelcamelcamel.com/product/B0F5JFTR1Q?active=price_amazon",
-   "asin": "B0F5JFTR1Q",
-   "rank": 10,
-   "label": "Best Price",
-   "words": [
-    "brew",
-    "coffee",
-    "cold",
-    "drip",
-    "espresso",
-    "luxe",
-    "machine",
-    "ninja"
-   ]
-  },
-  {
-   "source": "camelcamelcamel popular",
    "title": "Sony WH-1000XM6 The Best Noise Cancelling Wireless Headphones, Black",
    "link": "https://camelcamelcamel.com/product/B0F3PQHWTZ?active=price_amazon",
    "asin": "B0F3PQHWTZ",
-   "rank": 11,
+   "rank": 12,
    "label": "Best Price",
    "words": [
     "1000xm6",
@@ -222,7 +226,7 @@
    "title": "Apple AirPods Pro 3 Wireless Earbuds with Active Noise Cancellation",
    "link": "https://camelcamelcamel.com/product/B0FQFB8FMG?active=price_amazon",
    "asin": "B0FQFB8FMG",
-   "rank": 12,
+   "rank": 13,
    "label": "Best Price",
    "words": [
     "active",
@@ -239,7 +243,7 @@
    "title": "Apple AirTag (2nd Generation): Tracker for Keychain, Wallet, and More; Locator with Sound; Simple One-Tap Setup with iPhone or iPad; Key Finder with up to 1.5X Precision Finding Range",
    "link": "https://camelcamelcamel.com/product/B0GJTFXNRX?active=price_amazon",
    "asin": "B0GJTFXNRX",
-   "rank": 13,
+   "rank": 14,
    "label": "Best Price",
    "words": [
     "airtag",
@@ -263,30 +267,18 @@
   },
   {
    "source": "camelcamelcamel popular",
-   "title": "LG 65 inch Class OLED evo AI C6 4K Smart TV 2026",
+   "title": "LG 65 inch Class OLED evo AI C6 4K Smart TV (65C6, 2026 Model)",
    "link": "https://camelcamelcamel.com/product/B0GRK5D3RW?active=price_amazon",
    "asin": "B0GRK5D3RW",
-   "rank": 14,
+   "rank": 15,
    "label": "Good Deal",
    "words": [
+    "65c6",
     "class",
     "inch",
+    "model",
     "oled",
     "smart"
-   ]
-  },
-  {
-   "source": "camelcamelcamel popular",
-   "title": "Pok\u00e9mon TCG: 30th Celebration Knock Out Collection",
-   "link": "https://camelcamelcamel.com/product/B0H7FDBNSB?active=price_amazon",
-   "asin": "B0H7FDBNSB",
-   "rank": 15,
-   "label": "Best Price",
-   "words": [
-    "30th",
-    "celebration",
-    "collection",
-    "knock"
    ]
   },
   {
@@ -307,10 +299,25 @@
   },
   {
    "source": "camelcamelcamel popular",
+   "title": "Apple Watch Series 12 GPS 42mm Smartwatch",
+   "link": "https://camelcamelcamel.com/product/B0HJ9ZXCSD?active=price_amazon",
+   "asin": "B0HJ9ZXCSD",
+   "rank": 17,
+   "label": "Best Price",
+   "words": [
+    "42mm",
+    "apple",
+    "series",
+    "smartwatch",
+    "watch"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
    "title": "Apple Watch Series 12 GPS 46mm Smartwatch",
    "link": "https://camelcamelcamel.com/product/B0HJBCGY95?active=price_amazon",
    "asin": "B0HJBCGY95",
-   "rank": 17,
+   "rank": 18,
    "label": "Best Price",
    "words": [
     "46mm",
@@ -325,7 +332,7 @@
    "title": "Nintendo Switch 2 + Mario Kart World Bundle (includes 3-month NSO Individual Membership)",
    "link": "https://camelcamelcamel.com/product/B0HGHB3V16?active=price_amazon",
    "asin": "B0HGHB3V16",
-   "rank": 18,
+   "rank": 19,
    "label": "Best Price",
    "words": [
     "bundle",
@@ -338,20 +345,6 @@
     "nintendo",
     "switch",
     "world"
-   ]
-  },
-  {
-   "source": "camelcamelcamel popular",
-   "title": "Apple Watch SE 3 GPS 40mm Smartwatch",
-   "link": "https://camelcamelcamel.com/product/B0HJ9ZNRKT?active=price_amazon",
-   "asin": "B0HJ9ZNRKT",
-   "rank": 19,
-   "label": "Best Price",
-   "words": [
-    "40mm",
-    "apple",
-    "smartwatch",
-    "watch"
    ]
   },
   {
