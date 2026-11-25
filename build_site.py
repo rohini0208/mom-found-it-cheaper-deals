@@ -242,7 +242,7 @@ def card(d, history, tested):
     ]))
     _lst, _pct, _rt, _rv = savings(d)
     _th = thumb_for(d)
-    photo_html = (f'<a class="ph" href="{html.escape(url)}" target="_blank" rel="sponsored noopener"><img src="{_th}" loading="lazy" alt="">'
+    photo_html = (f'<a class="ph" href="{html.escape(url)}" target="_blank" rel="sponsored noopener"><img src="{_th}" loading="lazy" alt="{html.escape(_amz_title(d) or no_price_title(d['title']))}">'
                   + (f'<span class="off">-{_pct}%</span>' if _pct else "") + "</a>") if _th else ""
     rating_html = (f'<div class="stars">&#9733; {_rt:.1f} <span>({_rv:,} reviews)</span></div>' if _rt and _rv >= 50 else "")
     return f"""
@@ -269,7 +269,6 @@ def card(d, history, tested):
   {f'<div class="hist">{hist_txt}</div>' if hist_txt else ''}
   <div class="meta"><span class="ago" data-t="{d['seen']}"></span>{f' · +{d["thumbs"]} community votes' if d.get('thumbs') else ''}</div>
   <a class="go" href="{html.escape(url)}" target="_blank" rel="sponsored noopener">{label}</a>
-  <a class="admin" href="https://github.com/{REPO}/issues/new?title=tested:+{i}&body=Paste+the+Amazon+product+link+here+(optional):%0A%0ATested:+{html.escape(urllib.parse.quote_plus(d['title'][:60]))}">Mark tested today</a>
 </article>"""
 
 
@@ -286,7 +285,7 @@ def trending_section():
         return ""
     cells = "".join(
         f'<a class="viral" href="{html.escape(f"https://www.amazon.com/dp/{s['asin']}?tag={TAG}" if TAG and s.get("asin") else s["link"])}" target="_blank" rel="noopener">'
-        f'<img src="{thumb_for({"id": s["link"], "title": s["title"], "asin": s["asin"]})}" alt="" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:contain;background:#fff;border-radius:10px;margin-bottom:8px">'
+        f'<img src="{thumb_for({"id": s["link"], "title": s["title"], "asin": s["asin"]})}" alt="{html.escape(s["title"][:100])}" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:contain;background:#fff;border-radius:10px;margin-bottom:8px">'
         f'{_price_html(s["asin"])}'
         f'<span>{html.escape(s["source"])}{(" · " + html.escape(s["label"])) if s.get("label") else ""}</span>'
         f'<em>{html.escape(s["title"][:80])}</em></a>' for s in picks[:12])
@@ -415,7 +414,7 @@ yourself whether a product is right for you.</p>"""),
 Product descriptions, features, prices and ratings come from deal listings and retailers. We try to be accurate but we do not guarantee that
 any information is complete, current or correct.</p>
 <h3>2. Prices, coupons and codes</h3><p>Prices, stock, coupons and promo codes are set by retailers and can change, sell out or expire at any time,
-sometimes within minutes. A code marked "Tested" worked for us on the date shown; it may not work for you or later. "Lowest price we've seen"
+sometimes within minutes. "Lowest price we've seen"
 compares only prices we have recorded. Always check the final price at checkout before you buy.</p>
 <h3>3. We are not the seller</h3><p>All purchases are made directly with the retailer. We do not sell products, take payments, ship orders, or handle
 returns, refunds, warranties or product safety. Any issue with an order is between you and the retailer or manufacturer.</p>
@@ -489,9 +488,7 @@ def main():
     from deal_finder import category_of, store_of
     deals = load("deals.json", [])
     for d in deals:                      # older saved deals: tag them now
-        d["category"] = (category_of(_amz_title(d)) if _amz_title(d) else "Everything else")
-        if d["category"] == "Everything else":
-            d["category"] = category_of(d["title"])   # always recompute: keywords improve, saved tags go stale
+        d["category"] = category_of((_amz_title(d) + " " + d["title"]).strip())   # always recompute: keywords improve, saved tags go stale
         d.setdefault("store", store_of(d["title"] + " " + d.get("desc", "")))
     history = load("price_history.json", {})
     viral = load("viral.json", {})
@@ -503,7 +500,7 @@ def main():
         return (1 if i in tested else 0, len(viral_sources(d, SIGNALS)),
                 1 if d.get("code") and d["code"] != "w/ code" else 0, d["seen"])
     PER_CATEGORY = 100
-    count, picked = {}, []
+    count, picked, seen_asin = {}, [], set()
     for d in sorted(deals, key=rank, reverse=True):
         c = d.get("category", "Everything else")
         _t = tested.get(deal_id(d))
@@ -511,6 +508,10 @@ def main():
             continue                  # Amazon deal with no ASIN = no affiliate link; skip
         if not thumb_for(d) or not link_verified(d):
             continue                  # site shows only deals with a real product photo
+        if d.get("asin"):
+            if d["asin"] in seen_asin:
+                continue              # one card per product
+            seen_asin.add(d["asin"])
         if count.get(c, 0) < PER_CATEGORY:
             count[c] = count.get(c, 0) + 1
             picked.append(d)
@@ -522,6 +523,10 @@ def main():
     page = f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{BRAND} | Daily Deals, Viral Finds & Promo Codes</title>
+<link rel="canonical" href="https://momfounditcheaper.com/">
+<meta property="og:title" content="Mom Found It Cheaper | Daily Deals">
+<meta property="og:url" content="https://momfounditcheaper.com/">
+<meta property="og:type" content="website">
 <meta name="description" content="A Tampa mom's daily finds: viral and proven products, promo codes, coupons and price drops in one place.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -544,7 +549,6 @@ def main():
 <footer><b>Affiliate disclosure:</b> As an Amazon Associate I earn from qualifying purchases. Some links are affiliate links (#ad) — if you buy through them we may earn a commission at no extra cost to you.<br>
 Prices, availability, coupons and promo codes are set by the retailers and can change or expire at any time. Always check the final price at checkout before you buy.
 We are not the seller and do not handle orders, shipping, returns or warranties — contact the retailer for those.
-"Tested" means we personally saw the code work on the date shown; it may not work for you or later.
 "Lowest price we've seen" is based only on prices we have recorded, not a guarantee of an all-time low. Product details come from the deal listing and the retailer; we do not guarantee them.<br>
 Deal sources: Slickdeals and DealNews community feeds, with thanks. Amazon and other store names are trademarks of their owners; we are not affiliated with or endorsed by them.<br>
 <a href="disclosure.html">Affiliate disclosure</a> · <a href="terms.html">Terms &amp; conditions</a> · <a href="privacy.html">Privacy policy</a></footer>
