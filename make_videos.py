@@ -28,7 +28,7 @@ from trends_finder import load_signals, viral_sources
 SIGNALS = load_signals()
 
 # "show" (default): Amazon prices shown with an "as of" time; "hide": no Amazon prices
-AMAZON_PRICES = os.environ.get("AMAZON_PRICES", "show").strip().lower()
+AMAZON_PRICES = os.environ.get("AMAZON_PRICES", "hide").strip().lower()
 
 
 def as_of(iso):

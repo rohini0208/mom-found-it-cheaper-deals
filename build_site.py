@@ -27,7 +27,7 @@ SIGNALS = load_signals()
 
 # Amazon's Associates rules only allow prices that come from Amazon's own API.
 # "show" (your choice): show feed prices with an "as of" time; "hide": no Amazon prices.
-AMAZON_PRICES = os.environ.get("AMAZON_PRICES", "show").strip().lower()
+AMAZON_PRICES = os.environ.get("AMAZON_PRICES", "hide").strip().lower()
 
 
 def as_of(iso):
@@ -224,6 +224,8 @@ def card(d, history, tested):
         d = dict(d, asin=t["asin"])      # Amazon link you pasted when testing
     url, label = link_for(d)
     is_amz = is_amazon(d)
+    if is_amz and AMAZON_PRICES == "hide":
+        label = "See current price on Amazon"
     amz = is_amz and AMAZON_PRICES == "hide"
     _mm = META.get(d.get("asin", "")) or {}
     stamp = f"Amazon price as of {as_of(_mm['checked'] if _mm.get('checked') else d['seen'])} &middot; prices change, check before buying" if is_amz and not amz else ""
@@ -249,7 +251,9 @@ def card(d, history, tested):
         "viral" if len(buzz) >= 2 else "",
     ]))
     _lst, _pct, _rt, _rv = savings(d)
-    _th = thumb_for(d)
+    if amz:                      # Associates policy: no scraped Amazon prices, ratings, list prices or photos
+        _lst, _pct, _rt, _rv, hist_txt = None, 0, 0, 0, ""
+    _th = "" if amz else thumb_for(d)
     photo_html = (f'<a class="ph" href="{html.escape(url)}" target="_blank" rel="sponsored noopener"><img src="{_th}" loading="lazy" alt="{html.escape(_amz_title(d) or no_price_title(d['title']))}">'
                   + (f'<span class="off">-{_pct}%</span>' if _pct else "") + "</a>") if _th else ""
     rating_html = (f'<div class="stars">&#9733; {_rt:.1f} <span>({_rv:,} reviews)</span></div>' if _rt and _rv >= 50 else "")
@@ -271,7 +275,7 @@ def card(d, history, tested):
   {f'<button class="code" data-code="{html.escape(code)}">Code <b>{html.escape(code)}</b> <span>tap to copy</span></button>' if real_code else ''}
   {'<div class="coupon">Clip the coupon on the product page</div>' if d.get('coupon') else ''}
   {'<div class="coupon">Promo code in the deal</div>' if code == 'w/ code' else ''}
-  {'<div class="coupon">Price shown is with Subscribe &amp; Save</div>' if re.search(r"S&S|Sub(?:scribe)?\s*(?:&|and)\s*Save", orig_title, re.I) else ''}
+  {'<div class="coupon">Price shown is with Subscribe &amp; Save</div>' if (not amz) and re.search(r"S&S|Sub(?:scribe)?\s*(?:&|and)\s*Save", orig_title, re.I) else ''}
   {f'<div class="asof">{stamp}</div>' if stamp else ''}
   {''.join(f'<div class="also">Also found: {("code <b>" + html.escape(a["code"]) + "</b>") if a["code"] else "clip coupon"} on <a href="{html.escape(a["link"])}" target="_blank" rel="noopener">{html.escape(a["source"])}</a></div>' for a in d.get("also", []))}
   {f'<div class="buzz">Buzzing on: {html.escape(", ".join(buzz))}</div>' if buzz else ''}
@@ -282,6 +286,13 @@ def card(d, history, tested):
 </article>"""
 
 
+def _trend_ok(s):
+    """Trending tile needs an Amazon title (Lenovo check) that matches the trend title: right product or no tile."""
+    import verify_link
+    t = (META.get(s["asin"]) or {}).get("title")
+    return bool(t) and verify_link.title_score(s["title"], t) >= 0.5
+
+
 def trending_section():
     """Top products people are talking about right now, from each free source."""
     by_src = {}
@@ -289,14 +300,13 @@ def trending_section():
         by_src.setdefault(s["source"], []).append(s)
     picks = []
     for src, items in by_src.items():
-        have = [s for s in items if s.get("asin") and "gift card" not in s["title"].lower() and _fresh_price(s["asin"]) and _find_photo({"id": s["link"], "title": s["title"], "asin": s["asin"]})]
+        have = [s for s in items if s.get("asin") and "gift card" not in s["title"].lower() and _trend_ok(s)] if AMAZON_PRICES == "hide" else [s for s in items if s.get("asin") and "gift card" not in s["title"].lower() and _fresh_price(s["asin"]) and _find_photo({"id": s["link"], "title": s["title"], "asin": s["asin"]})]
         picks += sorted(have, key=lambda s: s.get("rank", 99))[:3]      # only trends with a real photo
     if not picks:
         return ""
     cells = "".join(
         f'<a class="viral" href="{html.escape(f"https://www.amazon.com/dp/{s['asin']}?tag={TAG}" if TAG and s.get("asin") else s["link"])}" target="_blank" rel="sponsored noopener">'
-        f'<img src="{thumb_for({"id": s["link"], "title": s["title"], "asin": s["asin"]})}" alt="{html.escape(s["title"][:100])}" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:contain;background:#fff;border-radius:10px;margin-bottom:8px">'
-        f'{_price_html(s["asin"])}'
+        + ("" if AMAZON_PRICES == "hide" else f'<img src="{thumb_for({"id": s["link"], "title": s["title"], "asin": s["asin"]})}" alt="{html.escape(s["title"][:100])}" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:contain;background:#fff;border-radius:10px;margin-bottom:8px">' + _price_html(s["asin"])) +
         f'<span>{html.escape(s["source"])}{(" · " + html.escape(s["label"])) if s.get("label") else ""}</span>'
         f'<em>{html.escape(s["title"][:80])}</em></a>' for s in picks[:12])
     return ('<section><h2>Trending right now</h2><p class="sub">What people are buying and talking about '
@@ -482,6 +492,8 @@ def seasonal_sections(deals, history, tested, today=None):
 
 def posts_gallery():
     imgs = sorted(Path("webposts").glob("post_*.png"))
+    if not imgs or AMAZON_PRICES == "hide":      # post images carry Amazon photos
+        return ""
     if not imgs:
         return ""
     OUT.mkdir(exist_ok=True)
@@ -522,8 +534,8 @@ def main():
         _t = tested.get(deal_id(d))
         if is_amazon(d) and not d.get("asin") and not (isinstance(_t, dict) and _t.get("asin")):
             continue                  # Amazon deal with no ASIN = no affiliate link; skip
-        if not thumb_for(d) or not link_verified(d):
-            continue                  # site shows only deals with a real product photo
+        if (AMAZON_PRICES != "hide" and not thumb_for(d)) or not link_verified(d):
+            continue                  # photo needed only when photos are shown
         if d.get("asin") in BLOCK:
             continue                  # owner/QA blocklist (wrong variant etc.)
         if d.get("asin"):
@@ -565,7 +577,7 @@ def main():
 <div class="cats"><button class="on" data-c="">All categories</button>{cat_buttons}</div>
 <div class="bar"><input id="q" placeholder="Search deals…" aria-label="Search deals"><select id="store" aria-label="Filter by store"><option value="">All stores</option>{store_opts}</select>
 <button class="on" data-f="all">All</button><button data-f="has-code">Codes</button>
-<button data-f="has-coupon">Coupons</button><button data-f="under25">Under $25</button><button data-f="viral">Viral</button></div>
+<button data-f="has-coupon">Coupons</button>{"" if AMAZON_PRICES == "hide" else '<button data-f="under25">Under $25</button>'}<button data-f="viral">Viral</button></div>
 <div id="empty" class="empty" role="status">No deals match this filter right now. Try another category or clear the search.</div><div id="count" class="sub" aria-live="polite" role="status"></div>
 <div class="grid">{cards}</div></section>
 </main>
