@@ -1,38 +1,603 @@
 {
+"https://slickdeals.net/f/20384238-select-locations-37-5-lbs-scotts-turf-builder-lawn-food-15000-sq-ft-36-free-s-h?utm_source=rss&utm_content=fp&utm_medium=RSS2": {
+"asin": "B005W1QYDO",
+"ok": false,
+"why": "no Amazon title read"
+},
+"https://slickdeals.net/f/20392257-easywox-2500w-handheld-steam-cleaner-for-home-6-level-high-pressure-steam-gun-36-16?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0H29RP33B",
+"ok": false,
+"why": "price card $36.16 vs Amazon $45.21"
+},
+"https://hip2save.com/deals/saltine-crackers/": {
+"asin": "B07WSTZ95G",
+"ok": false,
+"why": "price card $1.51 vs Amazon $1.88"
+},
+"https://hip2save.com/deals/medicube-hyaluronic-moisturizing-cream/": {
+"asin": "B0DKNP4TL6",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20391843-5-98-1-or-11-95-3-amazon-multipet-lamb-chop-dog-plush-toy-10-cream-5-squeakers?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B003XVYKVI",
+"ok": true,
+"why": "ok"
+},
+"https://hip2save.com/deals/amazon-christmas-table-runners/": {
+"asin": "B0H6VZD1C7",
+"ok": false,
+"why": "name mismatch (0.2)"
+},
+"https://hip2save.com/deals/amazon-cosrx-pdrn-korean-face-mask/": {
+"asin": "B0FWK57DL4",
+"ok": true,
+"why": "ok"
+},
+"https://hip2save.com/deals/amazon-cordless-leaf-blower/": {
+"asin": "B0HMMFYKST",
+"ok": false,
+"why": "price card $35.99 vs Amazon $59.99"
+},
+"https://slickdeals.net/f/20391639-99-98-klein-tools-modbox-folding-work-bench-at-amazon?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0DW2521XQ",
+"ok": false,
+"why": "no Amazon title read"
+},
+"https://slickdeals.net/f/20391603-609-99-coway-airmega-prox-air-purifier-w-washable-hepa-filters-for-large-rooms-at-amazon?utm_source=rss&utm_content=ht&utm_medium=RSS2": {
+"asin": "B0CZ7KVHKV",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20391528-cursor-fitness-under-desk-walking-pad-with-handle-bar-treadmills-for-home-350-lbs-capacity-small-treadmill-129-99?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0HRV49YT4",
+"ok": false,
+"why": "price card $129.99 vs Amazon $289.98"
+},
+"https://hip2save.com/deals/skinny-pop-popcorn/": {
+"asin": "B0GYVDHSSZ",
+"ok": false,
+"why": "price card $2.91 vs Amazon $3.64"
+},
+"https://slickdeals.net/f/20391480-899-99-samsung-65-inch-class-s85h-series-oled-4k-120hz-smart-tv-2026-model-at-amazon?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0GQ6YWP33",
+"ok": true,
+"why": "ok"
+},
+"https://hip2save.com/deals/amazon-maxi-skirt/": {
+"asin": "B0F3X9TMR2",
+"ok": false,
+"why": "no Amazon title read"
+},
+"https://hip2save.com/deals/swiss-miss-hot-chocolate/": {
+"asin": "B07HFKB7D6",
+"ok": false,
+"why": "price card $5.68 vs Amazon $6.68"
+},
+"https://hip2save.com/deals/crayola-light-ups/": {
+"asin": "B0DSQYHXZW",
+"ok": true,
+"why": "ok"
+},
+"https://hip2save.com/deals/dr-plotkas-flossing-toothbrushes/": {
+"asin": "B00AFWVHI2",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20391282-lefant-m5-pro-robot-vacuum-and-mop-combo-self-emptying-23-000pa-120-day-and-hot-water-roller-mop-wash-259-99-ac?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0G4RK6QZX",
+"ok": false,
+"why": "price card $259.99 vs Amazon $399.99"
+},
+"https://slickdeals.net/f/20391258-lefant-m3-ultra-robot-vacuum-and-mop-with-23-000pa-suction-and-120-day-self-emptying-180-ac?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0GBWYDGFK",
+"ok": false,
+"why": "price card $180 vs Amazon $314.49"
+},
+"https://slickdeals.net/f/20391207-zsyzdl-pumpkin-projector-night-light-for-kids-13-themes-rotating-13-interchangeable-themes-13-45?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0HMWWL2CS",
+"ok": false,
+"why": "price card $13.45 vs Amazon $26.99"
+},
+"https://slickdeals.net/f/20391204-ninja-blendpro-kitchen-system-72oz-blender-5-cup-processor-bo402-129-99?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0G15YW3VF",
+"ok": true,
+"why": "ok"
+},
+"https://hip2save.com/deals/kids-microscope-set/": {
+"asin": "B0FVMN1TF3",
+"ok": false,
+"why": "price card $9.98 vs Amazon $16.62"
+},
+"https://hip2save.com/deals/vibelite-telescoping-led-flashlight/": {
+"asin": "B01HHRDXWK",
+"ok": false,
+"why": "price card $8.99 vs Amazon $18.99"
+},
+"https://hip2save.com/deals/active-laundry-products/": {
+"asin": "B0CJH9DRM6",
+"ok": false,
+"why": "price card $8.98 vs Amazon $17.95"
+},
+"https://slickdeals.net/f/20391075-lefant-m310-ultra-robot-vacuum-and-mop-6000pa-with-tof-lidar-navigation-70?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0GWZSJ3Q4",
+"ok": false,
+"why": "price card $70 vs Amazon $99.99"
+},
+"https://slickdeals.net/f/20391060-thermaltake-th420-v2-ultra-420mm-argb-aio-liquid-cpu-cooler-w-lcd-black-89-99-reg-209-99-free-shipping?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0CCXDLFZZ",
+"ok": true,
+"why": "ok"
+},
+"https://hip2save.com/deals/kitsch-hair-perfume/": {
+"asin": "B0DXWK9X6P",
+"ok": false,
+"why": "price card $10.49 vs Amazon $14.99"
+},
+"https://slickdeals.net/f/20390889-philips-smart-lock-matter-over-thread-fingerprint-door-lock-touchscreen-keypad-keyless-entry-door-lock-with-remote-app-control-99-99?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0FXM1QCVT",
+"ok": true,
+"why": "ok"
+},
+"https://hip2save.com/deals/amazon-basics-hand-soap/": {
+"asin": "B089WRB791",
+"ok": true,
+"why": "ok"
+},
+"https://hip2save.com/deals/cs-celersport-socks/": {
+"asin": "B07G996FY9",
+"ok": false,
+"why": "no Amazon title read"
+},
+"https://hip2save.com/deals/foldable-storage-containers/": {
+"asin": "B085ZV98JM",
+"ok": false,
+"why": "name mismatch (0.2)"
+},
+"https://hip2save.com/deals/weekender-travel-bag/": {
+"asin": "B0BXDFGG4M",
+"ok": false,
+"why": "price card $16.49 vs Amazon $37.98"
+},
+"https://slickdeals.net/f/20381790-11-16-s-s-or-less-champion-men-s-performance-boxer-briefs-5-pack-moisture-wicking-odor-control-mesh-pouch-no-ride-up-fit-sizes-s-xl-amz?utm_source=rss&utm_content=fp&utm_medium=RSS2": {
+"asin": "B0G161RYHQ",
+"ok": false,
+"why": "no Amazon title read"
+},
+"https://hip2save.com/deals/amazon-womens-sweater-jacket/": {
+"asin": "B0H7RVQB68",
+"ok": false,
+"why": "no Amazon title read"
+},
+"https://slickdeals.net/f/20390445-songmics-closet-organizer-clothes-rack-with-shelves-85-71?utm_source=rss&utm_content=&utm_medium=RSS2": {
+"asin": "B0DK8MPRGG",
+"ok": true,
+"why": "ok"
+},
+"https://hip2save.com/deals/walifrey-joggers/": {
+"asin": "B0DQNMB982",
+"ok": false,
+"why": "no Amazon title read"
+},
+"https://slickdeals.net/f/20390328-black-decker-20v-max-1-5ah-lithium-ion-battery-lbxr20-27-99?utm_source=rss&utm_content=&utm_medium=RSS2": {
+"asin": "B004LY59V6",
+"ok": true,
+"why": "ok"
+},
+"https://hip2save.com/deals/amazon-slipper-boots/": {
+"asin": "B08C725R8D",
+"ok": false,
+"why": "no Amazon title read"
+},
+"https://slickdeals.net/f/20384556-17-83-adidas-excel-backpack-34l-16-laptop-sleeve-multiple-pockets-at-amazon?utm_source=rss&utm_content=fp&utm_medium=RSS2": {
+"asin": "B0DGYXJPPP",
+"ok": false,
+"why": "price card $17.85 vs Amazon $39.15"
+},
+"https://hip2save.com/deals/bath-tub-pillow/": {
+"asin": "B0FWWBX4MD",
+"ok": false,
+"why": "name mismatch (0.2)"
+},
+"https://hip2save.com/deals/window-bird-feeder/": {
+"asin": "B0FXX11Q9W",
+"ok": false,
+"why": "price card $7.99 vs Amazon $9.99"
+},
+"https://hip2save.com/deals/lovevook-crescent-bags/": {
+"asin": "B0H3Q5BCM5",
+"ok": false,
+"why": "no Amazon title read"
+},
+"https://hip2save.com/deals/seven-minerals-organic-aloe/": {
+"asin": "B00XTTFI6K",
+"ok": false,
+"why": "name mismatch (0.4)"
+},
+"https://slickdeals.net/f/20389425-99-99-18-pc-chicago-cutlery-insignia-steel-kitchen-knife-block-set-built-in-sharpener-at-amazon?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0B9CJ4G6D",
+"ok": false,
+"why": "no Amazon title read"
+},
+"https://hip2save.com/deals/shower-steamers/": {
+"asin": "B0CLDN4BRM",
+"ok": false,
+"why": "price card $2.99 vs Amazon $7.99"
+},
+"https://slickdeals.net/f/20389215-15-99-prime-workpro-water-pump-pliers-10-inch-soft-jaw-pliers-with-non-marring-jaws-smooth-adjustment-button-grips-items-without-damage?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0GCCQ67LP",
+"ok": true,
+"why": "ok"
+},
+"https://hip2save.com/deals/nivea-lip/": {
+"asin": "B07Y91BMSK",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20389089-masters-of-the-universe-2026-movie-he-man-power-of-grayskull-sword-motu-27-inch-role-play-toy-with-lights-amp-dialogue-amp-sound-effects-amp-vibrations-21-99?utm_source=rss&utm_content=ht&utm_medium=RSS2": {
+"asin": "B0FG9GTM56",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20389062-3499-99-lg-77-inch-class-oled-evo-ai-w6-4k-smart-tv-2026-at-amazon?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0GRJV2MS7",
+"ok": false,
+"why": "no Amazon title read"
+},
+"https://hip2save.com/deals/discounted-gift-cards-amazon/": {
+"asin": "B0FLY4WXBK",
+"ok": false,
+"why": "price missing"
+},
+"https://hip2save.com/deals/amazon-torani-caramel-sauce/": {
+"asin": "B07NQD3TMD",
+"ok": false,
+"why": "price card $10.79 vs Amazon $14.39"
+},
+"https://hip2save.com/deals/fisher-price-little-people-trip-sets/": {
+"asin": "B0G769Z84B",
+"ok": true,
+"why": "ok"
+},
+"https://hip2save.com/deals/amazon-womens-boots/": {
+"asin": "B0H1H8VW32",
+"ok": false,
+"why": "no Amazon title read"
+},
+"https://slickdeals.net/f/20388720-1598-amazon-samsung-85-inch-class-qn70h-series-neo-qled-mini-led-4k-smart-tv-2026?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0GPY78838",
+"ok": true,
+"why": "ok"
+},
+"https://hip2save.com/deals/digital-calendar/": {
+"asin": "B0HGY4VLTG",
+"ok": false,
+"why": "name mismatch (0.2)"
+},
+"https://slickdeals.net/f/20388567-char-broil-the-big-easy-oil-less-turkey-fryer-for-89-99?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0DQ1YNRXF",
+"ok": true,
+"why": "ok"
+},
+"https://hip2save.com/deals/oath-clear-protein/": {
+"asin": "B0GJ6X4TQ4",
+"ok": false,
+"why": "price missing"
+},
+"https://hip2save.com/deals/campbells-soup/": {
+"asin": "B0B6M6C7JP",
+"ok": false,
+"why": "price card $9.60 vs Amazon $12.00"
+},
+"https://hip2save.com/deals/hersheys-chocolate-bars/": {
+"asin": "B005PZY56K",
+"ok": false,
+"why": "name mismatch (0.3)"
+},
+"https://hip2save.com/deals/custom-neon-sign/": {
+"asin": "B0D22L4LYY",
+"ok": false,
+"why": "price card $9.99 vs Amazon $19.59"
+},
+"https://hip2save.com/deals/uno-card-game/": {
+"asin": "B0D9R9WBQT",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20388276-gibson-home-rothernberg-18-piece-porcelain-dinnerware-set-45-99?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0GWRVM27R",
+"ok": true,
+"why": "ok"
+},
+"https://hip2save.com/deals/bracelet-making-kit/": {
+"asin": "B0D9W1V13Z",
+"ok": false,
+"why": "price card $4.87 vs Amazon $8.11"
+},
+"https://slickdeals.net/f/20388126-yhbjkcz-5ft-560-led-pre-lit-twinkling-birch-trees-warm-white-christmas-tree-decor-47-99?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0HCH1ZHNX",
+"ok": false,
+"why": "price card $47.99 vs Amazon $79.99"
+},
+"https://slickdeals.net/f/20387964-goplus-5ft-pencil-christmas-tree-with-240-pvc-needles-white-with-folding-metal-stand-29-59?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B09C1Y9DRL",
+"ok": true,
+"why": "ok"
+},
+"https://hip2save.com/deals/amazon-victorias-secret-gift-set/": {
+"asin": "B097BW8KN7",
+"ok": true,
+"why": "ok"
+},
+"https://hip2save.com/deals/bioptimizers-supplements/": {
+"asin": "B0HGBXSTQL",
+"ok": false,
+"why": "name mismatch (0.2)"
+},
+"https://hip2save.com/deals/amazon-initial-necklace/": {
+"asin": "B0F9W3Z852",
+"ok": false,
+"why": "no Amazon title read"
+},
+"https://slickdeals.net/f/20387481-switchbot-co2-detector-air-quality-monitor-indoor-co2-monitor-for-co2-temp-humidity-47-99?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0DLN46519",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20387454-gncc-2k-security-camera-indoor-5g-wi-fi-cameras-for-home-security-phone-app-9-99?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0G5WWT1L1",
+"ok": true,
+"why": "ok"
+},
+"https://hip2save.com/deals/sehmua-security-camera-system/": {
+"asin": "B0HD76G35D",
+"ok": false,
+"why": "name mismatch (0.4)"
+},
+"https://hip2save.com/deals/kitchen-knife-set/": {
+"asin": "B0HDYNFYRV",
+"ok": false,
+"why": "price card $10.49 vs Amazon $14.99"
+},
+"https://hip2save.com/deals/amazon-leggings/": {
+"asin": "B0GS8PDF4N",
+"ok": false,
+"why": "no Amazon title read"
+},
+"https://slickdeals.net/f/20387124-brightown-waterproof-14-pack-led-battery-operated-string-fairy-lights-3-99-ac?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0FHHNH5KL",
+"ok": false,
+"why": "price card $3.99 vs Amazon $8.51"
+},
+"https://hip2save.com/deals/amazon-top-sellers/": {
+"asin": "B0HGPVZRHS",
+"ok": false,
+"why": "no Amazon title read"
+},
+"https://hip2save.com/deals/aootek-solar-lights/": {
+"asin": "B07NQ4L1SB",
+"ok": false,
+"why": "price card $15 vs Amazon $23.99"
+},
+"https://hip2save.com/deals/nbkls-karaoke-machine/": {
+"asin": "B0HPNX2LWT",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20386947-amazon-smart-watch-for-men-women-1-8-fitness-tracker-for-android-iphone-answer-make-calls-22-47?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0GK8SWSVL",
+"ok": false,
+"why": "price card $22.47 vs Amazon $43.22"
+},
+"https://slickdeals.net/f/20386836-spa-gifts-for-women-rose-home-spa-kit-bath-set-happy-birthday-gift-baskets-13-49?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0DJSSSZGS",
+"ok": false,
+"why": "price card $13.49 vs Amazon $26.99"
+},
+"https://hip2save.com/deals/kpop-demon-hunters-slimygloop/": {
+"asin": "B0GZ4PN8BP",
+"ok": false,
+"why": "price missing"
+},
+"https://slickdeals.net/f/20386719-new-21-99-black-decker-bdcmthpi-inflator-multi-tool-attachment-at-amazon?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B00FJX7YCU",
+"ok": false,
+"why": "no Amazon title read"
+},
+"https://slickdeals.net/f/20386704-15-amazon-pets-alive-polly-the-magic-bird-by-zuru-robotic-toy-pet-bird?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0DR3T17RV",
+"ok": true,
+"why": "ok"
+},
+"https://hip2save.com/deals/pets-alive-polly-bird/": {
+"asin": "B0DR3T17RV",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20386671-dc-comics-batman-stainless-steel-crystal-pendant-necklace-official-license-6-99?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0985JMKLX",
+"ok": false,
+"why": "no Amazon title read"
+},
+"https://slickdeals.net/f/20386659-8ft-christmas-inflatable-santa-on-moon-astronaut-design-with-led-lights-41-99?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0HC6V8KSF",
+"ok": false,
+"why": "price card $41.99 vs Amazon $69.99"
+},
+"https://slickdeals.net/f/20386599-sokcvsea-height-adjustable-candle-warmer-lamp-w-timer-and-2-bulbs-12-39-ac?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0D25XZ6J6",
+"ok": false,
+"why": "price card $12.39 vs Amazon $24.79"
+},
+"https://slickdeals.net/f/20386548-4-piece-hello-kitty-mermaid-snap-back-hair-clips-set-official-license-8-74?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0GSSS9R32",
+"ok": true,
+"why": "ok"
+},
+"https://hip2save.com/deals/hydroponic-garden/": {
+"asin": "B0B6BB4TVC",
+"ok": false,
+"why": "price card $39.59 vs Amazon $55.99"
+},
+"https://slickdeals.net/f/20386503-5-x-7-washable-non-slip-vintage-area-rug-26-99-reg-44-99-w-code-free-shipping?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0CP3YS6JF",
+"ok": false,
+"why": "name mismatch (0.4)"
+},
+"https://hip2save.com/deals/native-shampoo-conditioner/": {
+"asin": "B0DPXYKXXZ",
+"ok": false,
+"why": "price card $12.60 vs Amazon $15.39"
+},
+"https://slickdeals.net/f/20386494-6000mah-ultra-slim-card-size-power-bank-w-built-in-cables-13-99-reg-27-99-w-code-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=ht&utm_medium=RSS2": {
+"asin": "B0BWMYFLGB",
+"ok": false,
+"why": "price card $13.99 vs Amazon $27.99"
+},
+"https://slickdeals.net/f/20386446-women-s-wide-leg-leggings-yoga-pants-from-11-99-reg-14-99-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0H6LXZSRH",
+"ok": false,
+"why": "no Amazon title read"
+},
+"https://slickdeals.net/f/20386437-women-s-maternity-joggers-pregnancy-sweatpants-5-99-reg-9-99-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0F8QDTBBM",
+"ok": false,
+"why": "no Amazon title read"
+},
+"https://slickdeals.net/f/20386386-wooden-kids-kitchen-playset-real-lights-sounds-white-age-3-66-49?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0HH3NY7CH",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20386338-drip-irrigation-kits-w-adjustable-nozzles-from-19-95-reg-39-90-w-code-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0G5DQM6NX",
+"ok": false,
+"why": "name mismatch (0.4)"
+},
+"https://slickdeals.net/f/20386332-2-pack-rechargeable-magnetic-hand-warmers-8-54-reg-19-99-w-code-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0GWQWV88H",
+"ok": false,
+"why": "price card $8.54 vs Amazon $14.24"
+},
+"https://slickdeals.net/f/20386314-vtoman-flashspeed-2400-portable-power-station-1408wh-lifepo4-lfp-battery-510-33?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0GTLLYDQT",
+"ok": false,
+"why": "price card $510.33 vs Amazon $645.99"
+},
+"https://hip2save.com/deals/babyvue-wireless-car-camera/": {
+"asin": "B0H9RWP9FM",
+"ok": true,
+"why": "ok"
+},
+"https://hip2save.com/deals/needoh-cool-cane/": {
+"asin": "B0DZ2YJN7V",
+"ok": false,
+"why": "no Amazon title read"
+},
 "https://slickdeals.net/f/20386245-gigalumi-5lbs-porch-goose-christmas-decorations-outdoor-20-porch-decor-28-49?utm_source=rss&utm_content=&utm_medium=RSS2": {
 "asin": "B0H71G97ZX",
 "ok": false,
 "why": "price card $28.49 vs Amazon $47.49"
+},
+"https://slickdeals.net/f/20384988-govee-100-rgbic-led-strip-lights-w-alexa-google-assistant-2-x-50ft-h618f-39-99-free-shipping?utm_source=rss&utm_content=fp&utm_medium=RSS2": {
+"asin": "B09VBZC2CX",
+"ok": true,
+"why": "ok"
 },
 "https://slickdeals.net/f/20386191-golf-rangefinder-with-slope-1500-yards-laser-range-finder-rechargeable-28-09?utm_source=rss&utm_content=&utm_medium=RSS2": {
 "asin": "B0F4NGJT1B",
 "ok": false,
 "why": "price card $28.09 vs Amazon $43.22"
 },
+"https://slickdeals.net/f/20382891-11-piece-bosch-tap-drill-combo-set-bdt11s-29-60-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=fp&utm_medium=RSS2": {
+"asin": "B07G92CXDP",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20385201-nike-men-s-air-max-nuaxis-shoes-various-sizes-44-84-w-coupon?utm_source=rss&utm_content=fp&utm_medium=RSS2": {
+"asin": "B0DS6KGFLW",
+"ok": false,
+"why": "no Amazon title read"
+},
 "https://hip2save.com/deals/amazon-jarlink-organizer/": {
 "asin": "B0C89STMFK",
 "ok": true,
 "why": "ok"
+},
+"https://slickdeals.net/f/20382330-select-amazon-accts-4-pk-16-5oz-torani-puremade-dessert-sauce-caramel-10-80-w-s-s?utm_source=rss&utm_content=fp&utm_medium=RSS2": {
+"asin": "B07NQD3TMD",
+"ok": false,
+"why": "price card $10.80 vs Amazon $14.39"
 },
 "https://slickdeals.net/f/20386068-6-piece-bluey-snap-back-shaker-hair-clips-set-official-license-6-24?utm_source=rss&utm_content=def&utm_medium=RSS2": {
 "asin": "B0GSSNCGT4",
 "ok": true,
 "why": "ok"
 },
+"https://slickdeals.net/f/20383272-jbl-tune-510bt-wireless-on-ear-headphones-black-19-94-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=fp&utm_medium=RSS2": {
+"asin": "B08WM3LJQB",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20385501-sns-ac-10-26-or-9-24-94-ct-finish-power-dishwasher-detergent-pods-at-amazon-10-9-each?utm_source=rss&utm_content=fp&utm_medium=RSS2": {
+"asin": "B0DCSSJ55R",
+"ok": false,
+"why": "price card $10.25 vs Amazon $20.45"
+},
+"https://slickdeals.net/f/20377053-11-inch-furreal-daisy-the-yoga-goat-interactive-toy-20-00-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=fp&utm_medium=RSS2": {
+"asin": "B0CPQ25G7L",
+"ok": false,
+"why": "no Amazon title read"
+},
+"https://slickdeals.net/f/20379921-3-pack-bedsure-flannel-fleece-pet-blankets-paws-hearts-8-49-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=fp&utm_medium=RSS2": {
+"asin": "B0G6LHF6MS",
+"ok": false,
+"why": "name mismatch (0.3)"
+},
 "https://slickdeals.net/f/20385783-ac-9-25-2-chuckit-ultra-flight-dog-fetch-toy-4-63-each-at-amazon?utm_source=rss&utm_content=def&utm_medium=RSS2": {
 "asin": "B086H577CG",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20385765-estwing-10-pro-claw-moulding-puller-mp250g-9-96-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B004397VEW",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20382750-first-alert-fire-extinguisher-standard-home-use-home1-ul-rated-1-a-10-b-c-red-2-pack-34-98-at-amazon?utm_source=rss&utm_content=fp&utm_medium=RSS2": {
+"asin": "B09P9K8K2J",
 "ok": true,
 "why": "ok"
 },
 "https://hip2save.com/deals/highlights-hidden-pictures/": {
 "asin": "1644723344",
 "ok": false,
-"why": "price card $3.77 vs Amazon $9.95"
+"why": "no Amazon title read"
 },
 "https://hip2save.com/deals/amazon-jarlink-mesh-pouches/": {
 "asin": "B07VBF4CYK",
 "ok": false,
 "why": "name mismatch (0.3)"
+},
+"https://slickdeals.net/f/20385702-17-98-3-pk-10-compartment-craftsman-storage-organizer-w-secure-latch-at-amazon?utm_source=rss&utm_content=ht&utm_medium=RSS2": {
+"asin": "B0BBN9W3YR",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20385666-ac-2-64-2-2-pack-chuckit-tennis-ball-dog-toy-small-1-32-each-at-amazon?utm_source=rss&utm_content=ht&utm_medium=RSS2": {
+"asin": "B0081Z77YI",
+"ok": false,
+"why": "no Amazon title read"
+},
+"https://slickdeals.net/f/20385663-ac-6-63-or-5-97-2-chuckit-ultra-fetch-stick-dog-toy-3-31-each-at-amazon?utm_source=rss&utm_content=ht&utm_medium=RSS2": {
+"asin": "B07SK3R2C3",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20385651-fiskars-15-powergear-anvil-lopper-1-25-cut-capacity-20-12-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=ht&utm_medium=RSS2": {
+"asin": "B00004SD73",
+"ok": false,
+"why": "name mismatch (0.4)"
 },
 "https://slickdeals.net/f/20385606-4-89-bepuzzled-original-3d-crystal-puzzle-treasure-chest-at-amazon?utm_source=rss&utm_content=ht&utm_medium=RSS2": {
 "asin": "B00BC6RT5K",
@@ -44,13 +609,128 @@
 "ok": true,
 "why": "ok"
 },
+"https://slickdeals.net/f/20382810-ball-x-pit-ps5-or-switch-physical-19-99?utm_source=rss&utm_content=fp&utm_medium=RSS2": {
+"asin": "B0GMYSR14V",
+"ok": true,
+"why": "ok"
+},
 "https://slickdeals.net/f/20385495-prime-12-99-mewaii-white-noise-sound-machine-w-ai-cry-detection-app-control-sunrise-alarm-at-amazon?utm_source=rss&utm_content=ht&utm_medium=RSS2": {
 "asin": "B0FY6HNNDC",
 "ok": false,
 "why": "name mismatch (0.5)"
 },
+"https://slickdeals.net/f/20385471-sns-ac-15-35-or-12-79-3-count-philips-sonicare-genuine-c2-optimal-plaque-control-toothbrush-heads-at-amazon?utm_source=rss&utm_content=ht&utm_medium=RSS2": {
+"asin": "B078BF27BF",
+"ok": false,
+"why": "name mismatch (0.4)"
+},
+"https://slickdeals.net/f/20385468-191-piece-lego-sunflowers-building-set-8-99-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0FNRXHL41",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20385444-prime-happytrends-anti-fatigue-cushioned-kitchen-mat-black-9-free-shipping?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B08SHSBMRQ",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20385426-37-piece-bepuzzled-turtles-original-3d-crystal-puzzle-blue-level-2-4-64-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0984WDC42",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20384700-3-pack-1-oz-ortega-taco-seasoning-mix-0-88-w-s-s-free-shipping-w-prime-or-on-orders-over-35?utm_source=rss&utm_content=fp&utm_medium=RSS2": {
+"asin": "B0B5VSFQ4T",
+"ok": false,
+"why": "no Amazon title read"
+},
+"https://slickdeals.net/f/20385402-prime-14-piece-workpro-1-2-drive-metric-shallow-impact-socket-set-10-27mm-20-79-free-shipping?utm_source=rss&utm_content=ht&utm_medium=RSS2": {
+"asin": "B0DDRRYXLY",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20385375-ac-104-99-melissa-doug-wooden-chef-s-pretend-play-toy-kitchen-charcoal-at-amazon?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B01B1V32N8",
+"ok": false,
+"why": "price card $104.99 vs Amazon $139.99"
+},
 "https://slickdeals.net/f/20385303-9-99-rudolph-the-red-nosed-reindeer-4k-ultra-hd-blu-ray-digital-4k-at-amazon?utm_source=rss&utm_content=ht&utm_medium=RSS2": {
 "asin": "B0BD96WTQZ",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20385291-prime-dck-58v-brushless-15-attachment-capable-cordless-string-trimmer-tool-only-38-64-free-shipping?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0D9BLDF7Z",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20385282-577-piece-lego-one-piece-season-2-tony-tony-chopper-building-set-39-99-free-shipping?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0G2T1W5S9",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20385222-11-5-gund-baby-peek-a-boo-teddy-bear-interactive-musical-plush-toy-15-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B07P5ZZZ8N",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20385147-cosy-homeer-washable-kitchen-rugs-set-of-2-red-17-99?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0DPQ23653",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20385132-amazon-basics-advantage-premium-baby-formula-powder-34-oz-20-85-w-s-s?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0D2Y9T8RL",
+"ok": false,
+"why": "price card $20.85 vs Amazon $29.79"
+},
+"https://slickdeals.net/f/20385105-24-piece-ravensburger-peppa-pig-london-bus-giant-shaped-floor-jigsaw-puzzle-27-5-x-19-6-9-99-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B079Q11JYG",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20385099-prime-workpro-22-piece-ratcheting-combination-wrench-set-w-tool-box-metric-sae-66-49-free-shipping?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0CQL1261J",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20385006-17-7-x-11-8-x-41-9-izeuk-4-tier-small-metal-wire-shelving-unit-black-18-99-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0F8HMF9N1",
+"ok": false,
+"why": "name mismatch (0.4)"
+},
+"https://slickdeals.net/f/20367879-final-fantasy-vii-rebirth-nintendo-switch-2-standard-edition-24-99?utm_source=rss&utm_content=fp&utm_medium=RSS2": {
+"asin": "B0GQ6K2Z48",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20384988-govee-100-rgbic-led-strip-lights-w-alexa-google-assistant-2-x-50ft-h618f-39-99-free-shipping?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B09VBZC2CX",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20384952-31-piece-bepuzzled-marvel-captain-america-original-3d-crystal-puzzle-4-89-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=ht&utm_medium=RSS2": {
+"asin": "B0D1DC8KN9",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20384934-secura-60-minute-silent-visual-countdown-timer-w-adjustable-volume-6-21-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0CR15PNTJ",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20384895-54-piece-bepuzzled-squirrel-original-3d-crystal-puzzle-level-2-4-64-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0BXQP44CW",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20384805-48-piece-melissa-doug-new-search-find-beneath-the-waves-floor-puzzle-8-49-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0FKNRCDXS",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20384766-1038-piece-lego-one-piece-battle-at-drum-castle-87-99-free-shipping?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0G2T2KWM9",
 "ok": true,
 "why": "ok"
 },
@@ -58,6 +738,46 @@
 "asin": "B01GJOMWVA",
 "ok": true,
 "why": "ok"
+},
+"https://slickdeals.net/f/20384751-shouren-stuffed-round-ottoman-pouf-ottoman-foot-rest-18-x-14-only-19-99?utm_source=rss&utm_content=ht&utm_medium=RSS2": {
+"asin": "B0HQ6R7LQW",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20384637-aokown-xs-fleece-lined-water-resistant-dog-winter-coat-w-leash-opening-blue-8-20-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=ht&utm_medium=RSS2": {
+"asin": "B0FS778ZPT",
+"ok": false,
+"why": "name mismatch (0.4)"
+},
+"https://slickdeals.net/f/20384616-gremlins-4k-ultra-hd-blu-ray-9-99-free-s-h-w-prime-or-35?utm_source=rss&utm_content=ht&utm_medium=RSS2": {
+"asin": "B07SJY25GB",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20384583-elf-4k-ultra-hd-blu-ray-9-99-free-s-h-w-prime-or-35?utm_source=rss&utm_content=ht&utm_medium=RSS2": {
+"asin": "B0BD93YRG2",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20384562-dji-avata-360-motion-fly-more-combo-8k-360-camera-drone-more-881?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0G4RJB8S7",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20384493-6-piece-sedy-telescoping-magnetic-pickup-tools-set-14-19-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0F7HCWD1Z",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20384370-spider-man-brand-new-day-2026-4k-uhd-digital-film-ma-12-99-via-various-digital-retailers?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0H8PLKHM6",
+"ok": false,
+"why": "no Amazon title read"
+},
+"https://slickdeals.net/f/20384295-1800j-9-8-tagzilo-power-strip-tower-surge-protector-w-12-ac-outlets-3-usb-ports-white-17-49-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=ht&utm_medium=RSS2": {
+"asin": "B0FK4X4QFF",
+"ok": false,
+"why": "price card $17.49 vs Amazon $34.99"
 },
 "https://slickdeals.net/f/20384256-227-99-black-decker-matrix-20v-max-power-tool-kit-includes-cordless-drill-12-attachments-and-storage-case-bdcdmt1212kitc1-at-amazon?utm_source=rss&utm_content=def&utm_medium=RSS2": {
 "asin": "B0B2B7NRGF",
@@ -69,8 +789,33 @@
 "ok": false,
 "why": "no Amazon title read"
 },
+"https://slickdeals.net/f/20384241-2-pack-tunmiok-12-metal-wreath-door-hanger-silver-3-99-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0HJG5S7QS",
+"ok": false,
+"why": "price card $3.99 vs Amazon $7.99"
+},
 "https://slickdeals.net/f/20384154-8-97-klein-tools-5-16-nut-driver-w-3-hollow-shaft-at-amazon?utm_source=rss&utm_content=def&utm_medium=RSS2": {
 "asin": "B001BY0ESW",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20384145-1397-99-75-tcl-qm8l-series-4k-uhd-144hz-sqd-mini-led-google-tv-2026-10-back-w-prime-visa-card-at-amazon?utm_source=rss&utm_content=ht&utm_medium=RSS2": {
+"asin": "B0GPSFR1Q4",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20384139-6-99-or-6-64-kasa-smart-plug-ultra-mini-15a-ep10-smart-home-wi-fi-outlet-at-amazon?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B091699Z3W",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20384058-2-pack-40-x38-gllquen-baby-girls-muslin-swaddle-blankets-bunny-flower-8-54-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0GJZY4Q9J",
+"ok": false,
+"why": "price card $8.54 vs Amazon $14.24"
+},
+"https://slickdeals.net/f/20384007-dreamegg-d11-max-portable-white-noise-machine-w-silicone-cover-21-sounds-white-12-99-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0DSFXN8XG",
 "ok": true,
 "why": "ok"
 },
@@ -79,10 +824,45 @@
 "ok": false,
 "why": "price missing"
 },
+"https://slickdeals.net/f/20383731-8-count-ttklyn-women-s-stainless-steel-manicure-pedicure-kit-w-pu-leather-case-silver-3-99-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0FCRLC393",
+"ok": false,
+"why": "no Amazon title read"
+},
+"https://slickdeals.net/f/20383692-prime-members-2-pack-mattitude-47-anti-fatigue-cushioned-kitchen-mat-black-21-44-free-shipping?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0D223SD75",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20383650-little-live-pets-ouchies-cooper-the-retriever-interactive-walking-puppy-toy-29-99-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0DQ6C3NGN",
+"ok": false,
+"why": "no Amazon title read"
+},
+"https://hip2save.com/deals/free-audible-books/": {
+"asin": "B0FTMVFP4F",
+"ok": false,
+"why": "name mismatch (0.0)"
+},
+"https://slickdeals.net/f/20383482-10-pack-halhsap-solar-christmas-star-pathway-lights-multicolor-17-99-1-79-each-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0HBPKXMS9",
+"ok": false,
+"why": "price card $17.99 vs Amazon $36.99"
+},
+"https://slickdeals.net/f/20383476-oxo-good-grips-2-piece-pop-container-set-4-4-qt-31-99-free-shipping-amazon?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0HB5XCNCS",
+"ok": true,
+"why": "ok"
+},
 "https://hip2save.com/deals/amazon-jelly-bra/": {
 "asin": "B0FNMDD7MG",
 "ok": false,
-"why": "price card $10 vs Amazon $24.99"
+"why": "no Amazon title read"
+},
+"https://slickdeals.net/f/20383374-prime-members-35lb-sedy-telescoping-magnetic-pickup-tool-9-to-34-9-99-free-shipping?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0C9WJWYNM",
+"ok": true,
+"why": "ok"
 },
 "https://hip2save.com/deals/cat-couch/": {
 "asin": "B0D31SZC4L",
@@ -97,7 +877,7 @@
 "https://slickdeals.net/f/20383194-columbia-bethany-crz-31-35?utm_source=rss&utm_content=ht&utm_medium=RSS2": {
 "asin": "B0F9LQDL5B",
 "ok": false,
-"why": "price card $31.35 vs Amazon $90.00"
+"why": "no Amazon title read"
 },
 "https://hip2save.com/deals/saltt-electrolyte-packets/": {
 "asin": "B0FHL4F4JH",
@@ -107,12 +887,17 @@
 "https://hip2save.com/deals/amazon-womens-wide-leg-pants/": {
 "asin": "B0H2GW6VDW",
 "ok": false,
-"why": "name mismatch (0.4)"
+"why": "no Amazon title read"
+},
+"https://slickdeals.net/f/20383017-lego-one-piece-the-baratie-floating-restaurant-building-set-75640-296-99-free-shipping?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B0DRW5PX4B",
+"ok": true,
+"why": "ok"
 },
 "https://hip2save.com/deals/initial-ring/": {
 "asin": "B0CZDPVNXW",
 "ok": false,
-"why": "price card $4.79 vs Amazon $9.99"
+"why": "no Amazon title read"
 },
 "https://slickdeals.net/f/20382921-carpet-rake-pet-hair-remover-kit-for-carpet-furniture-dog-cat-hair-removal-19-94?utm_source=rss&utm_content=def&utm_medium=RSS2": {
 "asin": "B0HBVJB17M",
@@ -122,7 +907,7 @@
 "https://hip2save.com/deals/fit-fresh-amazon/": {
 "asin": "B0GRJFV49G",
 "ok": false,
-"why": "price card $27.99 vs Amazon $39.99"
+"why": "no Amazon title read"
 },
 "https://slickdeals.net/f/20382834-arovine-car-vacuum-portable-cordless-handheld-vacuum-cleaner-mini-small-20000pa-high-suction-80000rpm-brushless-motor-18-24?utm_source=rss&utm_content=def&utm_medium=RSS2": {
 "asin": "B0GV2D9Q93",
@@ -139,8 +924,23 @@
 "ok": true,
 "why": "ok"
 },
+"https://slickdeals.net/f/20382750-first-alert-fire-extinguisher-standard-home-use-home1-ul-rated-1-a-10-b-c-red-2-pack-34-98-at-amazon?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+"asin": "B09P9K8K2J",
+"ok": true,
+"why": "ok"
+},
 "https://hip2save.com/deals/burts-bees-lip-balm/": {
 "asin": "B0H1NWMJ59",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20374257-1034-10-13-inch-apple-macbook-air-laptop-with-m5-chip-16gb-ram-512gb-ssd-starlight-at-amazon?utm_source=rss&utm_content=fp&utm_medium=RSS2": {
+"asin": "B0GR1J6T45",
+"ok": true,
+"why": "ok"
+},
+"https://slickdeals.net/f/20382621-hydro-flask-6-7-oz-micro-hydro-insulated-stainless-steel-bottle-agave-green-14-99-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=&utm_medium=RSS2": {
+"asin": "B0GJF9Z9TQ",
 "ok": true,
 "why": "ok"
 },
@@ -169,6 +969,11 @@
 "ok": true,
 "why": "ok"
 },
+"https://slickdeals.net/f/20375277-1196-10-15-apple-macbook-air-laptop-with-m5-chip-16gb-ram-512gb-ssd-midnight-at-amazon?utm_source=rss&utm_content=fp&utm_medium=RSS2": {
+"asin": "B0GR114BV7",
+"ok": true,
+"why": "ok"
+},
 "https://slickdeals.net/f/20382453-memoket-gem-wearable-ai-voice-recorder-transcribes-fits-apple-watch-bands-w-153-languages-143?utm_source=rss&utm_content=&utm_medium=RSS2": {
 "asin": "B0HFNX2WG1",
 "ok": true,
@@ -184,408 +989,8 @@
 "ok": false,
 "why": "name mismatch (0.2)"
 },
-"https://hip2save.com/deals/amazon-bow-necklace/": {
-"asin": "B0F5QDMBHM",
-"ok": false,
-"why": "price card $4.99 vs Amazon $12.99"
-},
-"https://hip2save.com/deals/rainbow-colored-pencils/": {
-"asin": "B0F9KNLFX7",
-"ok": true,
-"why": "ok"
-},
-"https://slickdeals.net/f/20381916-7-55-olympia-tools-sae-nut-driver-set-86-513-7-piece-color-handle-at-amazon?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B09NRBRZKW",
-"ok": true,
-"why": "ok"
-},
-"https://slickdeals.net/f/20377035-15-sonic-frontiers-definitive-edition-nintendo-switch-2-at-amazon?utm_source=rss&utm_content=fp&utm_medium=RSS2": {
-"asin": "B0H2K3HQFS",
-"ok": true,
-"why": "ok"
-},
-"https://hip2save.com/deals/led-beanie/": {
-"asin": "B09QM81XRL",
-"ok": false,
-"why": "name mismatch (0.3)"
-},
-"https://slickdeals.net/f/20381790-11-16-s-s-or-less-champion-men-s-performance-boxer-briefs-5-pack-moisture-wicking-odor-control-mesh-pouch-no-ride-up-fit-sizes-s-xl-amz?utm_source=rss&utm_content=ht&utm_medium=RSS2": {
-"asin": "B0G161RYHQ",
-"ok": false,
-"why": "price card $11.16 vs Amazon $2.35"
-},
-"https://slickdeals.net/f/20380662-amazon-grocery-canned-dark-red-kidney-beans-15-5-oz-0-67-with-s-s-amazon-buy-4-save-more?utm_source=rss&utm_content=fp&utm_medium=RSS2": {
-"asin": "B0BZB4FL11",
-"ok": true,
-"why": "ok"
-},
-"https://hip2save.com/deals/memory-matching-game/": {
-"asin": "B0GSS79BNY",
-"ok": false,
-"why": "name mismatch (0.4)"
-},
-"https://hip2save.com/deals/jet-puffed-marshmallows/": {
-"asin": "B000VDWXT2",
-"ok": false,
-"why": "price missing"
-},
-"https://hip2save.com/deals/red-light-therapy/": {
-"asin": "B0H9KMBJBZ",
-"ok": false,
-"why": "price card $35.99 vs Amazon $59.99"
-},
-"https://hip2save.com/deals/magic-doodle-board/": {
-"asin": "B08ZXTJ7V1",
-"ok": false,
-"why": "price card $4.99 vs Amazon $8.07"
-},
-"https://slickdeals.net/f/20381445-3-piece-peanuts-snoopy-woodstock-shaker-hair-bows-set-official-license-6-24-free-shipping-w-prime?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B0GSSJHMDZ",
-"ok": true,
-"why": "ok"
-},
-"https://hip2save.com/deals/heated-vest-amazon/": {
-"asin": "B0HC5SWJ49",
-"ok": false,
-"why": "name mismatch (0.3)"
-},
-"https://slickdeals.net/f/20381328-aromaroom-pet-air-purifier-with-true-hepa-for-odors-and-hair-activated-carbon-w-air-quality-monitor-19-83-ac?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B0G6JZLCY1",
-"ok": false,
-"why": "price card $19.83 vs Amazon $34.19"
-},
-"https://hip2save.com/deals/amazon-portable-projector/": {
-"asin": "B0HN6V5NX5",
-"ok": false,
-"why": "name mismatch (0.4)"
-},
-"https://hip2save.com/deals/amazon-fuzzy-socks/": {
-"asin": "B09CKF8PM4",
-"ok": false,
-"why": "price card $6.64 vs Amazon $9.98"
-},
-"https://hip2save.com/deals/iphone-lightning-charging-cables/": {
-"asin": "B0CD7V3HBR",
-"ok": false,
-"why": "price card $3.99 vs Amazon $7.57"
-},
-"https://hip2save.com/deals/champion-boxer-shorts/": {
-"asin": "B0G161RYHQ",
-"ok": false,
-"why": "price card $11 vs Amazon $2.35"
-},
-"https://hip2save.com/deals/amazon-smart-ring/": {
-"asin": "B0HBP82FV9",
-"ok": false,
-"why": "name mismatch (0.2)"
-},
-"https://slickdeals.net/f/20380716-2-piece-hello-kitty-my-melody-bff-keychain-set-official-sanrio-license-6-49-free-shipping-w-prime?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B0CBT3FT5F",
-"ok": false,
-"why": "price card $6.49 vs Amazon $3.25"
-},
-"https://hip2save.com/deals/amazon-flameless-food-warming-pads/": {
-"asin": "B09NQQHTLD",
-"ok": false,
-"why": "name mismatch (0.3)"
-},
-"https://hip2save.com/deals/amazon-black-friday/": {
-"asin": "BT00LN946S",
-"ok": false,
-"why": "no Amazon title read"
-},
-"https://slickdeals.net/f/20380461-143-99-coway-mighty-air-home-led-purifier-w-hepa-air-filter-black-or-white-at-amazon?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B01728NLRG",
-"ok": true,
-"why": "ok"
-},
-"https://slickdeals.net/f/20380431-sunlinkco-65-6ft-smart-christmas-tree-fairy-lights-200-led-w-remote-15-83-ac?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B0FJ2BW36N",
-"ok": false,
-"why": "price card $15.83 vs Amazon $26.39"
-},
-"https://slickdeals.net/f/20380389-ewaiira-stainless-steel-sink-caddy-w-brush-sponge-holder-for-kitchen-sink-9-8-11-89-ac?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B0DSZ9P85N",
-"ok": false,
-"why": "price card $11.89 vs Amazon $16.99"
-},
-"https://hip2save.com/deals/native-hand-soap/": {
-"asin": "B0FN7BB4X2",
-"ok": false,
-"why": "name mismatch (0.4)"
-},
-"https://hip2save.com/deals/weighted-vest/": {
-"asin": "B07V5KGYCZ",
-"ok": true,
-"why": "ok"
-},
-"https://hip2save.com/deals/amazon-our-place/": {
-"asin": "B0C6RZY11P",
-"ok": false,
-"why": "name mismatch (0.3)"
-},
-"https://hip2save.com/deals/snow-tubes/": {
-"asin": "B0H6LJ34WF",
-"ok": false,
-"why": "price card $29.99 vs Amazon $39.99"
-},
-"https://slickdeals.net/f/20380050-metoware-1600-lbs-heavy-duty-portable-hand-manual-winch-for-trailers-starting-at-18-55-ac?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B0D69YL2QW",
-"ok": false,
-"why": "price card $18.55 vs Amazon $23.19"
-},
-"https://hip2save.com/deals/inflatable-paddle-board/": {
-"asin": "B0DQTK4W5S",
-"ok": false,
-"why": "name mismatch (0.3)"
-},
-"https://hip2save.com/deals/kids-microscope-set/": {
-"asin": "B0FVMN1TF3",
-"ok": false,
-"why": "price card $9.98 vs Amazon $16.62"
-},
-"https://hip2save.com/deals/amazon-fashion-promo-codes/": {
-"asin": "B0HKS3L3Z7",
-"ok": false,
-"why": "deal title looks like an article, not a product"
-},
-"https://slickdeals.net/f/20379552-euhomy-2-clear-ice-cube-maker-countertop-with-app-110-pcs-daily-cubes-339-99?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B0GJ5H6N7X",
-"ok": true,
-"why": "ok"
-},
-"https://hip2save.com/deals/amazon-beans/": {
-"asin": "B0BZB9D92K",
-"ok": false,
-"why": "price missing"
-},
-"https://slickdeals.net/f/20379513-it-talks-sings-and-dances-rechargable-toy-robot-18-ac-fs-for-all-amazon?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B0H38X3FLG",
-"ok": false,
-"why": "name mismatch (0.1)"
-},
-"https://hip2save.com/deals/rechargeable-remote-control-robot/": {
-"asin": "B0H38X3FLG",
-"ok": false,
-"why": "name mismatch (0.1)"
-},
-"https://slickdeals.net/f/20379492-neslako-folding-sofa-bed-flannel-futon-couch-bed-with-pillow-and-blanket-37-99?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B0G34QHZCT",
-"ok": false,
-"why": "price card $37.99 vs Amazon $87.09"
-},
-"https://hip2save.com/deals/letsjoli-wireless-jelly-bras/": {
-"asin": "B0DS4T4VZC",
-"ok": false,
-"why": "price card $7.49 vs Amazon $19.99"
-},
-"https://hip2save.com/deals/amazon-bracelet-stacks/": {
-"asin": "B0G2BYQ2BB",
-"ok": false,
-"why": "name mismatch (0.0)"
-},
-"https://hip2save.com/deals/furreal-yoga-goat/": {
-"asin": "B0CPQ25G7L",
-"ok": false,
-"why": "price card $20 vs Amazon $16.99"
-},
-"https://slickdeals.net/f/20379240-prime-members-happy-nuts-santa-balls-is-comin-to-town-holiday-gift-box-set-19-99-w-code-free-shipping?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B0FJ8Z3KJV",
-"ok": false,
-"why": "price card $19.99 vs Amazon $24.99"
-},
-"https://hip2save.com/deals/physicians-choice-fiber-gummies/": {
-"asin": "B0FYZ9QQ9Z",
-"ok": true,
-"why": "ok"
-},
-"https://hip2save.com/deals/kids-tape-measure/": {
-"asin": "B0FMNW48JD",
-"ok": false,
-"why": "price card $5.69 vs Amazon $11.39"
-},
-"https://hip2save.com/deals/dr-plotkas-flossing-toothbrushes/": {
-"asin": "B00AFWVHI2",
-"ok": true,
-"why": "ok"
-},
-"https://slickdeals.net/f/20379099-sally-rose-disney-angel-stitch-makeup-bag-official-license-7-49-free-shipping-w-prime?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B0DD5NP7S9",
-"ok": true,
-"why": "ok"
-},
-"https://hip2save.com/deals/plus-size-long-sleeved-shirt/": {
-"asin": "B0HCNSYHKY",
-"ok": false,
-"why": "price card $9.99 vs Amazon $19.99"
-},
-"https://slickdeals.net/f/20378799-yiwanfw-2-pack-magnetic-shelf-for-fridge-fruit-potato-onion-storage-bins-13-28-44-79?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B0F23ZB196",
-"ok": false,
-"why": "price card $13.28 vs Amazon $33.23"
-},
-"https://slickdeals.net/f/20378748-prime-members-happy-nuts-ballber-pro-waterproof-body-groin-trimmer-for-men-39-99-w-code-free-shipping?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B0B6283HXX",
-"ok": false,
-"why": "price card $39.99 vs Amazon $49.99"
-},
-"https://hip2save.com/deals/amazon-rain-jackets/": {
-"asin": "B0FY3994NH",
-"ok": false,
-"why": "price card $29.99 vs Amazon $49.98"
-},
-"https://slickdeals.net/f/20378547-wiselife-24pcs-2-36-red-shatterproof-christmas-ball-ornaments-w-3-finishes-5-99-ac?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B0H1WRFYZR",
-"ok": false,
-"why": "price card $5.99 vs Amazon $9.99"
-},
-"https://hip2save.com/deals/shark-air-purifier/": {
-"asin": "B0DSGDGH42",
-"ok": false,
-"why": "name mismatch (0.4)"
-},
-"https://slickdeals.net/f/20378382-xeitin-waterless-diffuser-with-2-scent-fragrance-oil-cordless-battery-operated-19-79?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B0H36MPYT9",
-"ok": false,
-"why": "no Amazon title read"
-},
-"https://hip2save.com/deals/ouai-shampoo/": {
-"asin": "B084BW599K",
-"ok": false,
-"why": "price card $18 vs Amazon $32.00"
-},
-"https://slickdeals.net/f/20378076-emmiol-women-s-polka-dot-top-scoop-neck-3-4-sleeve-9-99-11-99?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B0HBQQG91P",
-"ok": false,
-"why": "price card $9.99 vs Amazon $16.99"
-},
-"https://slickdeals.net/f/20377974-sally-rose-hello-kitty-keychain-pink-official-license-8-72-free-shipping-w-prime?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B0DYL52YVH",
-"ok": false,
-"why": "price card $8.72 vs Amazon $17.45"
-},
-"https://slickdeals.net/f/20377938-new-14-32-jada-fast-furious-1-24-2006-dodge-charger-police-car-die-cast-car-toys-for-kids-and-adults-at-amazon?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B0BR1XLFK8",
-"ok": false,
-"why": "no Amazon title read"
-},
-"https://slickdeals.net/f/20377866-labiim-hair-dryer-high-speed-ionic-blow-dryer-110-000-rpm-motor-19-99?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B0H8Y4CJYB",
-"ok": false,
-"why": "price card $19.99 vs Amazon $39.99"
-},
-"https://slickdeals.net/f/20377818-zewdov-1200lm-bright-pocket-edc-flashlight-rechargeable-with-395nm-uv-light-13-29?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B0HJ8JR24F",
-"ok": true,
-"why": "ok"
-},
-"https://slickdeals.net/f/20377803-buffalo-plaid-8-pack-christmas-gift-bags-with-handles-reusable-tote-bags-7-19?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B0H6WVMXWD",
-"ok": false,
-"why": "price card $7.19 vs Amazon $8.99"
-},
-"https://hip2save.com/deals/amazon-top-sellers/": {
-"asin": "B0HGPVZRHS",
-"ok": false,
-"why": "deal title looks like an article, not a product"
-},
-"https://slickdeals.net/f/20377401-2-pack-women-s-high-waist-biker-shorts-w-pockets-from-7-99-reg-9-99-free-shipping-w-prime-or-on-35?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B0DNMJ694B",
-"ok": false,
-"why": "price card $7.99 vs Amazon $4.00"
-},
-"https://hip2save.com/product-reviews/best-things-to-buy-on-amazon/": {
-"asin": "B0C9MFF69B",
-"ok": false,
-"why": "deal title looks like an article, not a product"
-},
-"https://hip2save.com/deals/free-audible-books/": {
-"asin": "B0FTMVFP4F",
-"ok": false,
-"why": "name mismatch (0.0)"
-},
-"https://hip2save.com/deals/monopoly-token-advent-calendar/": {
-"asin": "B0GH956Y17",
-"ok": true,
-"why": "ok"
-},
-"https://slickdeals.net/f/20376609-79-99-instant-pot-vortex-plus-clearcook-6-qt-6-in-1-air-fryer-black-at-amazon?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B096N3FTZP",
-"ok": true,
-"why": "ok"
-},
-"https://slickdeals.net/f/20376486-8-99-maneater-xbox-one-at-amazon?utm_source=rss&utm_content=&utm_medium=RSS2": {
-"asin": "B082T8KQ36",
-"ok": false,
-"why": "price card $8.99 vs Amazon $39.99"
-},
-"https://slickdeals.net/f/20376471-2-pack-make-changes-4-ft-folding-tables-adjustable-height-fold-in-half-75-99-free-shipping?utm_source=rss&utm_content=&utm_medium=RSS2": {
-"asin": "B0H9LXM7PW",
-"ok": true,
-"why": "ok"
-},
-"https://slickdeals.net/f/20376450-men-s-sherpa-lined-heavyweight-fleece-sweatshirt-24-99?utm_source=rss&utm_content=&utm_medium=RSS2": {
-"asin": "B0D9G7MWLK",
-"ok": false,
-"why": "price card $24.99 vs Amazon $43.99"
-},
-"https://slickdeals.net/f/20374788-15-133-piece-lego-bluey-bluey-s-beach-family-car-trip-11202-2025-at-amazon?utm_source=rss&utm_content=fp&utm_medium=RSS2": {
-"asin": "B0DRW7Y7SV",
-"ok": true,
-"why": "ok"
-},
-"https://slickdeals.net/f/20376387-collection-of-free-kindle-ebooks?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B00W0COVM4",
-"ok": false,
-"why": "deal title looks like an article, not a product"
-},
-"https://www.amazon.com/dp/B0747W1GPS": {
-"asin": "B0747W1GPS",
-"ok": true,
-"why": "ok"
-},
-"https://www.amazon.com/dp/B08B45CHKW": {
-"asin": "B08B45CHKW",
-"ok": true,
-"why": "ok"
-},
-"https://slickdeals.net/f/20371839-14-99-1600-pc-roseart-peanuts-world-s-largest-snoopy-shaped-jigsaw-puzzle-at-amazon?utm_source=rss&utm_content=fp&utm_medium=RSS2": {
-"asin": "B0DS6FMF13",
-"ok": false,
-"why": "price card $15 vs Amazon $24.59"
-},
-"https://slickdeals.net/f/20376045-black-friday-2026-the-cat-ladies-organic-cat-grass-kit-with-ceramic-cat-planter-now-at-26-off-at-16-99-was-22-99?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B0BT85RYSG",
-"ok": true,
-"why": "ok"
-},
-"https://slickdeals.net/f/20375973-616-pcs-lego-star-wars-jango-fett-helmet-75408-35-free-s-h-at-amazon?utm_source=rss&utm_content=ht&utm_medium=RSS2": {
-"asin": "B0DJ1BXC2B",
-"ok": false,
-"why": "price card $35 vs Amazon $55.99"
-},
-"https://slickdeals.net/f/20375973-616-pc-lego-star-wars-jango-fett-helmet-building-set-35-free-s-h?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B0DJ1BXC2B",
-"ok": false,
-"why": "price card $35 vs Amazon $55.99"
-},
-"https://slickdeals.net/f/20367873-14-99-final-fantasy-vii-remake-intergrade-ps5-at-amazon?utm_source=rss&utm_content=fp&utm_medium=RSS2": {
-"asin": "B08XNRM6QN",
-"ok": true,
-"why": "ok"
-},
-"https://slickdeals.net/f/20369991-prime-members-bossern-800-led-twinkling-cluster-christmas-lights-multicolor-14-20-free-s-h?utm_source=rss&utm_content=fp&utm_medium=RSS2": {
-"asin": "B0F9K87BRH",
-"ok": false,
-"why": "price card $14.20 vs Amazon $28.39"
-},
-"https://slickdeals.net/f/20375877-15-assassin-s-creed-shadows-standard-edition-nintendo-switch-2-at-amazon?utm_source=rss&utm_content=ht&utm_medium=RSS2": {
-"asin": "B0FXBVGKHT",
-"ok": false,
-"why": "price card $15 vs Amazon $28.93"
-},
-"https://slickdeals.net/f/20375811-hisense-100-class-e6-series-qled-4k-144hz-uhd-smart-fire-tv-100e6qf-2025-1399-99?utm_source=rss&utm_content=def&utm_medium=RSS2": {
-"asin": "B0FHM6B1ZS",
+"https://slickdeals.net/f/20382159-ninja-foodi-smart-6-in-1-indoor-grill-air-fryer-4-qt-black-grey-fg551-199-99?utm_source=rss&utm_content=ht&utm_medium=RSS2": {
+"asin": "B089TQ82WT",
 "ok": true,
 "why": "ok"
 }
