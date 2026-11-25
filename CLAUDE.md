@@ -1,6 +1,6 @@
 # Mom Found It Cheaper - project memory (read first)
 Owner: Rohini. FB group "Mom Found It Cheaper" (id 1815840112666601), Amazon tag `momfounditc08-20`.
-Site: https://mom-found-it-cheaper-deals.pages.dev/ (Cloudflare Pages, built from site/ by build_site.py). Repo rohini0208/mom-found-it-cheaper-deals.
+Site: https://momfounditcheaper.com/ (Cloudflare Pages, built from site/ by build_site.py). Repo rohini0208/mom-found-it-cheaper-deals.
 Rules (stated by Rohini): every post/site item 100% accurate (right link, price, variant, real photo, was-price); no posting in other groups (Smart Savers Unite etc.) until their rules allow; bullets in answers; no-token code preferred; queue posts for her approval, never auto-post.
 Group status: suspended Nov 16 (fraudulent goods); status unconfirmed -> confirm restored before posting.
 Pipeline: deals.yml (3h: deal_finder, fetch_images, trends_finder), videos.yml (daily videos/posts/post_qa). Amazon blocked from cloud; Lenovo runs amazon_local.py (+run_daily.bat) for ratings/reviews/list/now/photos/ASINs/promo/seller -> data/product_meta.json, photos/<ASIN>.jpg.
