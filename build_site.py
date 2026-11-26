@@ -639,9 +639,8 @@ Deals are found from public deal feeds and checked against Amazon each morning. 
     import shutil
     if Path("brand/mia_avatar_circle_240.png").exists():
         shutil.copy("brand/mia_avatar_circle_240.png", OUT / "mia.png")
-    if Path("brand/mia_hero_scene.png").exists():
-        from PIL import Image as _I
-        _I.open("brand/mia_hero_scene.png").convert("RGB").save(OUT / "mia-scene.jpg", quality=86, optimize=True)
+    if Path("brand/mia_hero_scene.jpg").exists():          # pre-saved JPEG: Cloudflare's build has no PIL
+        shutil.copy("brand/mia_hero_scene.jpg", OUT / "mia-scene.jpg")
     (OUT / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#B84300"/><text x="32" y="44" font-size="34" font-weight="700" text-anchor="middle" fill="#fff" font-family="Arial">M</text></svg>')
     (OUT / "robots.txt").write_text("User-agent: *\nAllow: /\nSitemap: https://momfounditcheaper.com/sitemap.xml\n")
     (OUT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + "".join(f"<url><loc>https://momfounditcheaper.com/{u}</loc></url>" for u in ("", "disclosure.html", "privacy.html", "terms.html")) + "</urlset>\n")
