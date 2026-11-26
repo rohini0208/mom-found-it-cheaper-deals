@@ -139,6 +139,12 @@ def pick_deals(deals, made):
             continue
         if not _verified_amazon(d):
             continue                                  # only Amazon-verified deals get a video (site lists only those)
+        if AMAZON_PRICES != "hide":
+            import time as _t
+            _m = json.loads(Path("data/product_meta.json").read_text()).get(d.get("asin", ""), {}) if Path("data/product_meta.json").exists() else {}
+            _n = price_value(str(_m.get("now") or ""))
+            if not _n or not _m.get("checked") or _t.time() - _m["checked"] > 36 * 3600 or abs(_n - price) / _n > 0.05:
+                continue                              # a shown price must be Amazon's own, read in the last 36h
         score = (2 if d.get("code") and d["code"] != "w/ code" else 0) + (1 if d.get("coupon") else 0)
         score += 3 if find_photo(d) else 0          # deals with a real photo go first
         score += 2 * len(viral_sources(d, SIGNALS))  # buzzing in several places = viral
