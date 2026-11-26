@@ -702,7 +702,12 @@ Deals are found from public deal feeds and checked against Amazon each morning. 
     if Path("brand/mia_hero_scene.jpg").exists():          # pre-saved JPEG: Cloudflare's build has no PIL
         shutil.copy("brand/mia_hero_scene.jpg", OUT / "mia-scene.jpg")
     (OUT / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#B84300"/><text x="32" y="44" font-size="34" font-weight="700" text-anchor="middle" fill="#fff" font-family="Arial">M</text></svg>')
-    (OUT / "robots.txt").write_text("User-agent: *\nAllow: /\nSitemap: https://momfounditcheaper.com/sitemap.xml\n")
+    (OUT / "robots.txt").write_text("User-agent: *\nAllow: /\nDisallow: /review\nSitemap: https://momfounditcheaper.com/sitemap.xml\n")
+    try:                                   # unlisted review page of today's queue (Cloudflare build runs this file only)
+        import make_review
+        make_review.main()
+    except Exception as _e:
+        print("review page skipped:", _e)
     (OUT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + "".join(f"<url><loc>https://momfounditcheaper.com/{u}</loc></url>" for u in ("", "disclosure.html", "privacy.html", "terms.html")) + "</urlset>\n")
     (OUT / "404.html").write_text(legal_page("Page not found", "<p>That page does not exist. <a href=\"/\">Back to today&rsquo;s deals</a>.</p>"))
     for name, (title, body) in LEGAL.items():

@@ -46,6 +46,8 @@ jobs:
         run: python make_pins.py
       - name: Build approval queue
         run: python make_queue.py
+      - name: Review page (unlisted)
+        run: python make_review.py
       - name: Save lists
         run: |
           git config user.name "deal-bot"

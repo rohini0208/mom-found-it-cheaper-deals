@@ -115,7 +115,10 @@ def main():
               "- Price re-checked on Amazon at posting time"]
     (OUT / "QUEUE.md").write_text("\n".join(lines))
     (OUT / "queue.json").write_text(json.dumps({"date": f"{day:%Y-%m-%d}", "posts": [p[0] for p in posts],
-                                                 "videos": vids, "engagement": eng, "tier_posts": tiers}, indent=1))
+                                                 "captions": {p[0]: caption_for(p[0]) for p in posts},
+                                                 "videos": vids,
+                                                 "video_captions": {v: ((ROOT / "videos" / (v[:-4] + ".txt")).read_text() if (ROOT / "videos" / (v[:-4] + ".txt")).exists() else "") for v in vids},
+                                                 "engagement": eng, "tier_posts": tiers}, indent=1))
     print(f"queue: {len(posts)} posts, {len(vids)} videos, {len(eng)} engagement drafts -> queue/QUEUE.md")
 
 
