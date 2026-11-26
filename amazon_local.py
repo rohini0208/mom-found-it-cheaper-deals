@@ -13,7 +13,7 @@ import sys
 import time
 from pathlib import Path
 
-MAX_RUN = 250
+MAX_RUN = 400
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
       "Chrome/124.0 Safari/537.36")
 H = {"User-Agent": UA, "Accept-Language": "en-US,en;q=0.9", "Accept": "text/html,application/xhtml+xml"}
@@ -138,7 +138,8 @@ def main():
         except Exception as e:
             print("asin resolver skipped:", str(e)[:100])
         amap0 = json.loads(ASIN_MAP.read_text()) if ASIN_MAP.exists() else {}
-        for d in sorted(deals, key=lambda x: x.get("thumbs", 0), reverse=True):   # use freshly found IDs right away
+        # Grok/owner-supplied deals first (no vote score), then the rest by votes
+        for d in sorted(deals, key=lambda x: (x.get("source") == "Grok", x.get("thumbs", 0)), reverse=True):   # use freshly found IDs right away
             a = d.get("asin") or amap0.get(d["id"], "")
             if a and a not in seen and not d.get("expired") and stale(meta, a):
                 seen.add(a)
