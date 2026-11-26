@@ -328,6 +328,7 @@ CSS = """
 :root{--ivory:#F6F0E7;--char:#161518;--gold:#C9A46A;--muted:#7a7068;--blush:#E8BEBA}
 *{box-sizing:border-box}body{margin:0;background:var(--ivory);color:var(--char);font-family:Inter,system-ui,sans-serif}
 header{background:var(--char);color:var(--ivory);text-align:center;padding:42px 20px 34px}
+.mia{width:96px;height:96px;border-radius:50%;border:3px solid var(--gold);display:block;margin:0 auto 10px;background:#fff}
 .kicker{letter-spacing:.28em;font-size:12px;font-weight:600;color:var(--gold)}
 h1{font-family:'Playfair Display',Georgia,serif;font-size:44px;margin:14px 0 6px;line-height:1.05}
 h1 em{color:var(--gold);font-style:normal}
@@ -564,7 +565,7 @@ def main():
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>{CSS}</style></head><body>
 <a class="skip" href="#todays">Skip to today's deals</a>
-<header><div class="kicker">A TAMPA MOM'S DAILY FINDS</div>
+<header><img class="mia" src="mia.png" width="96" height="96" alt="Mia, the mom behind Mom Found It Cheaper"><div class="kicker">A TAMPA MOM'S DAILY FINDS</div>
 <h1>Mom Found<br><em>It Cheaper</em></h1><div class="rule"></div>
 <p>Viral finds · promo codes · price drops — all in one place. Updated {now}.</p>
 <a class="join" href="https://www.facebook.com/groups/1815840112666601" target="_blank" rel="noopener">JOIN THE FREE FACEBOOK GROUP</a></header>
@@ -591,6 +592,9 @@ Deal sources: Slickdeals and DealNews community feeds, with thanks. Amazon and o
 <script>{JS}</script></body></html>"""
     OUT.mkdir(exist_ok=True)
     (OUT / "index.html").write_text(page)
+    import shutil
+    if Path("brand/mia_avatar_circle_240.png").exists():
+        shutil.copy("brand/mia_avatar_circle_240.png", OUT / "mia.png")
     (OUT / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#B84300"/><text x="32" y="44" font-size="34" font-weight="700" text-anchor="middle" fill="#fff" font-family="Arial">M</text></svg>')
     (OUT / "robots.txt").write_text("User-agent: *\nAllow: /\nSitemap: https://momfounditcheaper.com/sitemap.xml\n")
     (OUT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + "".join(f"<url><loc>https://momfounditcheaper.com/{u}</loc></url>" for u in ("", "disclosure.html", "privacy.html", "terms.html")) + "</urlset>\n")
