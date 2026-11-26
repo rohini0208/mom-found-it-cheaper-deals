@@ -26,7 +26,13 @@
 - Amazon shows $27.01, higher than the deal price (stale or needs a coupon): 1
 - Amazon shows $7.39, higher than the deal price (stale or needs a coupon): 1
 - Amazon shows $17.99, higher than the deal price (stale or needs a coupon): 1
-- Amazon shows $23.99, higher than the deal price (stale or needs a coupon): 1
+- Amazon shows $16.99, higher than the deal price (stale or needs a coupon): 1
+- Amazon shows $29.99, higher than the deal price (stale or needs a coupon): 1
+- Amazon shows $28.49, higher than the deal price (stale or needs a coupon): 1
+- Amazon shows $349, higher than the deal price (stale or needs a coupon): 1
+- Amazon shows $279.98, higher than the deal price (stale or needs a coupon): 1
+- Amazon shows $79.95, higher than the deal price (stale or needs a coupon): 1
+- Amazon shows $949.99, higher than the deal price (stale or needs a coupon): 1
 
 ## Warnings (posted, but check)
 - Amazon deal without product ID (no affiliate link, no price check): 297

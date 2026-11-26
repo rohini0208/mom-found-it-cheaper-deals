@@ -44,7 +44,27 @@ Price history: https://camelcamelcamel.com/product/B0DK2H7G5G
 40% OFF - 8-Oz YETI Ramb
 ```
 
-### post_7 — Outdoor & tools under $100 (ok)
+### post_7 — Toy & game under $50 (ok)
+```
+CAPTION:
+🔥 39% OFF! LEGO Classic Medium Creative Brick Box
+✨ Toy & game under $50: 577-Pc LEGO One Piece: Tony Tony Chopper Building Set, 329-pc. LEGO Speed Champions Ferrari 499P and LEGO Classic Medium Creative Brick Box
+Our pick today: LEGO Classic Medium Creative, 39% under Amazon's list price and 4.8 stars from 58,454 shoppers.
+Tell us which one you want and we will keep an eye out for more like it.
+All three, checked against Amazon this morning: https://momfounditcheaper.com/
+#ad As an Amazon Associate I earn from qualifying purchases.
+
+#ad #amazondeals #giftideas #founditcheaper
+
+FIRST COMMENT (paste after posting):
+Shop here (prices and codes can change):
+43% OFF - 577-Pc LEGO One Piece: Tony Tony Chopper Building Set
+https://www.amazon.com/dp/B0G2T1W5S9?tag=momfounditc08-20
+Price history: https://camelcamelcamel.com/product/B0G2T1W5S9
+20% OFF - 329-pc. LEGO Speed Champions Ferra
+```
+
+### post_8 — Outdoor & tools under $100 (ok)
 ```
 CAPTION:
 🔥 40% OFF! Char-Broil The Big Easy Oil-Less Turkey Fryer!
@@ -54,7 +74,7 @@ Which would you grab first?
 All three, checked against Amazon this morning: https://momfounditcheaper.com/
 #ad As an Amazon Associate I earn from qualifying purchases.
 
-#ad #amazondeals #giftideas #founditcheaper
+#ad #savemoney #momhacks #amazonfinds
 
 FIRST COMMENT (paste after posting):
 Shop here (prices and codes can change):
@@ -62,10 +82,10 @@ Shop here (prices and codes can change):
 https://www.amazon.com/dp/B075FFCD9L?tag=momfounditc08-20
 Price history: https://camelcamelcamel.com/product/B075FFCD9L
 20% OFF - 12-pc Wiha 79243 Slotted Phillips & Torx Bit Selector
-https://www.
+https://www.amazon
 ```
 
-### post_8 — Home & kitchen under $50 (ok)
+### post_9 — Home & kitchen under $50 (ok)
 ```
 CAPTION:
 🔥 23% OFF! Gibson Home Rothernberg 18-Piece Porcelain Dinnerware Set
@@ -75,17 +95,17 @@ Which would you grab first?
 All three, checked against Amazon this morning: https://momfounditcheaper.com/
 #ad As an Amazon Associate I earn from qualifying purchases.
 
-#ad #savemoney #momhacks #amazonfinds
+#ad #blackfriday #momfinds #dealoftheday
 
 FIRST COMMENT (paste after posting):
 Shop here (prices and codes can change):
 30% OFF - Step Lively Anti- Fatigue 2 PCS Cushioned Kitchen Mats for Floor
 https://www.amazon.com/dp/B0F6MP7RDJ?tag=momfounditc08-20
 Price history: https://camelcamelcamel.com/product/B0F6MP7RDJ
-50% OFF - ECR4Ki
+50% OFF - ECR
 ```
 
-### post_9 — Gaming & fun under $25 (ok)
+### post_10 — Gaming & fun under $25 (ok)
 ```
 CAPTION:
 🔥 17% OFF! Razer Orochi V2 Wireless Gaming Mouse
@@ -95,7 +115,7 @@ Tell us which one you want and we will keep an eye out for more like it.
 All three, checked against Amazon this morning: https://momfounditcheaper.com/
 #ad As an Amazon Associate I earn from qualifying purchases.
 
-#ad #blackfriday #momfinds #dealoftheday
+#ad #amazonfinds #momfinds #founditcheaper
 
 FIRST COMMENT (paste after posting):
 Shop here (prices and codes can change):
@@ -104,42 +124,26 @@ https://www.amazon.com/dp/B0D7DB4X4Q?tag=momfounditc08-20
 Price history: https://camelcamelcamel.com/product/B0D7DB4X4Q
 59% OFF - Persona 5 Royal: Standard Edition
 https://www.amazon.com/dp/B0BF9L5CK8?tag=momfounditc08-20
-Price history: https://camel
+Price history: https://cam
 ```
 
 ### post_single — Mom's pick (ok)
 ```
 CAPTION:
-Mia's pick today: GNCC 2K Security Camera Indoor.
-4.4 stars, 825 reviews. I'd grab it!
-See it here: https://momfounditcheaper.com/#d-348211cb19
-#ad As an Amazon Associate I earn from qualifying purchases.
-
-#ad #amazonfinds #momfinds #founditcheaper
-
-FIRST COMMENT (paste after posting):
-Shop here (prices and codes can change):
-https://www.amazon.com/dp/B0G5WWT1L1?tag=momfounditc08-20
-As an Amazon Associate I earn from qualifying purchases.
-```
-
-### post_q1 — Quick deal: 43% OFF (ok)
-```
-CAPTION:
-🔥 43% OFF! 577-Pc LEGO One Piece: Tony Tony Chopper Building Set is just $39.99.
-43% below list. Worth a look!
-See it here: https://momfounditcheaper.com/#d-a1e031c6a9
+Mia's pick today: monTEK Full Motion TV Wall Mount for 37"-90" TVs.
+4.3 stars, 1.4K reviews. I'd grab it!
+See it here: https://momfounditcheaper.com/#d-3f7d575335
 #ad As an Amazon Associate I earn from qualifying purchases.
 
 #ad #dealsforyou #momlife #budgetfinds
 
 FIRST COMMENT (paste after posting):
 Shop here (prices and codes can change):
-https://www.amazon.com/dp/B0G2T1W5S9?tag=momfounditc08-20
+https://www.amazon.com/dp/B0DT494JX5?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-### post_q2 — Quick deal: 54% OFF (ok)
+### post_q1 — Quick deal: 54% OFF (ok)
 ```
 CAPTION:
 🔥 54% OFF! Logitech G309 Lightspeed Wireless Gaming Mouse is just $40.99.
@@ -155,23 +159,7 @@ https://www.amazon.com/dp/B0C8523DT8?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-### post_q3 — Quick deal: 37% OFF (ok)
-```
-CAPTION:
-🔥 37% OFF! monTEK Full Motion TV Wall Mount for 37"-90" TVs is just $56.98.
-4.3 stars, 1.4K reviews. I'd grab it!
-See it here: https://momfounditcheaper.com/#d-3f7d575335
-#ad As an Amazon Associate I earn from qualifying purchases.
-
-#ad #savemoney #momhacks #amazonfinds
-
-FIRST COMMENT (paste after posting):
-Shop here (prices and codes can change):
-https://www.amazon.com/dp/B0DT494JX5?tag=momfounditc08-20
-As an Amazon Associate I earn from qualifying purchases.
-```
-
-### post_q4 — Quick deal: 30% OFF (ok)
+### post_q2 — Quick deal: 30% OFF (ok)
 ```
 CAPTION:
 🔥 30% OFF! SwitchBot CO2 Detector is just $48.99.
@@ -179,7 +167,7 @@ CAPTION:
 See it here: https://momfounditcheaper.com/#d-bfc8abdf2d
 #ad As an Amazon Associate I earn from qualifying purchases.
 
-#ad #blackfriday #momfinds #dealoftheday
+#ad #savemoney #momhacks #amazonfinds
 
 FIRST COMMENT (paste after posting):
 Shop here (prices and codes can change):
@@ -187,7 +175,7 @@ https://www.amazon.com/dp/B0DLN46519?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-### post_q5 — Quick deal: 23% OFF (ok)
+### post_q3 — Quick deal: 23% OFF (ok)
 ```
 CAPTION:
 🔥 23% OFF! Philips Smart Lock Matter Over Thread is just $99.99.
@@ -195,7 +183,7 @@ CAPTION:
 See it here: https://momfounditcheaper.com/#d-cc3796f0e3
 #ad As an Amazon Associate I earn from qualifying purchases.
 
-#ad #amazonfinds #momfinds #founditcheaper
+#ad #blackfriday #momfinds #dealoftheday
 
 FIRST COMMENT (paste after posting):
 Shop here (prices and codes can change):
@@ -203,23 +191,7 @@ https://www.amazon.com/dp/B0FXM1QCVT?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-### post_q6 — Quick deal: 20% OFF (ok)
-```
-CAPTION:
-🔥 20% OFF! 329-pc. LEGO Speed Champions Ferrari 499P is just $23.99.
-20% below list. Worth a look!
-See it here: https://momfounditcheaper.com/#d-121fc5f484
-#ad As an Amazon Associate I earn from qualifying purchases.
-
-#ad #dealsforyou #momlife #budgetfinds
-
-FIRST COMMENT (paste after posting):
-Shop here (prices and codes can change):
-https://www.amazon.com/dp/B0G2T43599?tag=momfounditc08-20
-As an Amazon Associate I earn from qualifying purchases.
-```
-
-### post_q7 — Quick deal: 54% OFF (ok)
+### post_q4 — Quick deal: 54% OFF (ok)
 ```
 CAPTION:
 🔥 54% OFF! Texas Instruments TI-84 Evo Graphing Calculator is just $73.22.
@@ -227,7 +199,7 @@ CAPTION:
 See it here: https://momfounditcheaper.com/#d-4f53c9c988
 #ad As an Amazon Associate I earn from qualifying purchases.
 
-#ad #amazondeals #giftideas #founditcheaper
+#ad #amazonfinds #momfinds #founditcheaper
 
 FIRST COMMENT (paste after posting):
 Shop here (prices and codes can change):
@@ -235,7 +207,7 @@ https://www.amazon.com/dp/B0G8QXXF8B?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-### post_q8 — Quick deal: 33% OFF (ok)
+### post_q5 — Quick deal: 33% OFF (ok)
 ```
 CAPTION:
 🔥 33% OFF! DUMOS 31.5 Inch Small Computer Desk is just $19.99.
@@ -243,7 +215,7 @@ CAPTION:
 See it here: https://momfounditcheaper.com/#d-284f79ba3c
 #ad As an Amazon Associate I earn from qualifying purchases.
 
-#ad #savemoney #momhacks #amazonfinds
+#ad #dealsforyou #momlife #budgetfinds
 
 FIRST COMMENT (paste after posting):
 Shop here (prices and codes can change):
@@ -251,7 +223,7 @@ https://www.amazon.com/dp/B0HM36F6DY?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-### post_q9 — Quick deal: 40% OFF (ok)
+### post_q6 — Quick deal: 40% OFF (ok)
 ```
 CAPTION:
 🔥 40% OFF! Shark Navigator Lift-Away Vacuum is just $119.99.
@@ -259,7 +231,7 @@ CAPTION:
 See it here: https://momfounditcheaper.com/#d-05160a6751
 #ad As an Amazon Associate I earn from qualifying purchases.
 
-#ad #blackfriday #momfinds #dealoftheday
+#ad #amazondeals #giftideas #founditcheaper
 
 FIRST COMMENT (paste after posting):
 Shop here (prices and codes can change):
@@ -267,7 +239,7 @@ https://www.amazon.com/dp/B005KMDV9A?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-### post_q10 — Quick deal: 31% OFF (ok)
+### post_q7 — Quick deal: 31% OFF (ok)
 ```
 CAPTION:
 🔥 31% OFF! Eureka Whirlwind Bagless Canister Vacuum is just $54.99.
@@ -275,11 +247,43 @@ CAPTION:
 See it here: https://momfounditcheaper.com/#d-4d4970562e
 #ad As an Amazon Associate I earn from qualifying purchases.
 
-#ad #amazonfinds #momfinds #founditcheaper
+#ad #savemoney #momhacks #amazonfinds
 
 FIRST COMMENT (paste after posting):
 Shop here (prices and codes can change):
 https://www.amazon.com/dp/B07GB4S9H5?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+### post_q8 — Quick deal: 40% OFF (ok)
+```
+CAPTION:
+🔥 40% OFF! 20-Oz YETI Rambler Insulated Travel Mug is just $24.00.
+4.6 stars, 636 reviews. I'd grab it!
+See it here: https://momfounditcheaper.com/#d-ce9d52f3e4
+#ad As an Amazon Associate I earn from qualifying purchases.
+
+#ad #blackfriday #momfinds #dealoftheday
+
+FIRST COMMENT (paste after posting):
+Shop here (prices and codes can change):
+https://www.amazon.com/dp/B0FTZYTM58?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+### post_q10 — Quick deal: 29% OFF (ok)
+```
+CAPTION:
+🔥 29% OFF! SONGMICS Closet Organizer Clothes Rack is just $85.71.
+29% below list. Worth a look!
+See it here: https://momfounditcheaper.com/#d-bbba11023d
+#ad As an Amazon Associate I earn from qualifying purchases.
+
+#ad #dealsforyou #momlife #budgetfinds
+
+FIRST COMMENT (paste after posting):
+Shop here (prices and codes can change):
+https://www.amazon.com/dp/B0DK8MPRGG?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
@@ -338,8 +342,8 @@ Under $25 finds today (each one checked against Amazon before posting; prices ca
 1. Masters of the Universe 2026 Movie He-Man Power of Grayskull Sword — $21.99 (was $43.19)
 2. Anti- Fatigue Kitchen Rugs — $20.99 (was $29.99)
 3. LEGO Speed Champions Ferrari 499P 77261 — $23.99 (was $29.99)
-4. 100% Cotton Bed Pillows — $20.00
-5. YETI Rambler 20 oz Tumbler with Straw Lid — $24.00 (was $40.00)
+4. LEGO Classic Medium Creative Brick Box 10696 — $21.42 (was $34.99)
+5. 100% Cotton Bed Pillows — $20.00
 
 All of them, with links: https://momfounditcheaper.com/#under-25
 As an Amazon Associate I earn from qualifying purchases. #ad
@@ -352,7 +356,7 @@ Under $50 finds today (each one checked against Amazon before posting; prices ca
 2. ECR4Kids Adjustable Wooden Sit or Step Stool with Storage — $44.97 (was $89.99)
 3. McCook Knife Set Kitchen Steel Knife Block Set w Built-in Sharpener — $49.99
 4. Gibson Home Rothernberg Plates and Bowls 18 Piece Porcelain White Dinnerware Set — $45.99 (was $59.99)
-5. Intelligent Design Ruched Shabby Chic Pink Full/Queen Comforter Set — $45.99 (was $64.99)
+5. LEGO Creator 3 in 1 Forest Animals: Red Fox 31154 — $34.99 (was $49.99)
 
 All of them, with links: https://momfounditcheaper.com/#under-50
 As an Amazon Associate I earn from qualifying purchases. #ad
