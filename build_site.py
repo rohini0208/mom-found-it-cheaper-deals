@@ -367,9 +367,9 @@ footer a{color:var(--muted)}
 .code b{letter-spacing:.12em}.code span{float:right;color:var(--muted);font-size:12px}
 .buzz{font-size:12px;color:#9b7a43}
 .asof{font-size:11px;color:var(--muted);font-style:italic}
-.also{font-size:12px;color:#1f6f4a}.also a{color:#1f6f4a}
-.amz{font-size:15px;font-weight:600;color:#a07c3f}
-.coupon{font-size:13px;color:#1f6f4a;font-weight:600}
+.also{font-size:12px;color:var(--coral2)}.also a{color:var(--coral2)}
+.amz{font-size:15px;font-weight:600;color:var(--coral2)}
+.coupon{font-size:13px;color:var(--coral2);font-weight:600}
 .hist,.meta{font-size:12px;color:var(--muted)}
 .go{margin-top:auto;background:var(--char);color:var(--ivory);text-align:center;padding:12px;border-radius:12px;text-decoration:none;font-weight:600}
 .admin{display:none;font-size:12px;color:#1f6f4a;text-align:center}
@@ -381,20 +381,32 @@ body.is-admin .admin{display:block}
 .viral em{font-style:normal;font-size:14px;margin-top:6px}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 16px 50px;line-height:1.6}
 
-:root{--ivory:#FFF8EC;--char:#2b2118;--gold:#FF8F00;--muted:#7a6a5a;--blush:#ffd2a8}
-header{background:linear-gradient(135deg,#FF8F00,#FFB300 55%,#2EA05A);color:#fff;padding:34px 20px 28px}
-.kicker,h1 em{color:#fff3c4}header p{color:#fff}
-.rule{background:#fff}
-.join{background:#fff;color:#c25e00;border:0;font-weight:700;padding:12px 22px;box-shadow:0 3px 10px rgba(0,0,0,.18)}
+:root{--ivory:#FFF8EE;--char:#2b2118;--gold:#E85D4A;--muted:#6e6054;--blush:#ffd6ba;--mint:#BEE8D6;--peach:#FFD6BA;--coral:#E85D4A;--coral2:#B84300}
+header{background:linear-gradient(100deg,var(--peach),#fbe9dc 45%,var(--mint));color:var(--char);padding:0;text-align:left}
+.hero{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:12px;padding:28px 20px 0}
+.hero-txt{padding-bottom:28px}.hero img.scene{width:100%;height:auto;display:block;margin-bottom:-6px}
+.kicker{color:var(--coral2)}h1{font-size:52px;margin:10px 0 8px}h1 em{color:var(--coral);font-style:normal}
+.rule{background:var(--coral);margin:14px 0}header p{color:var(--muted);font-size:16px}
+.mia{display:none}
+.sticker{display:inline-block;background:var(--coral);color:#fff;font-weight:700;font-size:12px;letter-spacing:.08em;padding:7px 14px;border-radius:30px;transform:rotate(-3deg);border:3px solid #fff;box-shadow:0 4px 12px rgba(232,93,74,.25)}
+.join{background:var(--coral2);color:#fff;border:0;font-weight:700;padding:12px 22px;box-shadow:0 3px 10px rgba(0,0,0,.12);margin-top:14px;margin-right:8px}
+.join.alt{background:#fff;color:var(--coral2)}
+.sub-form{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}.sub-form input{flex:1;min-width:200px;padding:12px 14px;border:2px solid #fff;border-radius:30px;font-size:15px;background:#fff}
+.sub-form button{background:var(--coral2);color:#fff;border:0;border-radius:30px;padding:12px 20px;font-weight:700;cursor:pointer}
+.sub-note{font-size:12px;color:var(--muted);margin-top:6px}
+.top5{background:#fff;border-radius:24px;padding:18px 18px 8px;margin:18px auto 0;max-width:1120px;box-shadow:0 10px 30px rgba(43,33,24,.06)}
+.top5 h2{margin:0 0 4px;display:flex;align-items:center;gap:10px}.top5 .n{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--coral);color:#fff;font-weight:800;font-size:16px;border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.12);position:absolute;top:10px;left:10px;z-index:2;transform:rotate(-6deg)}
+.top5 .grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}.top5 .card{position:relative;padding:14px}.top5 .card h3{font-size:16px}.top5 .ph{margin:-14px -14px 4px}
+@media(max-width:760px){.hero{grid-template-columns:1fr;padding-top:18px}h1{font-size:40px}.hero img.scene{max-height:240px;object-fit:cover;object-position:right top;border-radius:18px}}
 .ph{position:relative;display:block;margin:-20px -20px 4px;border-radius:18px 18px 0 0;overflow:hidden;background:#fff}
 .ph img{width:100%;aspect-ratio:4/3;object-fit:contain;display:block;background:#fff}
-.off{position:absolute;top:10px;left:10px;background:#d32f2f;color:#fff;font-weight:800;font-size:14px;padding:5px 10px;border-radius:20px}
+.off{position:absolute;top:10px;left:10px;background:var(--coral);color:#fff;font-weight:800;font-size:14px;padding:5px 10px;border-radius:20px}
 .stars{font-size:13px;color:#1565c0}.stars span{color:var(--muted)}
 .now{color:#2e7d32}
-.go{background:#B84300;color:#fff;font-size:16px;padding:14px}
+.go{background:var(--coral2);color:#fff;font-size:16px;padding:14px;border-radius:30px}.go:hover{background:#9a3800}
 .cats button.on,.bar button.on{background:#B84300;border-color:#B84300;color:#fff;font-weight:700}.paid{font-size:11px;color:#6b5b4b;text-align:center;margin-top:6px}.empty{display:none;padding:24px;text-align:center;color:#6b5b4b}body{padding-bottom:64px}:focus-visible{outline:3px solid #1f4fd8;outline-offset:2px;scroll-margin-bottom:70px}.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:#fff;padding:8px;z-index:20}
-.badge{border-color:#2e7d32;color:#2e7d32}
-.stick{position:fixed;left:0;right:0;bottom:0;background:#2e7d32;color:#fff;text-align:center;padding:12px;font-weight:700;z-index:9;text-decoration:none;display:block}
+.badge{border-color:var(--coral2);color:var(--coral2)}.paid{color:var(--muted)}.card{border-radius:24px}
+.stick{position:fixed;left:0;right:0;bottom:0;background:var(--coral2);color:#fff;text-align:center;padding:12px;font-weight:700;z-index:9;text-decoration:none;display:block}
 body{padding-bottom:52px}
 .card{padding:20px;overflow:hidden}
 """
@@ -491,6 +503,33 @@ def seasonal_sections(deals, history, tested, today=None):
     return "".join(out)
 
 
+NEWSLETTER_ACTION = os.environ.get("NEWSLETTER_ACTION", "").strip()   # e.g. https://buttondown.com/api/emails/embed-subscribe/momfounditcheaper
+
+
+def signup_html():
+    """Email capture. Shows a live form once NEWSLETTER_ACTION is set (Buttondown/Beehiiv/Mailchimp embed URL);
+    until then a Facebook-follow prompt so the slot is never empty."""
+    if NEWSLETTER_ACTION:
+        return (f'<form class="sub-form" action="{html.escape(NEWSLETTER_ACTION)}" method="post" target="_blank">'
+                '<label class="skip" for="em">Email</label><input id="em" type="email" name="email" required placeholder="your@email.com" autocomplete="email">'
+                '<button type="submit">Send me the Top 5 at 7am</button></form>'
+                '<div class="sub-note">Free. One email a day, unsubscribe any time. No spam, ever.</div>')
+    return '<div class="sub-note">Daily Top 5 email is coming. Until then, follow the Page so you don\'t miss a find.</div>'
+
+
+def top5(picked, history, tested):
+    """Today's Top 5: verified cards only, ranked by community votes then buzz then freshness. Max 5."""
+    def rank(d):
+        return (d.get("thumbs", 0), len(viral_sources(d, SIGNALS)), d["seen"])
+    best = sorted(picked, key=rank, reverse=True)[:5]
+    if len(best) < 3:
+        return ""
+    cards = "".join(f'<div style="position:relative"><span class="n">{i}</span>{card(d, history, tested)}</div>' for i, d in enumerate(best, 1))
+    return (f'<section class="top5"><h2>Today\'s Top 5 <span class="sticker" style="font-size:11px">MIA\'S PICKS</span></h2>'
+            f'<p class="sub" style="margin:0 0 10px">The five I\'d actually buy today. Every one checked against the Amazon page this morning.</p>'
+            f'<div class="grid">{cards}</div></section>')
+
+
 def posts_gallery():
     imgs = sorted(Path("webposts").glob("post_*.png"))
     if not imgs or AMAZON_PRICES == "hide":      # post images carry Amazon photos
@@ -565,12 +604,15 @@ def main():
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>{CSS}</style></head><body>
 <a class="skip" href="#todays">Skip to today's deals</a>
-<header><img class="mia" src="mia.png" width="96" height="96" alt="Mia, the mom behind Mom Found It Cheaper"><div class="kicker">A TAMPA MOM'S DAILY FINDS</div>
+<header><div class="hero"><div class="hero-txt"><span class="sticker">NEW DEALS EVERY MORNING</span><div class="kicker" style="margin-top:14px">A TAMPA MOM'S DAILY FINDS</div>
 <h1>Mom Found<br><em>It Cheaper</em></h1><div class="rule"></div>
-<p>Viral finds · promo codes · price drops — all in one place. Updated {now}.</p>
-<a class="join" href="https://www.facebook.com/groups/1815840112666601" target="_blank" rel="noopener">JOIN THE FREE FACEBOOK GROUP</a></header>
+<p>Hi, I'm Mia. I check every deal by hand before it goes here. Updated {now}.</p>
+{signup_html()}
+<a class="join" href="https://www.facebook.com/groups/1815840112666601" target="_blank" rel="noopener">JOIN THE FREE GROUP</a></div>
+<img class="scene" src="mia-scene.jpg" width="1428" height="803" alt="Mia, the mom behind Mom Found It Cheaper, holding a price tag among floating gift boxes" fetchpriority="high"></div></header>
 <main>
 <p class="sub" style="padding:0 16px"><b>As an Amazon Associate I earn from qualifying purchases.</b> Buttons below are paid affiliate links (#ad).</p>
+{top5(picked, history, tested)}
 {posts_gallery()}
 {seasonal_sections(picked, history, tested)}
 {viral_section(viral)}
@@ -595,6 +637,9 @@ Deal sources: Slickdeals and DealNews community feeds, with thanks. Amazon and o
     import shutil
     if Path("brand/mia_avatar_circle_240.png").exists():
         shutil.copy("brand/mia_avatar_circle_240.png", OUT / "mia.png")
+    if Path("brand/mia_cover_scene.png").exists():
+        from PIL import Image as _I
+        _I.open("brand/mia_cover_scene.png").convert("RGB").save(OUT / "mia-scene.jpg", quality=86, optimize=True)
     (OUT / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#B84300"/><text x="32" y="44" font-size="34" font-weight="700" text-anchor="middle" fill="#fff" font-family="Arial">M</text></svg>')
     (OUT / "robots.txt").write_text("User-agent: *\nAllow: /\nSitemap: https://momfounditcheaper.com/sitemap.xml\n")
     (OUT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + "".join(f"<url><loc>https://momfounditcheaper.com/{u}</loc></url>" for u in ("", "disclosure.html", "privacy.html", "terms.html")) + "</urlset>\n")
