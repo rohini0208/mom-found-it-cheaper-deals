@@ -71,10 +71,12 @@ def price_value(p):
 
 
 def short_title(title):
-    t = re.sub(r"^(select accts?|select accounts|prime|amazon)\s*[:\-–]\s*", "", title, flags=re.I)
+    t = re.sub(r"^(?:\[[^\]]*\]\s*|\$[\d.,]+\s*[:\-–]\s*)+", "", title)            # "[Prime] ..." / "$219.99: ..."
+    t = re.sub(r"^(select accts?|select accounts|prime|amazon)\s*[:\-–]\s*", "", t, flags=re.I)
     t = re.split(r"\s+(?:for\s+)?(?:from\s+)?\$\d", t)[0]      # cut "... for $12 + free shipping"
     t = re.sub(r"^\$[\d.,]+\*?\s*/\s*", "", t)                   # "$28* / LEGO ..." -> "LEGO ..."
     t = re.sub(r"\s*\+\s*free\s+(?:s&h|shipping).*$|\s+w/\s*prime(?:\s+or\s+on)?.*$|\s+w/\s*s&s.*$", "", t, flags=re.I)
+    t = re.sub(r"\s+(?:only|just|now|for)\s*$", "", t, flags=re.I)      # "... Storage Tin Only" / "... Trip Sets Just"
     for _ in range(3):   # peel store/price suffixes: "... Shipped on Amazon (Reg. $199)", "... at Amazon"
         t = re.sub(r"\s*(?:\((?:reg|was|orig|list)\b[^)]*\)?|shipped on amazon|on amazon|at amazon|w/ walmart\+.*)\s*$", "", t, flags=re.I).strip(" -–,|")
     if len(t) > 90:
@@ -483,6 +485,13 @@ def make_one(n, deal, work):
     amazon = is_amazon(deal) and AMAZON_PRICES == "hide"
     stamp = f"Amazon price as of {as_of(deal['seen'])}" if is_amazon(deal) and not amazon else ""
     title = short_title(no_price_title(deal["title"]) if amazon else deal["title"])
+    try:                                                     # Amazon's own title wins (right variant, no feed residue)
+        import build_site as _bs
+        _at = _bs._amz_title(deal)
+        if _at and len(_at.split()) >= 3:
+            title = _at
+    except Exception:
+        pass
     price, code, coupon = deal["price"], deal.get("code", ""), deal.get("coupon", "")
     if amazon:      # a code only if Amazon's own page showed it (Lenovo check); never from a deal feed alone
         _pr = str((json.loads(Path("data/product_meta.json").read_text()).get(deal.get("asin", "")) or {}).get("promo", "")).lower()

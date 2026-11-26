@@ -57,9 +57,9 @@ THEMES = {
     "Office & School": "Office & school finds",
     "Everything else": "Today's top finds",
 }
-HASHTAG_SETS = ["#ad #amazonfinds #momfinds #founditcheaper", "#ad #dealsforyou #momlife #budgetfinds",
-                "#ad #amazondeals #giftideas #founditcheaper", "#ad #savemoney #momhacks #amazonfinds",
-                "#ad #blackfriday #momfinds #dealoftheday"]
+HASHTAG_SETS = ["#amazonfinds #momfinds #founditcheaper", "#dealsforyou #momlife #budgetfinds",
+                "#amazondeals #giftideas #founditcheaper", "#savemoney #momhacks #amazonfinds",
+                "#momdeals #momfinds #dealoftheday"]          # "#ad" lives on the disclosure line, once
 HASHTAGS = HASHTAG_SETS[0]
 HASHTAG_SET = HASHTAGS          # rotated per post in main() so no two posts share the exact tag string
 
@@ -182,6 +182,7 @@ _DANGLE = {"and", "with", "for", "the", "a", "an", "of", "to", "in", "on", "or",
 
 def tidy(title):
     """Drop deal-site shorthand (w/ S&S, w/ Prime) that means nothing to shoppers."""
+    title = re.sub(r"[\u200b\u200c\u200d\ufeff]", "", title)              # zero-width characters from Amazon titles
     title = _STORE_TAIL.sub("", title).replace("\u00ae", "").replace("\u2122", "")
     title = re.sub(r"\s*\(20\d\d\)\s*:?", " ", title)
     title = re.sub(r"\s+(?:Shipped|Free Shipping|Shipped Free|w/ Prime|Prime)\s*$", "", title, flags=re.I)
@@ -756,7 +757,7 @@ def best_item(items):
 def story(items):
     """One honest, specific line built from real numbers (never invented)."""
     b = best_item(items)
-    name = " ".join(tidy(short_title(no_price_title(b["title"]))).split(",")[0].split()[:4])
+    name = tidy(short_title(no_price_title(b["title"]))).split(",")[0].rstrip(".,;:!- ")
     m = META.get(b.get("asin", "")) or {}
     off = pct_off(b)
     bits = []
@@ -779,7 +780,7 @@ def _tags():
 
 
 QUESTIONS = ["Which one is going in your cart?", "Which would you grab first?", "Any of these already on your list?",
-             "Tell us which one you want and we will keep an eye out for more like it.", "Which find surprised you most?"]
+             "Tell us which one you want and we will keep an eye out for more like it."]
 
 
 def texts(theme, items):
@@ -788,7 +789,11 @@ def texts(theme, items):
     st = story(items)
     _b = best_item(items); _off = pct_off(_b)
     _bn = tidy(short_title(no_price_title(_b["title"])))
-    lead = f"🔥 {_off}% OFF! {_bn}\n" if (_off >= 15 and AMAZON_PRICES != "hide") else ""
+    _px = (META.get(_b.get("asin", "")) or {}).get("now") or _b.get("price", "")
+    lead = f"🔥 {_off}% OFF: {_bn} is {_px} right now.\n" if (_off >= 15 and AMAZON_PRICES != "hide") else ""
+    if lead:
+        st = re.sub(r"^Our pick today: [^,]+, ", "", st) if st else ""     # one headline, no repeated name
+        st = (st[0].upper() + st[1:]) if st else ""
     caption = (lead + f"✨ {theme}: {names[0]}, {names[1]} and {names[2]}\n"
                + (f"{st}\n" if st else "")
                + f"{pick(QUESTIONS, items[0]['id'], 'q')}\nAll three, checked against Amazon this morning: {SITE}\n#ad As an Amazon Associate I earn from qualifying purchases.\n\n{_tags()}")
@@ -796,7 +801,7 @@ def texts(theme, items):
     for n, i in zip(names, items):
         code = clean_code(i)
         tip = f" - code {code}" if code else (" - clip the coupon" if i.get("coupon") and "coupon" in ((META.get(i.get("asin", "")) or {}).get("promo") or "").lower() else "")
-        hist = "" if AMAZON_PRICES == "hide" or not i.get("asin") else f"\nPrice history: https://camelcamelcamel.com/product/{i['asin']}"
+        hist = ""          # no third-party price-history links (QA 2026-11-26)
         _o = 0 if AMAZON_PRICES == "hide" else pct_off(i)        # no list-price % in compliant mode
         lines.append(f"{'' if _o < 10 else f'{_o}% OFF - '}{n}{tip}\n{link_for(i)}{hist}")
     lines.append("As an Amazon Associate I earn from qualifying purchases.")

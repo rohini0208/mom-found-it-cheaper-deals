@@ -237,7 +237,8 @@ def _lowest_since(d, history, now_price):
     pts = history.get(product_key(d), [])
     if now_price is None or len(pts) < 2:
         return ""
-    if now_price <= min(p for _, p in pts):
+    lo, hi = min(p for _, p in pts), max(p for _, p in pts)
+    if now_price <= lo and hi >= now_price * 1.05:         # a real drop, not a flat line
         first = pts[0][0]
         return datetime.strptime(first, "%Y-%m-%d").strftime("%b %-d")
     return ""
@@ -322,6 +323,10 @@ def card(d, history, tested, rank=0, idsuffix="", in_tier=False):
 </article>"""
 
 
+DEEPLINK_JS = ("<script>(function(){var h=location.hash.slice(1);if(!h||document.getElementById(h))return;"
+               "var el=document.querySelector('[id^=\"'+h+'-\"]');if(el){el.scrollIntoView({block:'center'});el.classList.add('hit');}})();</script>")
+
+
 def _short(t, n):
     import textwrap
     t = re.sub(r"[\u200b\u200c\u200d\ufeff]", "", t)
@@ -348,11 +353,20 @@ def trending_section():
         return ""
     cells = "".join(
         f'<a class="viral" href="{html.escape(f"https://www.amazon.com/dp/{s['asin']}?tag={TAG}" if TAG and s.get("asin") else s["link"])}" target="_blank" rel="sponsored noopener">'
-        + f'<img src="{thumb_for({"id": s["link"], "title": s["title"], "asin": s["asin"]})}" alt="{html.escape(s["title"][:100])}" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:contain;background:#fff;border-radius:10px;margin-bottom:8px">' + ("" if AMAZON_PRICES == "hide" else _price_html(s["asin"])) +
+        + f'<img src="{thumb_for({"id": s["link"], "title": s["title"], "asin": s["asin"]})}" alt="{html.escape(_trend_title(s))}" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:contain;background:#fff;border-radius:10px;margin-bottom:8px">' + ("" if AMAZON_PRICES == "hide" else price_block(META.get(s["asin"]) or {}, _amazon_now({"asin": s["asin"]}))[0]) +
         f'<span>Trending</span>'
-        f'<em>{html.escape(_short(s["title"], 70))}</em><span class="paid">Paid link &middot; #ad</span></a>' for s in picks[:12])
+        f'<em>{html.escape(_trend_title(s))}</em><span class="paid">Paid link &middot; #ad</span></a>' for s in picks[:12])
     return ('<section><h2>Trending right now</h2><p class="sub">What people are buying and talking about '
-            'on TikTok, Reddit, YouTube and Amazon price trackers</p><div class="virals">' + cells + '</div></section>')
+            'on TikTok, Reddit, YouTube and Amazon</p><div class="virals">' + cells + '</div></section>')
+
+
+def _trend_title(s):
+    """Clean, complete trending title: Amazon's own title (shortened at a natural break), else the feed title cut at a word."""
+    t = _amz_title({"asin": s.get("asin", "")}) or re.split(r" \| | - | \(", s["title"])[0]
+    t = re.sub(r"[\u200b\u200c\u200d\ufeff]", "", t).strip(" ,&-")
+    if len(t) > 70:
+        t = t[:70].rsplit(" ", 1)[0].rstrip(" ,&-") + "\u2026"
+    return t
 
 
 def viral_section(viral):
@@ -587,6 +601,9 @@ def _amazon_now(d):
     return price_num(m.get("now")) if m.get("v", 0) >= 4 else None
 
 
+_NO_SITE = re.compile(r"\b(?:knife|knives|pocketknife|blade|multi-?tool|machete|hatchet|axe|airsoft|bb gun|pellet gun)\b", re.I)
+
+
 def tier_sections(picked, history, tested):
     """The main body: every verified deal filed under ONE price tier (Amazon's checked price), cheapest tier first.
     Cards inside a tier are sorted by mom-relevance then votes. A sticky tier nav jumps between them."""
@@ -662,6 +679,8 @@ def main():
             continue                  # site shows only deals with a real product photo
         if d.get("asin") in BLOCK:
             continue                  # owner/QA blocklist (wrong variant etc.)
+        if _NO_SITE.search(d["title"]) or _NO_SITE.search(str((META.get(d.get("asin", "")) or {}).get("title", ""))):
+            continue                  # no knives/weapons on a mom site (owner rule)
         if d.get("asin"):
             if d["asin"] in seen_asin:
                 continue              # one card per product
@@ -716,7 +735,8 @@ We are not the seller and do not handle orders, shipping, returns or warranties 
 Deals are found from public deal feeds and checked against Amazon each morning. Amazon and other store names are trademarks of their owners; we are not affiliated with or endorsed by them.<br>
 <a href="disclosure.html">Affiliate disclosure</a> · <a href="terms.html">Terms &amp; conditions</a> · <a href="privacy.html">Privacy policy</a></footer>
 <a class="stick" href="#top5">Today's 5 &darr;</a>
-<script>{JS}</script></body></html>"""
+<script>{JS}</script>{DEEPLINK_JS}</body></html>"""
+    page = re.sub(r"[\u200b\u200c\u200d\ufeff]", "", page)      # no zero-width characters anywhere on the page
     OUT.mkdir(exist_ok=True)
     (OUT / "index.html").write_text(page)
     import shutil

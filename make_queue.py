@@ -50,6 +50,7 @@ def tier_posts():
             continue
         rows = re.findall(r'(?:<div class="price"><b>([^<]+)</b>(?:<s>([^<]+)</s>)?.*?)?<h3>([^<]+)</h3>', m.group(1), re.S)[:5]
         titles = [(re.sub(r"[\u200b\u200c\u200d\ufeff]", "", html.unescape(t)).strip(), now, was) for now, was, t in rows]
+        titles = [x for x in titles if not re.search(r"\bknife|knives|blade|multi-tool\b", x[0], re.I)][:5]   # no knives in posts (owner rule)
         if len(titles) < 3:
             continue
         lines = "\n".join(f"{i}. {t}" + (f" — {now}" + (f" (was {was})" if was else "") if now else "") for i, (t, now, was) in enumerate(titles, 1))

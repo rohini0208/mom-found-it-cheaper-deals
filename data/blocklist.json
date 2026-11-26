@@ -1,8 +1,12 @@
 {
  "asins": [
-  "B0F5W4W26R"
+  "B0F5W4W26R",
+  "B09G6QX21B",
+  "B0BF9L5CK8"
  ],
  "why": {
-  "B0F5W4W26R": "neck fan pink $6.29 redirects to blue $17.99 (Perplexity QA 2026-11-25)"
+  "B0F5W4W26R": "neck fan pink $6.29 redirects to blue $17.99 (Perplexity QA 2026-11-25)",
+  "B09G6QX21B": "knife set (no knives, owner rule)",
+  "B0BF9L5CK8": "Persona 5 Royal, ESRB M, not for a mom brand"
  }
 }
