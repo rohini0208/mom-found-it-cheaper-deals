@@ -119,6 +119,7 @@ def _amz_title(d):
     if m.get("v", 0) < 4 or not m.get("title"):
         return ""
     t = re.sub(r"[\u200b\u200c\u200d\ufeff]", "", html.unescape(m["title"]))
+    t = re.sub(r"(\w)- (\w)", r"\1-\2", t)                      # "Anti- Fatigue" -> "Anti-Fatigue"
     t = re.split(r",(?!\d)| \| | - | \(", t)[0]
     w = t.split()[:12]
     while w and w[-1].lower().rstrip(",&") in {"by", "for", "with", "and", "or", "the", "a", "an", "of", "to", "in", "on", "&", "w/", "up"}:

@@ -854,6 +854,14 @@ def main():
         d["title"] = re.sub(r"^Amazon:\s*", "", d["title"])
         return True
     deals = [d for d in deals if _ok(d)]
+    try:                                                   # canonical title = Amazon's own (same as site + videos)
+        import build_site as _bs
+        for _d in deals:
+            _at = _bs._amz_title(_d)
+            if _at and len(_at.split()) >= 3:
+                _d["title"] = _at
+    except Exception:
+        pass
     BRANDS = set()
     def brand(d):
         w = re.sub(r"[^a-z0-9]", "", (tidy(d["title"]).split() or [""])[0].lower())

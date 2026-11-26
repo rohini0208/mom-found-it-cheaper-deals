@@ -181,7 +181,7 @@ def main():
         p = OUT / f"pin_{key}.png"
         tier_pin(key, label, items).save(p, optimize=True)
         rows.append({"title": f"{label} mom finds — checked against Amazon today", "media_url": p.name,
-                     "pinterest_board": "Mom Found It Cheaper", "description": f"{label} finds for moms, every link checked against Amazon this morning. Toys, kitchen, beauty, baby and more. #ad As an Amazon Associate I earn from qualifying purchases.",
+                     "pinterest_board": "Mom Found It Cheaper", "description": f"#ad {label} finds for moms, every link checked against Amazon this morning. Toys, kitchen, beauty, baby and more. As an Amazon Associate I earn from qualifying purchases.",
                      "link": f"{SITE}#{key}", "keywords": f"{label.lower()} amazon finds, mom deals, gifts {label.lower()}, stocking stuffers"})
         for i, (src, alt, now, was) in enumerate(items[:2], 1):
             pp = OUT / f"pin_{key}_{i}.png"
@@ -189,7 +189,7 @@ def main():
             alt = clean_name(alt)
             pr = (f"{now} on Amazon this morning" + (f" (list {was})" if was else "")) if now else f"{label} on Amazon when I checked this morning"
             rows.append({"title": f"{alt[:80]} — {label}", "media_url": pp.name, "pinterest_board": "Mom Found It Cheaper",
-                         "description": f"{alt[:120]}. {pr}. Prices change; tap for today's. #ad As an Amazon Associate I earn from qualifying purchases.",
+                         "description": f"#ad {alt[:120]}. {pr}. Prices change; tap for today's. As an Amazon Associate I earn from qualifying purchases.",
                          "link": f"{SITE}#{key}", "keywords": f"{label.lower()}, amazon finds, mom deals"})
     with open(OUT / "pins.csv", "w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=["title", "media_url", "pinterest_board", "description", "link", "keywords"])

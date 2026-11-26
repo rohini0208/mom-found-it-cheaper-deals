@@ -73,7 +73,7 @@ def engagement_drafts(day):
         "Drop one thing you're hunting for this week and I'll go find it cheaper. 👇",
         "Deal or dud? Comment DEAL if you'd buy today's top find, DUD if you'd pass.",
         "Moms: what's the one thing you overpaid for last year? I'll find a better price.",
-        "Tell me your kid's age and I'll post three gift finds under $20 for that age.",
+        "Gift shopping this week? Say 'toddler', 'grade school' or 'teen' and I'll post three finds under $20 for that group.",
     ]
     return [
         {"type": "poll", "text": q, "options": opts},

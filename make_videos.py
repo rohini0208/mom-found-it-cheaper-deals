@@ -460,16 +460,16 @@ def render(scenes, durations, audio, out_path):
 def caption(title, price, code, coupon, deal=None):
     extra = f" Use code {code}." if code and code != "w/ code" else (" Clip the coupon!" if coupon else "")
     if deal and is_amazon(deal) and AMAZON_PRICES != "hide":
-        head = (f"Mom found it cheaper! {title} - {price} on Amazon "
+        head = (f"#ad Mom found it cheaper! {title} - {price} on Amazon "
                 f"(price as of {as_of(deal['seen'])}, prices change).{extra}")
     elif deal and is_amazon(deal):    # no price for Amazon items (Associates policy)
-        head = f"Mom found it cheaper! Price drop on Amazon: {title}. Tap for today's price.{extra}"
+        head = f"#ad Mom found it cheaper! Price drop on Amazon: {title}. Tap for today's price.{extra}"
     else:
-        head = f"Mom found it cheaper! {title} - now just {price}.{extra}"
+        head = f"#ad Mom found it cheaper! {title} - now just {price}.{extra}"
     return (f"{head}\n\n"
             f"Get it here: {SITE}#d-{hashlib.sha1(deal['id'].encode()).hexdigest()[:10] if deal else ''}\n"
             f"More deals daily in our free Facebook group: {BRAND}\n\n"
-            "#ad #amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\n"
+            "#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\n"
             "As an Amazon Associate I earn from qualifying purchases. Prices and codes can change.")
 
 
