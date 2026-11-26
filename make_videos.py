@@ -78,6 +78,7 @@ def short_title(title):
     t = re.sub(r"\s*\+\s*free\s+(?:s&h|shipping).*$|\s+w/\s*prime(?:\s+or\s+on)?.*$|\s+w/\s*s&s.*$", "", t, flags=re.I)
     for _ in range(4):   # peel store/price suffixes: "... Only $6 Shipped on Amazon (Reg. $199)", "... at Amazon", "... Tin Only"
         t = re.sub(r"\s*(?:\((?:reg|was|orig|list)\b[^)]*\)?|shipped on amazon|on amazon|at amazon|w/ walmart\+.*|only|just|now|for|shipped|free shipping|w/)\s*$", "", t, flags=re.I).strip(" -–,|")
+    t = t.rstrip("!*.,;:- ")                                   # feed excitement marks ("Turkey Fryer!")
     if len(t) > 90:
         t = t[:90].rsplit(" ", 1)[0].rstrip(" ,-–") + "…"
     return t
@@ -127,11 +128,17 @@ def _verified_amazon(d):
     return verify_link.check(d["title"], d.get("price", ""), t, p)[0]
 
 
+try:
+    _BLOCKLIST = set(json.loads(Path("data/blocklist.json").read_text()).get("asins", []))
+except Exception:
+    _BLOCKLIST = set()
+
+
 def pick_deals(deals, made):
     good = []
     for d in deals:
-        if qa_check(d)[0]:
-            continue                                  # quality gate: blocked deals never get a Reel
+        if qa_check(d)[0] or d.get("asin") in _BLOCKLIST:
+            continue                                  # quality gate + owner blocklist: never a Reel
         price = price_value(d.get("price", ""))
         low = d["title"].lower()
         if d["id"] in made or price is None or (MAX_PRICE and price > MAX_PRICE) or price < 1:

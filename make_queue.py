@@ -54,8 +54,8 @@ def tier_posts():
         if len(titles) < 3:
             continue
         lines = "\n".join(f"{i}. {t}" + (f" — {now}" + (f" (was {was})" if was else "") if now else "") for i, (t, now, was) in enumerate(titles, 1))
-        out.append({"tier": label, "text": f"{label} finds today (each one checked against Amazon before posting; prices can change):\n{lines}\n\n"
-                                           f"All of them, with links: {SITE}#{key}\n{DISCLOSURE}"})
+        out.append({"tier": label, "text": f"#ad {label} finds today (each one checked against Amazon before posting; prices can change):\n{lines}\n\n"
+                                           f"All of them, with links: {SITE}#{key}\nAs an Amazon Associate I earn from qualifying purchases."})
     return out
 
 
@@ -78,8 +78,8 @@ def engagement_drafts(day):
     return [
         {"type": "poll", "text": q, "options": opts},
         {"type": "ask", "text": rnd.choice(asks)},
-        {"type": "pin", "text": f"New here? Every deal on {SITE} is checked by hand before it's posted. "
-                                f"Save the page, turn on notifications, and comment what you want found cheaper. {DISCLOSURE}"},
+        {"type": "pin", "text": f"#ad New here? Every deal on {SITE} is checked against Amazon before it's posted. "
+                                f"Save the page and tell me what you want found cheaper. As an Amazon Associate I earn from qualifying purchases."},
     ]
 
 

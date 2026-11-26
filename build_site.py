@@ -118,7 +118,7 @@ def _amz_title(d):
     m = META.get(d.get("asin", "")) or {}
     if m.get("v", 0) < 4 or not m.get("title"):
         return ""
-    t = html.unescape(m["title"])
+    t = re.sub(r"[\u200b\u200c\u200d\ufeff]", "", html.unescape(m["title"]))
     t = re.split(r",(?!\d)| \| | - | \(", t)[0]
     w = t.split()[:12]
     while w and w[-1].lower().rstrip(",&") in {"by", "for", "with", "and", "or", "the", "a", "an", "of", "to", "in", "on", "&", "w/", "up"}:
