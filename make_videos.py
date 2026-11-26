@@ -75,7 +75,11 @@ def short_title(title):
     t = re.split(r"\s+(?:for\s+)?(?:from\s+)?\$\d", t)[0]      # cut "... for $12 + free shipping"
     t = re.sub(r"^\$[\d.,]+\*?\s*/\s*", "", t)                   # "$28* / LEGO ..." -> "LEGO ..."
     t = re.sub(r"\s*\+\s*free\s+(?:s&h|shipping).*$|\s+w/\s*prime(?:\s+or\s+on)?.*$|\s+w/\s*s&s.*$", "", t, flags=re.I)
-    return t.strip(" -–,|")[:90]
+    for _ in range(3):   # peel store/price suffixes: "... Shipped on Amazon (Reg. $199)", "... at Amazon"
+        t = re.sub(r"\s*(?:\((?:reg|was|orig|list)\b[^)]*\)?|shipped on amazon|on amazon|at amazon|w/ walmart\+.*)\s*$", "", t, flags=re.I).strip(" -–,|")
+    if len(t) > 90:
+        t = t[:90].rsplit(" ", 1)[0].rstrip(" ,-–") + "…"
+    return t
 
 
 PHOTOS = Path("photos")
@@ -133,8 +137,8 @@ def pick_deals(deals, made):
             continue
         if any(w in low for w in SKIP_WORDS):
             continue
-        if is_amazon(d) and AMAZON_PRICES == "hide" and not _verified_amazon(d):
-            continue                                  # right ASIN + matching Amazon title or no video
+        if AMAZON_PRICES == "hide" and not _verified_amazon(d):
+            continue                                  # only Amazon-verified deals get a video (site lists only those)
         score = (2 if d.get("code") and d["code"] != "w/ code" else 0) + (1 if d.get("coupon") else 0)
         score += 3 if find_photo(d) else 0          # deals with a real photo go first
         score += 2 * len(viral_sources(d, SIGNALS))  # buzzing in several places = viral
@@ -534,8 +538,8 @@ def make_one(n, deal, work):
     else:
         mm = re.search(r"-([A-Za-z]+?)(?:Multilingual)?Neural$", voice)
         vname = mm.group(1) if mm else voice
-    (OUT / f"deal_{n}.txt").write_text(caption(title, price, code, coupon, deal)
-                                       + f"\n\nSource deal: {deal['link']}\nVoice (A/B test): {vname}\n")
+    (OUT / f"deal_{n}.txt").write_text(caption(title, price, code, coupon, deal) + "\n")
+    (OUT / f"deal_{n}.meta.txt").write_text(f"Source deal: {deal['link']}\nVoice (A/B test): {vname}\n")   # internal, never pasted
     return out
 
 
