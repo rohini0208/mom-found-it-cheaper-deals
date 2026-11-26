@@ -283,7 +283,7 @@ def scene_product_photo(path, title, deal, photo):
 
 
 def scene_product(path, title, deal):
-    photo = None if (is_amazon(deal) and AMAZON_PRICES == "hide") else find_photo(deal)   # no scraped Amazon photos
+    photo = find_photo(deal)        # deal-feed photos stay on (Rohini 2026-11-25)
     if photo:
         try:
             return scene_product_photo(path, title, deal, photo)

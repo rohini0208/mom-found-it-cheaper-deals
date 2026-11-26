@@ -253,7 +253,7 @@ def card(d, history, tested):
     _lst, _pct, _rt, _rv = savings(d)
     if amz:                      # Associates policy: no scraped Amazon prices, ratings, list prices or photos
         _lst, _pct, _rt, _rv, hist_txt = None, 0, 0, 0, ""
-    _th = "" if amz else thumb_for(d)
+    _th = thumb_for(d)                     # photos from the deal feeds (fetch_images.py) stay on; Rohini's call 2026-11-25
     photo_html = (f'<a class="ph" href="{html.escape(url)}" target="_blank" rel="sponsored noopener"><img src="{_th}" loading="lazy" alt="{html.escape(_amz_title(d) or no_price_title(d['title']))}">'
                   + (f'<span class="off">-{_pct}%</span>' if _pct else "") + "</a>") if _th else ""
     rating_html = (f'<div class="stars">&#9733; {_rt:.1f} <span>({_rv:,} reviews)</span></div>' if _rt and _rv >= 50 else "")
@@ -300,13 +300,13 @@ def trending_section():
         by_src.setdefault(s["source"], []).append(s)
     picks = []
     for src, items in by_src.items():
-        have = [s for s in items if s.get("asin") and "gift card" not in s["title"].lower() and _trend_ok(s)] if AMAZON_PRICES == "hide" else [s for s in items if s.get("asin") and "gift card" not in s["title"].lower() and _fresh_price(s["asin"]) and _find_photo({"id": s["link"], "title": s["title"], "asin": s["asin"]})]
+        have = [s for s in items if s.get("asin") and "gift card" not in s["title"].lower() and _trend_ok(s) and _find_photo({"id": s["link"], "title": s["title"], "asin": s["asin"]})] if AMAZON_PRICES == "hide" else [s for s in items if s.get("asin") and "gift card" not in s["title"].lower() and _fresh_price(s["asin"]) and _find_photo({"id": s["link"], "title": s["title"], "asin": s["asin"]})]
         picks += sorted(have, key=lambda s: s.get("rank", 99))[:3]      # only trends with a real photo
     if not picks:
         return ""
     cells = "".join(
         f'<a class="viral" href="{html.escape(f"https://www.amazon.com/dp/{s['asin']}?tag={TAG}" if TAG and s.get("asin") else s["link"])}" target="_blank" rel="sponsored noopener">'
-        + ("" if AMAZON_PRICES == "hide" else f'<img src="{thumb_for({"id": s["link"], "title": s["title"], "asin": s["asin"]})}" alt="{html.escape(s["title"][:100])}" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:contain;background:#fff;border-radius:10px;margin-bottom:8px">' + _price_html(s["asin"])) +
+        + f'<img src="{thumb_for({"id": s["link"], "title": s["title"], "asin": s["asin"]})}" alt="{html.escape(s["title"][:100])}" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:contain;background:#fff;border-radius:10px;margin-bottom:8px">' + ("" if AMAZON_PRICES == "hide" else _price_html(s["asin"])) +
         f'<span>{html.escape(s["source"])}{(" · " + html.escape(s["label"])) if s.get("label") else ""}</span>'
         f'<em>{html.escape(s["title"][:80])}</em></a>' for s in picks[:12])
     return ('<section><h2>Trending right now</h2><p class="sub">What people are buying and talking about '
@@ -534,8 +534,8 @@ def main():
         _t = tested.get(deal_id(d))
         if is_amazon(d) and not d.get("asin") and not (isinstance(_t, dict) and _t.get("asin")):
             continue                  # Amazon deal with no ASIN = no affiliate link; skip
-        if (AMAZON_PRICES != "hide" and not thumb_for(d)) or not link_verified(d):
-            continue                  # photo needed only when photos are shown
+        if not thumb_for(d) or not link_verified(d):
+            continue                  # site shows only deals with a real product photo
         if d.get("asin") in BLOCK:
             continue                  # owner/QA blocklist (wrong variant etc.)
         if d.get("asin"):
