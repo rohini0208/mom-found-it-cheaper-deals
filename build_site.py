@@ -229,7 +229,7 @@ def _drop_pct(d, history, now_price):
     return int(round(100 * (hi - now_price) / hi)) if hi > now_price else 0
 
 
-def card(d, history, tested, rank=0, idsuffix=""):
+def card(d, history, tested, rank=0, idsuffix="", in_tier=False):
     import brand
     orig_title = d["title"]
     d = dict(d, title=clean_title(d["title"]))
@@ -249,7 +249,7 @@ def card(d, history, tested, rank=0, idsuffix=""):
     low = orig_title.lower()
     if "black friday" in low or "bf " in low:
         sticker = "BF DEAL"
-    elif now_price is not None and now_price < 10:
+    elif now_price is not None and now_price < 10 and not in_tier:
         sticker = "UNDER $10"
     elif rank == 1:
         sticker = "MIA'S PICK"
@@ -275,7 +275,7 @@ def card(d, history, tested, rank=0, idsuffix=""):
     return f"""
 <article class="card {tags}" id="d-{i}{idsuffix}" data-title="{html.escape(title.lower())}" data-cat="{html.escape(d.get('category','Everything else'))}" data-store="{html.escape(d.get('store','Other'))}" data-asin="{html.escape(d.get('asin',''))}">
   <a class="ph" href="{html.escape(url)}" target="_blank" rel="sponsored noopener">{f'<img src="{_th}" loading="lazy" alt="{html.escape(title)}">' if _th else ''}{f'<span class="stk">{sticker}</span>' if sticker else ''}</a>
-  {f'<div class="tier">{html.escape(tier_txt)}</div>' if tier_txt else ''}
+  {f'<div class="tier">{html.escape(tier_txt)}</div>' if tier_txt and not in_tier else ''}
   <h3>{html.escape(title)}</h3>
   <div class="proof">{f'<span class="chk">&#10003; {checked}</span>' if checked else ''}{f'<span class="fact">{proof2}</span>' if proof2 else ''}<span class="fact saved" data-saved="{html.escape(d.get('asin') or i)}"></span></div>
   {f'<div class="why">{html.escape(why)}</div>' if why else ''}
@@ -369,6 +369,10 @@ section{margin-top:26px}h2{font-size:32px;margin:0 0 6px;letter-spacing:-.01em}
 .virals{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
 .viral{background:#fff;border-radius:18px;padding:12px;text-decoration:none;color:var(--ink);display:block;border:1px solid #F1E9DE}.viral span{display:block;font-size:11px;color:var(--muted);margin-top:4px}.viral em{display:block;font-style:normal;font-size:13px;font-weight:600;margin-top:4px}
 .empty{display:none;padding:24px;text-align:center;color:var(--muted)}
+.cats button:nth-of-type(n+9):not(.more){display:none}.cats.open button{display:inline-block}.cats.open .more{display:none}
+.tiernav{position:sticky;top:0;z-index:8;background:var(--cream);display:flex;gap:8px;overflow-x:auto;padding:10px 0;margin:6px 0 2px;border-bottom:1px solid #EFE6DA}
+.tiernav a{flex:0 0 auto;background:#fff;border:2px solid var(--ink);color:var(--ink);text-decoration:none;font-weight:800;font-size:14px;padding:8px 14px;border-radius:30px}.tiernav a small{font-weight:600;color:var(--muted)}
+.tier-sec h2{display:flex;align-items:center;gap:12px}.tier-sec h2 .stk{font-size:11px}.tier-sec{scroll-margin-top:64px}
 footer{max-width:1120px;margin:30px auto;padding:0 16px;font-size:12px;color:var(--muted);line-height:1.6}footer a{color:var(--muted)}
 .stick{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;background:#fff;color:var(--ink);border:2px solid var(--ink);text-align:center;padding:12px 22px;font-weight:700;z-index:9;text-decoration:none;border-radius:30px;box-shadow:0 8px 24px rgba(31,26,46,.25)}
 :focus-visible{outline:3px solid #1f4fd8;outline-offset:2px;scroll-margin-bottom:70px}.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:#fff;padding:8px;z-index:20}
@@ -384,7 +388,7 @@ document.querySelectorAll('.code').forEach(b=>b.onclick=()=>{navigator.clipboard
 let filt='all',cat='';const q=document.getElementById('q'),st=document.getElementById('store');
 function apply(){const s=q.value.trim().toLowerCase(),sv=st.value;let n=0;document.querySelectorAll('.card').forEach(c=>{
  const ok=(filt==='all'||c.classList.contains(filt))&&(!s||c.dataset.title.includes(s))&&(!cat||c.dataset.cat===cat)&&(!sv||c.dataset.store===sv);
- c.style.display=ok?'':'none';if(ok)n++;});const e=document.getElementById('empty'),k=document.getElementById('count');if(e)e.style.display=n?'none':'block';if(k)k.textContent=n+' deals shown';}
+ c.style.display=ok?'':'none';if(ok)n++;});document.querySelectorAll('.tier-sec').forEach(sec=>{const any=[...sec.querySelectorAll('.card')].some(c=>c.style.display!=='none');sec.style.display=any?'':'none';});const e=document.getElementById('empty'),k=document.getElementById('count');if(e)e.style.display=n?'none':'block';if(k)k.textContent=n+' deals shown';}
 document.querySelectorAll('.cats button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.cats button').forEach(x=>{x.classList.remove('on');x.setAttribute('aria-pressed',x===b);});b.classList.add('on');cat=b.dataset.c;apply();});
 st.onchange=apply;q.oninput=apply;
 document.querySelectorAll('.bar button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.bar button').forEach(x=>{x.classList.remove('on');x.setAttribute('aria-pressed',x===b);});b.classList.add('on');filt=b.dataset.f;apply();});
@@ -394,6 +398,7 @@ document.querySelectorAll('[data-track]').forEach(a=>a.addEventListener('click',
 (async()=>{try{const ks=[...new Set([...document.querySelectorAll('.saved[data-saved]')].map(e=>e.dataset.saved))];if(!ks.length)return;
  const r=await fetch(H+'?k='+ks.slice(0,120).join(','));if(!r.ok)return;const j=await r.json();
  document.querySelectorAll('.saved[data-saved]').forEach(e=>{const c=(j[e.dataset.saved]||{}).click||0;if(c>=5)e.textContent=c+' clicks this week';});}catch(e){}})();
+const _mc=document.getElementById('morecats');if(_mc)_mc.onclick=()=>document.getElementById('cats').classList.add('open');
 const _st=document.querySelector('.stick'),_t5=document.getElementById('top5');if(_st&&_t5&&'IntersectionObserver' in window){new IntersectionObserver(es=>{const r=_t5.getBoundingClientRect();_st.style.display=(r.top<innerHeight*0.6)?'none':'';}).observe(_t5);addEventListener('scroll',()=>{const r=_t5.getBoundingClientRect();_st.style.display=(r.top<innerHeight*0.6)?'none':'';},{passive:true});}
 try{if(location.search.includes('admin=1'))localStorage.setItem('mfic-admin','1');if(localStorage.getItem('mfic-admin'))document.body.classList.add('is-admin');}catch(e){}
 """
@@ -531,6 +536,42 @@ def top5(picked, history, tested):
             f'<div class="grid">{cards}</div></section>')
 
 
+TIERS = [("under-10", "Under $10", 0, 10), ("under-20", "Under $20", 10, 20), ("under-25", "Under $25", 20, 25),
+         ("under-50", "Under $50", 25, 50), ("under-100", "Under $100", 50, 100), ("over-100", "$100 and up", 100, 10**9)]
+
+
+def _amazon_now(d):
+    m = META.get(d.get("asin", "")) or {}
+    return price_num(m.get("now")) if m.get("v", 0) >= 4 else None
+
+
+def tier_sections(picked, history, tested):
+    """The main body: every verified deal filed under ONE price tier (Amazon's checked price), cheapest tier first.
+    Cards inside a tier are sorted by mom-relevance then votes. A sticky tier nav jumps between them."""
+    mom = {"Toys & Games": 3, "Baby & Kids": 3, "Home & Kitchen": 3, "Beauty & Health": 2, "Holiday & Seasonal": 2,
+           "Grocery & Household": 2, "Pets": 2, "Fashion": 1, "Office & School": 1, "Sports & Fitness": 1}
+    buckets = {k: [] for k, *_ in TIERS}
+    for d in picked:
+        p = _amazon_now(d)
+        if p is None:
+            continue
+        for key, _, lo, hi in TIERS:
+            if lo <= p < hi:
+                buckets[key].append(d)
+                break
+    nav, out = [], []
+    for key, label, lo, hi in TIERS:
+        items = sorted(buckets[key], key=lambda d: (mom.get(d.get("category", ""), 0), d.get("thumbs", 0), d["seen"]), reverse=True)
+        if not items:
+            continue
+        nav.append(f'<a href="#{key}">{html.escape(label)} <small>{len(items)}</small></a>')
+        cards = "".join(card(d, history, tested, idsuffix="-" + key, in_tier=True) for d in items)
+        out.append(f'<section class="tier-sec" id="{key}"><h2>{html.escape(label)} <span class="stk">{len(items)} DEALS</span></h2>'
+                   f'<p class="sub">Checked against Amazon today. Prices can move; tap to see the live price.</p>'
+                   f'<div class="grid">{cards}</div></section>')
+    return f'<nav class="tiernav" aria-label="Price tiers">{"".join(nav)}</nav>' + "".join(out)
+
+
 def posts_gallery():
     imgs = sorted(Path("webposts").glob("post_*.png"))
     if not imgs or AMAZON_PRICES == "hide":      # post images carry Amazon photos
@@ -618,13 +659,13 @@ def main():
 {posts_gallery()}
 {seasonal_sections(picked, history, tested)}
 {viral_section(viral)}
-<section id="todays"><h2>Today's deals</h2><p class="sub">{len(picked)} deals across {len(cats)} categories from the last 3 days — top 100 per category.</p>
-<div class="cats"><button class="on" data-c="">All categories</button>{cat_buttons}</div>
-<div class="bar"><input id="q" placeholder="Search deals…" aria-label="Search deals"><select id="store" aria-label="Filter by store"><option value="">All stores</option>{store_opts}</select>
-<button class="on" data-f="all">All</button><button data-f="has-code">Codes</button>
-<button data-f="has-coupon">Coupons</button>{"" if AMAZON_PRICES == "hide" else '<button data-f="under25">Under $25</button>'}<button data-f="viral">Viral</button></div>
+<section id="todays"><h2>All of today's deals, by price</h2><p class="sub">{len(picked)} verified deals. Pick a price, or filter by category.</p>
+<div class="cats" id="cats"><button class="on" data-c="">All categories</button>{cat_buttons}<button type="button" class="more" id="morecats">More…</button></div>
+<div class="bar"><input id="q" placeholder="Search deals…" aria-label="Search deals"><select id="store" aria-label="Filter by store" style="display:none"><option value="">All stores</option>{store_opts}</select>
+<button class="on" data-f="all">All</button><button data-f="has-code">Codes</button><button data-f="has-coupon">Coupons</button><button data-f="viral">Trending</button></div>
 <div id="empty" class="empty" role="status">No deals match this filter right now. Try another category or clear the search.</div><div id="count" class="sub" aria-live="polite" role="status"></div>
-<div class="grid">{cards}</div></section>
+</section>
+{tier_sections(picked, history, tested)}
 </main>
 <footer><b>Affiliate disclosure:</b> As an Amazon Associate I earn from qualifying purchases. Some links are affiliate links (#ad) — if you buy through them we may earn a commission at no extra cost to you.<br>
 Prices, availability, coupons and promo codes are set by the retailers and can change or expire at any time. Always check the final price at checkout before you buy.
