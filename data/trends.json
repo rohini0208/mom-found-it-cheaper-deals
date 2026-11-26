@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T11:53+00:00",
+ "updated": "2026-11-26T19:48+00:00",
  "status": {
   "TikTok Made Me Buy It (Reddit)": "error: HTTP Error 404: Not Found",
   "Amazon finds (Reddit)": "error: HTTP Error 429: Too Many Requests",
@@ -149,7 +149,7 @@
    "link": "https://camelcamelcamel.com/product/B0DKFMSMYK?active=price_amazon",
    "asin": "B0DKFMSMYK",
    "rank": 9,
-   "label": "Best Price",
+   "label": "Good Deal",
    "words": [
     "9800x3d",
     "core",
@@ -286,39 +286,10 @@
   },
   {
    "source": "camelcamelcamel popular",
-   "title": "Hisense 65\" U6 Pro Series Mini\u2011LED ULED 4K UHD HDR Gaming AI Smart Fire TV (65U6SF Pro, 2026 New) \u2013 Hi-QLED, Native 144Hz, Motion Rate 480, Dolby Vision IQ \u00b7 Atmos, HDR10+, Glare-Free, Alexa+",
-   "link": "https://camelcamelcamel.com/product/B0GT8GLWZH?active=price_amazon",
-   "asin": "B0GT8GLWZH",
-   "rank": 16,
-   "label": "Best Price",
-   "words": [
-    "144hz",
-    "65u6sf",
-    "alexa",
-    "atmos",
-    "dolby",
-    "fire",
-    "gaming",
-    "glare",
-    "hdr10",
-    "hisense",
-    "mini",
-    "motion",
-    "native",
-    "qled",
-    "rate",
-    "series",
-    "smart",
-    "uled",
-    "vision"
-   ]
-  },
-  {
-   "source": "camelcamelcamel popular",
    "title": "XBOX Series X | X25 Special Edition Gaming Console | 1TB SSD",
    "link": "https://camelcamelcamel.com/product/B0HFM9NTC1?active=price_amazon",
    "asin": "B0HFM9NTC1",
-   "rank": 17,
+   "rank": 16,
    "label": "Best Price",
    "words": [
     "console",
@@ -334,7 +305,7 @@
    "title": "Nintendo Switch 2 + Mario Kart World Bundle (includes 3-month NSO Individual Membership)",
    "link": "https://camelcamelcamel.com/product/B0HGHB3V16?active=price_amazon",
    "asin": "B0HGHB3V16",
-   "rank": 18,
+   "rank": 17,
    "label": "Best Price",
    "words": [
     "bundle",
@@ -354,7 +325,7 @@
    "title": "Apple Watch SE 3 GPS 40mm Smartwatch",
    "link": "https://camelcamelcamel.com/product/B0HJ9ZNRKT?active=price_amazon",
    "asin": "B0HJ9ZNRKT",
-   "rank": 19,
+   "rank": 18,
    "label": "Best Price",
    "words": [
     "40mm",
@@ -368,7 +339,7 @@
    "title": "Amazon Fire TV Stick 4K (newest model), simple 4K streaming, new Fire TV Remote, all your apps in one place, free & live TV, find shows faster with Alexa+",
    "link": "https://camelcamelcamel.com/product/B0G4XRP464?active=price_amazon",
    "asin": "B0G4XRP464",
-   "rank": 20,
+   "rank": 19,
    "label": "Best Price",
    "words": [
     "alexa",
@@ -385,6 +356,21 @@
     "simple",
     "stick",
     "streaming"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "H&R Block Tax Software Deluxe + State 2026 Win/Mac | Online Code",
+   "link": "https://camelcamelcamel.com/product/B0HGC2T54D?active=price_amazon",
+   "asin": "B0HGC2T54D",
+   "rank": 20,
+   "label": "Best Price",
+   "words": [
+    "block",
+    "deluxe",
+    "online",
+    "software",
+    "state"
    ]
   },
   {
@@ -906,25 +892,21 @@
   },
   {
    "source": "Amazon Best Sellers",
-   "title": "Alpha Grillers Meat Thermometer Digital, Stocking Stuffers Gifts for Men | 1-2 Second Ultra-Fast Response Time, Bright B",
+   "title": "Alpha Grillers Instant Read Waterproof Digital Meat Thermometer for Cooking and Grilling",
    "link": "https://www.amazon.com/dp/B00S93EQUK",
    "asin": "B00S93EQUK",
    "rank": 28,
    "words": [
     "alpha",
-    "bright",
+    "cooking",
     "digital",
-    "fast",
-    "gifts",
     "grillers",
+    "grilling",
+    "instant",
     "meat",
-    "response",
-    "second",
-    "stocking",
-    "stuffers",
+    "read",
     "thermometer",
-    "time",
-    "ultra"
+    "waterproof"
    ]
   },
   {

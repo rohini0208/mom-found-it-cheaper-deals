@@ -922,7 +922,7 @@
 "https://hip2save.com/deals/amazon-torani-caramel-sauce/": {
 "asin": "B07NQD3TMD",
 "ok": false,
-"why": "price card $10.79 vs Amazon $14.39"
+"why": "price card $10.79 vs Amazon $19.92"
 },
 "https://slickdeals.net/f/20388975-sonos-ultimate-immersive-set-arc-ultra-soundbar-sub-4-subwoofer-era-300-speakers-pair-white-or-black-5-1-4-dolby-atmos-home-theater-system-2199-free-shipping?utm_source=rss&utm_content=ht&utm_medium=RSS2": {
 "asin": "B0F939715D",
@@ -982,12 +982,12 @@
 "https://hip2save.com/deals/campbells-soup/": {
 "asin": "B0B6M6C7JP",
 "ok": false,
-"why": "price card $9.60 vs Amazon $12.00"
+"why": "no Amazon title read"
 },
 "https://hip2save.com/deals/hersheys-chocolate-bars/": {
 "asin": "B005PZY56K",
 "ok": false,
-"why": "name mismatch (0.3)"
+"why": "name mismatch (0.4)"
 },
 "https://hip2save.com/deals/custom-neon-sign/": {
 "asin": "B0D22L4LYY",
@@ -1161,43 +1161,43 @@
 },
 "https://hip2save.com/deals/aootek-solar-lights/": {
 "asin": "B07NQ4L1SB",
-"ok": false,
-"why": "price card $15 vs Amazon $23.99"
+"ok": true,
+"why": "ok"
 },
 "grok:B0CGY3VF3K": {
 "asin": "B0CGY3VF3K",
-"ok": false,
-"why": "no Amazon title read"
+"ok": true,
+"why": "ok"
 },
 "grok:B00NHQFA1I": {
 "asin": "B00NHQFA1I",
-"ok": false,
-"why": "price card $21.42 vs Amazon $14.99"
+"ok": true,
+"why": "ok"
 },
 "grok:B075KX9NS7": {
 "asin": "B075KX9NS7",
-"ok": false,
-"why": "no Amazon title read"
+"ok": true,
+"why": "ok"
 },
 "grok:B087N9N6HH": {
 "asin": "B087N9N6HH",
 "ok": false,
-"why": "no Amazon title read"
+"why": "price card $11.99 vs Amazon $16.99"
 },
 "grok:B0CX4RLCXW": {
 "asin": "B0CX4RLCXW",
-"ok": false,
-"why": "no Amazon title read"
+"ok": true,
+"why": "ok"
 },
 "grok:B00AHAWWO0": {
 "asin": "B00AHAWWO0",
-"ok": false,
-"why": "no Amazon title read"
+"ok": true,
+"why": "ok"
 },
 "grok:B0BMKJFFP1": {
 "asin": "B0BMKJFFP1",
 "ok": false,
-"why": "no Amazon title read"
+"why": "price card $25.64 vs Amazon $22.19"
 },
 "grok:B0BYNYWKC7": {
 "asin": "B0BYNYWKC7",
@@ -1206,13 +1206,13 @@
 },
 "grok:B0FJSNWNLW": {
 "asin": "B0FJSNWNLW",
-"ok": false,
-"why": "no Amazon title read"
+"ok": true,
+"why": "ok"
 },
 "grok:B08H3JPH74": {
 "asin": "B08H3JPH74",
-"ok": false,
-"why": "no Amazon title read"
+"ok": true,
+"why": "ok"
 },
 "grok:B0B2RM68G2": {
 "asin": "B0B2RM68G2",
@@ -1232,66 +1232,66 @@
 "grok:B09BDGQYW5": {
 "asin": "B09BDGQYW5",
 "ok": false,
-"why": "no Amazon title read"
+"why": "price card $22.49 vs Amazon $29.99"
 },
 "grok:B07N1WW638": {
 "asin": "B07N1WW638",
 "ok": false,
-"why": "no Amazon title read"
+"why": "price card $19.99 vs Amazon $12.79"
 },
 "grok:B0B14C719T": {
 "asin": "B0B14C719T",
 "ok": false,
-"why": "no Amazon title read"
+"why": "price card $19.99 vs Amazon $28.49"
 },
 "grok:B0DW97LG63": {
 "asin": "B0DW97LG63",
-"ok": false,
-"why": "no Amazon title read"
+"ok": true,
+"why": "ok"
 },
 "grok:B0CX4WQPRQ": {
 "asin": "B0CX4WQPRQ",
-"ok": false,
-"why": "no Amazon title read"
+"ok": true,
+"why": "ok"
 },
 "grok:B0769ZQWH7": {
 "asin": "B0769ZQWH7",
 "ok": false,
-"why": "no Amazon title read"
+"why": "price card $279.99 vs Amazon $349.00"
 },
 "grok:B0HBF5RQ2Z": {
 "asin": "B0HBF5RQ2Z",
 "ok": false,
-"why": "no Amazon title read"
+"why": "price card $179.99 vs Amazon $279.98"
 },
 "grok:B000059GTH": {
 "asin": "B000059GTH",
 "ok": false,
-"why": "no Amazon title read"
+"why": "price card $59.99 vs Amazon $79.95"
 },
 "grok:B0GS8YKMN3": {
 "asin": "B0GS8YKMN3",
-"ok": false,
-"why": "no Amazon title read"
+"ok": true,
+"why": "ok"
 },
 "grok:B0GFW4J291": {
 "asin": "B0GFW4J291",
 "ok": false,
-"why": "no Amazon title read"
+"why": "price card $799.99 vs Amazon $949.99"
 },
 "grok:B0DLH4DVTZ": {
 "asin": "B0DLH4DVTZ",
-"ok": false,
-"why": "no Amazon title read"
+"ok": true,
+"why": "ok"
 },
 "grok:B0GSS4SGZR": {
 "asin": "B0GSS4SGZR",
-"ok": false,
-"why": "no Amazon title read"
+"ok": true,
+"why": "ok"
 },
 "grok:B0D9WW3YND": {
 "asin": "B0D9WW3YND",
-"ok": false,
-"why": "no Amazon title read"
+"ok": true,
+"why": "ok"
 }
 }
