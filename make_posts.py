@@ -202,6 +202,8 @@ def tidy(title):
 
 def proof(deal):
     """'4.8 stars, 7.6K reviews' when we have it (only for products with enough reviews to mean something)."""
+    if AMAZON_PRICES == "hide":
+        return ""                                   # Associates policy: ratings only via Amazon's API
     m = META.get(deal.get("asin", ""))
     if not m or not m.get("rating") or (m.get("reviews") or 0) < 100:
         return ""
@@ -425,6 +427,8 @@ def mom_note(deal):
     """Short first-person line built only from real numbers."""
     m = META.get(deal.get("asin", "")) or {}
     off = pct_off(deal)
+    if AMAZON_PRICES == "hide":
+        return "Checked against Amazon this morning. Tap for today's price."
     if (m.get("reviews") or 0) >= 100 and (m.get("rating") or 0) >= 4.3:
         n = m["reviews"]
         return f"{m['rating']:.1f} stars, " + (f"{n/1000:.1f}K" if n >= 1000 else str(n)) + " reviews. I'd grab it!"
@@ -732,6 +736,8 @@ def story(items):
     m = META.get(b.get("asin", "")) or {}
     off = pct_off(b)
     bits = []
+    if AMAZON_PRICES == "hide":
+        return ""
     if off >= 15:
         bits.append(f"{off}% under Amazon's list price")
     if (m.get("reviews") or 0) >= 100 and (m.get("rating") or 0) >= 4.3:
@@ -750,10 +756,10 @@ def texts(theme, items):
     st = story(items)
     _b = best_item(items); _off = pct_off(_b)
     _bn = tidy(short_title(no_price_title(_b["title"])))
-    lead = f"🔥 {_off}% OFF! {_bn}\n" if _off >= 15 else ""      # % off up front: what the biggest deal groups open with
+    lead = f"🔥 {_off}% OFF! {_bn}\n" if (_off >= 15 and AMAZON_PRICES != "hide") else ""
     caption = (lead + f"✨ {theme}: {names[0]}, {names[1]} and {names[2]}\n"
                + (f"{st}\n" if st else "")
-               + f"{pick(QUESTIONS, items[0]['id'], 'q')}\nLinks are in the first comment. Join Mom Found It Cheaper for a daily list.\n(AD)(Commission earned) As an Amazon Associate I earn from qualifying purchases.\n\n{HASHTAG_SET}")
+               + f"{pick(QUESTIONS, items[0]['id'], 'q')}\nAll three, checked against Amazon this morning: {SITE}\n#ad As an Amazon Associate I earn from qualifying purchases.\n\n{HASHTAG_SET}")
     lines = ["Shop here (prices and codes can change):"]
     for n, i in zip(names, items):
         code = clean_code(i)
@@ -862,8 +868,8 @@ def main():
         BRANDS.add(brand(star))
         make_image_single(OUT / "post_single.png", star, "_s")
         nm = tidy(short_title(no_price_title(star["title"])))
-        cap = (f"Mom's pick today: {nm}.\n{mom_note(star)}\nLink is in the first comment. Join Mom Found It Cheaper for a daily list.\n"
-               f"(AD)(Commission earned) As an Amazon Associate I earn from qualifying purchases.\n\n{HASHTAG_SET}")
+        cap = (f"Mom's pick today: {nm}.\n{mom_note(star)}\nSee it here: {SITE}#d-{hashlib.sha1(star['id'].encode()).hexdigest()[:10]}\n"
+               f"#ad As an Amazon Associate I earn from qualifying purchases.\n\n{HASHTAG_SET}")
         cm = f"Shop here (prices and codes can change):\n{link_for(star)}\nAs an Amazon Associate I earn from qualifying purchases."
         (OUT / "post_single.txt").write_text(f"CAPTION:\n{cap}\n\nFIRST COMMENT (paste after posting):\n{cm}\n")
         WEB.mkdir(exist_ok=True)
@@ -921,8 +927,9 @@ def main():
         nm = tidy(short_title(no_price_title(d["title"])))
         nm = nm if len(nm) <= 70 else " ".join(nm.split()[:9])
         off = pct_off(d)
-        cap = (f"\U0001F525 {off}% OFF! {nm} is just {d['price']}.\n{mom_note(d)}\nLink is in the first comment.\n"
-               f"(AD)(Commission earned) As an Amazon Associate I earn from qualifying purchases.\n\n{HASHTAG_SET}")
+        cap = ((f"\U0001F525 {off}% OFF! {nm} is just {d['price']}.\n" if AMAZON_PRICES != "hide" else f"Price drop on Amazon: {nm}.\n")
+               + f"{mom_note(d)}\nSee it here: {SITE}#d-{hashlib.sha1(d['id'].encode()).hexdigest()[:10]}\n"
+               f"#ad As an Amazon Associate I earn from qualifying purchases.\n\n{HASHTAG_SET}")
         cm = f"Shop here (prices and codes can change):\n{link_for(d)}\nAs an Amazon Associate I earn from qualifying purchases."
         (OUT / f"{f}.txt").write_text(f"CAPTION:\n{cap}\n\nFIRST COMMENT (paste after posting):\n{cm}\n")
         (WEB / f"{f}.png").write_bytes((OUT / f"{f}.png").read_bytes())

@@ -2,14 +2,128 @@
 
 Reply with the numbers to approve, e.g. `post 1, q2; video 3; eng poll`. Nothing is posted until you say so.
 
-## Posts that passed strict QA (2)
+## Posts that passed strict QA (13)
+### post_4 — Thanksgiving table under $200 (ok)
+```
+CAPTION:
+✨ Thanksgiving table under $200: 16-Piece Fisher-Price Wooden Pretend Play Fruit Pie Toy Set, Char-Broil The Big Easy Oil-Less Turkey Fryer! and Nuwave Pro Plus 2 Infrared Countertop Air Fryer Oven
+Which one is going in your cart?
+All three, checked against Amazon this morning: https://momfounditcheaper.com/
+#ad As an Amazon Associate I earn from qualifying purchases.
+
+#ad #amazonfinds #dealsforyou #founditcheaper #savemoney
+
+FIRST COMMENT (paste after posting):
+Shop here (prices and codes can change):
+36% OFF - 16-Piece Fisher-Price Wooden Pretend Play Fruit Pie Toy Set
+https://www.amazon.com/dp/B0DTLMTQHM?tag=momfounditc08-20
+Price history: https://camelcamelcamel.com/product/B0DTLMTQHM
+40% OFF - Char-Broil The Big Easy Oil-Less Turkey Fryer!
+https://www.amazon.com/dp/B0DQ1YNRXF?tag=momfounditc08-20
+Price history: https://camelcamelcamel.com/product/B0DQ1YNRXF
+30% OFF - Nuwave
+```
+
+### post_9 — Home & kitchen under $50 (ok)
+```
+CAPTION:
+✨ Home & kitchen under $50: ECR4Kids 2-in-1 Adjustable Hardwood Sit or Step Stool, 6000mAh Aaolin Portable Neck Fan and Gibson Home Rothernberg 18-Piece Porcelain Dinnerware Set
+Which would you grab first?
+All three, checked against Amazon this morning: https://momfounditcheaper.com/
+#ad As an Amazon Associate I earn from qualifying purchases.
+
+#ad #amazonfinds #dealsforyou #founditcheaper #savemoney
+
+FIRST COMMENT (paste after posting):
+Shop here (prices and codes can change):
+50% OFF - ECR4Kids 2-in-1 Adjustable Hardwood Sit or Step Stool
+https://www.amazon.com/dp/B079D381ZR?tag=momfounditc08-20
+Price history: https://camelcamelcamel.com/product/B079D381ZR
+50% OFF - 6000mAh Aaolin Portable Neck Fan
+https://www.amazon.com/dp/B0F5W4W26R?tag=momfounditc08-20
+Price history: https://camelcamelcamel.com/product/B0F5W4W26R
+23% OFF - Gibson Home Rothernberg 18-Piece Porcelain Dinnerwa
+```
+
+### post_10 — Fashion under $60 (ok)
+```
+CAPTION:
+✨ Fashion under $60: THE NORTH FACE Women's Borealis Backpack, Dr. Martens Women's Rometty Leather Heeled Chelsea Boots and Women’s Joggers
+Which one is going in your cart?
+All three, checked against Amazon this morning: https://momfounditcheaper.com/
+#ad As an Amazon Associate I earn from qualifying purchases.
+
+#ad #amazonfinds #dealsforyou #founditcheaper #savemoney
+
+FIRST COMMENT (paste after posting):
+Shop here (prices and codes can change):
+50% OFF - THE NORTH FACE Women's Borealis Backpack
+https://www.amazon.com/dp/B0F9JDGVDD?tag=momfounditc08-20
+Price history: https://camelcamelcamel.com/product/B0F9JDGVDD
+54% OFF - Dr. Martens Women's Rometty Leather Heeled Chelsea Boots
+https://www.amazon.com/dp/B078ZKDQ76?tag=momfounditc08-20
+Price history: https://camelcamelcamel.com/product/B078ZKDQ76
+20% OFF - Women’s Joggers
+https://www.amazon.com/dp/B0DQNMB982?tag=momfounditc08-20
+```
+
 ### post_single — Mom's pick (ok)
 ```
 CAPTION:
-Mom's pick today: WORKPRO 12V Cordless Drill Driver & 61-Piece Home Tool Kit.
-4.6 stars, 5.5K reviews. I'd grab it!
-Link is in the first comment. Join Mom Found It Cheaper for a daily list.
+Mom's pick today: 8-Piece Playmobil Junior: Everyday Heroes Toddler Playset.
+Checked against Amazon this morning. Tap for today's price.
+See it here: https://momfounditcheaper.com/#d-7e8a365c48
+#ad As an Amazon Associate I earn from qualifying purchases.
+
+#ad #amazonfinds #dealsforyou #founditcheaper #savemoney
+
+FIRST COMMENT (paste after posting):
+Shop here (prices and codes can change):
+https://www.amazon.com/dp/B0CS8D3WJJ?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+### post_thisorthat — THIS or THAT (ok)
+```
+CAPTION:
+THIS or THAT? 🛒
+A: Vaydeer Bluetooth Phone Lock Box
+B: GNCC 2K Security Camera Indoor
+Which would you pick? Tell us why - we read every one!
 (AD)(Commission earned) As an Amazon Associate I earn from qualifying purchases.
+
+#ad #amazonfinds #dealsforyou #founditcheaper #savemoney
+
+FIRST COMMENT (paste after posting):
+Shop here (prices and codes can change):
+A: https://www.amazon.com/dp/B0GVSN566G?tag=momfounditc08-20
+B: https://www.amazon.com/dp/B0G5WWT1L1?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+### post_q1 — Quick deal: 50% OFF (ok)
+```
+CAPTION:
+Price drop on Amazon: Leatherman FREE K2X 8-in-1 Folding Pocketknife.
+Checked against Amazon this morning. Tap for today's price.
+See it here: https://momfounditcheaper.com/#d-93956b488d
+#ad As an Amazon Associate I earn from qualifying purchases.
+
+#ad #amazonfinds #dealsforyou #founditcheaper #savemoney
+
+FIRST COMMENT (paste after posting):
+Shop here (prices and codes can change):
+https://www.amazon.com/dp/B07P6G1QWX?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+### post_q2 — Quick deal: 10% OFF (ok)
+```
+CAPTION:
+Price drop on Amazon: WORKPRO 12V Cordless Drill Driver & 61-Piece Home Tool Kit.
+Checked against Amazon this morning. Tap for today's price.
+See it here: https://momfounditcheaper.com/#d-d9926ce8a7
+#ad As an Amazon Associate I earn from qualifying purchases.
 
 #ad #amazonfinds #dealsforyou #founditcheaper #savemoney
 
@@ -19,21 +133,99 @@ https://www.amazon.com/dp/B093Q247VK?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-### post_thisorthat — THIS or THAT (ok)
+### post_q4 — Quick deal: 30% OFF (ok)
 ```
 CAPTION:
-THIS or THAT? 🛒
-A: The Super Mario Galaxy Movie:
-B: Blue Beetle
-Which would you pick? Tell us why - we read every one!
-(AD)(Commission earned) As an Amazon Associate I earn from qualifying purchases.
+Price drop on Amazon: SwitchBot CO2 Detector.
+Checked against Amazon this morning. Tap for today's price.
+See it here: https://momfounditcheaper.com/#d-bfc8abdf2d
+#ad As an Amazon Associate I earn from qualifying purchases.
 
 #ad #amazonfinds #dealsforyou #founditcheaper #savemoney
 
 FIRST COMMENT (paste after posting):
 Shop here (prices and codes can change):
-A: https://www.amazon.com/dp/B0GQTDPJ36?tag=momfounditc08-20
-B: https://www.amazon.com/dp/B0CFZ3132H?tag=momfounditc08-20
+https://www.amazon.com/dp/B0DLN46519?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+### post_q5 — Quick deal: 23% OFF (ok)
+```
+CAPTION:
+Price drop on Amazon: Philips Smart Lock Matter Over Thread.
+Checked against Amazon this morning. Tap for today's price.
+See it here: https://momfounditcheaper.com/#d-cc3796f0e3
+#ad As an Amazon Associate I earn from qualifying purchases.
+
+#ad #amazonfinds #dealsforyou #founditcheaper #savemoney
+
+FIRST COMMENT (paste after posting):
+Shop here (prices and codes can change):
+https://www.amazon.com/dp/B0FXM1QCVT?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+### post_q6 — Quick deal: 20% OFF (ok)
+```
+CAPTION:
+Price drop on Amazon: 329-pc. LEGO Speed Champions Ferrari 499P.
+Checked against Amazon this morning. Tap for today's price.
+See it here: https://momfounditcheaper.com/#d-121fc5f484
+#ad As an Amazon Associate I earn from qualifying purchases.
+
+#ad #amazonfinds #dealsforyou #founditcheaper #savemoney
+
+FIRST COMMENT (paste after posting):
+Shop here (prices and codes can change):
+https://www.amazon.com/dp/B0G2T43599?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+### post_q7 — Quick deal: 54% OFF (ok)
+```
+CAPTION:
+Price drop on Amazon: Texas Instruments TI-84 Evo Graphing Calculator.
+Checked against Amazon this morning. Tap for today's price.
+See it here: https://momfounditcheaper.com/#d-4f53c9c988
+#ad As an Amazon Associate I earn from qualifying purchases.
+
+#ad #amazonfinds #dealsforyou #founditcheaper #savemoney
+
+FIRST COMMENT (paste after posting):
+Shop here (prices and codes can change):
+https://www.amazon.com/dp/B0G8QXXF8B?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+### post_q8 — Quick deal: 50% OFF (ok)
+```
+CAPTION:
+Price drop on Amazon: 1000-Pc RoseArt Hobby Haven Greentree Garden Center Jigsaw Puzzle.
+Checked against Amazon this morning. Tap for today's price.
+See it here: https://momfounditcheaper.com/#d-9e3ce7ef31
+#ad As an Amazon Associate I earn from qualifying purchases.
+
+#ad #amazonfinds #dealsforyou #founditcheaper #savemoney
+
+FIRST COMMENT (paste after posting):
+Shop here (prices and codes can change):
+https://www.amazon.com/dp/B0DXWVN78D?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+### post_q10 — Quick deal: 40% OFF (ok)
+```
+CAPTION:
+Price drop on Amazon: 20-Oz YETI Rambler Insulated Travel Mug.
+Checked against Amazon this morning. Tap for today's price.
+See it here: https://momfounditcheaper.com/#d-ce9d52f3e4
+#ad As an Amazon Associate I earn from qualifying purchases.
+
+#ad #amazonfinds #dealsforyou #founditcheaper #savemoney
+
+FIRST COMMENT (paste after posting):
+Shop here (prices and codes can change):
+https://www.amazon.com/dp/B0FTZYTM58?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
