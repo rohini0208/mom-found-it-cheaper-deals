@@ -88,11 +88,30 @@ def base(title_lines, label):
     return img, y
 
 
+def footer(img):
+    """Green proof pill that always fits, plus the Associates disclosure on the image itself."""
+    d = ImageDraw.Draw(img)
+    text = "✓  Checked against Amazon  ·  momfounditcheaper.com"
+    size = 30
+    while size > 18 and d.textlength(text, font=font(B.FONT_TEXT, size, "Bold")) > 840:
+        size -= 1
+    f = font(B.FONT_TEXT, size, "Bold")
+    d.rounded_rectangle([60, 1372, 940, 1427], radius=28, fill=B.GREEN)
+    d.text((88, 1372 + (55 - size) // 2 - 2), text, font=f, fill=(255, 255, 255))
+    d.text((60, 1445), "#ad · As an Amazon Associate I earn from qualifying purchases.", font=font(B.FONT_TEXT, 22, "Bold"), fill=B.MUTED)
+
+
+def clean_name(alt):
+    short = re.sub(r"[\u200b\u200c\u200d\ufeff]", "", alt)
+    short = re.sub(r"\b(?=[A-Z0-9-]{5,}\b)(?=[A-Z0-9-]*\d)[A-Z0-9-]+\b", "", short)
+    return re.sub(r"\s{2,}", " ", short).strip(" ,-")
+
+
 def tier_pin(key, label, items):
     img, y = base([label, "mom finds"], label)
     d = ImageDraw.Draw(img)
     # 2x2 photo grid
-    gx, gy, cell, gap = 60, y + 30, 425, 30
+    gx, gy, cell, gap = 60, y + 24, 410, 28
     for i, (src, alt) in enumerate(items[:4]):
         x = gx + (i % 2) * (cell + gap)
         yy = gy + (i // 2) * (cell + gap)
@@ -102,16 +121,12 @@ def tier_pin(key, label, items):
             img.paste(p, (x + (cell - p.width) // 2, yy + (cell - p.height) // 2))
         except Exception:
             pass
-    d = ImageDraw.Draw(img)
-    f = font(B.FONT_TEXT, 30, "Bold")
-    d.rounded_rectangle([60, 1395, 940, 1450], radius=28, fill=B.GREEN)
-    d.text((88, 1407), "✓  Every link checked against Amazon  ·  momfounditcheaper.com", font=f, fill=(255, 255, 255))
+    footer(img)
     return img
 
 
 def product_pin(src, alt, label, key):
-    short = re.sub(r"\b(?=[A-Z0-9-]{5,}\b)(?=[A-Z0-9-]*\d)[A-Z0-9-]+\b", "", alt)
-    short = re.sub(r"\s{2,}", " ", short).strip(" ,-")
+    short = clean_name(alt)
     img = Image.new("RGB", (W, H), B.CREAM)
     d = ImageDraw.Draw(img)
     d.ellipse([620, -120, 1140, 400], fill=B.MINT)
@@ -130,8 +145,7 @@ def product_pin(src, alt, label, key):
         d.text((60, y), line, font=f, fill=B.INK)
         y += 64
     d.text((60, y + 10), "Mia found it cheaper. Tap for today's price.", font=font(B.FONT_TEXT, 30, "Bold"), fill=B.TANGERINE)
-    d.rounded_rectangle([60, 1395, 940, 1450], radius=28, fill=B.GREEN)
-    d.text((88, 1407), "✓  Checked against Amazon  ·  momfounditcheaper.com", font=font(B.FONT_TEXT, 30, "Bold"), fill=(255, 255, 255))
+    footer(img)
     return img
 
 
@@ -147,6 +161,7 @@ def main():
         for i, (src, alt) in enumerate(items[:2], 1):
             pp = OUT / f"pin_{key}_{i}.png"
             product_pin(src, alt, label, key).save(pp, optimize=True)
+            alt = clean_name(alt)
             rows.append({"title": f"{alt[:80]} — {label}", "media_url": pp.name, "pinterest_board": "Mom Found It Cheaper",
                          "description": f"{alt[:120]}. {label} on Amazon when I checked this morning. Tap for today's price. #ad As an Amazon Associate I earn from qualifying purchases.",
                          "link": f"{SITE}#{key}", "keywords": f"{label.lower()}, amazon finds, mom deals"})

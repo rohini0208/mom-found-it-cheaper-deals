@@ -267,7 +267,10 @@ def card(d, history, tested, rank=0, idsuffix="", in_tier=False):
     code = d.get("code", "")
     real_code = bool(code and code != "w/ code" and code.lower() in str(_mm.get("promo", "")).lower())
     _th = thumb_for(d)
-    title = _amz_title(d) or no_price_title(d["title"])
+    _at = _amz_title(d)
+    _dt = no_price_title(d["title"])
+    title = _at if _at and (len(_at.split()) >= 3 or len(_dt.split()) < 3) else (_dt or _at)   # "Mellow Gold" -> fuller deal title
+    title = re.sub(r"[\u200b\u200c\u200d\ufeff]", "", title)
     title = re.sub(r"\b(?=[A-Z0-9-]{5,}\b)(?=[A-Z0-9-]*\d)(?=[A-Z0-9-]*[A-Z])[A-Z0-9-]+\b", "", title)   # drop model codes like 32516HD
     title = re.sub(r"\s{2,}", " ", title).strip(" ,-")
     tags = " ".join(filter(None, ["has-code" if real_code else "", "has-coupon" if d.get("coupon") else "",
@@ -354,7 +357,7 @@ section{margin-top:26px}h2{font-size:32px;margin:0 0 6px;letter-spacing:-.01em}
 .ph img{width:100%;aspect-ratio:1/1;object-fit:contain;display:block;background:#fff}
 .ph .stk{position:absolute;top:10px;left:10px}
 .tier{font-size:32px;font-weight:900;letter-spacing:-.03em;color:var(--ink);line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}.top5 .tier{font-size:28px}.tier.small{font-size:22px}
-.card h3{font-size:17px;line-height:1.3;margin:0;font-weight:600;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card h3{font-size:17px;line-height:1.3;margin:0;font-weight:600;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .proof{display:flex;gap:8px;flex-wrap:wrap;font-size:12px;align-items:center;min-height:16px}
 .chk{background:var(--green);color:#fff;padding:3px 8px;border-radius:20px;font-weight:600;white-space:nowrap}
 .fact{color:var(--muted);font-weight:500}.saved:empty{display:none}
@@ -532,7 +535,7 @@ def top5(picked, history, tested):
         return ""
     cards = "".join(card(d, history, tested, rank=i, idsuffix="-t5") for i, d in enumerate(best, 1))
     return (f'<section class="top5" id="top5"><h2>Today\'s Top 5</h2>'
-            f'<p class="sub">Five I\'d buy today. Each link checked against Amazon today.</p>'
+            f'<p class="sub">Five I\'d buy today. Each link checked against Amazon in the last 24 hours.</p>'
             f'<div class="grid">{cards}</div></section>')
 
 
@@ -567,7 +570,7 @@ def tier_sections(picked, history, tested):
         nav.append(f'<a href="#{key}">{html.escape(label)} <small>{len(items)}</small></a>')
         cards = "".join(card(d, history, tested, idsuffix="-" + key, in_tier=True) for d in items)
         out.append(f'<section class="tier-sec" id="{key}"><h2>{html.escape(label)} <span class="stk">{len(items)} DEALS</span></h2>'
-                   f'<p class="sub">Checked against Amazon today. Prices can move; tap to see the live price.</p>'
+                   f'<p class="sub">Checked against Amazon in the last 24 hours. Prices move; tap for the live price.</p>'
                    f'<div class="grid">{cards}</div></section>')
     return f'<nav class="tiernav" aria-label="Price tiers">{"".join(nav)}</nav>' + "".join(out)
 
@@ -649,7 +652,7 @@ def main():
 <header><div class="hero"><div class="hero-txt"><div class="wordmark">Mom Found It Cheaper</div>
 <span class="stk hero-stk">{hero_sticker()}</span>
 <h1>{hero_hook()}</h1>
-<p class="proofline">&#10003; Every link checked against Amazon today{(' &middot; ' + _checked_label(_latest_meta()).replace('Checked ', '')) if _latest_meta().get('checked') else ''}. I'm Mia. Tap any card for today's Amazon price.</p>
+<p class="proofline">&#10003; Every link checked against Amazon in the last 24 hours{(' &middot; ' + _checked_label(_latest_meta()).replace('Checked ', '')) if _latest_meta().get('checked') else ''}. I'm Mia. Tap any card for today's Amazon price.</p>
 {signup_html()}
 <a class="join" href="#top5">See today's 5 &darr;</a></div>
 <img class="scene" src="mia-scene.jpg" width="1428" height="803" alt="Mia, the mom behind Mom Found It Cheaper, holding a stack of checked delivery boxes" fetchpriority="high"></div></header>

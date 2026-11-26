@@ -47,7 +47,7 @@ As an Amazon Associate I earn from qualifying purchases.
 ## Price-tier posts for the Page (4)
 ### Under $10
 ```
-Under $10 finds today (every link checked against Amazon this morning):
+Under $10 finds today (each link checked against Amazon before posting; prices can change):
 1. Disney Frozen Sven Crystal 3D Puzzle Deluxe
 2. Fisher-Price Wood Pretend Play Toy Fruit Pie
 3. RoseArt Hobby Haven Greentree Garden Center 1000 Piece Jigsaw Puzzle
@@ -60,7 +60,7 @@ As an Amazon Associate I earn from qualifying purchases. #ad
 
 ### Under $20
 ```
-Under $20 finds today (every link checked against Amazon this morning):
+Under $20 finds today (each link checked against Amazon before posting; prices can change):
 1. Monopoly Board Game
 2. YETI Rambler 8 oz Travel Bottle
 3. Momcozy Baby Bottle Brush Kit
@@ -73,12 +73,12 @@ As an Amazon Associate I earn from qualifying purchases. #ad
 
 ### Under $25
 ```
-Under $25 finds today (every link checked against Amazon this morning):
-1. ​Masters of the Universe 2026 Movie He-Man Power of Grayskull Sword
+Under $25 finds today (each link checked against Amazon before posting; prices can change):
+1. Masters of the Universe 2026 Movie He-Man Power of Grayskull Sword
 2. LEGO Speed Champions Ferrari 499P 77261
 3. YETI Rambler 20 oz Tumbler with Straw Lid
 4. OBD2 Scanner Diagnostic Tool
-5. Mellow Gold
+5. Beck: Mellow Gold (180-gram Vinyl LP)
 
 All of them, with links: https://momfounditcheaper.com/#under-25
 As an Amazon Associate I earn from qualifying purchases. #ad
@@ -86,7 +86,7 @@ As an Amazon Associate I earn from qualifying purchases. #ad
 
 ### Under $50
 ```
-Under $50 finds today (every link checked against Amazon this morning):
+Under $50 finds today (each link checked against Amazon before posting; prices can change):
 1. LEGO ONE PIECE Tony Tony Chopper 75643
 2. ECR4Kids Adjustable Wooden Sit or Step Stool with Storage
 3. Gibson Home Rothernberg Plates and Bowls 18 Piece Porcelain White Dinnerware Set

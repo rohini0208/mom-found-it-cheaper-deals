@@ -48,11 +48,11 @@ def tier_posts():
         m = re.search(r'<section class="tier-sec" id="%s">(.*?)</section>' % key, html_, re.S)
         if not m:
             continue
-        titles = [html.unescape(t) for t in re.findall(r"<h3>([^<]+)</h3>", m.group(1))][:5]
+        titles = [re.sub(r"[\u200b\u200c\u200d\ufeff]", "", html.unescape(t)).strip() for t in re.findall(r"<h3>([^<]+)</h3>", m.group(1))][:5]
         if len(titles) < 3:
             continue
         lines = "\n".join(f"{i}. {t}" for i, t in enumerate(titles, 1))
-        out.append({"tier": label, "text": f"{label} finds today (every link checked against Amazon this morning):\n{lines}\n\n"
+        out.append({"tier": label, "text": f"{label} finds today (each link checked against Amazon before posting; prices can change):\n{lines}\n\n"
                                            f"All of them, with links: {SITE}#{key}\n{DISCLOSURE}"})
     return out
 
