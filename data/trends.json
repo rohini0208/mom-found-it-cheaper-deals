@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T19:48+00:00",
+ "updated": "2026-11-26T22:18+00:00",
  "status": {
   "TikTok Made Me Buy It (Reddit)": "error: HTTP Error 404: Not Found",
   "Amazon finds (Reddit)": "error: HTTP Error 429: Too Many Requests",
@@ -268,20 +268,17 @@
   },
   {
    "source": "camelcamelcamel popular",
-   "title": "Samsung 65-Inch Class S90H Series, OLED, 4K, Smart TV, 2026 Model",
-   "link": "https://camelcamelcamel.com/product/B0GPY4Y2VF?active=price_amazon",
-   "asin": "B0GPY4Y2VF",
+   "title": "Pok\u00e9mon TCG: First Partner Illustration Collection\u2014Series 3",
+   "link": "https://camelcamelcamel.com/product/B0H2JVZYZZ?active=price_amazon",
+   "asin": "B0H2JVZYZZ",
    "rank": 15,
    "label": "Best Price",
    "words": [
-    "class",
-    "inch",
-    "model",
-    "oled",
-    "s90h",
-    "samsung",
-    "series",
-    "smart"
+    "collection",
+    "first",
+    "illustration",
+    "partner",
+    "series"
    ]
   },
   {
@@ -375,10 +372,128 @@
   },
   {
    "source": "Amazon Best Sellers",
+   "title": "STANLEY Quencher H2.0 Flow State Tumbler, 40 oz, Black 2.0 | Handle and Straw | 3-Position Lid | Cup Holder Compatible f",
+   "link": "https://www.amazon.com/dp/B0CP9Z1S51",
+   "asin": "B0CP9Z1S51",
+   "rank": 1,
+   "words": [
+    "black",
+    "compatible",
+    "flow",
+    "handle",
+    "holder",
+    "position",
+    "quencher",
+    "stanley",
+    "state",
+    "straw",
+    "tumbler"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Owala FreeSip Stainless Steel Water Bottle 24 oz Shy Marshmallow",
+   "link": "https://www.amazon.com/dp/B085DV8T75",
+   "asin": "B085DV8T75",
+   "rank": 2,
+   "words": [
+    "bottle",
+    "freesip",
+    "marshmallow",
+    "owala",
+    "stainless",
+    "steel",
+    "water"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "bella Fits-Anywhere\u2122 2-Slice Slim Toaster, Long Slot & Extra Wide, Oatmilk",
+   "link": "https://www.amazon.com/dp/B0CYJBB2JQ",
+   "asin": "B0CYJBB2JQ",
+   "rank": 3,
+   "words": [
+    "anywhere",
+    "bella",
+    "extra",
+    "fits",
+    "long",
+    "oatmilk",
+    "slice",
+    "slim",
+    "slot",
+    "toaster",
+    "wide"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Alpha Grillers Instant Read Waterproof Digital Meat Thermometer for Cooking and Grilling",
+   "link": "https://www.amazon.com/dp/B00S93EQUK",
+   "asin": "B00S93EQUK",
+   "rank": 4,
+   "words": [
+    "alpha",
+    "cooking",
+    "digital",
+    "grillers",
+    "grilling",
+    "instant",
+    "meat",
+    "read",
+    "thermometer",
+    "waterproof"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Owala SmoothSip Slider Insulated Stainless Steel Coffee Tumbler, Reusable Iced Coffee Cup, Hot Coffee Travel Mug, BPA Fr",
+   "link": "https://www.amazon.com/dp/B0DF472VMZ",
+   "asin": "B0DF472VMZ",
+   "rank": 5,
+   "words": [
+    "coffee",
+    "iced",
+    "insulated",
+    "owala",
+    "reusable",
+    "slider",
+    "smoothsip",
+    "stainless",
+    "steel",
+    "travel",
+    "tumbler"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "HydroJug Traveler 32oz, Insulated Water Bottle with Handle, Brown Leopard | Triple wall insulated, flip straw lid, leak-",
+   "link": "https://www.amazon.com/dp/B0H139RH5T",
+   "asin": "B0H139RH5T",
+   "rank": 6,
+   "words": [
+    "32oz",
+    "bottle",
+    "brown",
+    "flip",
+    "handle",
+    "hydrojug",
+    "insulated",
+    "leak",
+    "leopard",
+    "straw",
+    "traveler",
+    "triple",
+    "wall",
+    "water"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
    "title": "PlayStation DualSense\u2122 Wireless Controller \u2013 Midnight Black - For PS5, PC, MAC & Mobile",
    "link": "https://www.amazon.com/dp/B0FY6Y9WZT",
    "asin": "B0FY6Y9WZT",
-   "rank": 1,
+   "rank": 7,
    "words": [
     "black",
     "controller",
@@ -394,7 +509,7 @@
    "title": "Roblox Digital Gift Card - 1,000 Robux [Includes Exclusive Virtual Item] [Digital Code]",
    "link": "https://www.amazon.com/dp/B07RZ74VLR",
    "asin": "B07RZ74VLR",
-   "rank": 2,
+   "rank": 8,
    "words": [
     "card",
     "digital",
@@ -409,18 +524,18 @@
   },
   {
    "source": "Amazon Best Sellers",
-   "title": "XBOX Wireless Gaming Controller | Carbon Black | Textured triggers and bumpers, Hybrid D-pad, XBOX Wireless, Bluetooth, ",
-   "link": "https://www.amazon.com/dp/B0F1HX3WXX",
-   "asin": "B0F1HX3WXX",
-   "rank": 3,
+   "title": "XBOX Wireless Gaming Controller | Shock Blue | Textured triggers and bumpers, Hybrid D-pad, XBOX Wireless, Bluetooth, US",
+   "link": "https://www.amazon.com/dp/B0F1J12R6N",
+   "asin": "B0F1J12R6N",
+   "rank": 9,
    "words": [
-    "black",
+    "blue",
     "bluetooth",
     "bumpers",
-    "carbon",
     "controller",
     "gaming",
     "hybrid",
+    "shock",
     "textured",
     "triggers",
     "wireless",
@@ -429,40 +544,10 @@
   },
   {
    "source": "Amazon Best Sellers",
-   "title": "Grand Theft Auto VI - PlayStation 5 (Code in Box) | Code in Box - Playable 11/19/26, No physical disc in box",
-   "link": "https://www.amazon.com/dp/B0H6K928WL",
-   "asin": "B0H6K928WL",
-   "rank": 4,
-   "words": [
-    "auto",
-    "disc",
-    "grand",
-    "physical",
-    "playable",
-    "playstation",
-    "theft"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "$10 -PlayStation Store Gift Card [Digital Code]",
-   "link": "https://www.amazon.com/dp/B00GAC1D2G",
-   "asin": "B00GAC1D2G",
-   "rank": 5,
-   "words": [
-    "card",
-    "digital",
-    "gift",
-    "playstation",
-    "store"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
    "title": "Nintendo Switch 2 + Mario Kart World Bundle (includes 3-month NSO Individual Membership)",
    "link": "https://www.amazon.com/dp/B0HGHB3V16",
    "asin": "B0HGHB3V16",
-   "rank": 6,
+   "rank": 10,
    "words": [
     "bundle",
     "includes",
@@ -478,10 +563,40 @@
   },
   {
    "source": "Amazon Best Sellers",
+   "title": "$10 -PlayStation Store Gift Card [Digital Code]",
+   "link": "https://www.amazon.com/dp/B00GAC1D2G",
+   "asin": "B00GAC1D2G",
+   "rank": 11,
+   "words": [
+    "card",
+    "digital",
+    "gift",
+    "playstation",
+    "store"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Grand Theft Auto VI - PlayStation 5 (Code in Box) | Code in Box - Playable 11/19/26, No physical disc in box",
+   "link": "https://www.amazon.com/dp/B0H6K928WL",
+   "asin": "B0H6K928WL",
+   "rank": 12,
+   "words": [
+    "auto",
+    "disc",
+    "grand",
+    "physical",
+    "playable",
+    "playstation",
+    "theft"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
    "title": "blink plus plan with monthly auto-renewal",
    "link": "https://www.amazon.com/dp/B08JHCVHTY",
    "asin": "B08JHCVHTY",
-   "rank": 7,
+   "rank": 13,
    "words": [
     "auto",
     "blink",
@@ -496,7 +611,7 @@
    "title": "Apple AirPods Pro 3 Wireless Earbuds with Active Noise Cancellation | Live Translation, Heart Rate Sensing, Hearing Aid ",
    "link": "https://www.amazon.com/dp/B0FQFB8FMG",
    "asin": "B0FQFB8FMG",
-   "rank": 8,
+   "rank": 14,
    "words": [
     "active",
     "airpods",
@@ -518,7 +633,7 @@
    "title": "Apple AirTag (2nd Generation): Tracker for Keychain, Wallet, and More; Locator with Sound; Simple One-Tap Setup with iPh",
    "link": "https://www.amazon.com/dp/B0GJTFXNRX",
    "asin": "B0GJTFXNRX",
-   "rank": 9,
+   "rank": 15,
    "words": [
     "airtag",
     "apple",
@@ -538,7 +653,7 @@
    "title": "Beats Solo 4 On-Ear Headphones, 50 Hours Battery Life - Metallic Pink | Rich, Bass-Forward Sound Quality, Spatial Audio,",
    "link": "https://www.amazon.com/dp/B0FHLPS8ZF",
    "asin": "B0FHLPS8ZF",
-   "rank": 10,
+   "rank": 16,
    "words": [
     "audio",
     "bass",
@@ -562,7 +677,7 @@
    "title": "Roku Streaming Stick HD with Voice Remote | Compact HD Streaming Device for TV with Roku Voice Remote & Long-Range Wi-Fi",
    "link": "https://www.amazon.com/dp/B0DXXYS4BJ",
    "asin": "B0DXXYS4BJ",
-   "rank": 11,
+   "rank": 17,
    "words": [
     "compact",
     "device",
@@ -577,24 +692,25 @@
   },
   {
    "source": "Amazon Best Sellers",
-   "title": "Apple EarPods Headphones with USB-C Plug, Wired Ear Buds with Built-in Remote to Control Music, Phone Calls, and Volume",
-   "link": "https://www.amazon.com/dp/B0DCH8VDXF",
-   "asin": "B0DCH8VDXF",
-   "rank": 12,
+   "title": "Apple iPad 11-inch: A16 chip, 11-inch Model, Liquid Retina Display, 128GB, Wi-Fi 6, 12MP Front/12MP Back Camera, Touch I",
+   "link": "https://www.amazon.com/dp/B0DZ75TN5F",
+   "asin": "B0DZ75TN5F",
+   "rank": 18,
    "words": [
+    "128gb",
+    "12mp",
     "apple",
-    "buds",
-    "built",
-    "calls",
-    "control",
-    "earpods",
-    "headphones",
-    "music",
-    "phone",
-    "plug",
-    "remote",
-    "volume",
-    "wired"
+    "back",
+    "camera",
+    "chip",
+    "display",
+    "front",
+    "inch",
+    "ipad",
+    "liquid",
+    "model",
+    "retina",
+    "touch"
    ]
   },
   {
@@ -602,7 +718,7 @@
    "title": "Hanes Men's Hoodie - EcoSmart Fleece Hooded Sweatshirt for Men & Women - Midweight Fleece - Big & Tall Available",
    "link": "https://www.amazon.com/dp/B00JUM2VAQ",
    "asin": "B00JUM2VAQ",
-   "rank": 13,
+   "rank": 19,
    "words": [
     "available",
     "ecosmart",
@@ -620,7 +736,7 @@
    "title": "Hanes Men's Zip-up Hoodie, Ecosmart Fleece Full-zip Hoodie for Men, Hooded Sweatshirt",
    "link": "https://www.amazon.com/dp/B00JUM4DKC",
    "asin": "B00JUM4DKC",
-   "rank": 14,
+   "rank": 20,
    "words": [
     "ecosmart",
     "fleece",
@@ -636,7 +752,7 @@
    "title": "Hanes Men's Sweatshirt, EcoSmart Fleece Crewneck Sweatshirt, Big & Tall Available, 1 or 2-Pack",
    "link": "https://www.amazon.com/dp/B072QRN7HR",
    "asin": "B072QRN7HR",
-   "rank": 15,
+   "rank": 21,
    "words": [
     "available",
     "crewneck",
@@ -652,7 +768,7 @@
    "title": "ANRABESS Women Long Sleeve Shirts Ribbed Fitted Tops | Slim Basic Tee,2026 Fall Outfits,Lightweight Knit T-Shirt,Soft Un",
    "link": "https://www.amazon.com/dp/B0CYZM5RSM",
    "asin": "B0CYZM5RSM",
-   "rank": 16,
+   "rank": 22,
    "words": [
     "anrabess",
     "basic",
@@ -676,7 +792,7 @@
    "title": "Fruit of the Loom Eversoft Fleece Elastic Bottom Sweatpants with Pockets, Relaxed Fit, Moisture Wicking, Breathable",
    "link": "https://www.amazon.com/dp/B08YHLVJN3",
    "asin": "B08YHLVJN3",
-   "rank": 17,
+   "rank": 23,
    "words": [
     "bottom",
     "breathable",
@@ -694,20 +810,24 @@
   },
   {
    "source": "Amazon Best Sellers",
-   "title": "Legendary Whitetails Mens Flannel Long Sleeve Button Down 100% Cotton Shirt",
-   "link": "https://www.amazon.com/dp/B01KTUMBOI",
-   "asin": "B01KTUMBOI",
-   "rank": 18,
+   "title": "HEYDUDE Men's Wally Amazon Exclusive Styles Slip On Loafer | Easy On Shoe | Breathable Textile Upper, Elastic Laces, Cus",
+   "link": "https://www.amazon.com/dp/B0GC7ZLVWL",
+   "asin": "B0GC7ZLVWL",
+   "rank": 24,
    "words": [
-    "button",
-    "cotton",
-    "down",
-    "flannel",
-    "legendary",
-    "long",
-    "shirt",
-    "sleeve",
-    "whitetails"
+    "breathable",
+    "easy",
+    "elastic",
+    "exclusive",
+    "heydude",
+    "laces",
+    "loafer",
+    "shoe",
+    "slip",
+    "styles",
+    "textile",
+    "upper",
+    "wally"
    ]
   },
   {
@@ -715,7 +835,7 @@
    "title": "medicube Toner Pads Zero Pore Pad 2.0 for Exfoliation and Pore Care | Dual-Textured Facial Pad with 4.5% AHA Lactic Acid",
    "link": "https://www.amazon.com/dp/B09V7Z4TJG",
    "asin": "B09V7Z4TJG",
-   "rank": 19,
+   "rank": 25,
    "words": [
     "acid",
     "care",
@@ -736,7 +856,7 @@
    "title": "BIODANCE Bio-Collagen Real Deep Mask for Hydrating & Plumping (4ea) | Overnight Hydrogel Hydrating Face Masks, Glass Ski",
    "link": "https://www.amazon.com/dp/B0B2RM68G2",
    "asin": "B0B2RM68G2",
-   "rank": 20,
+   "rank": 26,
    "words": [
     "biodance",
     "collagen",
@@ -754,10 +874,31 @@
   },
   {
    "source": "Amazon Best Sellers",
+   "title": "Illiyoon Ceramide Ato Concentrate Cream | Moisturizer for Dry & Sensitive Skin, 100hr Lasting Hydration, For Face & Body",
+   "link": "https://www.amazon.com/dp/B077RTL1HJ",
+   "asin": "B077RTL1HJ",
+   "rank": 27,
+   "words": [
+    "100hr",
+    "body",
+    "ceramide",
+    "concentrate",
+    "cream",
+    "face",
+    "hydration",
+    "illiyoon",
+    "lasting",
+    "moisturizer",
+    "sensitive",
+    "skin"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
    "title": "medicube Jelly Gel Mask with Salmon DNA PDRN Pink Collagen, Plump & Hydrate | Overnight Face Mask for Glass Glow Skin - ",
    "link": "https://www.amazon.com/dp/B0DGTMR754",
    "asin": "B0DGTMR754",
-   "rank": 21,
+   "rank": 28,
    "words": [
     "collagen",
     "face",
@@ -777,31 +918,10 @@
   },
   {
    "source": "Amazon Best Sellers",
-   "title": "Illiyoon Ceramide Ato Concentrate Cream | Moisturizer for Dry & Sensitive Skin, 100hr Lasting Hydration, For Face & Body",
-   "link": "https://www.amazon.com/dp/B077RTL1HJ",
-   "asin": "B077RTL1HJ",
-   "rank": 22,
-   "words": [
-    "100hr",
-    "body",
-    "ceramide",
-    "concentrate",
-    "cream",
-    "face",
-    "hydration",
-    "illiyoon",
-    "lasting",
-    "moisturizer",
-    "sensitive",
-    "skin"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
    "title": "eos Shea Better Body Lotion- Vanilla Cashmere, 24-Hour Moisture, 16 fl oz | Natural Shea Butter & Oil, Whipped Vanilla &",
    "link": "https://www.amazon.com/dp/B08KT2Z93D",
    "asin": "B08KT2Z93D",
-   "rank": 23,
+   "rank": 29,
    "words": [
     "better",
     "body",
@@ -821,7 +941,7 @@
    "title": "medicube Collagen Jelly Cream, Moisturizing Cream for Plump Skin, 1.69fl.oz | medicube Collagen Jelly Cream for Skin Bar",
    "link": "https://www.amazon.com/dp/B0DGPSZVW3",
    "asin": "B0DGPSZVW3",
-   "rank": 24,
+   "rank": 30,
    "words": [
     "69fl",
     "collagen",
@@ -831,125 +951,6 @@
     "moisturizing",
     "plump",
     "skin"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "STANLEY Quencher H2.0 Flow State Tumbler, 40 oz, Rose Quartz 2.0 | Handle and Straw | 3-Position Lid | Cup Holder Compat",
-   "link": "https://www.amazon.com/dp/B0CP9Z56SW",
-   "asin": "B0CP9Z56SW",
-   "rank": 25,
-   "words": [
-    "compat",
-    "flow",
-    "handle",
-    "holder",
-    "position",
-    "quartz",
-    "quencher",
-    "rose",
-    "stanley",
-    "state",
-    "straw",
-    "tumbler"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "Owala FreeSip Stainless Steel Water Bottle 24 oz Shy Marshmallow",
-   "link": "https://www.amazon.com/dp/B085DV8T75",
-   "asin": "B085DV8T75",
-   "rank": 26,
-   "words": [
-    "bottle",
-    "freesip",
-    "marshmallow",
-    "owala",
-    "stainless",
-    "steel",
-    "water"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "bella Fits-Anywhere\u2122 2-Slice Slim Toaster, Long Slot & Extra Wide, Oatmilk",
-   "link": "https://www.amazon.com/dp/B0CYJBB2JQ",
-   "asin": "B0CYJBB2JQ",
-   "rank": 27,
-   "words": [
-    "anywhere",
-    "bella",
-    "extra",
-    "fits",
-    "long",
-    "oatmilk",
-    "slice",
-    "slim",
-    "slot",
-    "toaster",
-    "wide"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "Alpha Grillers Instant Read Waterproof Digital Meat Thermometer for Cooking and Grilling",
-   "link": "https://www.amazon.com/dp/B00S93EQUK",
-   "asin": "B00S93EQUK",
-   "rank": 28,
-   "words": [
-    "alpha",
-    "cooking",
-    "digital",
-    "grillers",
-    "grilling",
-    "instant",
-    "meat",
-    "read",
-    "thermometer",
-    "waterproof"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "HydroJug Traveler 32oz, Insulated Water Bottle with Handle, French Vanilla | Triple wall insulated, flip straw lid, leak",
-   "link": "https://www.amazon.com/dp/B0H2FQ5FV1",
-   "asin": "B0H2FQ5FV1",
-   "rank": 29,
-   "words": [
-    "32oz",
-    "bottle",
-    "flip",
-    "french",
-    "handle",
-    "hydrojug",
-    "insulated",
-    "leak",
-    "straw",
-    "traveler",
-    "triple",
-    "vanilla",
-    "wall",
-    "water"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "Owala SmoothSip Slider Insulated Stainless Steel Coffee Tumbler, Reusable Iced Coffee Cup, Hot Coffee Travel Mug, BPA Fr",
-   "link": "https://www.amazon.com/dp/B0DF472VMZ",
-   "asin": "B0DF472VMZ",
-   "rank": 30,
-   "words": [
-    "coffee",
-    "iced",
-    "insulated",
-    "owala",
-    "reusable",
-    "slider",
-    "smoothsip",
-    "stainless",
-    "steel",
-    "travel",
-    "tumbler"
    ]
   },
   {
@@ -1029,26 +1030,10 @@
   },
   {
    "source": "Amazon Best Sellers",
-   "title": "Kleenex Ultra Soft Facial Tissues, 8 Cube Boxes, 80 Tissues per Box",
-   "link": "https://www.amazon.com/dp/B0CTD36YKK",
-   "asin": "B0CTD36YKK",
-   "rank": 35,
-   "words": [
-    "boxes",
-    "cube",
-    "facial",
-    "kleenex",
-    "soft",
-    "tissues",
-    "ultra"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
    "title": "Amazon Basics 2-Ply Soft Toilet Paper, 30 Rolls (5 Packs of 6), 350 Sheets per Roll, Septic Safe, Equivalent to 185 Regu",
    "link": "https://www.amazon.com/dp/B095CN96JS",
    "asin": "B095CN96JS",
-   "rank": 36,
+   "rank": 35,
    "words": [
     "basics",
     "equivalent",
@@ -1062,6 +1047,27 @@
     "sheets",
     "soft",
     "toilet"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Charmin Ultra Soft Cushiony Touch Toilet Paper, 24 Family Mega = 123 Regular Rolls, White",
+   "link": "https://www.amazon.com/dp/B0798DVT68",
+   "asin": "B0798DVT68",
+   "rank": 36,
+   "words": [
+    "charmin",
+    "cushiony",
+    "family",
+    "mega",
+    "paper",
+    "regular",
+    "rolls",
+    "soft",
+    "toilet",
+    "touch",
+    "ultra",
+    "white"
    ]
   }
  ]
