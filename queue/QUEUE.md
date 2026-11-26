@@ -283,8 +283,27 @@ https://www.amazon.com/dp/B07GB4S9H5?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-## Videos (1)
+## Videos (20)
 - deal_1.mp4  (caption: videos/deal_1.txt)
+- deal_10.mp4  (caption: videos/deal_10.txt)
+- deal_11.mp4  (caption: videos/deal_11.txt)
+- deal_12.mp4  (caption: videos/deal_12.txt)
+- deal_13.mp4  (caption: videos/deal_13.txt)
+- deal_14.mp4  (caption: videos/deal_14.txt)
+- deal_15.mp4  (caption: videos/deal_15.txt)
+- deal_16.mp4  (caption: videos/deal_16.txt)
+- deal_17.mp4  (caption: videos/deal_17.txt)
+- deal_18.mp4  (caption: videos/deal_18.txt)
+- deal_19.mp4  (caption: videos/deal_19.txt)
+- deal_2.mp4  (caption: videos/deal_2.txt)
+- deal_20.mp4  (caption: videos/deal_20.txt)
+- deal_3.mp4  (caption: videos/deal_3.txt)
+- deal_4.mp4  (caption: videos/deal_4.txt)
+- deal_5.mp4  (caption: videos/deal_5.txt)
+- deal_6.mp4  (caption: videos/deal_6.txt)
+- deal_7.mp4  (caption: videos/deal_7.txt)
+- deal_8.mp4  (caption: videos/deal_8.txt)
+- deal_9.mp4  (caption: videos/deal_9.txt)
 
 ## Price-tier posts for the Page (4)
 ### Under $10
