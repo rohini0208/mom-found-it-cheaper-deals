@@ -1,0 +1,4 @@
+# Cloudflare Pages: functions/ is picked up automatically. KV binding COUNTS is set in the dashboard
+# (Workers & Pages -> mom-found-it-cheaper-deals -> Settings -> Bindings -> KV namespace -> variable name COUNTS).
+name = "mom-found-it-cheaper-deals"
+pages_build_output_dir = "site"

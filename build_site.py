@@ -207,82 +207,82 @@ def clean_title(t):
     return t.strip() or t
 
 
-def card(d, history, tested):
+def _checked_label(m):
+    """'Checked 7:12 AM ET' from the Lenovo run time, or ''."""
+    ts = m.get("checked")
+    if not ts:
+        return ""
+    from zoneinfo import ZoneInfo
+    dt = datetime.fromtimestamp(ts, ZoneInfo("America/New_York"))
+    return "Checked " + dt.strftime("%-I:%M %p").replace("AM", "AM ET").replace("PM", "PM ET")
+
+
+def _drop_pct(d, history, now_price):
+    """% below our own recorded high (>=2 points, real drop) else 0. Our log, not Amazon's."""
+    pts = [p for _, p in history.get(product_key(d), [])]
+    if now_price is None or len(pts) < 2:
+        return 0
+    hi = max(pts)
+    return int(round(100 * (hi - now_price) / hi)) if hi > now_price else 0
+
+
+def card(d, history, tested, rank=0):
+    import brand
     orig_title = d["title"]
     d = dict(d, title=clean_title(d["title"]))
     i = deal_id(d)
-    t = tested.get(i, "")            # "Nov 12" (old) or {"date": ..., "asin": ...}
-    price = price_num(d.get("price"))
-    pts = [p for _, p in history.get(product_key(d), [])]
-    lowest = min(pts) if pts else None
-    is_low = price is not None and len(pts) >= 3 and max(pts) > lowest and price <= lowest
-    b = badge(d, is_low)
-    buzz = viral_sources(d, SIGNALS)
-    if len(buzz) >= 2:
-        b = f"Viral · seen in {len(buzz)} places"
+    t = tested.get(i, "")
     if isinstance(t, dict) and t.get("asin") and not d.get("asin"):
-        d = dict(d, asin=t["asin"])      # Amazon link you pasted when testing
+        d = dict(d, asin=t["asin"])
     url, label = link_for(d)
     is_amz = is_amazon(d)
-    if is_amz and AMAZON_PRICES == "hide":
-        label = "See current price on Amazon"
     amz = is_amz and AMAZON_PRICES == "hide"
     _mm = META.get(d.get("asin", "")) or {}
-    stamp = f"Amazon price as of {as_of(_mm['checked'] if _mm.get('checked') else d['seen'])} &middot; prices change, check before buying" if is_amz and not amz else ""
-    if amz:                      # Amazon policy: no prices unless from Amazon's API
-        price, pts, b = None, [], (b if b != "Lowest price we've seen" else "")
-    _now = price_num(_mm.get("now")) if _mm.get("v", 0) >= 4 else None
-    if is_amz and not amz and _now:
-        d = dict(d, price=f"${_now:,.2f}")          # show what Amazon shows, not the deal-site headline price
-    elif is_amz and not amz and not re.fullmatch(r"\$\d[\d,]*(?:\.\d\d)?", (d.get("price") or "").strip()):
-        d = dict(d, price="")                         # malformed price text (e.g. "$11,") is never shown
+    # the number: Amazon's current price from the morning check (owner decision 2026-11-25), else deal price
+    now_price = price_num(_mm.get("now")) if _mm.get("v", 0) >= 4 else None
+    if now_price is None:
+        now_price = price_num(d.get("price"))
+    tier_txt = brand.tier(now_price)
+    pct = _drop_pct(d, history, now_price)
+    # ONE sticker, from verifiable states only
+    low = orig_title.lower()
+    if pct >= 30:
+        sticker = f"{pct}% OFF"
+    elif "black friday" in low or "bf " in low:
+        sticker = "BF DEAL"
+    elif now_price is not None and now_price < 10:
+        sticker = "UNDER $10"
+    elif rank == 1:
+        sticker = "MIA'S PICK"
+    elif pct >= 10:
+        sticker = "PRICE DROPPED"
+    else:
+        sticker = ""
+    checked = _checked_label(_mm)
+    votes = d.get("thumbs", 0)
+    buzz = viral_sources(d, SIGNALS)
+    proof2 = (f"{votes} votes on {html.escape(d.get('source','Slickdeals').split(' ')[0])}" if votes >= 5
+              else (f"Buzzing on {html.escape(buzz[0])}" if buzz else ""))
+    why = (d.get("features") or [""])[0]
+    ss = "with Subscribe &amp; Save" if re.search(r"S&S|Sub(?:scribe)?\s*(?:&|and)\s*Save", orig_title, re.I) else ""
     code = d.get("code", "")
-    real_code = bool(code and code != "w/ code" and code.lower() in str((META.get(d.get("asin", "")) or {}).get("promo", "")).lower())
-    hist_txt = ""
-    if len(pts) >= 2 and max(pts) > min(pts):
-        hist_txt = f"Seen {len(pts)} times · low ${lowest:,.2f} · high ${max(pts):,.2f}"
-    feats = "".join(f"<li>{html.escape(f)}</li>" for f in d.get("features", [])[:3])
-    tested_on = t.get("date", "") if isinstance(t, dict) else t
-    tags = " ".join(filter(None, [
-        "has-code" if real_code else "",
-        "has-coupon" if d.get("coupon") else "",
-        "under25" if price is not None and price < 25 else "",
-        "tested" if tested_on else "",
-        "viral" if len(buzz) >= 2 else "",
-    ]))
-    _lst, _pct, _rt, _rv = savings(d)
-    if amz:                      # Associates policy: no scraped Amazon prices, ratings, list prices or photos
-        _lst, _pct, _rt, _rv, hist_txt = None, 0, 0, 0, ""
-    _th = thumb_for(d)                     # photos from the deal feeds (fetch_images.py) stay on; Rohini's call 2026-11-25
-    photo_html = (f'<a class="ph" href="{html.escape(url)}" target="_blank" rel="sponsored noopener"><img src="{_th}" loading="lazy" alt="{html.escape(_amz_title(d) or no_price_title(d['title']))}">'
-                  + (f'<span class="off">-{_pct}%</span>' if _pct else "") + "</a>") if _th else ""
-    rating_html = (f'<div class="stars">&#9733; {_rt:.1f} <span>({_rv:,} reviews)</span></div>' if _rt and _rv >= 50 else "")
+    real_code = bool(code and code != "w/ code" and code.lower() in str(_mm.get("promo", "")).lower())
+    _th = thumb_for(d)
+    title = _amz_title(d) or no_price_title(d["title"])
+    tags = " ".join(filter(None, ["has-code" if real_code else "", "has-coupon" if d.get("coupon") else "",
+                                  "under25" if now_price is not None and now_price < 25 else "", "viral" if len(buzz) >= 2 else ""]))
     return f"""
-<article class="card {tags}" id="d-{i}" data-title="{html.escape((no_price_title(d['title']) if amz else d['title']).lower())}" data-cat="{html.escape(d.get('category','Everything else'))}" data-store="{html.escape(d.get('store','Other'))}">
-  {photo_html}
-  <div class="where">{html.escape(d.get('store','Other'))} · {html.escape(d.get('category','Everything else'))}</div>
-  <div class="top">
-    {f'<span class="badge">{html.escape(b)}</span>' if b else ''}
-    {f'<span class="tested-badge">&#10003; Tested {html.escape(tested_on)}</span>' if tested_on else ''}
-  </div>
-  <h3>{html.escape(_amz_title(d) or (no_price_title(d['title']) if amz else d['title']))}</h3>
-  {f'<ul class="feats">{feats}</ul>' if feats else ''}
-  {'<div class="amz">Price drop on Amazon &middot; tap to see today&rsquo;s price</div>' if amz else (f"""<div class="price">
-    <span class="now">{html.escape(d.get('price') or '')}</span>
-    {f'<span class="was">${_lst:,.2f}</span>' if _lst else ''}
-  </div>""" if d.get('price') else '')}
-  {rating_html}
+<article class="card {tags}" id="d-{i}" data-title="{html.escape(title.lower())}" data-cat="{html.escape(d.get('category','Everything else'))}" data-store="{html.escape(d.get('store','Other'))}" data-asin="{html.escape(d.get('asin',''))}">
+  <a class="ph" href="{html.escape(url)}" target="_blank" rel="sponsored noopener" data-track="{html.escape(d.get('asin') or i)}">{f'<img src="{_th}" loading="lazy" alt="{html.escape(title)}">' if _th else ''}{f'<span class="stk">{sticker}</span>' if sticker else ''}</a>
+  {f'<div class="tier">{html.escape(tier_txt)}</div>' if tier_txt and not amz else (f'<div class="tier">{html.escape(tier_txt)}</div>' if tier_txt else '<div class="tier small">Price dropped</div>')}
+  <h3>{html.escape(title)}</h3>
+  <div class="proof">{f'<span class="chk">&#10003; {checked}</span>' if checked else ''}{f'<span class="fact">{proof2}</span>' if proof2 else ''}<span class="fact saved" data-saved="{html.escape(d.get('asin') or i)}"></span></div>
+  {f'<div class="why">{html.escape(why)}</div>' if why else ''}
+  {f'<div class="why ss">Price is {ss}</div>' if ss else ''}
   {f'<button class="code" data-code="{html.escape(code)}">Code <b>{html.escape(code)}</b> <span>tap to copy</span></button>' if real_code else ''}
-  {'<div class="coupon">Clip the coupon on the product page</div>' if d.get('coupon') else ''}
-  {'<div class="coupon">Promo code in the deal</div>' if code == 'w/ code' else ''}
-  {'<div class="coupon">Price shown is with Subscribe &amp; Save</div>' if (not amz) and re.search(r"S&S|Sub(?:scribe)?\s*(?:&|and)\s*Save", orig_title, re.I) else ''}
-  {f'<div class="asof">{stamp}</div>' if stamp else ''}
-  {''.join(f'<div class="also">Also found: {("code <b>" + html.escape(a["code"]) + "</b>") if a["code"] else "clip coupon"} on <a href="{html.escape(a["link"])}" target="_blank" rel="noopener">{html.escape(a["source"])}</a></div>' for a in d.get("also", []))}
-  {f'<div class="buzz">Buzzing on: {html.escape(", ".join(buzz))}</div>' if buzz else ''}
-  {f'<div class="hist">{hist_txt}</div>' if hist_txt else ''}
-  <div class="meta"><span class="ago" data-t="{d['seen']}"></span>{f' · +{d["thumbs"]} community votes' if d.get('thumbs') else ''}</div>
-  <a class="go" href="{html.escape(url)}" target="_blank" rel="sponsored noopener" aria-label="{html.escape(label)}: {html.escape(_amz_title(d) or no_price_title(d['title']))}">{label}</a>
-  <div class="paid">Paid link &middot; #ad &middot; we may earn a commission</div>
+  {'<div class="why">Clip the coupon on the product page</div>' if d.get('coupon') else ''}
+  <a class="go" href="{html.escape(url)}" target="_blank" rel="sponsored noopener" data-track="{html.escape(d.get('asin') or i)}" aria-label="See today's price on Amazon: {html.escape(title)}">See today's price &rarr;</a>
+  <div class="paid">Paid link &middot; #ad &middot; <span class="chip">{html.escape(d.get('category','Everything else'))}</span></div>
 </article>"""
 
 
@@ -325,108 +325,75 @@ def viral_section(viral):
 
 
 CSS = """
-:root{--ivory:#F6F0E7;--char:#161518;--gold:#C9A46A;--muted:#7a7068;--blush:#E8BEBA}
-*{box-sizing:border-box}body{margin:0;background:var(--ivory);color:var(--char);font-family:Inter,system-ui,sans-serif}
-header{background:var(--char);color:var(--ivory);text-align:center;padding:42px 20px 34px}
-.mia{width:96px;height:96px;border-radius:50%;border:3px solid var(--gold);display:block;margin:0 auto 10px;background:#fff}
-.kicker{letter-spacing:.28em;font-size:12px;font-weight:600;color:var(--gold)}
-h1{font-family:'Playfair Display',Georgia,serif;font-size:44px;margin:14px 0 6px;line-height:1.05}
-h1 em{color:var(--gold);font-style:normal}
-.rule{width:70px;height:2px;background:var(--gold);margin:16px auto}
-header p{margin:0;color:#cfc6bb;font-size:14px}
-.join{display:inline-block;margin-top:18px;border:1px solid var(--gold);color:var(--gold);padding:10px 18px;border-radius:30px;text-decoration:none;font-size:13px;letter-spacing:.12em;font-weight:600}
-main{max-width:1100px;margin:0 auto;padding:24px 16px 60px}
-h2{font-family:'Playfair Display',Georgia,serif;font-size:30px;margin:28px 0 4px}
-.sub{color:var(--muted);margin:0 0 16px;font-size:14px}
-.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0 18px}
-.bar input{flex:1;min-width:180px;padding:11px 14px;border:1px solid #d8cfc3;border-radius:30px;background:#fff;font-size:15px}
-.bar button{border:1px solid var(--char);background:none;padding:9px 14px;border-radius:30px;font-size:13px;cursor:pointer}
-.bar button.on{background:var(--char);color:var(--ivory)}
-.cats{display:flex;gap:8px;overflow-x:auto;padding:4px 0 10px;margin-top:6px}
-.cats button{flex:none;border:1px solid #d8cfc3;background:#fff;padding:8px 14px;border-radius:30px;font-size:13px;cursor:pointer;white-space:nowrap}
-.cats button.on{background:var(--gold);border-color:var(--gold);color:#fff}.cats small{opacity:.7}
-.bar select{padding:10px 12px;border:1px solid #d8cfc3;border-radius:30px;background:#fff;font-size:14px}
-.where{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-footer a{color:var(--muted)}
-.gallery{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 14px;-webkit-overflow-scrolling:touch}
-.gallery a{flex:0 0 220px;scroll-snap-align:start;display:block}
-.gallery img{width:220px;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.15);display:block}
-@media(min-width:700px){.gallery a{flex-basis:260px}.gallery img{width:260px}}
-.card img,.card .photo{max-width:100%;height:auto}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-.card{background:#fff;border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 0 #e6ddd1}
-.top{display:flex;gap:6px;flex-wrap:wrap;min-height:4px}
-.badge{border:1px solid var(--gold);color:#9b7a43;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:20px;font-weight:600}
-.tested-badge{background:#1f6f4a;color:#fff;font-size:11px;padding:4px 10px;border-radius:20px;font-weight:600}
-.card h3{font-family:'Playfair Display',Georgia,serif;font-size:20px;line-height:1.25;margin:0}
-.feats{margin:0;padding-left:18px;color:#4a443e;font-size:13px}
-.price{display:flex;align-items:baseline;gap:10px}
-.now{font-family:'Playfair Display',Georgia,serif;font-size:32px;font-weight:700;color:#a07c3f}
-.was{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--blush)}
-.code{border:1px dashed var(--gold);background:var(--ivory);border-radius:10px;padding:10px;font-size:14px;cursor:pointer;text-align:left}
+:root{--cream:#FFF6EC;--ink:#1F1A2E;--muted:#60586E;--tang:#C2410C;--yel:#FFC53D;--green:#0F766E;--mint:#D7F3E6;--lav:#EDE7FF;--peach:#FFE8B0;--was:#B91C1C;
+--ivory:#FFF6EC;--char:#1F1A2E;--gold:#C2410C;--blush:#FFE8B0;--coral:#C2410C;--coral2:#C2410C}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:Inter,system-ui,sans-serif;padding-bottom:64px}
+a{color:var(--tang)}
+header{background:var(--cream);color:var(--ink)}
+.hero{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:8px;padding:22px 20px 0}
+.hero-txt{padding:10px 0 30px}
+.wordmark{font-family:'Playfair Display',Georgia,serif;font-size:20px;color:var(--ink);margin-bottom:14px}
+h1{font-size:64px;line-height:1.02;letter-spacing:-.02em;margin:10px 0 14px;font-weight:800}h1 em{font-style:normal;color:var(--tang)}
+.proofline{font-size:16px;color:var(--muted);margin:0 0 12px;max-width:46ch}
+.stk{display:inline-block;background:var(--yel);color:var(--ink);font-weight:800;font-size:12px;letter-spacing:.06em;padding:7px 12px;border-radius:30px;transform:rotate(-6deg);border:2px solid #fff;box-shadow:0 3px 8px rgba(31,26,46,.12)}
+.hero-stk{font-size:13px;margin-left:4px}
+.hero img.scene{width:100%;height:auto;display:block;border-radius:24px}
+.join{display:inline-block;margin-top:14px;background:var(--tang);color:#fff;padding:14px 22px;border-radius:30px;text-decoration:none;font-weight:700;font-size:15px}
+.sub-form{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}.sub-form input{flex:1;min-width:200px;padding:13px 14px;border:2px solid #fff;border-radius:30px;font-size:15px;background:#fff}
+.sub-form button{background:var(--tang);color:#fff;border:0;border-radius:30px;padding:13px 20px;font-weight:700;cursor:pointer}
+.sub-note{font-size:13px;color:var(--muted);margin-top:6px}
+main{max-width:1120px;margin:0 auto;padding:16px 16px 40px}
+section{margin-top:26px}h2{font-size:32px;margin:0 0 6px;letter-spacing:-.01em}
+.sub{color:var(--muted);font-size:15px;margin:0 0 14px}
+.top5{background:#fff;border-radius:28px;padding:22px 20px 14px;box-shadow:0 12px 36px rgba(31,26,46,.06)}
+.top5 .grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}.top5 .card{box-shadow:none;border:1px solid #F1E9DE}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.card{background:#fff;border-radius:24px;padding:14px;display:flex;flex-direction:column;gap:8px;box-shadow:0 1px 0 #ECE3D7;overflow:hidden;position:relative}
+.ph{position:relative;display:block;border-radius:16px;overflow:hidden;background:#fff;border:1px solid #F3EDE4}
+.ph img{width:100%;aspect-ratio:1/1;object-fit:contain;display:block;background:#fff}
+.ph .stk{position:absolute;top:10px;left:10px}
+.tier{font-size:40px;font-weight:900;letter-spacing:-.03em;color:var(--tang);line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}.top5 .tier{font-size:32px}.tier.small{font-size:22px}
+.card h3{font-size:17px;line-height:1.3;margin:0;font-weight:600;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.proof{display:flex;gap:8px;flex-wrap:wrap;font-size:12px;align-items:center;min-height:16px}
+.chk{background:var(--green);color:#fff;padding:3px 8px;border-radius:20px;font-weight:600}
+.fact{color:var(--muted);font-weight:500}.saved:empty{display:none}
+.why{font-size:13px;color:var(--muted)}.why.ss{color:var(--ink);font-weight:600}
+.code{border:1px dashed var(--tang);background:var(--cream);border-radius:10px;padding:10px;font-size:14px;cursor:pointer;text-align:left}
 .code b{letter-spacing:.12em}.code span{float:right;color:var(--muted);font-size:12px}
-.buzz{font-size:12px;color:#9b7a43}
-.asof{font-size:11px;color:var(--muted);font-style:italic}
-.also{font-size:12px;color:var(--coral2)}.also a{color:var(--coral2)}
-.amz{font-size:15px;font-weight:600;color:var(--coral2)}
-.coupon{font-size:13px;color:var(--coral2);font-weight:600}
-.hist,.meta{font-size:12px;color:var(--muted)}
-.go{margin-top:auto;background:var(--char);color:var(--ivory);text-align:center;padding:12px;border-radius:12px;text-decoration:none;font-weight:600}
-.admin{display:none;font-size:12px;color:#1f6f4a;text-align:center}
-body.is-admin .admin{display:block}
-.virals{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
-.viral{background:var(--char);color:var(--ivory);border-radius:14px;padding:16px;text-decoration:none;display:flex;flex-direction:column;gap:2px}
-.viral b{font-family:'Playfair Display',Georgia,serif;font-size:26px;color:var(--gold)}
-.viral span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#a99f93}
-.viral em{font-style:normal;font-size:14px;margin-top:6px}
-footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 16px 50px;line-height:1.6}
-
-:root{--ivory:#FFF8EE;--char:#2b2118;--gold:#E85D4A;--muted:#6e6054;--blush:#ffd6ba;--mint:#BEE8D6;--peach:#FFD6BA;--coral:#E85D4A;--coral2:#B84300}
-header{background:linear-gradient(100deg,var(--peach),#fbe9dc 45%,var(--mint));color:var(--char);padding:0;text-align:left}
-.hero{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:12px;padding:28px 20px 0}
-.hero-txt{padding-bottom:28px}.hero img.scene{width:100%;height:auto;display:block;margin-bottom:-6px}
-.kicker{color:var(--coral2)}h1{font-size:52px;margin:10px 0 8px}h1 em{color:var(--coral);font-style:normal}
-.rule{background:var(--coral);margin:14px 0}header p{color:var(--muted);font-size:16px}
-.mia{display:none}
-.sticker{display:inline-block;background:var(--coral);color:#fff;font-weight:700;font-size:12px;letter-spacing:.08em;padding:7px 14px;border-radius:30px;transform:rotate(-3deg);border:3px solid #fff;box-shadow:0 4px 12px rgba(232,93,74,.25)}
-.join{background:var(--coral2);color:#fff;border:0;font-weight:700;padding:12px 22px;box-shadow:0 3px 10px rgba(0,0,0,.12);margin-top:14px;margin-right:8px}
-.join.alt{background:#fff;color:var(--coral2)}
-.sub-form{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}.sub-form input{flex:1;min-width:200px;padding:12px 14px;border:2px solid #fff;border-radius:30px;font-size:15px;background:#fff}
-.sub-form button{background:var(--coral2);color:#fff;border:0;border-radius:30px;padding:12px 20px;font-weight:700;cursor:pointer}
-.sub-note{font-size:12px;color:var(--muted);margin-top:6px}
-.top5{background:#fff;border-radius:24px;padding:18px 18px 8px;margin:18px auto 0;max-width:1120px;box-shadow:0 10px 30px rgba(43,33,24,.06)}
-.top5 h2{margin:0 0 4px;display:flex;align-items:center;gap:10px}.top5 .n{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--coral);color:#fff;font-weight:800;font-size:16px;border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.12);position:absolute;top:10px;left:10px;z-index:2;transform:rotate(-6deg)}
-.top5 .grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}.top5 .card{position:relative;padding:14px}.top5 .card h3{font-size:16px}.top5 .ph{margin:-14px -14px 4px}
-@media(max-width:760px){.hero{grid-template-columns:1fr;padding-top:18px}h1{font-size:40px}.hero img.scene{max-height:240px;object-fit:cover;object-position:right top;border-radius:18px}}
-.ph{position:relative;display:block;margin:-20px -20px 4px;border-radius:18px 18px 0 0;overflow:hidden;background:#fff}
-.ph img{width:100%;aspect-ratio:4/3;object-fit:contain;display:block;background:#fff}
-.off{position:absolute;top:10px;left:10px;background:var(--coral);color:#fff;font-weight:800;font-size:14px;padding:5px 10px;border-radius:20px}
-.stars{font-size:13px;color:#1565c0}.stars span{color:var(--muted)}
-.now{color:#2e7d32}
-.go{background:var(--coral2);color:#fff;font-size:16px;padding:14px;border-radius:30px}.go:hover{background:#9a3800}
-.cats button.on,.bar button.on{background:#B84300;border-color:#B84300;color:#fff;font-weight:700}.paid{font-size:11px;color:#6b5b4b;text-align:center;margin-top:6px}.empty{display:none;padding:24px;text-align:center;color:#6b5b4b}body{padding-bottom:64px}:focus-visible{outline:3px solid #1f4fd8;outline-offset:2px;scroll-margin-bottom:70px}.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:#fff;padding:8px;z-index:20}
-.badge{border-color:var(--coral2);color:var(--coral2)}.paid{color:var(--muted)}.card{border-radius:24px}
-.stick{position:fixed;left:0;right:0;bottom:0;background:var(--coral2);color:#fff;text-align:center;padding:12px;font-weight:700;z-index:9;text-decoration:none;display:block}
-body{padding-bottom:52px}
-.card{padding:20px;overflow:hidden}
+.go{margin-top:auto;background:var(--tang);color:#fff;text-align:center;padding:14px;border-radius:30px;text-decoration:none;font-weight:700;font-size:16px;white-space:nowrap}.top5 .go{font-size:14px;padding:12px}.go:hover{background:#9A3409}
+.paid{font-size:11px;color:var(--muted);text-align:center}.chip{background:var(--lav);color:var(--ink);padding:2px 8px;border-radius:20px}
+.cats{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.cats button,.bar button{border:1px solid #E6DCCF;background:#fff;border-radius:30px;padding:8px 14px;font-size:13px;cursor:pointer;color:var(--ink)}
+.cats button.on,.bar button.on{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:700}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px;align-items:center}.bar input,.bar select{padding:10px 12px;border:1px solid #E6DCCF;border-radius:30px;font-size:14px;background:#fff}
+.virals{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+.viral{background:#fff;border-radius:18px;padding:12px;text-decoration:none;color:var(--ink);display:block;border:1px solid #F1E9DE}.viral span{display:block;font-size:11px;color:var(--muted);margin-top:4px}.viral em{display:block;font-style:normal;font-size:13px;font-weight:600;margin-top:4px}
+.empty{display:none;padding:24px;text-align:center;color:var(--muted)}
+footer{max-width:1120px;margin:30px auto;padding:0 16px;font-size:12px;color:var(--muted);line-height:1.6}footer a{color:var(--muted)}
+.stick{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;background:var(--ink);color:#fff;text-align:center;padding:12px 22px;font-weight:700;z-index:9;text-decoration:none;border-radius:30px;box-shadow:0 8px 24px rgba(31,26,46,.25)}
+:focus-visible{outline:3px solid #1f4fd8;outline-offset:2px;scroll-margin-bottom:70px}.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:#fff;padding:8px;z-index:20}
+.kicker,.rule,.mia,.tested-badge,.badge,.top,.where,.meta,.price,.now,.was,.off,.stars,.amz,.coupon,.asof,.also,.buzz,.hist,.feats{display:none}
+@media(max-width:760px){.hero{grid-template-columns:1fr;padding-top:14px}h1{font-size:42px}.hero img.scene{max-height:260px;object-fit:cover;object-position:right top}.tier{font-size:34px}}
 """
+
 
 JS = """
 const rtf=new Intl.RelativeTimeFormat('en',{numeric:'auto'});
-document.querySelectorAll('.ago').forEach(e=>{const h=(Date.now()-new Date(e.dataset.t))/36e5;
- e.textContent='Posted '+(h<1?'just now':h<24?rtf.format(-Math.round(h),'hour'):rtf.format(-Math.round(h/24),'day'));});
-document.querySelectorAll('.code').forEach(b=>b.onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(b.dataset.code);
- b.querySelector('span').textContent='copied!';});
+document.querySelectorAll('.code').forEach(b=>b.onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(b.dataset.code);b.querySelector('span').textContent='copied!';});
 let filt='all',cat='';const q=document.getElementById('q'),st=document.getElementById('store');
 function apply(){const s=q.value.trim().toLowerCase(),sv=st.value;let n=0;document.querySelectorAll('.card').forEach(c=>{
  const ok=(filt==='all'||c.classList.contains(filt))&&(!s||c.dataset.title.includes(s))&&(!cat||c.dataset.cat===cat)&&(!sv||c.dataset.store===sv);
  c.style.display=ok?'':'none';if(ok)n++;});const e=document.getElementById('empty'),k=document.getElementById('count');if(e)e.style.display=n?'none':'block';if(k)k.textContent=n+' deals shown';}
-document.querySelectorAll('.cats button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.cats button').forEach(x=>x.classList.remove('on'));
- b.classList.add('on');document.querySelectorAll('.cats button').forEach(x=>x.setAttribute('aria-pressed',x===b));cat=b.dataset.c;apply();});st.onchange=apply;
-document.querySelectorAll('.bar button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.bar button').forEach(x=>x.classList.remove('on'));
- b.classList.add('on');document.querySelectorAll('.bar button').forEach(x=>x.setAttribute('aria-pressed',x===b));filt=b.dataset.f;apply();});q.oninput=apply;
-try{if(location.search.includes('admin=1'))localStorage.setItem('mfic-admin','1');
- if(localStorage.getItem('mfic-admin'))document.body.classList.add('is-admin');}catch(e){}
+document.querySelectorAll('.cats button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.cats button').forEach(x=>{x.classList.remove('on');x.setAttribute('aria-pressed',x===b);});b.classList.add('on');cat=b.dataset.c;apply();});
+st.onchange=apply;q.oninput=apply;
+document.querySelectorAll('.bar button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.bar button').forEach(x=>{x.classList.remove('on');x.setAttribute('aria-pressed',x===b);});b.classList.add('on');filt=b.dataset.f;apply();});
+/* our own counts: real clicks on our buttons, nothing else. Shown only when >= 5. */
+const H='/hit';
+document.querySelectorAll('[data-track]').forEach(a=>a.addEventListener('click',()=>{try{navigator.sendBeacon?navigator.sendBeacon(H,new Blob([JSON.stringify({k:a.dataset.track,t:'click'})],{type:'application/json'})):fetch(H,{method:'POST',body:JSON.stringify({k:a.dataset.track,t:'click'}),keepalive:true});}catch(e){}}));
+(async()=>{try{const ks=[...new Set([...document.querySelectorAll('.saved[data-saved]')].map(e=>e.dataset.saved))];if(!ks.length)return;
+ const r=await fetch(H+'?k='+ks.slice(0,120).join(','));if(!r.ok)return;const j=await r.json();
+ document.querySelectorAll('.saved[data-saved]').forEach(e=>{const c=(j[e.dataset.saved]||{}).click||0;if(c>=5)e.textContent=c+' moms clicked this';});}catch(e){}})();
+const _st=document.querySelector('.stick'),_t5=document.getElementById('top5');if(_st&&_t5&&'IntersectionObserver' in window){new IntersectionObserver(es=>{const r=_t5.getBoundingClientRect();_st.style.display=(r.top<innerHeight*0.6)?'none':'';}).observe(_t5);addEventListener('scroll',()=>{const r=_t5.getBoundingClientRect();_st.style.display=(r.top<innerHeight*0.6)?'none':'';},{passive:true});}
+try{if(location.search.includes('admin=1'))localStorage.setItem('mfic-admin','1');if(localStorage.getItem('mfic-admin'))document.body.classList.add('is-admin');}catch(e){}
 """
 
 
@@ -506,6 +473,31 @@ def seasonal_sections(deals, history, tested, today=None):
 NEWSLETTER_ACTION = os.environ.get("NEWSLETTER_ACTION", "").strip()   # e.g. https://buttondown.com/api/emails/embed-subscribe/momfounditcheaper
 
 
+def _latest_meta():
+    """Most recently checked product meta (for the hero proof line)."""
+    best = {}
+    for m in META.values():
+        if isinstance(m, dict) and m.get("checked", 0) > best.get("checked", 0):
+            best = m
+    return best
+
+
+def hero_hook():
+    from datetime import date
+    d = date.today()
+    if date(d.year, 11, 20) <= d <= date(d.year, 12, 2):
+        return "Black Friday,<br><em>checked.</em>"
+    if date(d.year, 12, 3) <= d <= date(d.year, 12, 24):
+        return "Gifts under $25,<br><em>checked.</em>"
+    return "Real deals,<br><em>checked daily.</em>"
+
+
+def hero_sticker():
+    from datetime import date
+    d = date.today()
+    return "BF WEEK" if date(d.year, 11, 20) <= d <= date(d.year, 12, 2) else "NEW EVERY MORNING"
+
+
 def signup_html():
     """Email capture. Shows a live form once NEWSLETTER_ACTION is set (Buttondown/Beehiiv/Mailchimp embed URL);
     until then a Facebook-follow prompt so the slot is never empty."""
@@ -518,15 +510,18 @@ def signup_html():
 
 
 def top5(picked, history, tested):
-    """Today's Top 5: verified cards only, ranked by community votes then buzz then freshness. Max 5."""
+    """Today's Top 5: verified cards only, ranked by votes, buzz, freshness. Big-ticket/non-mom items skipped."""
+    import re as _re
+    skip = _re.compile(r"gaming pc|desktop|rtx|blu-ray|4k uhd|vinyl|motherboard|cpu|ssd|server", _re.I)
     def rank(d):
         return (d.get("thumbs", 0), len(viral_sources(d, SIGNALS)), d["seen"])
-    best = sorted(picked, key=rank, reverse=True)[:5]
+    pool = [d for d in picked if not skip.search(d["title"])]
+    best = sorted(pool, key=rank, reverse=True)[:5]
     if len(best) < 3:
         return ""
-    cards = "".join(f'<div style="position:relative"><span class="n">{i}</span>{card(d, history, tested)}</div>' for i, d in enumerate(best, 1))
-    return (f'<section class="top5"><h2>Today\'s Top 5 <span class="sticker" style="font-size:11px">MIA\'S PICKS</span></h2>'
-            f'<p class="sub" style="margin:0 0 10px">The five I\'d actually buy today. Every one checked against the Amazon page this morning.</p>'
+    cards = "".join(card(d, history, tested, rank=i) for i, d in enumerate(best, 1))
+    return (f'<section class="top5" id="top5"><h2>Today\'s Top 5</h2>'
+            f'<p class="sub">Five I\'d buy today. Every link opened by hand this morning.</p>'
             f'<div class="grid">{cards}</div></section>')
 
 
@@ -604,12 +599,13 @@ def main():
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>{CSS}</style></head><body>
 <a class="skip" href="#todays">Skip to today's deals</a>
-<header><div class="hero"><div class="hero-txt"><span class="sticker">NEW DEALS EVERY MORNING</span><div class="kicker" style="margin-top:14px">A TAMPA MOM'S DAILY FINDS</div>
-<h1>Mom Found<br><em>It Cheaper</em></h1><div class="rule"></div>
-<p>Hi, I'm Mia. I check every deal by hand before it goes here. Updated {now}.</p>
+<header><div class="hero"><div class="hero-txt"><div class="wordmark">Mom Found It Cheaper</div>
+<span class="stk hero-stk">{hero_sticker()}</span>
+<h1>{hero_hook()}</h1>
+<p class="proofline">&#10003; Every link opened by hand this morning{(' &middot; ' + _checked_label(_latest_meta())) if _latest_meta().get('checked') else ''}. I'm Mia. No guessed prices, ever.</p>
 {signup_html()}
-<a class="join" href="https://www.facebook.com/groups/1815840112666601" target="_blank" rel="noopener">JOIN THE FREE GROUP</a></div>
-<img class="scene" src="mia-scene.jpg" width="1428" height="803" alt="Mia, the mom behind Mom Found It Cheaper, holding a price tag among floating gift boxes" fetchpriority="high"></div></header>
+<a class="join" href="#top5">See today's 5 &darr;</a></div>
+<img class="scene" src="mia-scene.jpg" width="1428" height="803" alt="Mia, the mom behind Mom Found It Cheaper, holding a stack of checked delivery boxes" fetchpriority="high"></div></header>
 <main>
 <p class="sub" style="padding:0 16px"><b>As an Amazon Associate I earn from qualifying purchases.</b> Buttons below are paid affiliate links (#ad).</p>
 {top5(picked, history, tested)}
@@ -630,16 +626,16 @@ We are not the seller and do not handle orders, shipping, returns or warranties 
 "Lowest price we've seen" is based only on prices we have recorded, not a guarantee of an all-time low. Product details come from the deal listing and the retailer; we do not guarantee them.<br>
 Deal sources: Slickdeals and DealNews community feeds, with thanks. Amazon and other store names are trademarks of their owners; we are not affiliated with or endorsed by them.<br>
 <a href="disclosure.html">Affiliate disclosure</a> · <a href="terms.html">Terms &amp; conditions</a> · <a href="privacy.html">Privacy policy</a></footer>
-<a class="stick" href="https://www.facebook.com/groups/1815840112666601" target="_blank" rel="noopener">Join the free group for daily deals</a>
+<a class="stick" href="#top5">Today's 5 &darr;</a>
 <script>{JS}</script></body></html>"""
     OUT.mkdir(exist_ok=True)
     (OUT / "index.html").write_text(page)
     import shutil
     if Path("brand/mia_avatar_circle_240.png").exists():
         shutil.copy("brand/mia_avatar_circle_240.png", OUT / "mia.png")
-    if Path("brand/mia_cover_scene.png").exists():
+    if Path("brand/mia_hero_scene.png").exists():
         from PIL import Image as _I
-        _I.open("brand/mia_cover_scene.png").convert("RGB").save(OUT / "mia-scene.jpg", quality=86, optimize=True)
+        _I.open("brand/mia_hero_scene.png").convert("RGB").save(OUT / "mia-scene.jpg", quality=86, optimize=True)
     (OUT / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#B84300"/><text x="32" y="44" font-size="34" font-weight="700" text-anchor="middle" fill="#fff" font-family="Arial">M</text></svg>')
     (OUT / "robots.txt").write_text("User-agent: *\nAllow: /\nSitemap: https://momfounditcheaper.com/sitemap.xml\n")
     (OUT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + "".join(f"<url><loc>https://momfounditcheaper.com/{u}</loc></url>" for u in ("", "disclosure.html", "privacy.html", "terms.html")) + "</urlset>\n")

@@ -147,7 +147,7 @@ def pick_deals(deals, made):
 # Ivory paper, deep charcoal, champagne gold. Playfair Display headlines,
 # Inter for small caps labels. Thin gold rules instead of boxes.
 
-IVORY, CHAR, GOLD, MUTED, BLUSH = (246, 240, 231), (22, 21, 24), (201, 164, 106), (120, 112, 104), (232, 190, 186)
+from brand import CREAM as IVORY, INK as CHAR, TANGERINE as GOLD, MUTED, PEACH as BLUSH, YELLOW   # brand tokens (v2)
 FONTS = Path(__file__).parent / "fonts"
 
 
