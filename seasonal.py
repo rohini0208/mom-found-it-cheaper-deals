@@ -57,7 +57,8 @@ def active(today=None):
     out = []
     for e in EVENTS:
         days = (e["date"] - today).days
-        if 0 <= days <= e["window"]:
+        lead = 3 if e["key"] in ("thanksgiving", "halloween") else 0     # shipping can't beat the day: stop food/decor themes 3 days out
+        if lead <= days <= e["window"]:
             out.append(dict(e, days=days))
     return sorted(out, key=lambda e: e["days"])
 

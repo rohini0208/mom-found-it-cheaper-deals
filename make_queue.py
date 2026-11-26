@@ -52,7 +52,7 @@ def tier_posts():
         if len(titles) < 3:
             continue
         lines = "\n".join(f"{i}. {t}" for i, t in enumerate(titles, 1))
-        out.append({"tier": label, "text": f"{label} finds today (each link checked against Amazon before posting; prices can change):\n{lines}\n\n"
+        out.append({"tier": label, "text": f"{label} finds today (each one checked against Amazon before posting; prices can change):\n{lines}\n\n"
                                            f"All of them, with links: {SITE}#{key}\n{DISCLOSURE}"})
     return out
 

@@ -46,7 +46,7 @@ VOICE_RATE = os.environ.get("VOICE_RATE", "+6%")
 VOICE_PITCH = os.environ.get("VOICE_PITCH", "+2Hz")
 VIDEOS_PER_RUN = int(os.environ.get("VIDEOS_PER_RUN") or "20")   # Reels per day (private repo: ~2,000 free Actions min/month)
 MAX_PRICE = float(os.environ.get("VIDEO_MAX_PRICE") or "0")   # 0 = no cap (all categories)
-SKIP_WORDS = ("ebook", "ps5", "xbox", "steam", "pcdd", "gog", "resale", "kindle", "watch (", "miter saw", "pex", "expander", "ryzen", "processor", "graphics card",
+SKIP_WORDS = ("knife", "knives", "pocketknife", "multi-tool", "multitool", "blade", "ebook", "ps5", "xbox", "steam", "pcdd", "gog", "resale", "kindle", "watch (", "miter saw", "pex", "expander", "ryzen", "processor", "graphics card",
               "nut setter", "nut driver", "tap and die", "radial arm", "table saw", "cpu", "motherboard", "wrench set", "torque")
 DEALS_FILE = Path("data/deals.json")
 MADE_FILE = Path("data/videos_made.json")

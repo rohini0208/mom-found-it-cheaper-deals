@@ -57,8 +57,11 @@ THEMES = {
     "Office & School": "Office & school finds",
     "Everything else": "Today's top finds",
 }
-HASHTAGS = "#ad #amazonfinds #dealsforyou #founditcheaper #savemoney"
-HASHTAG_SET = HASHTAGS
+HASHTAG_SETS = ["#ad #amazonfinds #momfinds #founditcheaper", "#ad #dealsforyou #momlife #budgetfinds",
+                "#ad #amazondeals #giftideas #founditcheaper", "#ad #savemoney #momhacks #amazonfinds",
+                "#ad #blackfriday #momfinds #dealoftheday"]
+HASHTAGS = HASHTAG_SETS[0]
+HASHTAG_SET = HASHTAGS          # rotated per post in main() so no two posts share the exact tag string
 
 
 def clean_code(deal):
@@ -746,6 +749,14 @@ def story(items):
     return f"Our pick today: {name}, " + " and ".join(bits) + "." if bits else ""
 
 
+_TAG_I = [0]
+
+
+def _tags():
+    _TAG_I[0] += 1
+    return HASHTAG_SETS[_TAG_I[0] % len(HASHTAG_SETS)]
+
+
 QUESTIONS = ["Which one is going in your cart?", "Which would you grab first?", "Any of these already on your list?",
              "Tell us which one you want and we will keep an eye out for more like it.", "Which find surprised you most?"]
 
@@ -759,7 +770,7 @@ def texts(theme, items):
     lead = f"🔥 {_off}% OFF! {_bn}\n" if (_off >= 15 and AMAZON_PRICES != "hide") else ""
     caption = (lead + f"✨ {theme}: {names[0]}, {names[1]} and {names[2]}\n"
                + (f"{st}\n" if st else "")
-               + f"{pick(QUESTIONS, items[0]['id'], 'q')}\nAll three, checked against Amazon this morning: {SITE}\n#ad As an Amazon Associate I earn from qualifying purchases.\n\n{HASHTAG_SET}")
+               + f"{pick(QUESTIONS, items[0]['id'], 'q')}\nAll three, checked against Amazon this morning: {SITE}\n#ad As an Amazon Associate I earn from qualifying purchases.\n\n{_tags()}")
     lines = ["Shop here (prices and codes can change):"]
     for n, i in zip(names, items):
         code = clean_code(i)
@@ -875,8 +886,8 @@ def main():
         BRANDS.add(brand(star))
         make_image_single(OUT / "post_single.png", star, "_s")
         nm = tidy(short_title(no_price_title(star["title"])))
-        cap = (f"Mom's pick today: {nm}.\n{mom_note(star)}\nSee it here: {SITE}#d-{hashlib.sha1(star['id'].encode()).hexdigest()[:10]}\n"
-               f"#ad As an Amazon Associate I earn from qualifying purchases.\n\n{HASHTAG_SET}")
+        cap = (f"Mia's pick today: {nm}.\n{mom_note(star)}\nSee it here: {SITE}#d-{hashlib.sha1(star['id'].encode()).hexdigest()[:10]}\n"
+               f"#ad As an Amazon Associate I earn from qualifying purchases.\n\n{_tags()}")
         cm = f"Shop here (prices and codes can change):\n{link_for(star)}\nAs an Amazon Associate I earn from qualifying purchases."
         (OUT / "post_single.txt").write_text(f"CAPTION:\n{cap}\n\nFIRST COMMENT (paste after posting):\n{cm}\n")
         WEB.mkdir(exist_ok=True)
@@ -902,8 +913,8 @@ def main():
         a, b = pair
         make_image_thisorthat(OUT / "post_thisorthat.png", a, b, ROT[(datetime.now(timezone.utc).toordinal() + 2) % len(ROT)])
         na, nb = (" ".join(tidy(short_title(no_price_title(z["title"]))).split(",")[0].split()[:5]) for z in pair)
-        cap = (f"THIS or THAT? 🛒\nA: {na}\nB: {nb}\nWhich would you pick? Tell us why - we read every one!\n"
-               f"Both checked against Amazon this morning: {SITE}\n#ad As an Amazon Associate I earn from qualifying purchases.\n\n{HASHTAG_SET}")
+        cap = (f"THIS or THAT? 🛒\nA: {na}\nB: {nb}\nWhich would you pick, A or B?\n"
+               f"Both checked against Amazon this morning: {SITE}\n#ad As an Amazon Associate I earn from qualifying purchases.\n\n{_tags()}")
         cm = f"Shop here (prices and codes can change):\nA: {link_for(a)}\nB: {link_for(b)}\nAs an Amazon Associate I earn from qualifying purchases."
         (OUT / "post_thisorthat.txt").write_text(f"CAPTION:\n{cap}\n\nFIRST COMMENT (paste after posting):\n{cm}\n")
         (WEB / "post_thisorthat.png").write_bytes((OUT / "post_thisorthat.png").read_bytes())
@@ -936,7 +947,7 @@ def main():
         off = pct_off(d)
         cap = ((f"\U0001F525 {off}% OFF! {nm} is just {d['price']}.\n" if AMAZON_PRICES != "hide" else f"Price drop on Amazon: {nm}.\n")
                + f"{mom_note(d)}\nSee it here: {SITE}#d-{hashlib.sha1(d['id'].encode()).hexdigest()[:10]}\n"
-               f"#ad As an Amazon Associate I earn from qualifying purchases.\n\n{HASHTAG_SET}")
+               f"#ad As an Amazon Associate I earn from qualifying purchases.\n\n{_tags()}")
         cm = f"Shop here (prices and codes can change):\n{link_for(d)}\nAs an Amazon Associate I earn from qualifying purchases."
         (OUT / f"{f}.txt").write_text(f"CAPTION:\n{cap}\n\nFIRST COMMENT (paste after posting):\n{cm}\n")
         (WEB / f"{f}.png").write_bytes((OUT / f"{f}.png").read_bytes())
