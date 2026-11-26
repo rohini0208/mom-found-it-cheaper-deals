@@ -197,7 +197,8 @@ def main():
                                                    headless=False, viewport={"width": 1200, "height": 800})
         page = ctx.pages[0] if ctx.pages else ctx.new_page()
         try:
-            resolve_asins(ctx, deals)
+            if not any(re.fullmatch(r"[A-Z0-9]{10}", x) for x in sys.argv[1:]):
+                resolve_asins(ctx, deals)
         except Exception as e:
             print("asin resolver skipped:", str(e)[:100])
         amap0 = json.loads(ASIN_MAP.read_text()) if ASIN_MAP.exists() else {}
@@ -207,6 +208,9 @@ def main():
             if a and a not in seen and not d.get("expired") and stale(meta, a):
                 seen.add(a)
                 todo.append(a)
+        only = [x for x in sys.argv[1:] if re.fullmatch(r"[A-Z0-9]{10}", x)]
+        if only:                                      # test mode: python amazon_local.py ASIN ASIN ...  (no ASIN lookup, just these)
+            todo = only
         for a in todo[:MAX_RUN]:
             try:
                 page.goto(f"https://www.amazon.com/dp/{a}", wait_until="domcontentloaded", timeout=45000)
