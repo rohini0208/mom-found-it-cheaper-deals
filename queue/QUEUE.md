@@ -97,6 +97,20 @@ All of them, with links: https://momfounditcheaper.com/#under-50
 As an Amazon Associate I earn from qualifying purchases. #ad
 ```
 
+## Pinterest pins (12) — folder pins/2026-11-25/ (pins.csv has title, description, link)
+- pin_under-10.png
+- pin_under-10_1.png
+- pin_under-10_2.png
+- pin_under-20.png
+- pin_under-20_1.png
+- pin_under-20_2.png
+- pin_under-25.png
+- pin_under-25_1.png
+- pin_under-25_2.png
+- pin_under-50.png
+- pin_under-50_1.png
+- pin_under-50_2.png
+
 ## Engagement drafts (Page)
 - **Poll:** What's your Black Friday budget this year?  Options: Under $50 / $50-150 / $150-300 / No limit, help me
 - **Ask:** Tell me your kid's age and I'll post three gift finds under $20 for that age.

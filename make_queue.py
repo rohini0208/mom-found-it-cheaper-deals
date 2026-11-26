@@ -98,6 +98,10 @@ def main():
     lines += [f"## Price-tier posts for the Page ({len(tiers)})"]
     for tp in tiers:
         lines += [f"### {tp['tier']}", "```", tp["text"], "```", ""]
+    pins_dir = sorted((ROOT / "pins").glob("*/")) if (ROOT / "pins").exists() else []
+    if pins_dir:
+        pn = sorted(p.name for p in pins_dir[-1].glob("pin_*.png"))
+        lines += [f"## Pinterest pins ({len(pn)}) — folder pins/{pins_dir[-1].name}/ (pins.csv has title, description, link)"] + [f"- {n}" for n in pn] + [""]
     lines += ["## Engagement drafts (Page)"]
     for e in eng:
         if e["type"] == "poll":
