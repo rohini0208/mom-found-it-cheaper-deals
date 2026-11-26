@@ -76,7 +76,7 @@ def short_title(title):
     t = re.split(r"\s+(?:for\s+)?(?:from\s+)?\$\d", t)[0]      # cut "... for $12 + free shipping"
     t = re.sub(r"^\$[\d.,]+\*?\s*/\s*", "", t)                   # "$28* / LEGO ..." -> "LEGO ..."
     t = re.sub(r"\s*\+\s*free\s+(?:s&h|shipping).*$|\s+w/\s*prime(?:\s+or\s+on)?.*$|\s+w/\s*s&s.*$", "", t, flags=re.I)
-    t = re.sub(r"\s+(?:only|just|now|for)\s*$", "", t, flags=re.I)      # "... Storage Tin Only" / "... Trip Sets Just"
+    t = re.sub(r"\s+(?:only|just|now|for|shipped|free shipping|w/)\s*$", "", t, flags=re.I)      # "... Storage Tin Only" / "... Trip Sets Just"
     for _ in range(3):   # peel store/price suffixes: "... Shipped on Amazon (Reg. $199)", "... at Amazon"
         t = re.sub(r"\s*(?:\((?:reg|was|orig|list)\b[^)]*\)?|shipped on amazon|on amazon|at amazon|w/ walmart\+.*)\s*$", "", t, flags=re.I).strip(" -–,|")
     if len(t) > 90:

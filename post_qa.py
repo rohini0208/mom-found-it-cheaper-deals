@@ -68,6 +68,18 @@ def check_post(p, text):
     cmt = text.split("FIRST COMMENT")[-1].split("\n", 1)[-1]
     if "Amazon Associate" not in cap:
         out.append(("BLOCKER", "caption missing Amazon Associate disclosure"))
+    if not cap.split("CAPTION:")[-1].strip().startswith("#ad"):
+        out.append(("BLOCKER", "caption must start with #ad (FTC: disclosure before the 'See more' fold)"))
+    if "#ad" not in cmt.split("\n")[0]:
+        out.append(("BLOCKER", "first comment must start with #ad"))
+    if cap.count("#ad") > 1:
+        out.append(("WARN", "more than one #ad in the caption"))
+    if re.search(r"camelcamelcamel|slickdeals|dealnews|hip2save|keepa", text, re.I):
+        out.append(("BLOCKER", "third-party deal/price-tracker site named in the post"))
+    if re.search(r"[\u200b\u200c\u200d\ufeff]", text):
+        out.append(("BLOCKER", "zero-width character in the post text"))
+    if re.search(r"I'd grab it|Mia's pick", text):
+        out.append(("BLOCKER", "first-person endorsement from the AI persona (FTC endorsement guides)"))
     if not (POSTS / f"{p['file']}.png").exists():
         out.append(("BLOCKER", "image missing"))
     links = re.findall(r"https?://\S+", cmt)
