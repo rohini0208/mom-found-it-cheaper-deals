@@ -61,7 +61,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release delete todays-videos --yes --cleanup-tag || true
-          files=$(ls videos/* posts/*.png posts/*.txt pins/*/*.png pins/*/pins.csv 2>/dev/null || true)
+          files=$(ls videos/* posts/*.png posts/*.txt pins/$(ls pins | tail -1)/*.png pins/$(ls pins | tail -1)/pins.csv 2>/dev/null || true)
           [ -n "$files" ] || { echo "Nothing new today"; exit 0; }
           gh release create todays-videos $files \
             --title "Today's videos and posts ($(date -u +%Y-%m-%d))" \
