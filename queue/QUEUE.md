@@ -2,12 +2,12 @@
 
 Reply with the numbers to approve, e.g. `post 1, q2; video 3; eng poll`. Nothing is posted until you say so.
 
-## Posts that passed strict QA (16)
+## Posts that passed strict QA (20)
 ### post_1 — Under $10 finds (ok with warnings)
 ```
 CAPTION:
-#ad 🔥 72% OFF: 13" Franklin Sports Field Master V Web Baseball Mitt is $8.39 right now.
-✨ Under $10 finds: 4" Workpro Stubby Adjustable Wrench, 13" Franklin Sports Field Master V Web Baseball Mitt and 16-Piece Fisher-Price Wooden Pretend Play Fruit Pie Toy Set
+#ad 🔥 72% OFF: Franklin Sports Field Master Baseball Glove is $8.39 right now.
+✨ Under $10 finds: WORKPRO 4" Stubby Wide Opening Adjustable Wrench, Franklin Sports Field Master Baseball Glove and Fisher-Price Wood Pretend Play Toy Fruit Pie
 72% off Amazon's list price and 4.4 stars from 1,482 shoppers.
 Which would you grab first?
 All three, checked against Amazon this morning: https://momfounditcheaper.com/
@@ -17,18 +17,41 @@ As an Amazon Associate I earn from qualifying purchases.
 
 FIRST COMMENT (paste after posting):
 #ad Shop here (prices can change):
-4" Workpro Stubby Adjustable Wrench — $8.11 (list $13.99, 42% off)
+WORKPRO 4" Stubby Wide Opening Adjustable Wrench — $8.11 (list $13.99, 42% off)
 https://www.amazon.com/dp/B0CVXKVCZ7?tag=momfounditc08-20
-13" Franklin Sports Field Master V Web Baseball Mitt — $8.39 (list $29.99, 72% off)
+Franklin Sports Field Master Baseball Glove — $8.39 (list $29.99, 72% off)
 https://www.amazon.com/dp/B013LPRERW?tag=momfounditc08-20
-16-Piece Fisher-Price Woode
+Fisher-Price Wood Pretend Play Toy Fruit Pi
+```
+
+### post_2 — Under $15 finds (ok with warnings)
+```
+CAPTION:
+#ad 🔥 50% OFF: Monopoly Board Game is $10.00 right now.
+✨ Under $15 finds: Monopoly Board Game, Blue Beetle and Wiha 79243 Slotted Phillips and Torx Bit Selector
+50% off Amazon's list price and 4.7 stars from 1,978 shoppers.
+Any of these already on your list?
+All three, checked against Amazon this morning: https://momfounditcheaper.com/
+As an Amazon Associate I earn from qualifying purchases.
+
+#amazondeals #giftideas #founditcheaper
+
+FIRST COMMENT (paste after posting):
+#ad Shop here (prices can change):
+Monopoly Board Game — $10.00 (list $19.99, 50% off)
+https://www.amazon.com/dp/B0DN37BBGD?tag=momfounditc08-20
+Blue Beetle — $14.99 (list $33.99, 56% off)
+https://www.amazon.com/dp/B0CFZ3132H?tag=momfounditc08-20
+Wiha 79243 Slotted Phillips and Torx Bit Selector — $14.59 (list $18.24, 20% off)
+https://www.amazon.com/dp/B000F0KC4E?tag=momfounditc08-20
+As an Amazon Associate I earn
 ```
 
 ### post_3 — Under $25 finds (ok with warnings)
 ```
 CAPTION:
-#ad 🔥 40% OFF: 8-Oz YETI Rambler Travel Bottle is $15.00 right now.
-✨ Under $25 finds: Klein Tools 32516HD KNECT 16-in-1 Impact-Rated Hybrid Screwdriver, 8-Oz YETI Rambler Travel Bottle and Masters of the Universe 2026 Movie He-Man Power of Grayskull Sword
+#ad 🔥 40% OFF: YETI Rambler 8 oz Travel Bottle is $15.00 right now.
+✨ Under $25 finds: Klein Tools 32516HD KNECT 16-in-1 Impact-Rated Hybrid Screwdriver, YETI Rambler 8 oz Travel Bottle and Masters of the Universe 2026 Movie He-Man Power of Grayskull Sword
 40% off Amazon's list price and 4.6 stars from 3,139 shoppers.
 Which would you grab first?
 All three, checked against Amazon this morning: https://momfounditcheaper.com/
@@ -40,16 +63,58 @@ FIRST COMMENT (paste after posting):
 #ad Shop here (prices can change):
 Klein Tools 32516HD KNECT 16-in-1 Impact-Rated Hybrid Screwdriver — $19.98 (list $28.98, 31% off)
 https://www.amazon.com/dp/B0DK2H7G5G?tag=momfounditc08-20
-8-Oz YETI Rambler Travel Bottle — $15.00 (list $25.00, 40% off)
+YETI Rambler 8 oz Travel Bottle — $15.00 (list $25.00, 40% off)
 https://www.amazon.com/dp/B0H9M99R7Y?tag=momfounditc08-20
 Masters of the Univer
+```
+
+### post_5 — Stocking stuffers under $20 (ok with warnings)
+```
+CAPTION:
+#ad 🔥 63% OFF: Beetles Gel Nail Kit 576Pcs Short Almond is $9.49 right now.
+✨ Stocking stuffers under $20: Disney Frozen Sven Crystal 3D Puzzle Deluxe, Beetles Gel Nail Kit 576Pcs Short Almond and Mattel Games UNO Card Game
+63% off Amazon's list price and 4.5 stars from 629 shoppers.
+Tell us which one you want and we will keep an eye out for more like it.
+All three, checked against Amazon this morning: https://momfounditcheaper.com/
+As an Amazon Associate I earn from qualifying purchases.
+
+#amazonfinds #momfinds #founditcheaper
+
+FIRST COMMENT (paste after posting):
+#ad Shop here (prices can change):
+Disney Frozen Sven Crystal 3D Puzzle Deluxe — $9.99 (list $19.99, 50% off)
+https://www.amazon.com/dp/B07QQ3GRZD?tag=momfounditc08-20
+Beetles Gel Nail Kit 576Pcs Short Almond — $9.49 (list $25.99, 63% off)
+https://www.amazon.com/dp/B0D69LN5ZF?tag=momfounditc08-20
+Mattel Games UNO Card
+```
+
+### post_6 — Tech worth a look (ok with warnings)
+```
+CAPTION:
+#ad 🔥 30% OFF: Amazfit Active Max Smart Watch is $118.99 right now.
+✨ Tech worth a look: Amazfit Active Max Smart Watch, TP-Link Roam 6 AX3000 Dual-Band Wi-Fi 6 Travel Router and 15.6" Digital Calendar Wall Touch Screen Family Planner Picture Frames Sync
+30% off Amazon's list price and 4.6 stars from 1,141 shoppers.
+Any of these already on your list?
+All three, checked against Amazon this morning: https://momfounditcheaper.com/
+As an Amazon Associate I earn from qualifying purchases.
+
+#dealsforyou #momlife #budgetfinds
+
+FIRST COMMENT (paste after posting):
+#ad Shop here (prices can change):
+Amazfit Active Max Smart Watch — $118.99 (list $169.99, 30% off)
+https://www.amazon.com/dp/B0G4F6ZCSV?tag=momfounditc08-20
+TP-Link Roam 6 AX3000 Dual-Band Wi-Fi 6 Travel Router — $49.99 (list $79.99, 38% off)
+https://www.amazon.com/dp/B0DY8K122V?tag=momfounditc08-20
+15.6" Digital Calendar Wal
 ```
 
 ### post_7 — Toy & game under $50 (ok with warnings)
 ```
 CAPTION:
-#ad 🔥 39% OFF: LEGO Classic Medium Creative Brick Box is $21.42 right now.
-✨ Toy & game under $50: 577-Pc LEGO One Piece: Tony Tony Chopper Building Set, 329-pc. LEGO Speed Champions Ferrari 499P and LEGO Classic Medium Creative Brick Box
+#ad 🔥 39% OFF: LEGO Classic Medium Creative Brick Box 10696 is $21.42 right now.
+✨ Toy & game under $50: LEGO ONE PIECE Tony Tony Chopper 75643, LEGO Speed Champions Ferrari 499P 77261 and LEGO Classic Medium Creative Brick Box 10696
 39% off Amazon's list price and 4.8 stars from 58,454 shoppers.
 Any of these already on your list?
 All three, checked against Amazon this morning: https://momfounditcheaper.com/
@@ -59,18 +124,18 @@ As an Amazon Associate I earn from qualifying purchases.
 
 FIRST COMMENT (paste after posting):
 #ad Shop here (prices can change):
-577-Pc LEGO One Piece: Tony Tony Chopper Building Set — $39.99 (list $69.99, 43% off)
+LEGO ONE PIECE Tony Tony Chopper 75643 — $39.99 (list $69.99, 43% off)
 https://www.amazon.com/dp/B0G2T1W5S9?tag=momfounditc08-20
-329-pc. LEGO Speed Champions Ferrari 499P — $23.99 (list $29.99, 20% off)
+LEGO Speed Champions Ferrari 499P 77261 — $23.99 (list $29.99, 20% off)
 https://www.amazon.com/dp/B0G2T43599?tag=momfounditc08-20
-LEGO Classic Medium Creativ
+LEGO Classic Medium Creative Brick Box 10696 — $2
 ```
 
-### post_8 — Outdoor & tools under $100 (ok with warnings)
+### post_8 — Outdoor & tools worth a look (ok with warnings)
 ```
 CAPTION:
-#ad 🔥 40% OFF: Char-Broil The Big Easy Oil-Less Turkey Fryer is $89.99 right now.
-✨ Outdoor & tools under $100: 14-Piece Wiha Insulated Bit Holder Screw Driver, 12-pc Wiha 79243 Slotted Phillips & Torx Bit Selector and Char-Broil The Big Easy Oil-Less Turkey Fryer
+#ad 🔥 40% OFF: Charbroil The Big Easy Oil-Less Turkey Fryer is $89.99 right now.
+✨ Outdoor & tools worth a look: Wiha 38050 14 Piece Insulated Pop-up Bit Holder Set Slotted, GEARWRENCH 6 Piece 90-Tooth 12 Point Metric GearBox Double Flex Ratcheting and Charbroil The Big Easy Oil-Less Turkey Fryer
 40% off Amazon's list price and 4.5 stars from 279 shoppers.
 Which would you grab first?
 All three, checked against Amazon this morning: https://momfounditcheaper.com/
@@ -80,19 +145,18 @@ As an Amazon Associate I earn from qualifying purchases.
 
 FIRST COMMENT (paste after posting):
 #ad Shop here (prices can change):
-14-Piece Wiha Insulated Bit Holder Screw Driver — $34.38 (list $42.98, 20% off)
+Wiha 38050 14 Piece Insulated Pop-up Bit Holder Set Slotted — $34.38 (list $42.98, 20% off)
 https://www.amazon.com/dp/B075FFCD9L?tag=momfounditc08-20
-12-pc Wiha 79243 Slotted Phillips & Torx Bit Selector — $14.59 (list $18.24, 20% off)
-https://www.amazon.com/dp/B000F0KC4E?tag=momfounditc08-20
-Char-Broil 
+GEARWRENCH 6 Piece 90-Tooth 12 Point Metric GearBox Double Flex Ratcheting — $138.64 (list $247.99, 44% off)
+h
 ```
 
-### post_9 — Home & kitchen under $50 (ok with warnings)
+### post_9 — Home & kitchen worth a look (ok with warnings)
 ```
 CAPTION:
-#ad 🔥 23% OFF: Gibson Home Rothernberg 18-Piece Porcelain Dinnerware Set is $45.99 right now.
-✨ Home & kitchen under $50: Step Lively Anti- Fatigue 2 PCS Cushioned Kitchen Mats for Floor, ECR4Kids 2-in-1 Adjustable Hardwood Sit or Step Stool and Gibson Home Rothernberg 18-Piece Porcelain Dinnerware Set
-23% off Amazon's list price and 4.5 stars from 6,451 shoppers.
+#ad 🔥 35% OFF: Ninja BlendPro Kitchen System is $129.99 right now.
+✨ Home & kitchen worth a look: Anti-Fatigue Kitchen Rugs, Ninja BlendPro Kitchen System and ECR4Kids Adjustable Wooden Sit or Step Stool
+35% off Amazon's list price and 4.4 stars from 8,463 shoppers.
 Which would you grab first?
 All three, checked against Amazon this morning: https://momfounditcheaper.com/
 As an Amazon Associate I earn from qualifying purchases.
@@ -101,53 +165,74 @@ As an Amazon Associate I earn from qualifying purchases.
 
 FIRST COMMENT (paste after posting):
 #ad Shop here (prices can change):
-Step Lively Anti- Fatigue 2 PCS Cushioned Kitchen Mats for Floor — $20.99 (list $29.99, 30% off)
+Anti-Fatigue Kitchen Rugs — $20.99 (list $29.99, 30% off)
 https://www.amazon.com/dp/B0F6MP7RDJ?tag=momfounditc08-20
-ECR4Kids 2-in-1 Adjustable Hardwood Sit or Step Stool — $44.97 (list $89.99, 50% off)
-https://www
+Ninja BlendPro Kitchen System — $129.99 (list $199.99, 35% off)
+https://www.amazon.com/dp/B0G15YW3VF?tag=momfounditc08-20
+ECR4Kids Adjustable Wooden Sit or Step Stool — $44.97 (list $89.99, 50% off)
+https://www.amazon.com/dp/B079D381ZR?
 ```
 
 ### post_single — Mom's pick (ok with warnings)
 ```
 CAPTION:
-#ad Today's pick: NIVEA Lip Care Variety Pack 4-Count Shipped.
-4.6 stars, 20.1K reviews on Amazon.
-See it here: https://momfounditcheaper.com/#d-9a505653d1
-As an Amazon Associate I earn from qualifying purchases.
-
-#amazonfinds #momfinds #founditcheaper
-
-FIRST COMMENT (paste after posting):
-#ad Shop here (prices can change):
-https://www.amazon.com/dp/B07Y91BMSK?tag=momfounditc08-20
-As an Amazon Associate I earn from qualifying purchases.
-```
-
-### post_q1 — Quick deal: 54% OFF (ok with warnings)
-```
-CAPTION:
-#ad 🔥 54% OFF! Logitech G309 Lightspeed Wireless Gaming Mouse is $40.99 on Amazon right now (list $89.99).
-4.4 stars, 842 reviews on Amazon.
-See it here: https://momfounditcheaper.com/#d-5fd5c7b3dd
+#ad Today's pick: GNCC 2K Security Camera Indoor.
+4.4 stars, 828 reviews on Amazon.
+See it here: https://momfounditcheaper.com/#d-348211cb19
 As an Amazon Associate I earn from qualifying purchases.
 
 #dealsforyou #momlife #budgetfinds
 
 FIRST COMMENT (paste after posting):
 #ad Shop here (prices can change):
-https://www.amazon.com/dp/B0C8523DT8?tag=momfounditc08-20
+https://www.amazon.com/dp/B0G5WWT1L1?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+### post_thisorthat — THIS or THAT (ok with warnings)
+```
+CAPTION:
+#ad THIS or THAT? 🛒
+A: Logitech G309 Lightspeed Wireless Gaming
+B: UGREEN MagFlow 15W 2-in-1 Foldable
+Which would you pick, A or B?
+Both checked against Amazon this morning: https://momfounditcheaper.com/
+As an Amazon Associate I earn from qualifying purchases.
+
+#amazondeals #giftideas #founditcheaper
+
+FIRST COMMENT (paste after posting):
+#ad Shop here (prices can change):
+A: https://www.amazon.com/dp/B0C8523DT8?tag=momfounditc08-20
+B: https://www.amazon.com/dp/B0CX18S4T4?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+### post_q1 — Quick deal: 60% OFF (ok with warnings)
+```
+CAPTION:
+#ad 🔥 60% OFF! SwissGear 2762 ScanSmart Laptop Backpack is $39.00 on Amazon right now (list $96.85).
+60% below Amazon's list price.
+See it here: https://momfounditcheaper.com/#d-1cd229e753
+As an Amazon Associate I earn from qualifying purchases.
+
+#savemoney #momhacks #amazonfinds
+
+FIRST COMMENT (paste after posting):
+#ad Shop here (prices can change):
+https://www.amazon.com/dp/B07GNV1HX1?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
 ### post_q2 — Quick deal: 37% OFF (ok with warnings)
 ```
 CAPTION:
-#ad 🔥 37% OFF! monTEK Full Motion TV Wall Mount for 37"-90" TVs is $56.98 on Amazon right now (list $89.99).
+#ad 🔥 37% OFF! monTEK Heavy Duty Full Motion TV Wall Mount for 37-90 Inch is $56.98 on Amazon right now (list $89.99).
 4.3 stars, 1.4K reviews on Amazon.
 See it here: https://momfounditcheaper.com/#d-3f7d575335
 As an Amazon Associate I earn from qualifying purchases.
 
-#amazondeals #giftideas #founditcheaper
+#momdeals #momfinds #dealoftheday
 
 FIRST COMMENT (paste after posting):
 #ad Shop here (prices can change):
@@ -163,7 +248,7 @@ CAPTION:
 See it here: https://momfounditcheaper.com/#d-bfc8abdf2d
 As an Amazon Associate I earn from qualifying purchases.
 
-#savemoney #momhacks #amazonfinds
+#amazonfinds #momfinds #founditcheaper
 
 FIRST COMMENT (paste after posting):
 #ad Shop here (prices can change):
@@ -171,31 +256,31 @@ https://www.amazon.com/dp/B0DLN46519?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-### post_q4 — Quick deal: 23% OFF (ok with warnings)
+### post_q4 — Quick deal: 53% OFF (ok with warnings)
 ```
 CAPTION:
-#ad 🔥 23% OFF! Philips Smart Lock Matter Over Thread is $99.99 on Amazon right now (list $129.99).
-23% below Amazon's list price.
-See it here: https://momfounditcheaper.com/#d-cc3796f0e3
+#ad 🔥 53% OFF! Vaydeer Phone Lock Box is $9.40 on Amazon right now (list $19.99).
+53% below Amazon's list price.
+See it here: https://momfounditcheaper.com/#d-92ff278e51
 As an Amazon Associate I earn from qualifying purchases.
 
-#momdeals #momfinds #dealoftheday
+#dealsforyou #momlife #budgetfinds
 
 FIRST COMMENT (paste after posting):
 #ad Shop here (prices can change):
-https://www.amazon.com/dp/B0FXM1QCVT?tag=momfounditc08-20
+https://www.amazon.com/dp/B0GVSN566G?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
 ### post_q5 — Quick deal: 54% OFF (ok with warnings)
 ```
 CAPTION:
-#ad 🔥 54% OFF! Texas Instruments TI-84 Evo Graphing Calculator is $73.22 on Amazon right now (list $160.00).
+#ad 🔥 54% OFF! TI-84 Evo Graphing Calculator Texas Instruments is $73.22 on Amazon right now (list $160.00).
 4.4 stars, 1.3K reviews on Amazon.
 See it here: https://momfounditcheaper.com/#d-4f53c9c988
 As an Amazon Associate I earn from qualifying purchases.
 
-#amazonfinds #momfinds #founditcheaper
+#amazondeals #giftideas #founditcheaper
 
 FIRST COMMENT (paste after posting):
 #ad Shop here (prices can change):
@@ -211,7 +296,7 @@ CAPTION:
 See it here: https://momfounditcheaper.com/#d-284f79ba3c
 As an Amazon Associate I earn from qualifying purchases.
 
-#dealsforyou #momlife #budgetfinds
+#savemoney #momhacks #amazonfinds
 
 FIRST COMMENT (paste after posting):
 #ad Shop here (prices can change):
@@ -219,7 +304,23 @@ https://www.amazon.com/dp/B0HM36F6DY?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-### post_q7 — Quick deal: 17% OFF (ok with warnings)
+### post_q7 — Quick deal: 23% OFF (ok with warnings)
+```
+CAPTION:
+#ad 🔥 23% OFF! Gibson Home Rothernberg Plates and Bowls 18 Piece Porcelain is $45.99 on Amazon right now (list $59.99).
+4.5 stars, 6.5K reviews on Amazon.
+See it here: https://momfounditcheaper.com/#d-924bc84c26
+As an Amazon Associate I earn from qualifying purchases.
+
+#momdeals #momfinds #dealoftheday
+
+FIRST COMMENT (paste after posting):
+#ad Shop here (prices can change):
+https://www.amazon.com/dp/B0GWRVM27R?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+### post_q8 — Quick deal: 17% OFF (ok with warnings)
 ```
 CAPTION:
 #ad 🔥 17% OFF! Razer Orochi V2 Wireless Gaming Mouse is $24.99 on Amazon right now (list $29.99).
@@ -227,7 +328,7 @@ CAPTION:
 See it here: https://momfounditcheaper.com/#d-48eef42640
 As an Amazon Associate I earn from qualifying purchases.
 
-#amazondeals #giftideas #founditcheaper
+#amazonfinds #momfinds #founditcheaper
 
 FIRST COMMENT (paste after posting):
 #ad Shop here (prices can change):
@@ -235,15 +336,15 @@ https://www.amazon.com/dp/B0916N2LPZ?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-### post_q8 — Quick deal: 40% OFF (ok with warnings)
+### post_q9 — Quick deal: 40% OFF (ok with warnings)
 ```
 CAPTION:
-#ad 🔥 40% OFF! Shark Navigator Lift-Away Vacuum is $119.99 on Amazon right now (list $200).
+#ad 🔥 40% OFF! Shark Navigator Lift-Away Upright Vacuum Cleaner is $119.99 on Amazon right now (list $200).
 4.5 stars, 98.1K reviews on Amazon.
 See it here: https://momfounditcheaper.com/#d-05160a6751
 As an Amazon Associate I earn from qualifying purchases.
 
-#savemoney #momhacks #amazonfinds
+#dealsforyou #momlife #budgetfinds
 
 FIRST COMMENT (paste after posting):
 #ad Shop here (prices can change):
@@ -251,35 +352,19 @@ https://www.amazon.com/dp/B005KMDV9A?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-### post_q9 — Quick deal: 31% OFF (ok with warnings)
+### post_q10 — Quick deal: 31% OFF (ok with warnings)
 ```
 CAPTION:
-#ad 🔥 31% OFF! Eureka Whirlwind Bagless Canister Vacuum is $54.99 on Amazon right now (list $79.99).
+#ad 🔥 31% OFF! Eureka Bagless Canister Vacuum is $54.99 on Amazon right now (list $79.99).
 4.3 stars, 46.4K reviews on Amazon.
 See it here: https://momfounditcheaper.com/#d-4d4970562e
 As an Amazon Associate I earn from qualifying purchases.
 
-#momdeals #momfinds #dealoftheday
+#amazondeals #giftideas #founditcheaper
 
 FIRST COMMENT (paste after posting):
 #ad Shop here (prices can change):
 https://www.amazon.com/dp/B07GB4S9H5?tag=momfounditc08-20
-As an Amazon Associate I earn from qualifying purchases.
-```
-
-### post_q10 — Quick deal: 40% OFF (ok with warnings)
-```
-CAPTION:
-#ad 🔥 40% OFF! 20-Oz YETI Rambler Insulated Travel Mug is $24.00 on Amazon right now (list $40).
-4.6 stars, 636 reviews on Amazon.
-See it here: https://momfounditcheaper.com/#d-ce9d52f3e4
-As an Amazon Associate I earn from qualifying purchases.
-
-#amazonfinds #momfinds #founditcheaper
-
-FIRST COMMENT (paste after posting):
-#ad Shop here (prices can change):
-https://www.amazon.com/dp/B0FTZYTM58?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
@@ -325,7 +410,7 @@ As an Amazon Associate I earn from qualifying purchases.
 1. Monopoly Board Game — $10.00 (was $19.99)
 2. YETI Rambler 8 oz Travel Bottle — $15.00 (was $25.00)
 3. Momcozy Baby Bottle Brush Kit — $15.19
-4. McFarlane Toys- DC Multiverse Shazam! Freddy Freeman 7in Action Figure McFarlane Collector — $17.95 (was $34.99)
+4. McFarlane Toys-DC Multiverse Shazam! Freddy Freeman 7in Action Figure McFarlane Collector Edition — $17.95 (was $34.99)
 5. DUMOS 31.5 Inch Small Computer Desk — $19.99 (was $29.99)
 
 All of them, with links: https://momfounditcheaper.com/#under-20
@@ -336,7 +421,7 @@ As an Amazon Associate I earn from qualifying purchases.
 ```
 #ad Under $25 finds today (each one checked against Amazon before posting; prices can change):
 1. Masters of the Universe 2026 Movie He-Man Power of Grayskull Sword — $21.99 (was $43.19)
-2. Anti- Fatigue Kitchen Rugs — $20.99 (was $29.99)
+2. Anti-Fatigue Kitchen Rugs — $20.99 (was $29.99)
 3. LEGO Speed Champions Ferrari 499P 77261 — $23.99 (was $29.99)
 4. LEGO Classic Medium Creative Brick Box 10696 — $21.42 (was $34.99)
 5. 100% Cotton Bed Pillows — $20.00
@@ -374,7 +459,7 @@ As an Amazon Associate I earn from qualifying purchases.
 
 ## Engagement drafts (Page)
 - **Poll:** What's your Black Friday budget this year?  Options: Under $50 / $50-150 / $150-300 / No limit, help me
-- **Ask:** Tell me your kid's age and I'll post three gift finds under $20 for that age.
+- **Ask:** Gift shopping this week? Say 'toddler', 'grade school' or 'teen' and I'll post three finds under $20 for that group.
 - **Pin:** #ad New here? Every deal on https://momfounditcheaper.com/ is checked against Amazon before it's posted. Save the page and tell me what you want found cheaper. As an Amazon Associate I earn from qualifying purchases.
 
 ## Checklist before posting
