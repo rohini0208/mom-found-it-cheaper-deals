@@ -40,7 +40,7 @@ def tier(price):
     """Big-number stand-in for the price. Returns 'Under $25' style text or ''."""
     if price is None:
         return ""
-    for cap in (10, 15, 20, 25, 30, 50, 75, 100, 150, 200, 300, 500, 1000, 1500, 2000):
+    for cap in (10, 20, 25, 50, 100):          # same buckets as the site's tier sections
         if price < cap:
             return f"Under ${cap}"
-    return ""
+    return "$100 and up"

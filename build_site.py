@@ -120,7 +120,10 @@ def _amz_title(d):
         return ""
     t = html.unescape(m["title"])
     t = re.split(r",(?!\d)| \| | - | \(", t)[0]
-    return " ".join(t.split()[:12])
+    w = t.split()[:12]
+    while w and w[-1].lower().rstrip(",&") in {"by", "for", "with", "and", "or", "the", "a", "an", "of", "to", "in", "on", "&", "w/", "up"}:
+        w.pop()
+    return " ".join(w)
 
 
 def link_verified(d):
@@ -282,12 +285,18 @@ def card(d, history, tested, rank=0, idsuffix="", in_tier=False):
   <h3>{html.escape(title)}</h3>
   <div class="proof">{f'<span class="chk">&#10003; {checked}</span>' if checked else ''}{f'<span class="fact">{proof2}</span>' if proof2 else ''}<span class="fact saved" data-saved="{html.escape(d.get('asin') or i)}"></span></div>
   {f'<div class="why">{html.escape(why)}</div>' if why else ''}
-  {f'<div class="why ss">Price is {ss}</div>' if ss else ''}
+
   {f'<button class="code" data-code="{html.escape(code)}">Code <b>{html.escape(code)}</b> <span>tap to copy</span></button>' if real_code else ''}
   {'<div class="why">Clip the coupon on the product page</div>' if d.get('coupon') else ''}
   <a class="go" href="{html.escape(url)}" target="_blank" rel="sponsored noopener" data-track="{html.escape(d.get('asin') or i)}" aria-label="See today's price on Amazon: {html.escape(title)}">See today's price &rarr;</a>
   <div class="paid">Paid link &middot; #ad &middot; <span class="chip">{html.escape(d.get('category','Everything else'))}</span></div>
 </article>"""
+
+
+def _short(t, n):
+    import textwrap
+    t = re.sub(r"[\u200b\u200c\u200d\ufeff]", "", t)
+    return textwrap.shorten(t, width=n, placeholder="\u2026")
 
 
 def _trend_ok(s):
@@ -312,7 +321,7 @@ def trending_section():
         f'<a class="viral" href="{html.escape(f"https://www.amazon.com/dp/{s['asin']}?tag={TAG}" if TAG and s.get("asin") else s["link"])}" target="_blank" rel="sponsored noopener">'
         + f'<img src="{thumb_for({"id": s["link"], "title": s["title"], "asin": s["asin"]})}" alt="{html.escape(s["title"][:100])}" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:contain;background:#fff;border-radius:10px;margin-bottom:8px">' + ("" if AMAZON_PRICES == "hide" else _price_html(s["asin"])) +
         f'<span>Trending</span>'
-        f'<em>{html.escape(s["title"][:80])}</em></a>' for s in picks[:12])
+        f'<em>{html.escape(_short(s["title"], 70))}</em><span class="paid">Paid link &middot; #ad</span></a>' for s in picks[:12])
     return ('<section><h2>Trending right now</h2><p class="sub">What people are buying and talking about '
             'on TikTok, Reddit, YouTube and Amazon price trackers</p><div class="virals">' + cells + '</div></section>')
 
@@ -637,7 +646,7 @@ def main():
     cards = "".join(card(d, history, tested) for d in picked)
     page = f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{BRAND} | Daily Deals, Viral Finds & Promo Codes</title>
+<title>{BRAND} | Daily Amazon Deals for Moms, Checked Every Morning</title>
 <link rel="canonical" href="https://momfounditcheaper.com/">
 <meta property="og:title" content="Mom Found It Cheaper | Daily Deals">
 <meta property="og:url" content="https://momfounditcheaper.com/">
@@ -665,7 +674,7 @@ def main():
 <section id="todays"><h2>All of today's deals, by price</h2><p class="sub">{len(picked)} verified deals. Pick a price, or filter by category.</p>
 <div class="cats" id="cats"><button class="on" data-c="">All categories</button>{cat_buttons}<button type="button" class="more" id="morecats">More…</button></div>
 <div class="bar"><input id="q" placeholder="Search deals…" aria-label="Search deals"><select id="store" aria-label="Filter by store" style="display:none"><option value="">All stores</option>{store_opts}</select>
-<button class="on" data-f="all">All</button><button data-f="has-code">Codes</button><button data-f="has-coupon">Coupons</button><button data-f="viral">Trending</button></div>
+<button class="on" data-f="all">All</button>{'<button data-f="has-code">Codes</button>' if 'has-code' in cards else ''}{'<button data-f="has-coupon">Coupons</button>' if 'has-coupon' in cards else ''}<button data-f="viral">Trending</button></div>
 <div id="empty" class="empty" role="status">No deals match this filter right now. Try another category or clear the search.</div><div id="count" class="sub" aria-live="polite" role="status"></div>
 </section>
 {tier_sections(picked, history, tested)}
