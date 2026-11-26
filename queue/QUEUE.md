@@ -2,284 +2,90 @@
 
 Reply with the numbers to approve, e.g. `post 1, q2; video 3; eng poll`. Nothing is posted until you say so.
 
-## Posts that passed strict QA (16)
-### post_1 — Under $10 finds (ok)
+## Posts that passed strict QA (5)
+### post_2 — Under $25 finds (ok)
 ```
 CAPTION:
-🔥 72% OFF! 13" Franklin Sports Field Master V Web Baseball Mitt
-✨ Under $10 finds: 4" Workpro Stubby Adjustable Wrench, 13" Franklin Sports Field Master V Web Baseball Mitt and 16-Piece Fisher-Price Wooden Pretend Play Fruit Pie Toy Set
-Our pick today: 13" Franklin Sports Field, 72% under Amazon's list price and 4.4 stars from 1,482 shoppers.
-Which find surprised you most?
-All three, checked against Amazon this morning: https://momfounditcheaper.com/
-#ad As an Amazon Associate I earn from qualifying purchases.
-
-#ad #dealsforyou #momlife #budgetfinds
-
-FIRST COMMENT (paste after posting):
-Shop here (prices and codes can change):
-42% OFF - 4" Workpro Stubby Adjustable Wrench
-https://www.amazon.com/dp/B0CVXKVCZ7?tag=momfounditc08-20
-Price history: https://camelcamelcamel.com/product/B0CVXKVCZ7
-72% OFF - 13" Franklin Sports Field Master V Web Baseball Mitt
-https://www.amazon.com/dp/B
-```
-
-### post_3 — Under $25 finds (ok)
-```
-CAPTION:
-🔥 40% OFF! 8-Oz YETI Rambler Travel Bottle
-✨ Under $25 finds: Klein Tools 32516HD KNECT 16-in-1 Impact-Rated Hybrid Screwdriver, 8-Oz YETI Rambler Travel Bottle and ​Masters of the Universe 2026 Movie He-Man Power of Grayskull Sword
-Our pick today: 8-Oz YETI Rambler Travel, 40% under Amazon's list price and 4.6 stars from 3,139 shoppers.
-Tell us which one you want and we will keep an eye out for more like it.
-All three, checked against Amazon this morning: https://momfounditcheaper.com/
-#ad As an Amazon Associate I earn from qualifying purchases.
-
-#ad #savemoney #momhacks #amazonfinds
-
-FIRST COMMENT (paste after posting):
-Shop here (prices and codes can change):
-31% OFF - Klein Tools 32516HD KNECT 16-in-1 Impact-Rated Hybrid Screwdriver
-https://www.amazon.com/dp/B0DK2H7G5G?tag=momfounditc08-20
-Price history: https://camelcamelcamel.com/product/B0DK2H7G5G
-40% OFF - 8-Oz YETI Ramb
-```
-
-### post_7 — Outdoor & tools under $100 (ok)
-```
-CAPTION:
-🔥 40% OFF! Char-Broil The Big Easy Oil-Less Turkey Fryer!
-✨ Outdoor & tools under $100: 14-Piece Wiha Insulated Bit Holder Screw Driver, 12-pc Wiha 79243 Slotted Phillips & Torx Bit Selector and Char-Broil The Big Easy Oil-Less Turkey Fryer
-Our pick today: Char-Broil The Big Easy, 40% under Amazon's list price and 4.5 stars from 279 shoppers.
-Which would you grab first?
+🔥 32% OFF! monTEK Full Motion TV Wall Mount for 13-43" TVs
+✨ Under $25 finds: The Smurfs: Dreams, monTEK Full Motion TV Wall Mount for 13-43" TVs and 20-Oz YETI Rambler Insulated Travel Mug
+Our pick today: monTEK Full Motion TV, 32% under Amazon's list price and 4.6 stars from 5,478 shoppers.
+Which one is going in your cart?
 All three, checked against Amazon this morning: https://momfounditcheaper.com/
 #ad As an Amazon Associate I earn from qualifying purchases.
 
 #ad #amazondeals #giftideas #founditcheaper
-
-FIRST COMMENT (paste after posting):
-Shop here (prices and codes can change):
-20% OFF - 14-Piece Wiha Insulated Bit Holder Screw Driver
-https://www.amazon.com/dp/B075FFCD9L?tag=momfounditc08-20
-Price history: https://camelcamelcamel.com/product/B075FFCD9L
-20% OFF - 12-pc Wiha 79243 Slotted Phillips & Torx Bit Selector
-https://www.
-```
-
-### post_8 — Home & kitchen under $50 (ok)
-```
-CAPTION:
-🔥 23% OFF! Gibson Home Rothernberg 18-Piece Porcelain Dinnerware Set
-✨ Home & kitchen under $50: Step Lively Anti- Fatigue 2 PCS Cushioned Kitchen Mats for Floor, ECR4Kids 2-in-1 Adjustable Hardwood Sit or Step Stool and Gibson Home Rothernberg 18-Piece Porcelain Dinnerware Set
-Our pick today: Gibson Home Rothernberg 18-Piece, 23% under Amazon's list price and 4.5 stars from 6,451 shoppers.
-Which would you grab first?
-All three, checked against Amazon this morning: https://momfounditcheaper.com/
-#ad As an Amazon Associate I earn from qualifying purchases.
-
-#ad #savemoney #momhacks #amazonfinds
-
-FIRST COMMENT (paste after posting):
-Shop here (prices and codes can change):
-30% OFF - Step Lively Anti- Fatigue 2 PCS Cushioned Kitchen Mats for Floor
-https://www.amazon.com/dp/B0F6MP7RDJ?tag=momfounditc08-20
-Price history: https://camelcamelcamel.com/product/B0F6MP7RDJ
-50% OFF - ECR4Ki
-```
-
-### post_9 — Gaming & fun under $25 (ok)
-```
-CAPTION:
-🔥 17% OFF! Razer Orochi V2 Wireless Gaming Mouse
-✨ Gaming & fun under $25: The Smurfs: Dreams, Persona 5 Royal: Standard Edition and Razer Orochi V2 Wireless Gaming Mouse
-Our pick today: Razer Orochi V2 Wireless, 17% under Amazon's list price and 4.4 stars from 5,722 shoppers.
-Tell us which one you want and we will keep an eye out for more like it.
-All three, checked against Amazon this morning: https://momfounditcheaper.com/
-#ad As an Amazon Associate I earn from qualifying purchases.
-
-#ad #blackfriday #momfinds #dealoftheday
 
 FIRST COMMENT (paste after posting):
 Shop here (prices and codes can change):
 59% OFF - The Smurfs: Dreams
 https://www.amazon.com/dp/B0D7DB4X4Q?tag=momfounditc08-20
 Price history: https://camelcamelcamel.com/product/B0D7DB4X4Q
-59% OFF - Persona 5 Royal: Standard Edition
-https://www.amazon.com/dp/B0BF9L5CK8?tag=momfounditc08-20
-Price history: https://camel
+32% OFF - monTEK Full Motion TV Wall Mount for 13-43" TVs
+https://www.amazon.com/dp/B0D6GGF9M4?tag=momfounditc08-20
+Price history: https://camelcamelca
 ```
 
 ### post_single — Mom's pick (ok)
 ```
 CAPTION:
-Mia's pick today: GNCC 2K Security Camera Indoor.
-4.4 stars, 825 reviews. I'd grab it!
-See it here: https://momfounditcheaper.com/#d-348211cb19
-#ad As an Amazon Associate I earn from qualifying purchases.
-
-#ad #amazonfinds #momfinds #founditcheaper
-
-FIRST COMMENT (paste after posting):
-Shop here (prices and codes can change):
-https://www.amazon.com/dp/B0G5WWT1L1?tag=momfounditc08-20
-As an Amazon Associate I earn from qualifying purchases.
-```
-
-### post_q1 — Quick deal: 43% OFF (ok)
-```
-CAPTION:
-🔥 43% OFF! 577-Pc LEGO One Piece: Tony Tony Chopper Building Set is just $39.99.
-43% below list. Worth a look!
-See it here: https://momfounditcheaper.com/#d-a1e031c6a9
-#ad As an Amazon Associate I earn from qualifying purchases.
-
-#ad #dealsforyou #momlife #budgetfinds
-
-FIRST COMMENT (paste after posting):
-Shop here (prices and codes can change):
-https://www.amazon.com/dp/B0G2T1W5S9?tag=momfounditc08-20
-As an Amazon Associate I earn from qualifying purchases.
-```
-
-### post_q2 — Quick deal: 54% OFF (ok)
-```
-CAPTION:
-🔥 54% OFF! Logitech G309 Lightspeed Wireless Gaming Mouse is just $40.99.
-4.4 stars, 842 reviews. I'd grab it!
-See it here: https://momfounditcheaper.com/#d-5fd5c7b3dd
-#ad As an Amazon Associate I earn from qualifying purchases.
-
-#ad #amazondeals #giftideas #founditcheaper
-
-FIRST COMMENT (paste after posting):
-Shop here (prices and codes can change):
-https://www.amazon.com/dp/B0C8523DT8?tag=momfounditc08-20
-As an Amazon Associate I earn from qualifying purchases.
-```
-
-### post_q3 — Quick deal: 37% OFF (ok)
-```
-CAPTION:
-🔥 37% OFF! monTEK Full Motion TV Wall Mount for 37"-90" TVs is just $56.98.
-4.3 stars, 1.4K reviews. I'd grab it!
-See it here: https://momfounditcheaper.com/#d-3f7d575335
+Mia's pick today: 48mm Amazfit Active Max GPS Smart Watch.
+4.6 stars, 1.1K reviews. I'd grab it!
+See it here: https://momfounditcheaper.com/#d-9145b18208
 #ad As an Amazon Associate I earn from qualifying purchases.
 
 #ad #savemoney #momhacks #amazonfinds
 
 FIRST COMMENT (paste after posting):
 Shop here (prices and codes can change):
-https://www.amazon.com/dp/B0DT494JX5?tag=momfounditc08-20
+https://www.amazon.com/dp/B0G4F6ZCSV?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-### post_q4 — Quick deal: 30% OFF (ok)
+### post_q1 — Quick deal: 29% OFF (ok)
 ```
 CAPTION:
-🔥 30% OFF! SwitchBot CO2 Detector is just $48.99.
-4.3 stars, 1.6K reviews. I'd grab it!
-See it here: https://momfounditcheaper.com/#d-bfc8abdf2d
-#ad As an Amazon Associate I earn from qualifying purchases.
-
-#ad #blackfriday #momfinds #dealoftheday
-
-FIRST COMMENT (paste after posting):
-Shop here (prices and codes can change):
-https://www.amazon.com/dp/B0DLN46519?tag=momfounditc08-20
-As an Amazon Associate I earn from qualifying purchases.
-```
-
-### post_q5 — Quick deal: 23% OFF (ok)
-```
-CAPTION:
-🔥 23% OFF! Philips Smart Lock Matter Over Thread is just $99.99.
-23% below list. Worth a look!
-See it here: https://momfounditcheaper.com/#d-cc3796f0e3
+🔥 29% OFF! SONGMICS Closet Organizer Clothes Rack is just $85.71.
+29% below list. Worth a look!
+See it here: https://momfounditcheaper.com/#d-bbba11023d
 #ad As an Amazon Associate I earn from qualifying purchases.
 
 #ad #amazonfinds #momfinds #founditcheaper
 
 FIRST COMMENT (paste after posting):
 Shop here (prices and codes can change):
-https://www.amazon.com/dp/B0FXM1QCVT?tag=momfounditc08-20
+https://www.amazon.com/dp/B0DK8MPRGG?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-### post_q6 — Quick deal: 20% OFF (ok)
+### post_q2 — Quick deal: 30% OFF (ok)
 ```
 CAPTION:
-🔥 20% OFF! 329-pc. LEGO Speed Champions Ferrari 499P is just $23.99.
-20% below list. Worth a look!
-See it here: https://momfounditcheaper.com/#d-121fc5f484
+🔥 30% OFF! NIVEA Lip Care Variety Pack 4-Count Shipped is just $6.
+4.6 stars, 20.1K reviews. I'd grab it!
+See it here: https://momfounditcheaper.com/#d-9a505653d1
 #ad As an Amazon Associate I earn from qualifying purchases.
 
 #ad #dealsforyou #momlife #budgetfinds
 
 FIRST COMMENT (paste after posting):
 Shop here (prices and codes can change):
-https://www.amazon.com/dp/B0G2T43599?tag=momfounditc08-20
+https://www.amazon.com/dp/B07Y91BMSK?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-### post_q7 — Quick deal: 54% OFF (ok)
+### post_q3 — Quick deal: 51% OFF (ok)
 ```
 CAPTION:
-🔥 54% OFF! Texas Instruments TI-84 Evo Graphing Calculator is just $73.22.
-4.4 stars, 1.3K reviews. I'd grab it!
-See it here: https://momfounditcheaper.com/#d-4f53c9c988
+🔥 51% OFF! Goplus 5ft Pencil Christmas Tree is just $29.59.
+4.3 stars, 6.6K reviews. I'd grab it!
+See it here: https://momfounditcheaper.com/#d-0fe85fd626
 #ad As an Amazon Associate I earn from qualifying purchases.
 
 #ad #amazondeals #giftideas #founditcheaper
 
 FIRST COMMENT (paste after posting):
 Shop here (prices and codes can change):
-https://www.amazon.com/dp/B0G8QXXF8B?tag=momfounditc08-20
-As an Amazon Associate I earn from qualifying purchases.
-```
-
-### post_q8 — Quick deal: 33% OFF (ok)
-```
-CAPTION:
-🔥 33% OFF! DUMOS 31.5 Inch Small Computer Desk is just $19.99.
-4.6 stars, 2.7K reviews. I'd grab it!
-See it here: https://momfounditcheaper.com/#d-284f79ba3c
-#ad As an Amazon Associate I earn from qualifying purchases.
-
-#ad #savemoney #momhacks #amazonfinds
-
-FIRST COMMENT (paste after posting):
-Shop here (prices and codes can change):
-https://www.amazon.com/dp/B0HM36F6DY?tag=momfounditc08-20
-As an Amazon Associate I earn from qualifying purchases.
-```
-
-### post_q9 — Quick deal: 40% OFF (ok)
-```
-CAPTION:
-🔥 40% OFF! Shark Navigator Lift-Away Vacuum is just $119.99.
-4.5 stars, 98.1K reviews. I'd grab it!
-See it here: https://momfounditcheaper.com/#d-05160a6751
-#ad As an Amazon Associate I earn from qualifying purchases.
-
-#ad #blackfriday #momfinds #dealoftheday
-
-FIRST COMMENT (paste after posting):
-Shop here (prices and codes can change):
-https://www.amazon.com/dp/B005KMDV9A?tag=momfounditc08-20
-As an Amazon Associate I earn from qualifying purchases.
-```
-
-### post_q10 — Quick deal: 31% OFF (ok)
-```
-CAPTION:
-🔥 31% OFF! Eureka Whirlwind Bagless Canister Vacuum is just $54.99.
-4.3 stars, 46.4K reviews. I'd grab it!
-See it here: https://momfounditcheaper.com/#d-4d4970562e
-#ad As an Amazon Associate I earn from qualifying purchases.
-
-#ad #amazonfinds #momfinds #founditcheaper
-
-FIRST COMMENT (paste after posting):
-Shop here (prices and codes can change):
-https://www.amazon.com/dp/B07GB4S9H5?tag=momfounditc08-20
+https://www.amazon.com/dp/B09C1Y9DRL?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
