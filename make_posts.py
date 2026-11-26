@@ -752,7 +752,7 @@ QUESTIONS = ["Which one is going in your cart?", "Which would you grab first?", 
 
 def texts(theme, items):
     names = [tidy(short_title(no_price_title(i["title"]))) for i in items]
-    names = [re.sub(r"^\[[^\]]*\]\s*", "", n).rstrip(".,;:- ") for n in names]
+    names = [re.sub(r"^\[[^\]]*\]\s*", "", n).rstrip(".,;:!- ") for n in names]
     st = story(items)
     _b = best_item(items); _off = pct_off(_b)
     _bn = tidy(short_title(no_price_title(_b["title"])))
@@ -764,8 +764,8 @@ def texts(theme, items):
     for n, i in zip(names, items):
         code = clean_code(i)
         tip = f" - code {code}" if code else (" - clip the coupon" if i.get("coupon") and "coupon" in ((META.get(i.get("asin", "")) or {}).get("promo") or "").lower() else "")
-        hist = f"\nPrice history: https://camelcamelcamel.com/product/{i['asin']}" if i.get("asin") else ""
-        _o = pct_off(i)
+        hist = "" if AMAZON_PRICES == "hide" or not i.get("asin") else f"\nPrice history: https://camelcamelcamel.com/product/{i['asin']}"
+        _o = 0 if AMAZON_PRICES == "hide" else pct_off(i)        # no list-price % in compliant mode
         lines.append(f"{'' if _o < 10 else f'{_o}% OFF - '}{n}{tip}\n{link_for(i)}{hist}")
     lines.append("As an Amazon Associate I earn from qualifying purchases.")
     return caption, "\n".join(lines)
@@ -777,7 +777,14 @@ def main():
     for _d in deals:
         _d["category"] = category_of(_d["title"])
         fix_price(_d)
+    try:
+        _BLOCK = set(json.loads(Path("data/blocklist.json").read_text()).get("asins", []))
+    except Exception:
+        _BLOCK = set()
+
     def _ok(d):                                   # QA lessons: real reviews, sane price, no scraped tails
+        if d.get("asin") in _BLOCK:
+            return False                          # owner/QA blocklist (wrong variant etc.)
         pv = price_value(d.get("price", "")) or 0
         if pv > 150:
             return False
@@ -896,7 +903,7 @@ def main():
         make_image_thisorthat(OUT / "post_thisorthat.png", a, b, ROT[(datetime.now(timezone.utc).toordinal() + 2) % len(ROT)])
         na, nb = (" ".join(tidy(short_title(no_price_title(z["title"]))).split(",")[0].split()[:5]) for z in pair)
         cap = (f"THIS or THAT? 🛒\nA: {na}\nB: {nb}\nWhich would you pick? Tell us why - we read every one!\n"
-               f"(AD)(Commission earned) As an Amazon Associate I earn from qualifying purchases.\n\n{HASHTAG_SET}")
+               f"Both checked against Amazon this morning: {SITE}\n#ad As an Amazon Associate I earn from qualifying purchases.\n\n{HASHTAG_SET}")
         cm = f"Shop here (prices and codes can change):\nA: {link_for(a)}\nB: {link_for(b)}\nAs an Amazon Associate I earn from qualifying purchases."
         (OUT / "post_thisorthat.txt").write_text(f"CAPTION:\n{cap}\n\nFIRST COMMENT (paste after posting):\n{cm}\n")
         (WEB / "post_thisorthat.png").write_bytes((OUT / "post_thisorthat.png").read_bytes())
