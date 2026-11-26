@@ -66,10 +66,29 @@ def tiers_from_site():
         m = re.search(r'<section class="tier-sec" id="%s">(.*?)</section>' % key, t, re.S)
         if not m:
             continue
-        cards = re.findall(r'<img src="([^"]+)" loading="lazy" alt="([^"]+)">', m.group(1))
+        cards = re.findall(r'<img src="([^"]+)" loading="lazy" alt="([^"]+)">.*?(?:<div class="price"><b>([^<]+)</b>(?:<s>([^<]+)</s>)?|<h3>)', m.group(1), re.S)
         if len(cards) >= 3:
-            out.append((key, label, [(ROOT / "site" / html_.unescape(src), html_.unescape(alt)) for src, alt in cards[:4]]))
+            out.append((key, label, [(ROOT / "site" / html_.unescape(src), html_.unescape(alt), now or "", was or "") for src, alt, now, was in cards[:4]]))
     return out
+
+
+def price_pill(img, xy, now, was, size=34):
+    """Tangerine price pill with Amazon's list price struck through beside it (site show mode only)."""
+    if not now:
+        return 0
+    d = ImageDraw.Draw(img)
+    f = font(B.FONT_TEXT, size, "Black")
+    x, y = xy
+    w = d.textlength(now, font=f)
+    d.rounded_rectangle([x, y, x + w + 36, y + size + 22], radius=14, fill=B.TANGERINE)
+    d.text((x + 18, y + 9), now, font=f, fill=(255, 255, 255))
+    if was:
+        wf = font(B.FONT_TEXT, int(size * .7), "Medium")
+        wx, wy = x + w + 50, y + size * .45
+        d.text((wx, wy), was, font=wf, fill=B.MUTED)
+        ww = d.textlength(was, font=wf)
+        d.line([(wx - 2, wy + size * .4), (wx + ww + 2, wy + size * .4)], fill=B.WAS_RED, width=3)
+    return size + 22
 
 
 def base(title_lines, label):
@@ -112,20 +131,22 @@ def tier_pin(key, label, items):
     d = ImageDraw.Draw(img)
     # 2x2 photo grid
     gx, gy, cell, gap = 60, y + 24, 410, 28
-    for i, (src, alt) in enumerate(items[:4]):
+    for i, (src, alt, now, was) in enumerate(items[:4]):
         x = gx + (i % 2) * (cell + gap)
         yy = gy + (i // 2) * (cell + gap)
         d.rounded_rectangle([x, yy, x + cell, yy + cell], radius=28, fill=(255, 255, 255))
         try:
-            p = ImageOps.contain(Image.open(src).convert("RGB"), (cell - 50, cell - 50))
-            img.paste(p, (x + (cell - p.width) // 2, yy + (cell - p.height) // 2))
+            ph = cell - 50 - (70 if now else 0)
+            p = ImageOps.contain(Image.open(src).convert("RGB"), (cell - 50, ph))
+            img.paste(p, (x + (cell - p.width) // 2, yy + 25 + (ph - p.height) // 2))
         except Exception:
             pass
+        price_pill(img, (x + 24, yy + cell - 78), now, was, 30)
     footer(img)
     return img
 
 
-def product_pin(src, alt, label, key):
+def product_pin(src, alt, label, key, now="", was=""):
     short = clean_name(alt)
     img = Image.new("RGB", (W, H), B.CREAM)
     d = ImageDraw.Draw(img)
@@ -144,7 +165,11 @@ def product_pin(src, alt, label, key):
     for line in wrap(d, short, f, 880)[:3]:
         d.text((60, y), line, font=f, fill=B.INK)
         y += 64
-    d.text((60, y + 10), "Mia found it cheaper. Tap for today's price.", font=font(B.FONT_TEXT, 30, "Bold"), fill=B.TANGERINE)
+    if now:
+        y += price_pill(img, (60, y + 14), now, was, 44) + 24
+        d.text((60, y + 10), "Amazon price this morning. Tap for today's.", font=font(B.FONT_TEXT, 30, "Bold"), fill=B.TANGERINE)
+    else:
+        d.text((60, y + 10), "Mia found it cheaper. Tap for today's price.", font=font(B.FONT_TEXT, 30, "Bold"), fill=B.TANGERINE)
     footer(img)
     return img
 
@@ -158,12 +183,13 @@ def main():
         rows.append({"title": f"{label} mom finds — checked against Amazon today", "media_url": p.name,
                      "pinterest_board": "Mom Found It Cheaper", "description": f"{label} finds for moms, every link checked against Amazon this morning. Toys, kitchen, beauty, baby and more. #ad As an Amazon Associate I earn from qualifying purchases.",
                      "link": f"{SITE}#{key}", "keywords": f"{label.lower()} amazon finds, mom deals, gifts {label.lower()}, stocking stuffers"})
-        for i, (src, alt) in enumerate(items[:2], 1):
+        for i, (src, alt, now, was) in enumerate(items[:2], 1):
             pp = OUT / f"pin_{key}_{i}.png"
-            product_pin(src, alt, label, key).save(pp, optimize=True)
+            product_pin(src, alt, label, key, now, was).save(pp, optimize=True)
             alt = clean_name(alt)
+            pr = (f"{now} on Amazon this morning" + (f" (list {was})" if was else "")) if now else f"{label} on Amazon when I checked this morning"
             rows.append({"title": f"{alt[:80]} — {label}", "media_url": pp.name, "pinterest_board": "Mom Found It Cheaper",
-                         "description": f"{alt[:120]}. {label} on Amazon when I checked this morning. Tap for today's price. #ad As an Amazon Associate I earn from qualifying purchases.",
+                         "description": f"{alt[:120]}. {pr}. Prices change; tap for today's. #ad As an Amazon Associate I earn from qualifying purchases.",
                          "link": f"{SITE}#{key}", "keywords": f"{label.lower()}, amazon finds, mom deals"})
     with open(OUT / "pins.csv", "w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=["title", "media_url", "pinterest_board", "description", "link", "keywords"])

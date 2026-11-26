@@ -135,7 +135,7 @@ def price_groups(deals, made, tiers=(10, 15, 25), exclude=()):
         pool.append((price, d))
     out, used = [], set()
     for t in tiers:
-        its = [d for p, d in pool if p <= t and d["id"] not in used]
+        its = [d for p, d in pool if p < t and d["id"] not in used]
         if len(its) >= 3:
             its.sort(key=score, reverse=True)
             its = its[:3]
@@ -317,6 +317,10 @@ def fix_price(deal):
     p, n = price_value(deal.get("price", "")), price_value(now)
     if p and n and abs(n - p) / p <= 0.05:
         deal["price"] = now
+        ck = (META.get(deal.get("asin", "")) or {}).get("checked")
+        if ck:                                     # "Price as of" = the morning Amazon check, not the feed time
+            from datetime import datetime, timezone
+            deal["seen"] = datetime.fromtimestamp(ck, timezone.utc).isoformat()
     return deal
 
 
@@ -828,6 +832,12 @@ def main():
             if rv < 100 and mm.get("list") and pv and pv < 0.45 * (price_value(str(mm["list"])) or 0):
                 return False                      # big claimed discount on few reviews = suspicious list price
             nw = price_value(str(mm.get("now") or "")) if mm.get("now") else 0
+            if AMAZON_PRICES != "hide":
+                import time as _t
+                if not nw or not mm.get("checked") or _t.time() - mm["checked"] > 36 * 3600:
+                    return False                  # a shown price must be Amazon's own, read in the last 36h
+                if re.search(r"\bunder\b|\$\d+\+", d["title"], re.I) and abs(pv - nw) / nw > 0.05:
+                    return False                  # "Under $5" style feed prices are not a real price
             if nw and pv and abs(pv - nw) / nw > 0.08 and pv > 0:
                 return False                      # deal-site price differs >8% from Amazon's own page price
             if nw and pv and pv < nw * 0.7:

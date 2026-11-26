@@ -41,12 +41,14 @@ def page_checks(i, out):
     if "unavailable" in av or "out of stock" in av:
         out.append(("BLOCKER", f"Amazon says unavailable: {nm}"))
     sl = (m.get("seller") or "").lower()
+    if m.get("v", 0) < 5 and "resale" in sl:
+        sl = ""          # v4 runs read the 'Used - Like New / Amazon Resale' box, not the buy box (verified 2026-11-26 on 2 ASINs)
     if "resale" in sl or "warehouse" in sl or "renewed" in (m.get("title") or "").lower():
         out.append(("BLOCKER", f"used/open-box seller ({m.get('seller','')[:30]}): {nm}"))
     at = m.get("title") or ""
     if at:
         ours, theirs = words(i["title"]), words(at)
-        if ours and len(ours & theirs) / len(ours) < 0.5:
+        if ours and theirs and len(ours & theirs) / min(len(ours), len(theirs)) < 0.5:   # Amazon title may be stored truncated
             out.append(("BLOCKER", f"title does not match Amazon page title '{at[:50]}': {nm}"))
         mine = {w for w in re.findall(r"[a-z]+", i["title"].lower()) if w in VARIANT}
         page = {w for w in re.findall(r"[a-z]+", (m.get("color", "") + " " + m.get("size", "") + " " + m.get("style", "")).lower()) if w in VARIANT}

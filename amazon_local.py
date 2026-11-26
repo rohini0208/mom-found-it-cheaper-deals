@@ -101,7 +101,10 @@ PROMO_JS = """() => {
     return {promo: promo,
             color: t('#variation_color_name .selection'), size: t('#variation_size_name .selection'),
             style: t('#variation_style_name .selection'),
-            avail: t('#availability'), title: t('#productTitle'), seller: t('#merchant-info').slice(0, 120)}; }"""
+            avail: t('#availability'), title: t('#productTitle'),
+            // main buy box only: the old '#merchant-info' read the 'Used - Like New / Amazon Resale' box on many pages
+            seller: (t('#merchantInfoFeature_feature_div') || t('#sellerProfileTriggerId') || t('#merchant-info')).slice(0, 120),
+            used_offer: t('#usedBuySection').slice(0, 80)}; }"""
 
 
 def main():
@@ -186,7 +189,7 @@ def main():
                 m = re.search(r'"hiRes":"(https:[^"]+)"', html)
                 meta[a] = {"rating": float(rt.group(1)) if rt else None,
                            "reviews": parse_reviews(rc.group(1)) if rc else None,
-                           "list": lp.group(0) if lp else None, "now": now.group(0) if now else None, "v": 4,
+                           "list": lp.group(0) if lp else None, "now": now.group(0) if now else None, "v": 5,
                            "checked": int(time.time())}
                 try:                                    # coupons, promo codes, chosen variant, stock
                     meta[a].update(page.evaluate(PROMO_JS))

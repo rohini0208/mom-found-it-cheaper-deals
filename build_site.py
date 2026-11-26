@@ -27,7 +27,7 @@ SIGNALS = load_signals()
 
 # Amazon's Associates rules only allow prices that come from Amazon's own API.
 # "show" (your choice): show feed prices with an "as of" time; "hide": no Amazon prices.
-AMAZON_PRICES = os.environ.get("AMAZON_PRICES", "hide").strip().lower()
+AMAZON_PRICES = os.environ.get("AMAZON_PRICES", "show").strip().lower()
 
 
 def as_of(iso):
@@ -232,6 +232,28 @@ def _drop_pct(d, history, now_price):
     return int(round(100 * (hi - now_price) / hi)) if hi > now_price else 0
 
 
+def _lowest_since(d, history, now_price):
+    """'Nov 12' if today's Amazon price is at or below every price in our own log (>=2 earlier points), else ''."""
+    pts = history.get(product_key(d), [])
+    if now_price is None or len(pts) < 2:
+        return ""
+    if now_price <= min(p for _, p in pts):
+        first = pts[0][0]
+        return datetime.strptime(first, "%Y-%m-%d").strftime("%b %-d")
+    return ""
+
+
+def price_block(m, now_price):
+    """Show mode: today's Amazon price, Amazon's list price struck through, % off. '' when nothing fresh."""
+    if AMAZON_PRICES == "hide" or now_price is None or not m.get("now"):
+        return "", 0
+    lst = price_num(m.get("list")) if m.get("list") else None
+    off = int(round(100 * (lst - now_price) / lst)) if lst and lst > now_price else 0
+    was = f'<s>{html.escape(m["list"])}</s>' if off >= 5 else ""
+    pct = f'<span class="off">{off}% off</span>' if off >= 10 else ""
+    return f'<div class="price"><b>{html.escape(m["now"])}</b>{was}{pct}</div>', off
+
+
 def card(d, history, tested, rank=0, idsuffix="", in_tier=False):
     import brand
     orig_title = d["title"]
@@ -250,8 +272,13 @@ def card(d, history, tested, rank=0, idsuffix="", in_tier=False):
     pct = _drop_pct(d, history, now_price)
     # ONE sticker, from verifiable states only
     low = orig_title.lower()
-    if "black friday" in low or "bf " in low:
+    promo_low = str(_mm.get("promo", "")).lower()
+    lowest = _lowest_since(d, history, now_price)
+    price_html, list_off = price_block(_mm, now_price)
+    if "black friday" in low or "bf " in low or "black friday" in promo_low or "thanksgiving" in promo_low:
         sticker = "BF DEAL"
+    elif lowest and len(history.get(product_key(d), [])) >= 3:
+        sticker = "LOWEST YET"
     elif now_price is not None and now_price < 10 and not in_tier:
         sticker = "UNDER $10"
     elif rank == 1:
@@ -261,6 +288,8 @@ def card(d, history, tested, rank=0, idsuffix="", in_tier=False):
     else:
         sticker = ""
     checked = _checked_label(_mm)
+    if checked and AMAZON_PRICES != "hide":
+        checked = checked.replace("Checked ", "Amazon price ")        # "Amazon price 7:12 AM ET"
     votes = d.get("thumbs", 0)
     buzz = viral_sources(d, SIGNALS)
     # No third-party names or vote counts on cards (Slickdeals ToS forbids repurposing their content/marks).
@@ -281,14 +310,14 @@ def card(d, history, tested, rank=0, idsuffix="", in_tier=False):
     return f"""
 <article class="card {tags}" id="d-{i}{idsuffix}" data-title="{html.escape(title.lower())}" data-cat="{html.escape(d.get('category','Everything else'))}" data-store="{html.escape(d.get('store','Other'))}" data-asin="{html.escape(d.get('asin',''))}">
   <a class="ph" href="{html.escape(url)}" target="_blank" rel="sponsored noopener">{f'<img src="{_th}" loading="lazy" alt="{html.escape(title)}">' if _th else ''}{f'<span class="stk">{sticker}</span>' if sticker else ''}</a>
-  {f'<div class="tier">{html.escape(tier_txt)}</div>' if tier_txt and not in_tier else ''}
+  {price_html if price_html else (f'<div class="tier">{html.escape(tier_txt)}</div>' if tier_txt and not in_tier else '')}
   <h3>{html.escape(title)}</h3>
-  <div class="proof">{f'<span class="chk">&#10003; {checked}</span>' if checked else ''}{f'<span class="fact">{proof2}</span>' if proof2 else ''}<span class="fact saved" data-saved="{html.escape(d.get('asin') or i)}"></span></div>
+  <div class="proof">{f'<span class="chk">&#10003; {checked}</span>' if checked else ''}{f'<span class="fact low">Lowest we&#8217;ve seen since {lowest}</span>' if lowest and AMAZON_PRICES != "hide" else ''}{f'<span class="fact">{proof2}</span>' if proof2 else ''}<span class="fact saved" data-saved="{html.escape(d.get('asin') or i)}"></span></div>
   {f'<div class="why">{html.escape(why)}</div>' if why else ''}
 
   {f'<button class="code" data-code="{html.escape(code)}">Code <b>{html.escape(code)}</b> <span>tap to copy</span></button>' if real_code else ''}
   {'<div class="why">Clip the coupon on the product page</div>' if d.get('coupon') else ''}
-  <a class="go" href="{html.escape(url)}" target="_blank" rel="sponsored noopener" data-track="{html.escape(d.get('asin') or i)}" aria-label="See today's price on Amazon: {html.escape(title)}">See today's price &rarr;</a>
+  <a class="go" href="{html.escape(url)}" target="_blank" rel="sponsored noopener" data-track="{html.escape(d.get('asin') or i)}" aria-label="{'Get it on Amazon' if price_html else "See today's price on Amazon"}: {html.escape(title)}">{'Get it on Amazon' if price_html else "See today's price"} &rarr;</a>
   <div class="paid">Paid link &middot; #ad &middot; <span class="chip">{html.escape(d.get('category','Everything else'))}</span></div>
 </article>"""
 
@@ -365,6 +394,7 @@ section{margin-top:26px}h2{font-size:32px;margin:0 0 6px;letter-spacing:-.01em}
 .ph{position:relative;display:block;border-radius:16px;overflow:hidden;background:#fff;border:1px solid #F3EDE4}
 .ph img{width:100%;aspect-ratio:1/1;object-fit:contain;display:block;background:#fff}
 .ph .stk{position:absolute;top:10px;left:10px}
+.price{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;line-height:1}.price b{font-size:32px;font-weight:900;letter-spacing:-.03em;color:var(--tang);font-variant-numeric:tabular-nums}.price s{color:var(--muted);font-size:15px;font-weight:500}.price .off{background:var(--yel);color:var(--ink);font-weight:800;font-size:12px;padding:3px 8px;border-radius:20px}.top5 .price b{font-size:28px}.fact.low{color:var(--green);font-weight:700}
 .tier{font-size:32px;font-weight:900;letter-spacing:-.03em;color:var(--ink);line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}.top5 .tier{font-size:28px}.tier.small{font-size:22px}
 .card h3{font-size:17px;line-height:1.3;margin:0;font-weight:600;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .proof{display:flex;gap:8px;flex-wrap:wrap;font-size:12px;align-items:center;min-height:16px}
@@ -388,8 +418,8 @@ section{margin-top:26px}h2{font-size:32px;margin:0 0 6px;letter-spacing:-.01em}
 footer{max-width:1120px;margin:30px auto;padding:0 16px;font-size:12px;color:var(--muted);line-height:1.6}footer a{color:var(--muted)}
 .stick{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;background:#fff;color:var(--ink);border:2px solid var(--ink);text-align:center;padding:12px 22px;font-weight:700;z-index:9;text-decoration:none;border-radius:30px;box-shadow:0 8px 24px rgba(31,26,46,.25)}
 :focus-visible{outline:3px solid #1f4fd8;outline-offset:2px;scroll-margin-bottom:70px}.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:#fff;padding:8px;z-index:20}
-.kicker,.rule,.mia,.tested-badge,.badge,.top,.where,.meta,.price,.now,.was,.off,.stars,.amz,.coupon,.asof,.also,.buzz,.hist,.feats{display:none}
-@media(max-width:760px){.hero{grid-template-columns:1fr;padding-top:14px}h1{font-size:40px}.hero img.scene{order:-1;max-height:230px;object-fit:cover;object-position:70% 20%}.tier{font-size:30px}
+.kicker,.rule,.mia,.tested-badge,.badge,.top,.where,.meta,.now,.was,.stars,.amz,.coupon,.asof,.also,.buzz,.hist,.feats{display:none}
+@media(max-width:760px){.hero{grid-template-columns:1fr;padding-top:14px}h1{font-size:40px}.hero img.scene{order:-1;max-height:230px;object-fit:cover;object-position:70% 20%}.tier{font-size:30px}.price b{font-size:30px}
 .top5 .grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding-bottom:8px}.top5 .card{min-width:78%;scroll-snap-align:start}}
 """
 

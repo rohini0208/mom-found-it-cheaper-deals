@@ -30,7 +30,7 @@ SCALE = dict(display=64, number=52, h2=32, title=18, meta=13, chip=12)   # px, d
 # ---- composition rules ----
 MAX_HEADLINE_WORDS = 5
 STICKER_ANGLE = -6
-STICKERS = ("BF DEAL", "UNDER $10", "UNDER $20", "UNDER $25", "UNDER $50", "PRICE DROPPED", "BACK IN STOCK", "MIA'S PICK")
+STICKERS = ("BF DEAL", "UNDER $10", "UNDER $20", "UNDER $25", "UNDER $50", "PRICE DROPPED", "LOWEST YET", "BACK IN STOCK", "MIA'S PICK")
 CARD_ORDER = ("photo+sticker", "tier number", "title", "proof row", "button")
 MIA_AVATAR = "brand/mia_avatar_circle_240.png"
 MIA_SCENE = "brand/mia_hero_scene.png"

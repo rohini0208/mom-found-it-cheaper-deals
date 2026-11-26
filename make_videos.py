@@ -28,7 +28,7 @@ from trends_finder import load_signals, viral_sources
 SIGNALS = load_signals()
 
 # "show" (default): Amazon prices shown with an "as of" time; "hide": no Amazon prices
-AMAZON_PRICES = os.environ.get("AMAZON_PRICES", "hide").strip().lower()
+AMAZON_PRICES = os.environ.get("AMAZON_PRICES", "show").strip().lower()
 
 
 def as_of(iso):
@@ -137,7 +137,7 @@ def pick_deals(deals, made):
             continue
         if any(w in low for w in SKIP_WORDS):
             continue
-        if AMAZON_PRICES == "hide" and not _verified_amazon(d):
+        if not _verified_amazon(d):
             continue                                  # only Amazon-verified deals get a video (site lists only those)
         score = (2 if d.get("code") and d["code"] != "w/ code" else 0) + (1 if d.get("coupon") else 0)
         score += 3 if find_photo(d) else 0          # deals with a real photo go first
@@ -483,6 +483,9 @@ def make_one(n, deal, work):
         if code and code.lower() not in _pr:
             code = ""
     was, feats = deal.get("was", ""), deal.get("features", [])
+    if is_amazon(deal) and AMAZON_PRICES != "hide":
+        from make_posts import was_of
+        was = was_of(deal)          # Amazon's own list price (sanity-checked), not a feed "was"
     hook = hook_for(deal.get("category", ""), deal["id"])
     scenes, durations = [], []
 
@@ -545,6 +548,10 @@ def make_one(n, deal, work):
 
 def main():
     deals = json.loads(DEALS_FILE.read_text()) if DEALS_FILE.exists() else []
+    if AMAZON_PRICES != "hide":                       # shown price = Amazon's own morning check, stamped with that time
+        from make_posts import fix_price
+        for _d in deals:
+            fix_price(_d)
     made = set(json.loads(MADE_FILE.read_text())) if MADE_FILE.exists() else set()
     picks = pick_deals(deals, made)
     OUT.mkdir(exist_ok=True)
