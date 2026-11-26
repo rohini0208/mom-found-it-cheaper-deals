@@ -69,7 +69,7 @@ LEGO Classic Medium Creativ
 ### post_8 — Outdoor & tools under $100 (ok with warnings)
 ```
 CAPTION:
-#ad 🔥 40% OFF: Char-Broil The Big Easy Oil-Less Turkey Fryer! is $89.99 right now.
+#ad 🔥 40% OFF: Char-Broil The Big Easy Oil-Less Turkey Fryer is $89.99 right now.
 ✨ Outdoor & tools under $100: 14-Piece Wiha Insulated Bit Holder Screw Driver, 12-pc Wiha 79243 Slotted Phillips & Torx Bit Selector and Char-Broil The Big Easy Oil-Less Turkey Fryer
 40% off Amazon's list price and 4.5 stars from 279 shoppers.
 Which would you grab first?
@@ -84,7 +84,7 @@ FIRST COMMENT (paste after posting):
 https://www.amazon.com/dp/B075FFCD9L?tag=momfounditc08-20
 12-pc Wiha 79243 Slotted Phillips & Torx Bit Selector — $14.59 (list $18.24, 20% off)
 https://www.amazon.com/dp/B000F0KC4E?tag=momfounditc08-20
-Char-Broil
+Char-Broil 
 ```
 
 ### post_9 — Home & kitchen under $50 (ok with warnings)
@@ -308,7 +308,7 @@ As an Amazon Associate I earn from qualifying purchases.
 ## Price-tier posts for the Page (4)
 ### Under $10
 ```
-Under $10 finds today (each one checked against Amazon before posting; prices can change):
+#ad Under $10 finds today (each one checked against Amazon before posting; prices can change):
 1. Disney Frozen Sven Crystal 3D Puzzle Deluxe — $9.99 (was $19.99)
 2. Fisher-Price Wood Pretend Play Toy Fruit Pie — $9.49 (was $14.73)
 3. Crayola Light-Ups — $3.49 (was $11.07)
@@ -316,12 +316,12 @@ Under $10 finds today (each one checked against Amazon before posting; prices ca
 5. Beetles Gel Nail Kit 576Pcs Short Almond — $9.49 (was $25.99)
 
 All of them, with links: https://momfounditcheaper.com/#under-10
-As an Amazon Associate I earn from qualifying purchases. #ad
+As an Amazon Associate I earn from qualifying purchases.
 ```
 
 ### Under $20
 ```
-Under $20 finds today (each one checked against Amazon before posting; prices can change):
+#ad Under $20 finds today (each one checked against Amazon before posting; prices can change):
 1. Monopoly Board Game — $10.00 (was $19.99)
 2. YETI Rambler 8 oz Travel Bottle — $15.00 (was $25.00)
 3. Momcozy Baby Bottle Brush Kit — $15.19
@@ -329,12 +329,12 @@ Under $20 finds today (each one checked against Amazon before posting; prices ca
 5. DUMOS 31.5 Inch Small Computer Desk — $19.99 (was $29.99)
 
 All of them, with links: https://momfounditcheaper.com/#under-20
-As an Amazon Associate I earn from qualifying purchases. #ad
+As an Amazon Associate I earn from qualifying purchases.
 ```
 
 ### Under $25
 ```
-Under $25 finds today (each one checked against Amazon before posting; prices can change):
+#ad Under $25 finds today (each one checked against Amazon before posting; prices can change):
 1. Masters of the Universe 2026 Movie He-Man Power of Grayskull Sword — $21.99 (was $43.19)
 2. Anti- Fatigue Kitchen Rugs — $20.99 (was $29.99)
 3. LEGO Speed Champions Ferrari 499P 77261 — $23.99 (was $29.99)
@@ -342,12 +342,12 @@ Under $25 finds today (each one checked against Amazon before posting; prices ca
 5. 100% Cotton Bed Pillows — $20.00
 
 All of them, with links: https://momfounditcheaper.com/#under-25
-As an Amazon Associate I earn from qualifying purchases. #ad
+As an Amazon Associate I earn from qualifying purchases.
 ```
 
 ### Under $50
 ```
-Under $50 finds today (each one checked against Amazon before posting; prices can change):
+#ad Under $50 finds today (each one checked against Amazon before posting; prices can change):
 1. LEGO ONE PIECE Tony Tony Chopper 75643 — $39.99 (was $69.99)
 2. ECR4Kids Adjustable Wooden Sit or Step Stool with Storage — $44.97 (was $89.99)
 3. Gibson Home Rothernberg Plates and Bowls 18 Piece Porcelain White Dinnerware Set — $45.99 (was $59.99)
@@ -355,7 +355,7 @@ Under $50 finds today (each one checked against Amazon before posting; prices ca
 5. Intelligent Design Ruched Shabby Chic Pink Full/Queen Comforter Set — $45.99 (was $64.99)
 
 All of them, with links: https://momfounditcheaper.com/#under-50
-As an Amazon Associate I earn from qualifying purchases. #ad
+As an Amazon Associate I earn from qualifying purchases.
 ```
 
 ## Pinterest pins (12) — folder pins/2026-11-26/ (pins.csv has title, description, link)
@@ -375,7 +375,7 @@ As an Amazon Associate I earn from qualifying purchases. #ad
 ## Engagement drafts (Page)
 - **Poll:** What's your Black Friday budget this year?  Options: Under $50 / $50-150 / $150-300 / No limit, help me
 - **Ask:** Tell me your kid's age and I'll post three gift finds under $20 for that age.
-- **Pin:** New here? Every deal on https://momfounditcheaper.com/ is checked by hand before it's posted. Save the page, turn on notifications, and comment what you want found cheaper. As an Amazon Associate I earn from qualifying purchases. #ad
+- **Pin:** #ad New here? Every deal on https://momfounditcheaper.com/ is checked against Amazon before it's posted. Save the page and tell me what you want found cheaper. As an Amazon Associate I earn from qualifying purchases.
 
 ## Checklist before posting
 - Group status confirmed restored; Page posting only until then
