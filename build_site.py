@@ -680,6 +680,13 @@ Deals are found from public deal feeds and checked against Amazon each morning. 
     import shutil
     if Path("brand/mia_avatar_circle_240.png").exists():
         shutil.copy("brand/mia_avatar_circle_240.png", OUT / "mia.png")
+    for pd in sorted(Path("pins").glob("*/"))[-2:]:          # latest pin batches, public for QA tools and bulk upload
+        dst = OUT / "pins" / pd.name
+        dst.mkdir(parents=True, exist_ok=True)
+        for f in pd.iterdir():
+            shutil.copy(f, dst / f.name)
+    if Path("queue/QUEUE.md").exists():
+        shutil.copy("queue/QUEUE.md", OUT / "queue.md")
     if Path("brand/mia_hero_scene.jpg").exists():          # pre-saved JPEG: Cloudflare's build has no PIL
         shutil.copy("brand/mia_hero_scene.jpg", OUT / "mia-scene.jpg")
     (OUT / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#B84300"/><text x="32" y="44" font-size="34" font-weight="700" text-anchor="middle" fill="#fff" font-family="Arial">M</text></svg>')
