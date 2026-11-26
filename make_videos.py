@@ -286,7 +286,7 @@ def scene_product_photo(path, title, deal, photo, price="", was_label="", was=""
     d.rounded_rectangle([(W - bw) / 2, 430, (W + bw) / 2, 506], radius=38, fill=CHAR, outline=GOLD, width=3)
     centered(d, 449, badge, bf, GOLD, spacing=6)
     # card with the product photo, whole product visible (no cropping)
-    cw, ch, top = 860, 900, 560
+    cw, ch, top = (860, 760, 540) if price else (860, 900, 560)     # room under the card for the price chip
     shadow = Image.new("L", (W, H), 0)
     ImageDraw.Draw(shadow).rounded_rectangle([(W - cw) / 2 + 10, top + 24, (W + cw) / 2 + 10, top + ch + 24], 48, fill=150)
     img.paste((0, 0, 0), mask=shadow.filter(ImageFilter.GaussianBlur(28)))
@@ -295,10 +295,10 @@ def scene_product_photo(path, title, deal, photo, price="", was_label="", was=""
     pic = ImageOps.contain(src, (cw - 90, ch - 90))
     img.paste(pic, ((W - pic.width) // 2, top + (ch - pic.height) // 2))
     d = ImageDraw.Draw(img)
-    tf = fit(d, title, lambda s: serif(s, "SemiBold"), 84, W - 180, max_lines=2, min_size=50)
-    y = centered(d, top + ch + 50, title, tf, IVORY, gap=14)
+    tf = fit(d, title, lambda s: serif(s, "SemiBold"), 76 if price else 84, W - 180, max_lines=2, min_size=50)
+    y = centered(d, top + ch + 44, title, tf, IVORY, gap=12)
     if price:
-        price_chip(img, price, was_label, was)
+        price_chip(img, price, was_label, was, y + 26)
     else:
         rule(d, y + 40, 160)
     footer(ImageDraw.Draw(img), MUTED)
@@ -543,12 +543,13 @@ def scene_gallery(path, photo, caption_text, idx):
     img.save(path)
 
 
-def price_chip(img, price, was_label, was_val):
+def price_chip(img, price, was_label, was_val, y0=1510):
     """Gold price pill on the product card (price is spoken on this scene, so it must be seen here too)."""
     d = ImageDraw.Draw(img)
     pf = serif(76, "Bold")
     w = d.textlength(price, font=pf)
-    x0, y0 = (W - w) / 2 - 44, 1510
+    x0 = (W - w) / 2 - 44
+    y0 = min(y0, 1600)
     d.rounded_rectangle([x0, y0, x0 + w + 88, y0 + 110], radius=24, fill=GOLD)
     d.text((x0 + 44, y0 + 10), price, font=pf, fill=IVORY)
     if was_val:
