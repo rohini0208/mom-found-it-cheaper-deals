@@ -2,39 +2,199 @@
 
 Reply with the numbers to approve, e.g. `post 1, q2; video 3; eng poll`. Nothing is posted until you say so.
 
-## Posts that passed strict QA (2)
-### post_single — Mom's pick (ok with warnings)
+## Posts that passed strict QA (11)
+### post_3 — Under $25 finds (ok)
 ```
 CAPTION:
-Mia's pick today: 12-pc Wiha 79243 Slotted Phillips & Torx Bit Selector.
-Checked against Amazon this morning. Tap for today's price.
-See it here: https://momfounditcheaper.com/#d-05d0645202
+✨ Under $25 finds: Klein Tools 32516HD KNECT 16-in-1 Impact-Rated Hybrid Screwdriver, 4" Workpro Stubby Adjustable Wrench and 13" Franklin Sports Field Master V Web Baseball Mitt
+Tell us which one you want and we will keep an eye out for more like it.
+All three, checked against Amazon this morning: https://momfounditcheaper.com/
+#ad As an Amazon Associate I earn from qualifying purchases.
+
+#ad #savemoney #momhacks #amazonfinds
+
+FIRST COMMENT (paste after posting):
+Shop here (prices and codes can change):
+Klein Tools 32516HD KNECT 16-in-1 Impact-Rated Hybrid Screwdriver
+https://www.amazon.com/dp/B0DK2H7G5G?tag=momfounditc08-20
+4" Workpro Stubby Adjustable Wrench
+https://www.amazon.com/dp/B0CVXKVCZ7?tag=momfounditc08-20
+13" Franklin Sports Field Master V Web Baseball Mitt
+https://www.amazon.com/dp/B013LPRERW?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purcha
+```
+
+### post_5 — Stocking stuffers under $10 (ok with warnings)
+```
+CAPTION:
+✨ Stocking stuffers under $10: HAMUNI Slouchy Beanie Unisex Soft Lightweight Headwear AC, 72-Piece BePuzzled Disney Frozen Sven Deluxe Original 3D Crystal Puzzle and 576-Piece Beetles Short Almond Gel Nail Tips Kit
+Tell us which one you want and we will keep an eye out for more like it.
+All three, checked against Amazon this morning: https://momfounditcheaper.com/
+#ad As an Amazon Associate I earn from qualifying purchases.
+
+#ad #amazonfinds #momfinds #founditcheaper
+
+FIRST COMMENT (paste after posting):
+Shop here (prices and codes can change):
+HAMUNI Slouchy Beanie Unisex Soft Lightweight Headwear AC
+https://www.amazon.com/dp/B0CDPJ484V?tag=momfounditc08-20
+72-Piece BePuzzled Disney Frozen Sven Deluxe Original 3D Crystal Puzzle
+https://www.amazon.com/dp/B07QQ3GRZD?tag=momfounditc08-20
+576-Piece Beetles Short Almond Gel Nail Tips Kit
+https://www.amazon.com/dp/B0D69LN5ZF?tag=momf
+```
+
+### post_9 — Outdoor & tools under $100 (ok)
+```
+CAPTION:
+✨ Outdoor & tools under $100: 14-Piece Wiha Insulated Bit Holder Screw Driver, 12-pc Wiha 79243 Slotted Phillips & Torx Bit Selector and Char-Broil The Big Easy Oil-Less Turkey Fryer
+Which would you grab first?
+All three, checked against Amazon this morning: https://momfounditcheaper.com/
+#ad As an Amazon Associate I earn from qualifying purchases.
+
+#ad #blackfriday #momfinds #dealoftheday
+
+FIRST COMMENT (paste after posting):
+Shop here (prices and codes can change):
+14-Piece Wiha Insulated Bit Holder Screw Driver
+https://www.amazon.com/dp/B075FFCD9L?tag=momfounditc08-20
+12-pc Wiha 79243 Slotted Phillips & Torx Bit Selector
+https://www.amazon.com/dp/B000F0KC4E?tag=momfounditc08-20
+Char-Broil The Big Easy Oil-Less Turkey Fryer
+https://www.amazon.com/dp/B0DQ1YNRXF?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+### post_11 — Home & kitchen under $50 (ok)
+```
+CAPTION:
+✨ Home & kitchen under $50: Step Lively Anti- Fatigue 2 PCS Cushioned Kitchen Mats for Floor, ECR4Kids 2-in-1 Adjustable Hardwood Sit or Step Stool and DUMOS 31.5 Inch Small Computer Desk
+Which would you grab first?
+All three, checked against Amazon this morning: https://momfounditcheaper.com/
 #ad As an Amazon Associate I earn from qualifying purchases.
 
 #ad #dealsforyou #momlife #budgetfinds
 
 FIRST COMMENT (paste after posting):
 Shop here (prices and codes can change):
-https://www.amazon.com/dp/B000F0KC4E?tag=momfounditc08-20
+Step Lively Anti- Fatigue 2 PCS Cushioned Kitchen Mats for Floor
+https://www.amazon.com/dp/B0F6MP7RDJ?tag=momfounditc08-20
+ECR4Kids 2-in-1 Adjustable Hardwood Sit or Step Stool
+https://www.amazon.com/dp/B079D381ZR?tag=momfounditc08-20
+DUMOS 31.5 Inch Small Computer Desk
+https://www.amazon.com/dp/B0HM36F6DY?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-### post_thisorthat — THIS or THAT (ok)
+### post_single — Mom's pick (ok)
 ```
 CAPTION:
-THIS or THAT? 🛒
-A: The Super Mario Galaxy Movie:
-B: Blue Beetle
-Which would you pick, A or B?
-Both checked against Amazon this morning: https://momfounditcheaper.com/
+Mia's pick today: UNO Card Game.
+Checked against Amazon this morning. Tap for today's price.
+See it here: https://momfounditcheaper.com/#d-f08e031e9f
 #ad As an Amazon Associate I earn from qualifying purchases.
 
 #ad #amazondeals #giftideas #founditcheaper
 
 FIRST COMMENT (paste after posting):
 Shop here (prices and codes can change):
-A: https://www.amazon.com/dp/B0GQTDPJ36?tag=momfounditc08-20
-B: https://www.amazon.com/dp/B0CFZ3132H?tag=momfounditc08-20
+https://www.amazon.com/dp/B0D9R9WBQT?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+### post_q3 — Quick deal: 30% OFF (ok)
+```
+CAPTION:
+Price drop on Amazon: SwitchBot CO2 Detector.
+Checked against Amazon this morning. Tap for today's price.
+See it here: https://momfounditcheaper.com/#d-bfc8abdf2d
+#ad As an Amazon Associate I earn from qualifying purchases.
+
+#ad #amazonfinds #momfinds #founditcheaper
+
+FIRST COMMENT (paste after posting):
+Shop here (prices and codes can change):
+https://www.amazon.com/dp/B0DLN46519?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+### post_q4 — Quick deal: 23% OFF (ok)
+```
+CAPTION:
+Price drop on Amazon: Philips Smart Lock Matter Over Thread.
+Checked against Amazon this morning. Tap for today's price.
+See it here: https://momfounditcheaper.com/#d-cc3796f0e3
+#ad As an Amazon Associate I earn from qualifying purchases.
+
+#ad #dealsforyou #momlife #budgetfinds
+
+FIRST COMMENT (paste after posting):
+Shop here (prices and codes can change):
+https://www.amazon.com/dp/B0FXM1QCVT?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+### post_q5 — Quick deal: 20% OFF (ok)
+```
+CAPTION:
+Price drop on Amazon: 329-pc. LEGO Speed Champions Ferrari 499P.
+Checked against Amazon this morning. Tap for today's price.
+See it here: https://momfounditcheaper.com/#d-121fc5f484
+#ad As an Amazon Associate I earn from qualifying purchases.
+
+#ad #amazondeals #giftideas #founditcheaper
+
+FIRST COMMENT (paste after posting):
+Shop here (prices and codes can change):
+https://www.amazon.com/dp/B0G2T43599?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+### post_q6 — Quick deal: 54% OFF (ok)
+```
+CAPTION:
+Price drop on Amazon: Texas Instruments TI-84 Evo Graphing Calculator.
+Checked against Amazon this morning. Tap for today's price.
+See it here: https://momfounditcheaper.com/#d-4f53c9c988
+#ad As an Amazon Associate I earn from qualifying purchases.
+
+#ad #savemoney #momhacks #amazonfinds
+
+FIRST COMMENT (paste after posting):
+Shop here (prices and codes can change):
+https://www.amazon.com/dp/B0G8QXXF8B?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+### post_q7 — Quick deal: 23% OFF (ok)
+```
+CAPTION:
+Price drop on Amazon: Gibson Home Rothernberg 18-Piece Porcelain Dinnerware Set.
+Checked against Amazon this morning. Tap for today's price.
+See it here: https://momfounditcheaper.com/#d-924bc84c26
+#ad As an Amazon Associate I earn from qualifying purchases.
+
+#ad #blackfriday #momfinds #dealoftheday
+
+FIRST COMMENT (paste after posting):
+Shop here (prices and codes can change):
+https://www.amazon.com/dp/B0GWRVM27R?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+### post_q8 — Quick deal: 40% OFF (ok)
+```
+CAPTION:
+Price drop on Amazon: Shark Navigator Lift-Away Vacuum.
+Checked against Amazon this morning. Tap for today's price.
+See it here: https://momfounditcheaper.com/#d-05160a6751
+#ad As an Amazon Associate I earn from qualifying purchases.
+
+#ad #amazonfinds #momfinds #founditcheaper
+
+FIRST COMMENT (paste after posting):
+Shop here (prices and codes can change):
+https://www.amazon.com/dp/B005KMDV9A?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
