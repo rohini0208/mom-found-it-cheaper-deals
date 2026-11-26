@@ -10,3 +10,5 @@ Site gate: card shown only if real photo AND verify_link.check passes (Amazon ti
 Status 2026-11-24: strict QA ready: post_7, post_single, post_q5, post_q9. Need fix: post_1, post_6, post_8, post_q1, post_q8. Nothing posted except De'Longhi single (earlier). Open: seller field blank (rerun Lenovo), PROMO_JS color/size selectors empty, Page+Graph API poster not built, Task Scheduler unconfirmed.
 
 BRAND (2026-11-25): persona = Mia (AI, Google Flow Character "Mia (Mom Found It Cheaper) v1" in project "Nov 25 - 20:04"); assets in brand/; Rohini stays anonymous. Plan: launch/PLAN.md. Daily approval queue: make_queue.py -> queue/QUEUE.md -> GitHub issue label `approval` (videos.yml); she approves by comment; nothing auto-posts. Flow image gen is free for her; use Chrome deviceId 3da0a233 (personal) for Flow, never 1f163a7c (work).
+
+SOURCES (2026-11-25): Slickdeals ToS forbids copying/displaying their offers or using their name; never show "Slickdeals" or their vote counts on site/posts. Deal-feed thumbnails carry the same exposure (owner accepted). Preferred future source: Amazon's own deals pages via the Lenovo run. DealNews terms unchecked.

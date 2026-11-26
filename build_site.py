@@ -213,8 +213,11 @@ def _checked_label(m):
     if not ts:
         return ""
     from zoneinfo import ZoneInfo
-    dt = datetime.fromtimestamp(ts, ZoneInfo("America/New_York"))
-    return "Checked " + dt.strftime("%-I:%M %p").replace("AM", "AM ET").replace("PM", "PM ET")
+    tz = ZoneInfo("America/New_York")
+    dt = datetime.fromtimestamp(ts, tz)
+    today = datetime.now(tz).date()
+    t = dt.strftime("%-I:%M %p") + " ET"
+    return "Checked " + (t if dt.date() == today else ("yesterday " if (today - dt.date()).days == 1 else dt.strftime("%b %-d ") ) + t)
 
 
 def _drop_pct(d, history, now_price):
@@ -226,7 +229,7 @@ def _drop_pct(d, history, now_price):
     return int(round(100 * (hi - now_price) / hi)) if hi > now_price else 0
 
 
-def card(d, history, tested, rank=0):
+def card(d, history, tested, rank=0, idsuffix=""):
     import brand
     orig_title = d["title"]
     d = dict(d, title=clean_title(d["title"]))
@@ -239,16 +242,12 @@ def card(d, history, tested, rank=0):
     amz = is_amz and AMAZON_PRICES == "hide"
     _mm = META.get(d.get("asin", "")) or {}
     # the number: Amazon's current price from the morning check (owner decision 2026-11-25), else deal price
-    now_price = price_num(_mm.get("now")) if _mm.get("v", 0) >= 4 else None
-    if now_price is None:
-        now_price = price_num(d.get("price"))
-    tier_txt = brand.tier(now_price)
+    now_price = price_num(_mm.get("now")) if _mm.get("v", 0) >= 4 else None   # Amazon check only, never the feed price
+    tier_txt = brand.tier(now_price) if now_price is not None else ""
     pct = _drop_pct(d, history, now_price)
     # ONE sticker, from verifiable states only
     low = orig_title.lower()
-    if pct >= 30:
-        sticker = f"{pct}% OFF"
-    elif "black friday" in low or "bf " in low:
+    if "black friday" in low or "bf " in low:
         sticker = "BF DEAL"
     elif now_price is not None and now_price < 10:
         sticker = "UNDER $10"
@@ -261,20 +260,22 @@ def card(d, history, tested, rank=0):
     checked = _checked_label(_mm)
     votes = d.get("thumbs", 0)
     buzz = viral_sources(d, SIGNALS)
-    proof2 = (f"{votes} votes on {html.escape(d.get('source','Slickdeals').split(' ')[0])}" if votes >= 5
-              else (f"Buzzing on {html.escape(buzz[0])}" if buzz else ""))
+    # No third-party names or vote counts on cards (Slickdeals ToS forbids repurposing their content/marks).
+    proof2 = "Trending" if len(buzz) >= 2 or votes >= 30 else ""   # no third-party names or counts; our own counts appear via /hit
     why = (d.get("features") or [""])[0]
     ss = "with Subscribe &amp; Save" if re.search(r"S&S|Sub(?:scribe)?\s*(?:&|and)\s*Save", orig_title, re.I) else ""
     code = d.get("code", "")
     real_code = bool(code and code != "w/ code" and code.lower() in str(_mm.get("promo", "")).lower())
     _th = thumb_for(d)
     title = _amz_title(d) or no_price_title(d["title"])
+    title = re.sub(r"\b(?=[A-Z0-9-]{5,}\b)(?=[A-Z0-9-]*\d)(?=[A-Z0-9-]*[A-Z])[A-Z0-9-]+\b", "", title)   # drop model codes like 32516HD
+    title = re.sub(r"\s{2,}", " ", title).strip(" ,-")
     tags = " ".join(filter(None, ["has-code" if real_code else "", "has-coupon" if d.get("coupon") else "",
                                   "under25" if now_price is not None and now_price < 25 else "", "viral" if len(buzz) >= 2 else ""]))
     return f"""
-<article class="card {tags}" id="d-{i}" data-title="{html.escape(title.lower())}" data-cat="{html.escape(d.get('category','Everything else'))}" data-store="{html.escape(d.get('store','Other'))}" data-asin="{html.escape(d.get('asin',''))}">
-  <a class="ph" href="{html.escape(url)}" target="_blank" rel="sponsored noopener" data-track="{html.escape(d.get('asin') or i)}">{f'<img src="{_th}" loading="lazy" alt="{html.escape(title)}">' if _th else ''}{f'<span class="stk">{sticker}</span>' if sticker else ''}</a>
-  {f'<div class="tier">{html.escape(tier_txt)}</div>' if tier_txt and not amz else (f'<div class="tier">{html.escape(tier_txt)}</div>' if tier_txt else '<div class="tier small">Price dropped</div>')}
+<article class="card {tags}" id="d-{i}{idsuffix}" data-title="{html.escape(title.lower())}" data-cat="{html.escape(d.get('category','Everything else'))}" data-store="{html.escape(d.get('store','Other'))}" data-asin="{html.escape(d.get('asin',''))}">
+  <a class="ph" href="{html.escape(url)}" target="_blank" rel="sponsored noopener">{f'<img src="{_th}" loading="lazy" alt="{html.escape(title)}">' if _th else ''}{f'<span class="stk">{sticker}</span>' if sticker else ''}</a>
+  {f'<div class="tier">{html.escape(tier_txt)}</div>' if tier_txt else ''}
   <h3>{html.escape(title)}</h3>
   <div class="proof">{f'<span class="chk">&#10003; {checked}</span>' if checked else ''}{f'<span class="fact">{proof2}</span>' if proof2 else ''}<span class="fact saved" data-saved="{html.escape(d.get('asin') or i)}"></span></div>
   {f'<div class="why">{html.escape(why)}</div>' if why else ''}
@@ -307,7 +308,7 @@ def trending_section():
     cells = "".join(
         f'<a class="viral" href="{html.escape(f"https://www.amazon.com/dp/{s['asin']}?tag={TAG}" if TAG and s.get("asin") else s["link"])}" target="_blank" rel="sponsored noopener">'
         + f'<img src="{thumb_for({"id": s["link"], "title": s["title"], "asin": s["asin"]})}" alt="{html.escape(s["title"][:100])}" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:contain;background:#fff;border-radius:10px;margin-bottom:8px">' + ("" if AMAZON_PRICES == "hide" else _price_html(s["asin"])) +
-        f'<span>{html.escape(s["source"])}{(" · " + html.escape(s["label"])) if s.get("label") else ""}</span>'
+        f'<span>Trending</span>'
         f'<em>{html.escape(s["title"][:80])}</em></a>' for s in picks[:12])
     return ('<section><h2>Trending right now</h2><p class="sub">What people are buying and talking about '
             'on TikTok, Reddit, YouTube and Amazon price trackers</p><div class="virals">' + cells + '</div></section>')
@@ -325,10 +326,10 @@ def viral_section(viral):
 
 
 CSS = """
-:root{--cream:#FFF6EC;--ink:#1F1A2E;--muted:#60586E;--tang:#C2410C;--yel:#FFC53D;--green:#0F766E;--mint:#D7F3E6;--lav:#EDE7FF;--peach:#FFE8B0;--was:#B91C1C;
+:root{--cream:#FFF6EC;--ink:#1F1A2E;--muted:#60586E;--tang:#C2410C;--yel:#FFC53D;--green:#0F766E;--mint:#D7F3E6;--lav:#EDE7FF;--peach:#FFE8B0;
 --ivory:#FFF6EC;--char:#1F1A2E;--gold:#C2410C;--blush:#FFE8B0;--coral:#C2410C;--coral2:#C2410C}
 *{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:Inter,system-ui,sans-serif;padding-bottom:64px}
-a{color:var(--tang)}
+a{color:var(--ink)}
 header{background:var(--cream);color:var(--ink)}
 .hero{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:8px;padding:22px 20px 0}
 .hero-txt{padding:10px 0 30px}
@@ -352,10 +353,10 @@ section{margin-top:26px}h2{font-size:32px;margin:0 0 6px;letter-spacing:-.01em}
 .ph{position:relative;display:block;border-radius:16px;overflow:hidden;background:#fff;border:1px solid #F3EDE4}
 .ph img{width:100%;aspect-ratio:1/1;object-fit:contain;display:block;background:#fff}
 .ph .stk{position:absolute;top:10px;left:10px}
-.tier{font-size:40px;font-weight:900;letter-spacing:-.03em;color:var(--tang);line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}.top5 .tier{font-size:32px}.tier.small{font-size:22px}
+.tier{font-size:32px;font-weight:900;letter-spacing:-.03em;color:var(--ink);line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}.top5 .tier{font-size:28px}.tier.small{font-size:22px}
 .card h3{font-size:17px;line-height:1.3;margin:0;font-weight:600;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .proof{display:flex;gap:8px;flex-wrap:wrap;font-size:12px;align-items:center;min-height:16px}
-.chk{background:var(--green);color:#fff;padding:3px 8px;border-radius:20px;font-weight:600}
+.chk{background:var(--green);color:#fff;padding:3px 8px;border-radius:20px;font-weight:600;white-space:nowrap}
 .fact{color:var(--muted);font-weight:500}.saved:empty{display:none}
 .why{font-size:13px;color:var(--muted)}.why.ss{color:var(--ink);font-weight:600}
 .code{border:1px dashed var(--tang);background:var(--cream);border-radius:10px;padding:10px;font-size:14px;cursor:pointer;text-align:left}
@@ -363,16 +364,17 @@ section{margin-top:26px}h2{font-size:32px;margin:0 0 6px;letter-spacing:-.01em}
 .go{margin-top:auto;background:var(--tang);color:#fff;text-align:center;padding:14px;border-radius:30px;text-decoration:none;font-weight:700;font-size:16px;white-space:nowrap}.top5 .go{font-size:14px;padding:12px}.go:hover{background:#9A3409}
 .paid{font-size:11px;color:var(--muted);text-align:center}.chip{background:var(--lav);color:var(--ink);padding:2px 8px;border-radius:20px}
 .cats{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.cats button,.bar button{border:1px solid #E6DCCF;background:#fff;border-radius:30px;padding:8px 14px;font-size:13px;cursor:pointer;color:var(--ink)}
-.cats button.on,.bar button.on{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:700}
+.cats button.on,.bar button.on{background:#fff;border:2px solid var(--ink);color:var(--ink);font-weight:800}
 .bar{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px;align-items:center}.bar input,.bar select{padding:10px 12px;border:1px solid #E6DCCF;border-radius:30px;font-size:14px;background:#fff}
 .virals{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
 .viral{background:#fff;border-radius:18px;padding:12px;text-decoration:none;color:var(--ink);display:block;border:1px solid #F1E9DE}.viral span{display:block;font-size:11px;color:var(--muted);margin-top:4px}.viral em{display:block;font-style:normal;font-size:13px;font-weight:600;margin-top:4px}
 .empty{display:none;padding:24px;text-align:center;color:var(--muted)}
 footer{max-width:1120px;margin:30px auto;padding:0 16px;font-size:12px;color:var(--muted);line-height:1.6}footer a{color:var(--muted)}
-.stick{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;background:var(--ink);color:#fff;text-align:center;padding:12px 22px;font-weight:700;z-index:9;text-decoration:none;border-radius:30px;box-shadow:0 8px 24px rgba(31,26,46,.25)}
+.stick{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;background:#fff;color:var(--ink);border:2px solid var(--ink);text-align:center;padding:12px 22px;font-weight:700;z-index:9;text-decoration:none;border-radius:30px;box-shadow:0 8px 24px rgba(31,26,46,.25)}
 :focus-visible{outline:3px solid #1f4fd8;outline-offset:2px;scroll-margin-bottom:70px}.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:#fff;padding:8px;z-index:20}
 .kicker,.rule,.mia,.tested-badge,.badge,.top,.where,.meta,.price,.now,.was,.off,.stars,.amz,.coupon,.asof,.also,.buzz,.hist,.feats{display:none}
-@media(max-width:760px){.hero{grid-template-columns:1fr;padding-top:14px}h1{font-size:42px}.hero img.scene{max-height:260px;object-fit:cover;object-position:right top}.tier{font-size:34px}}
+@media(max-width:760px){.hero{grid-template-columns:1fr;padding-top:14px}h1{font-size:40px}.hero img.scene{order:-1;max-height:230px;object-fit:cover;object-position:70% 20%}.tier{font-size:30px}
+.top5 .grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding-bottom:8px}.top5 .card{min-width:78%;scroll-snap-align:start}}
 """
 
 
@@ -391,7 +393,7 @@ const H='/hit';
 document.querySelectorAll('[data-track]').forEach(a=>a.addEventListener('click',()=>{try{navigator.sendBeacon?navigator.sendBeacon(H,new Blob([JSON.stringify({k:a.dataset.track,t:'click'})],{type:'application/json'})):fetch(H,{method:'POST',body:JSON.stringify({k:a.dataset.track,t:'click'}),keepalive:true});}catch(e){}}));
 (async()=>{try{const ks=[...new Set([...document.querySelectorAll('.saved[data-saved]')].map(e=>e.dataset.saved))];if(!ks.length)return;
  const r=await fetch(H+'?k='+ks.slice(0,120).join(','));if(!r.ok)return;const j=await r.json();
- document.querySelectorAll('.saved[data-saved]').forEach(e=>{const c=(j[e.dataset.saved]||{}).click||0;if(c>=5)e.textContent=c+' moms clicked this';});}catch(e){}})();
+ document.querySelectorAll('.saved[data-saved]').forEach(e=>{const c=(j[e.dataset.saved]||{}).click||0;if(c>=5)e.textContent=c+' clicks this week';});}catch(e){}})();
 const _st=document.querySelector('.stick'),_t5=document.getElementById('top5');if(_st&&_t5&&'IntersectionObserver' in window){new IntersectionObserver(es=>{const r=_t5.getBoundingClientRect();_st.style.display=(r.top<innerHeight*0.6)?'none':'';}).observe(_t5);addEventListener('scroll',()=>{const r=_t5.getBoundingClientRect();_st.style.display=(r.top<innerHeight*0.6)?'none':'';},{passive:true});}
 try{if(location.search.includes('admin=1'))localStorage.setItem('mfic-admin','1');if(localStorage.getItem('mfic-admin'))document.body.classList.add('is-admin');}catch(e){}
 """
@@ -446,7 +448,7 @@ purchase so we can be credited. Their privacy policies apply once you leave our 
 def legal_page(title, body):
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title} | {BRAND}</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <style>{CSS} main{{max-width:760px}} main p,main li{{line-height:1.65;font-size:15px}} main h3{{font-family:'Playfair Display',Georgia,serif;margin:22px 0 6px}}</style></head>
 <body><header><div class="kicker"><a href="index.html" style="color:inherit;text-decoration:none">&larr; MOM FOUND IT CHEAPER</a></div><h1>{title}</h1></header>
 <main>{body}<p style="color:#7a7068;font-size:13px">Last updated {LEGAL_UPDATED}.</p></main></body></html>"""
@@ -506,7 +508,7 @@ def signup_html():
                 '<label class="skip" for="em">Email</label><input id="em" type="email" name="email" required placeholder="your@email.com" autocomplete="email">'
                 '<button type="submit">Send me the Top 5 at 7am</button></form>'
                 '<div class="sub-note">Free. One email a day, unsubscribe any time. No spam, ever.</div>')
-    return '<div class="sub-note">Daily Top 5 email is coming. Until then, follow the Page so you don\'t miss a find.</div>'
+    return '<div class="sub-note">Daily Top 5 email is coming. Until then, <a href="https://www.facebook.com/groups/1815840112666601" target="_blank" rel="noopener">follow us on Facebook</a> so you don\'t miss a find.</div>'
 
 
 def top5(picked, history, tested):
@@ -515,13 +517,17 @@ def top5(picked, history, tested):
     skip = _re.compile(r"gaming pc|desktop|rtx|blu-ray|4k uhd|vinyl|motherboard|cpu|ssd|server", _re.I)
     def rank(d):
         return (d.get("thumbs", 0), len(viral_sources(d, SIGNALS)), d["seen"])
+    mom = {"Toys & Games": 3, "Baby & Kids": 3, "Home & Kitchen": 3, "Beauty & Health": 2, "Holiday & Seasonal": 2,
+           "Grocery & Household": 2, "Pets": 2, "Fashion": 1, "Office & School": 1, "Sports & Fitness": 1}
+    def rank(d):
+        return (mom.get(d.get("category", ""), 0), d.get("thumbs", 0), len(viral_sources(d, SIGNALS)), d["seen"])
     pool = [d for d in picked if not skip.search(d["title"])]
     best = sorted(pool, key=rank, reverse=True)[:5]
     if len(best) < 3:
         return ""
-    cards = "".join(card(d, history, tested, rank=i) for i, d in enumerate(best, 1))
+    cards = "".join(card(d, history, tested, rank=i, idsuffix="-t5") for i, d in enumerate(best, 1))
     return (f'<section class="top5" id="top5"><h2>Today\'s Top 5</h2>'
-            f'<p class="sub">Five I\'d buy today. Every link opened by hand this morning.</p>'
+            f'<p class="sub">Five I\'d buy today. Each link checked against Amazon today.</p>'
             f'<div class="grid">{cards}</div></section>')
 
 
@@ -602,7 +608,7 @@ def main():
 <header><div class="hero"><div class="hero-txt"><div class="wordmark">Mom Found It Cheaper</div>
 <span class="stk hero-stk">{hero_sticker()}</span>
 <h1>{hero_hook()}</h1>
-<p class="proofline">&#10003; Every link opened by hand this morning{(' &middot; ' + _checked_label(_latest_meta())) if _latest_meta().get('checked') else ''}. I'm Mia. No guessed prices, ever.</p>
+<p class="proofline">&#10003; Every link checked against Amazon today{(' &middot; ' + _checked_label(_latest_meta()).replace('Checked ', '')) if _latest_meta().get('checked') else ''}. I'm Mia. Tap any card for today's Amazon price.</p>
 {signup_html()}
 <a class="join" href="#top5">See today's 5 &darr;</a></div>
 <img class="scene" src="mia-scene.jpg" width="1428" height="803" alt="Mia, the mom behind Mom Found It Cheaper, holding a stack of checked delivery boxes" fetchpriority="high"></div></header>
@@ -624,7 +630,7 @@ def main():
 Prices, availability, coupons and promo codes are set by the retailers and can change or expire at any time. Always check the final price at checkout before you buy.
 We are not the seller and do not handle orders, shipping, returns or warranties — contact the retailer for those.
 "Lowest price we've seen" is based only on prices we have recorded, not a guarantee of an all-time low. Product details come from the deal listing and the retailer; we do not guarantee them.<br>
-Deal sources: Slickdeals and DealNews community feeds, with thanks. Amazon and other store names are trademarks of their owners; we are not affiliated with or endorsed by them.<br>
+Deals are found from public deal feeds and checked against Amazon each morning. Amazon and other store names are trademarks of their owners; we are not affiliated with or endorsed by them.<br>
 <a href="disclosure.html">Affiliate disclosure</a> · <a href="terms.html">Terms &amp; conditions</a> · <a href="privacy.html">Privacy policy</a></footer>
 <a class="stick" href="#top5">Today's 5 &darr;</a>
 <script>{JS}</script></body></html>"""
