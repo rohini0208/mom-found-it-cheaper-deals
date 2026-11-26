@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   videos:
@@ -39,11 +40,13 @@ jobs:
         run: python make_posts.py
       - name: Post QA (blocks bad posts before they go out)
         run: python post_qa.py
+      - name: Build approval queue
+        run: python make_queue.py
       - name: Save lists
         run: |
           git config user.name "deal-bot"
           git config user.email "deal-bot@users.noreply.github.com"
-          git add data/videos_made.json data/posts_made.json QA_REPORT.md POST_QA.md; git add -A webposts 2>/dev/null || true
+          git add data/videos_made.json data/posts_made.json QA_REPORT.md POST_QA.md queue; git add -A webposts 2>/dev/null || true
           if [ -f VIRAL.md ]; then git add VIRAL.md data/viral.json; fi
           git diff --cached --quiet || git commit -m "Update videos list"
           git pull --rebase -X theirs -q && git push
@@ -57,3 +60,11 @@ jobs:
           gh release create todays-videos $files \
             --title "Today's videos and posts ($(date -u +%Y-%m-%d))" \
             --notes "Videos: download a video and its .txt caption. Posts: download post_N.png and paste the caption and first comment from post_N.txt. Check the price first, then post with your own SiteStripe link in our group only. Do not post our group link in other groups without moderator permission."
+      - name: Open today's approval issue (approve by comment; nothing auto-posts)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="Approval queue $(date -u +%Y-%m-%d)"
+          gh issue list --label approval --state open --json number -q '.[].number' | xargs -r -I{} gh issue close {} -c "Superseded by today's queue" || true
+          gh label create approval -c "#B84300" -d "Daily approval queue" 2>/dev/null || true
+          gh issue create --title "$title" --label approval --body-file queue/QUEUE.md

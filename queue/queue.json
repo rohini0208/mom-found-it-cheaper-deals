@@ -1,0 +1,34 @@
+{
+ "date": "2026-11-26",
+ "posts": [
+  "post_single",
+  "post_thisorthat"
+ ],
+ "videos": [
+  "deal_1.mp4",
+  "deal_2.mp4",
+  "deal_3.mp4",
+  "deal_4.mp4",
+  "deal_5.mp4"
+ ],
+ "engagement": [
+  {
+   "type": "poll",
+   "text": "What's your Black Friday budget this year?",
+   "options": [
+    "Under $50",
+    "$50-150",
+    "$150-300",
+    "No limit, help me"
+   ]
+  },
+  {
+   "type": "ask",
+   "text": "Tell me your kid's age and I'll post three gift finds under $20 for that age."
+  },
+  {
+   "type": "pin",
+   "text": "New here? Every deal on https://momfounditcheaper.com/ is checked by hand before it's posted. Save the page, turn on notifications, and comment what you want found cheaper. As an Amazon Associate I earn from qualifying purchases. #ad"
+  }
+ ]
+}
