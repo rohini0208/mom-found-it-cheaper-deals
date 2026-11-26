@@ -88,9 +88,69 @@ def resolve_asins(ctx, deals, limit=450):
 def stale(meta, a):
     """Re-check a product when new fields are missing or the data is older than 20 hours."""
     m = meta.get(a)
-    if not m or m.get("v") != 4 or not (PH / f"{a}.jpg").exists():
-        return True
+    if not m or m.get("v") != 5 or not (PH / f"{a}.jpg").exists() or "gallery" not in m:
+        return True                         # v5 = buy-box seller + gallery photos
     return time.time() - m.get("checked", 0) > 20 * 3600
+
+
+def _dhash(img, size=8):
+    """Tiny perceptual hash so near-duplicate gallery shots (same photo, different crop) are skipped."""
+    from PIL import Image
+    g = img.convert("L").resize((size + 1, size))
+    px = list(g.getdata())
+    bits = 0
+    for r in range(size):
+        for c in range(size):
+            bits = (bits << 1) | (1 if px[r * (size + 1) + c] > px[r * (size + 1) + c + 1] else 0)
+    return bits
+
+
+def save_gallery(ctx, a, html, limit=4):
+    """Extra photos from the page's colorImages.initial block (the variant on the page only)."""
+    import io
+    from PIL import Image
+    blk = re.search(r"'colorImages':\s*\{\s*'initial':\s*(\[.*?\])\s*\}", html, re.S)
+    if not blk:
+        return 0
+    urls = []
+    for item in re.findall(r"\{[^{}]*?\}", blk.group(1)):
+        if not re.search(r'"variant":"(?:MAIN|PT\d\d)"', item):
+            continue
+        hi = re.search(r'"hiRes":"(https:[^"]+)"', item) or re.search(r'"large":"(https:[^"]+)"', item)
+        if hi:
+            urls.append(re.sub(r"\._[^.]*_\.", "._SL600_.", hi.group(1)))
+    # drop old gallery files, then save unique ones (skip the hero and near-duplicates)
+    for f in PH.glob(f"{a}_*.jpg"):
+        f.unlink()
+    seen = []
+    try:
+        seen.append(_dhash(Image.open(PH / f"{a}.jpg")))
+    except Exception:
+        pass
+    n = 0
+    for u in urls[:12]:
+        if n >= limit:
+            break
+        r = ctx.request.get(u)
+        if r.status != 200:
+            r = ctx.request.get(re.sub(r"\._SL600_\.", ".", u))
+            if r.status != 200:
+                continue
+        body = r.body()
+        try:
+            im = Image.open(io.BytesIO(body)); im.load()
+        except Exception:
+            continue
+        if min(im.size) < 300:
+            continue
+        h = _dhash(im)
+        if any(bin(h ^ s).count("1") <= 8 for s in seen):
+            continue                              # same photo again
+        seen.append(h)
+        n += 1
+        (PH / f"{a}_{n + 1}.jpg").write_bytes(body)
+        time.sleep(random.uniform(0.4, 0.9))
+    return n
 
 
 PROMO_JS = """() => {
@@ -198,6 +258,11 @@ def main():
                 if m:
                     img = ctx.request.get(re.sub(r"\._[^.]*_\.", "._SL600_.", m.group(1)))
                     (PH / f"{a}.jpg").write_bytes(img.body())
+                try:                                    # up to 4 more gallery photos of the SELECTED variant -> <ASIN>_2.jpg ...
+                    meta[a]["gallery"] = save_gallery(ctx, a, html)
+                except Exception as e:
+                    meta[a]["gallery"] = 0
+                    print("gallery fail", a, str(e)[:80])
                 done += 1
                 print("ok", a, meta[a])
             except Exception as e:

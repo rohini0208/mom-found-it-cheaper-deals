@@ -266,10 +266,11 @@ def scene_hook(path, hook):
     centered(d, 800, hook[1], serif(150, "Bold"), CHAR)
     rule(d, 1040, 160)
     centered(d, 1090, "TODAY'S FIND", sans(36, "SemiBold"), MUTED, spacing=8)
+    footer(d, MUTED)
     img.save(path)
 
 
-def scene_product_photo(path, title, deal, photo):
+def scene_product_photo(path, title, deal, photo, price="", was_label="", was=""):
     """Photo on an ivory card: soft shadow, gold frame, badge above, name below."""
     from PIL import ImageFilter, ImageOps
     img = Image.new("RGB", (W, H), CHAR)
@@ -295,16 +296,20 @@ def scene_product_photo(path, title, deal, photo):
     img.paste(pic, ((W - pic.width) // 2, top + (ch - pic.height) // 2))
     d = ImageDraw.Draw(img)
     tf = fit(d, title, lambda s: serif(s, "SemiBold"), 84, W - 180, max_lines=2, min_size=50)
-    y = centered(d, top + ch + 70, title, tf, IVORY, gap=14)
-    rule(d, y + 40, 160)
+    y = centered(d, top + ch + 50, title, tf, IVORY, gap=14)
+    if price:
+        price_chip(img, price, was_label, was)
+    else:
+        rule(d, y + 40, 160)
+    footer(ImageDraw.Draw(img), MUTED)
     img.save(path)
 
 
-def scene_product(path, title, deal):
+def scene_product(path, title, deal, price="", was_label="", was=""):
     photo = find_photo(deal)        # deal-feed photos stay on (Rohini 2026-11-25)
     if photo:
         try:
-            return scene_product_photo(path, title, deal, photo)
+            return scene_product_photo(path, title, deal, photo, price, was_label, was)
         except Exception as e:      # unreadable image: fall back to the text card
             print(f"[warn] photo {photo}: {e}")
     img = Image.new("RGB", (W, H), CHAR)
@@ -318,6 +323,9 @@ def scene_product(path, title, deal):
     tf = fit(d, title, lambda s: serif(s, "SemiBold"), 112, W - 200, max_lines=4)
     y = centered(d, 840, title, tf, IVORY, gap=18)
     rule(d, y + 50, 160)
+    if price:
+        price_chip(img, price, was_label, was)
+    footer(ImageDraw.Draw(img), MUTED)
     img.save(path)
 
 
@@ -331,6 +339,7 @@ def scene_features(path, features, title="Why it's a good find"):
     for i, feat in enumerate(features[:3], 1):
         centered(d, y, f"0{i}", serif(64, "Bold"), GOLD)
         y = centered(d, y + 90, feat, sans(54, "Medium"), CHAR, max_w=W - 240, gap=10) + 70
+    footer(d, MUTED)
     img.save(path)
 
 
@@ -345,7 +354,7 @@ def scene_price(path, price, was, code, coupon, amazon=False, stamp=""):
         y = centered(d, y, "Tap the link for today's price", serif(58, "Regular", italic=True), IVORY) + 110
     elif was:
         wf = serif(80, "Regular")
-        label = f"was {was}"
+        label = was if was.lower().startswith(("list", "was")) else f"was {was}"
         w = d.textlength(label, font=wf)
         d.text(((W - w) / 2, y), label, font=wf, fill=MUTED)
         d.line([((W - w) / 2 - 10, y + 58), ((W + w) / 2 + 10, y + 58)], fill=BLUSH, width=5)
@@ -383,78 +392,171 @@ def scene_cta(path):
     img.save(path)
 
 
-# ---------- voice and video ----------
+# ---------- voice and video (one clip per scene, scene length = its own line) ----------
 
-async def make_voice(parts, path, voice=None):
-    """parts: list of (text, rate, pitch, pause_before_seconds).
-    Premium ElevenLabs voice if ELEVENLABS_API_KEY is set (free tier ~10k characters/month),
-    otherwise free Microsoft Edge neural voices, one clip per part, joined with short pauses."""
+FPS = 30
+LEAD, TAIL = 0.25, 0.25          # speech starts after the dissolve settles; breath before the next scene
+MIN_SCENE = 1.6                  # shorter than this the zoom is invisible
+MAX_TOTAL = 24.0                 # Reels/Shorts sweet spot; gallery/features trimmed to fit
+
+
+def _grid(t):
+    """Round a duration up to the frame grid so xfade offsets never pass the end of an input."""
+    import math
+    return math.ceil(t * FPS) / FPS
+
+
+async def _edge_clip(text, mp3, voice, rate, pitch):
+    import edge_tts
+    await edge_tts.Communicate(text, voice or VOICE, rate=rate, pitch=pitch).save(str(mp3))
+
+
+def tts_clip(text, wav, voice, rate=None, pitch=None):
+    """One spoken line -> trimmed 24 kHz mono WAV. Returns its exact duration (seconds, by samples).
+    ElevenLabs when ELEVENLABS_API_KEY is set (one request per line so each scene can be timed), else Edge."""
+    wav = Path(wav)
+    mp3 = wav.with_suffix(".mp3")
     key = os.environ.get("ELEVENLABS_API_KEY", "")
     if key:
         import urllib.request
         vid = os.environ.get("ELEVENLABS_VOICE_ID") or "21m00Tcm4TlvDq8ikWAM"
-        text = " ".join((f'<break time="{pause}s"/> ' if pause else "") + t for t, _, _, pause in parts)
         req = urllib.request.Request(
             f"https://api.elevenlabs.io/v1/text-to-speech/{vid}",
             data=json.dumps({"text": text, "model_id": "eleven_multilingual_v2",
                              "voice_settings": {"stability": 0.35, "similarity_boost": 0.8, "style": 0.55}}).encode(),
             headers={"xi-api-key": key, "Content-Type": "application/json", "Accept": "audio/mpeg"})
         with urllib.request.urlopen(req, timeout=60) as r:
-            Path(path).write_bytes(r.read())
-        return
-    import edge_tts
-    path = Path(path)
-    inputs, labels = [], []
-    for i, (text, rate, pitch, pause) in enumerate(parts):
-        if pause:
-            inputs += ["-f", "lavfi", "-t", str(pause), "-i", "anullsrc=r=24000:cl=mono"]
-            labels.append(f"[{len(labels)}:a]")
-        clip = path.with_name(f"{path.stem}_p{i}.mp3")
-        await edge_tts.Communicate(text, voice or VOICE, rate=rate, pitch=pitch).save(str(clip))
-        inputs += ["-i", str(clip)]
-        labels.append(f"[{len(labels)}:a]")
-    # resample every piece to the same format, then join them in order
-    norm = [f"{l}aresample=24000,aformat=channel_layouts=mono[a{i}]" for i, l in enumerate(labels)]
-    joined = "".join(f"[a{i}]" for i in range(len(labels)))
-    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", *inputs, "-filter_complex",
-                    ";".join(norm) + f";{joined}concat=n={len(labels)}:v=0:a=1[out]",
-                    "-map", "[out]", "-c:a", "libmp3lame", "-b:a", "128k", str(path)], check=True)
+            mp3.write_bytes(r.read())
+    else:
+        asyncio.run(_edge_clip(text, mp3, voice, rate or VOICE_RATE, pitch or VOICE_PITCH))
+    # trim the lead/trail silence Edge adds, normalise format; measure by samples (mp3 headers are estimates)
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(mp3), "-af",
+                    "silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.05,"
+                    "areverse,silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.08,areverse,"
+                    "aresample=24000,aformat=channel_layouts=mono", str(wav)], check=True)
+    import wave
+    with wave.open(str(wav)) as w:                       # exact length by sample count (mp3 headers are estimates)
+        return w.getnframes() / float(w.getframerate())
 
 
-def duration(path):
-    out = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration",
-                          "-of", "csv=p=0", str(path)], capture_output=True, text=True)
-    return float(out.stdout.strip() or 0)
-
-
-def render(scenes, durations, audio, out_path):
-    """Slow zoom on each scene, crossfade between them, voice on top."""
-    fade = 0.4
+def build_audio(clips, scene_durs, out_path):
+    """clips: WAV per scene (or None). Each is delayed by LEAD and padded to its scene length, then joined:
+    the audio is sum(scene_durs) long by construction, so speech never drifts from its scene."""
     cmd = ["ffmpeg", "-y", "-loglevel", "error"]
-    # One still image per input: zoompan turns that single frame into
-    # `frames` frames. (Looping the image here would multiply the length.)
+    labels = []
+    for i, (c, d) in enumerate(zip(clips, scene_durs)):
+        if c:
+            cmd += ["-i", str(c)]
+        else:
+            cmd += ["-f", "lavfi", "-t", f"{d:.3f}", "-i", "anullsrc=r=24000:cl=mono"]
+        labels.append(f"[{i}:a]adelay={int(LEAD * 1000)}:all=1,apad=whole_dur={d:.3f},atrim=0:{d:.3f}[a{i}]")
+    joined = "".join(f"[a{i}]" for i in range(len(clips)))
+    cmd += ["-filter_complex", ";".join(labels) + f";{joined}concat=n={len(clips)}:v=0:a=1[out]",
+            "-map", "[out]", "-c:a", "aac", "-b:a", "128k", str(out_path)]
+    subprocess.run(cmd, check=True)
+
+
+def render(scenes, durations, audio, out_path, zooms=None):
+    """Steady Ken Burns on each scene (zoom in, or zoom out on alternate gallery shots), 0.4 s dissolve, voice on top."""
+    fade = 0.4
+    zooms = zooms or ["in"] * len(scenes)
+    cmd = ["ffmpeg", "-y", "-loglevel", "error"]
     for s in scenes:
         cmd += ["-i", str(s)]
     if audio:
         cmd += ["-i", str(audio)]
-    parts, fps = [], 30
-    for i, dur in enumerate(durations):
-        frames = int((dur + fade) * fps)
-        parts.append(
-            f"[{i}:v]scale=1134:2016,zoompan=z='min(1+0.0004*on,1.04)':d={frames}"
-            f":x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s={W}x{H}:fps={fps},setsar=1[v{i}]"
-        )
+    parts = []
+    for i, (dur, zd) in enumerate(zip(durations, zooms)):
+        frames = int(round((dur + fade) * FPS))
+        z = "min(1+0.0004*on,1.04)" if zd == "in" else "max(1.04-0.0004*on,1.0)"
+        parts.append(f"[{i}:v]scale=1134:2016,zoompan=z='{z}':d={frames}"
+                     f":x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s={W}x{H}:fps={FPS},setsar=1[v{i}]")
     last, offset = "v0", 0.0
     for i in range(1, len(durations)):
         offset += durations[i - 1]
-        parts.append(f"[{last}][v{i}]xfade=transition=fade:duration={fade}:offset={offset:.2f}[x{i}]")
+        parts.append(f"[{last}][v{i}]xfade=transition=fade:duration={fade}:offset={offset:.3f}[x{i}]")
         last = f"x{i}"
     cmd += ["-filter_complex", ";".join(parts), "-map", f"[{last}]"]
     if audio:
-        cmd += ["-map", f"{len(durations)}:a", "-c:a", "aac", "-b:a", "128k"]
+        cmd += ["-map", f"{len(durations)}:a", "-c:a", "copy", "-shortest"]
     cmd += ["-c:v", "libx264", "-preset", "veryfast", "-crf", "23", "-pix_fmt", "yuv420p",
             "-movflags", "+faststart", str(out_path)]
     subprocess.run(cmd, check=True)
+
+
+def gallery_photos(deal, limit=3):
+    """Extra product photos saved by the Lenovo run: photos/<ASIN>_2.jpg ... (hero is <ASIN>.jpg)."""
+    a = deal.get("asin")
+    if not a or not PHOTOS.is_dir():
+        return []
+    out = []
+    for i in range(2, 2 + limit + 2):
+        for ext in (".jpg", ".png", ".webp"):
+            f = PHOTOS / f"{a}_{i}{ext}"
+            if f.exists():
+                out.append(f)
+                break
+    return out[:limit]
+
+
+def was_info(deal):
+    """(label, value) for the reference price, from ONE source so screen and voice agree:
+    Amazon's list price when the Lenovo read one that makes sense, else the deal's own 'was'."""
+    now = price_value(deal.get("price", "") or "") or 0
+    m = {}
+    try:
+        m = json.loads(Path("data/product_meta.json").read_text()).get(deal.get("asin", "")) or {}
+    except Exception:
+        pass
+    lst = price_value(str(m.get("list") or "")) if m.get("list") else None
+    if lst and now and now < lst <= 6 * now:
+        return "List price", m["list"]
+    w = deal.get("was", "")
+    wv = price_value(w) if w else None
+    if wv and now and now < wv <= 6 * now:
+        return "Was", w
+    return "", ""
+
+
+def scene_gallery(path, photo, caption_text, idx):
+    """One extra product photo, big, with the feature it illustrates underneath."""
+    from PIL import ImageFilter, ImageOps
+    src = Image.open(photo).convert("RGB")
+    img = Image.new("RGB", (W, H), CHAR)
+    bg = ImageOps.fit(src, (W, H)).filter(ImageFilter.GaussianBlur(40))
+    img = Image.blend(bg, img, 0.72)
+    d = ImageDraw.Draw(img)
+    masthead(d, IVORY)
+    cw, ch, top = 900, 1000, 330
+    shadow = Image.new("L", (W, H), 0)
+    ImageDraw.Draw(shadow).rounded_rectangle([(W - cw) / 2 + 10, top + 24, (W + cw) / 2 + 10, top + ch + 24], 48, fill=150)
+    img.paste((0, 0, 0), mask=shadow.filter(ImageFilter.GaussianBlur(28)))
+    d = ImageDraw.Draw(img)
+    d.rounded_rectangle([(W - cw) / 2, top, (W + cw) / 2, top + ch], 48, fill=(255, 255, 255), outline=GOLD, width=4)
+    pic = ImageOps.contain(src, (cw - 80, ch - 80))
+    img.paste(pic, ((W - pic.width) // 2, top + (ch - pic.height) // 2))
+    d = ImageDraw.Draw(img)
+    centered(d, top + ch + 60, f"0{idx}", serif(60, "Bold"), GOLD)
+    cf = fit(d, caption_text, lambda s_: sans(s_, "Medium"), 56, W - 200, max_lines=3, min_size=40)
+    centered(d, top + ch + 140, caption_text, cf, IVORY, gap=12)
+    footer(d, MUTED)
+    img.save(path)
+
+
+def price_chip(img, price, was_label, was_val):
+    """Gold price pill on the product card (price is spoken on this scene, so it must be seen here too)."""
+    d = ImageDraw.Draw(img)
+    pf = serif(76, "Bold")
+    w = d.textlength(price, font=pf)
+    x0, y0 = (W - w) / 2 - 44, 1510
+    d.rounded_rectangle([x0, y0, x0 + w + 88, y0 + 110], radius=24, fill=GOLD)
+    d.text((x0 + 44, y0 + 10), price, font=pf, fill=IVORY)
+    if was_val:
+        wf = sans(34, "Medium")
+        lbl = f"{was_label} {was_val}"
+        lw = d.textlength(lbl, font=wf)
+        d.text(((W - lw) / 2, y0 + 128), lbl, font=wf, fill=MUTED)
+        d.line([((W - lw) / 2 - 4, y0 + 150), ((W + lw) / 2 + 4, y0 + 150)], fill=BLUSH, width=3)
 
 
 def caption(title, price, code, coupon, deal=None):
@@ -487,10 +589,22 @@ def is_lowest_seen(deal):
     return len(earlier) >= 1 and price < min(earlier)
 
 
+
+def _short_feats(feats, n):
+    out = []
+    for f in feats:
+        f = re.sub(r"\s+", " ", str(f)).strip(" .;:-")
+        if 12 <= len(f) <= 70 and not re.search(r"https?://|\$\d", f):
+            out.append(f[0].upper() + f[1:])
+        if len(out) >= n:
+            break
+    return out
+
+
 def make_one(n, deal, work):
-    amazon = is_amazon(deal) and AMAZON_PRICES == "hide"
-    stamp = f"Amazon price as of {as_of(deal['seen'])}" if is_amazon(deal) and not amazon else ""
-    title = short_title(no_price_title(deal["title"]) if amazon else deal["title"])
+    hide = is_amazon(deal) and AMAZON_PRICES == "hide"
+    stamp = f"Amazon price as of {as_of(deal['seen'])}" if is_amazon(deal) and not hide else ""
+    title = short_title(no_price_title(deal["title"]) if hide else deal["title"])
     try:                                                     # Amazon's own title wins (right variant, no feed residue)
         import build_site as _bs
         _at = _bs._amz_title(deal)
@@ -499,71 +613,97 @@ def make_one(n, deal, work):
     except Exception:
         pass
     price, code, coupon = deal["price"], deal.get("code", ""), deal.get("coupon", "")
-    if amazon:      # a code only if Amazon's own page showed it (Lenovo check); never from a deal feed alone
-        _pr = str((json.loads(Path("data/product_meta.json").read_text()).get(deal.get("asin", "")) or {}).get("promo", "")).lower()
-        if code and code.lower() not in _pr:
-            code = ""
-    was, feats = deal.get("was", ""), deal.get("features", [])
-    if is_amazon(deal) and AMAZON_PRICES != "hide":
-        from make_posts import was_of
-        was = was_of(deal)          # Amazon's own list price (sanity-checked), not a feed "was"
+    meta = {}
+    try:
+        meta = json.loads(Path("data/product_meta.json").read_text()).get(deal.get("asin", "")) or {}
+    except Exception:
+        pass
+    if code and code.lower() not in str(meta.get("promo", "")).lower():
+        code = ""          # a code only if Amazon's own page showed it; never from a deal feed alone
+    was_label, was = ("", "") if hide else was_info(deal)
+    pct = 0
+    if was:
+        a, b = price_value(price), price_value(was)
+        pct = int(round(100 * (b - a) / b)) if a and b and b > a else 0
+    spoken = " ".join(title.split()[:7]).rstrip(".!?,;: -")
     hook = hook_for(deal.get("category", ""), deal["id"])
-    scenes, durations = [], []
-
-    def add(name, dur, fn, *args):
-        path = work / f"{n}_{name}.png"
-        fn(path, *args)
-        scenes.append(path)
-        durations.append(dur)
-
-    add("hook", 2.2, scene_hook, hook)
-    add("product", 3.6, scene_product, title, deal)
-    if feats:
-        add("features", 4.2, scene_features, feats, pick(FEATURES_TITLES, deal["id"], "ft"))
-    if amazon:
-        was = ""          # no "was" price either
-    add("price", 3.8, scene_price, price, was, code, coupon, amazon, stamp)
-    add("cta", 3.4, scene_cta)
-
+    gallery = [] if hide else gallery_photos(deal)
+    feats_all = _short_feats(deal.get("features") or [], 3)
     clean_code = "".join(c for c in (code or "").upper() if c.isalnum())
     has_code = bool(clean_code) and code != "w/ code"
-    said_code = f"Use code {', '.join(clean_code)}." if has_code else ("Just clip the coupon." if coupon else "")
-    said_was = f" It's usually {was}." if was else ""
-    said_low = " That's the lowest price I've seen on it." if not amazon and is_lowest_seen(deal) else ""
-    said_feats = (" " + ". ".join(feats[:2]) + ".") if feats else ""
-    opener = pick(OPENERS, deal["id"], "op")
-    spoken = " ".join(title.split()[:7]).rstrip(".!?,;: -")      # keep the spoken name short
-    if amazon:
-        body = f"{spoken} just had a price drop on Amazon! Tap the link to see today's price.{said_feats}"
+    lowest = (not hide) and is_lowest_seen(deal)
+
+    # ---- scenes, each with the exact line spoken over it ----
+    plan = []    # (name, draw_fn, args, spoken, rate, pitch, zoom)
+    plan.append(("hook", scene_hook, (hook,), f"{hook[0]} {hook[1]}", "+12%", "+4Hz", "in"))
+    if hide:
+        plan.append(("product", scene_product, (title, deal), f"{spoken} just had a price drop on Amazon.", None, None, "in"))
     else:
-        body = f"{spoken}, only {price}!{said_was}{said_low}{said_feats}"   # price in the first seconds
-    cta = pick(CLOSERS, deal["id"], "cl").format(brand=BRAND)
-    parts = [(opener, "+12%", "+4Hz", 0),            # excited hook
-             (body, VOICE_RATE, VOICE_PITCH, 0.15)]  # then warm and calm
-    if said_code:
-        parts.append((said_code, "-8%" if has_code else VOICE_RATE, VOICE_PITCH, 0.3))   # pause, then the code slowly
-    parts.append((cta, VOICE_RATE, VOICE_PITCH, 0.25))
-    # A/B split by deal id (stable, not by position, so neither voice always gets the top deal)
+        said_was = f" {was_label} {was}." if was else ""
+        plan.append(("product", scene_product, (title, deal, price, was_label, was), f"{spoken}, only {price}.{said_was}", None, None, "in"))
+    if gallery:
+        for i, g in enumerate(gallery):
+            line = feats_all[i] if i < len(feats_all) else ("Here's a closer look." if i == 0 else "And another angle.")
+            plan.append((f"gallery{i+1}", scene_gallery, (g, line, i + 1), line, None, None, "out" if i % 2 == 0 else "in"))
+        rest = feats_all[len(gallery):]
+    else:
+        rest = feats_all
+    if rest:
+        plan.append(("features", scene_features, (rest, pick(FEATURES_TITLES, deal["id"], "ft")), " ".join(f + "." for f in rest), None, None, "in"))
+    if hide:
+        plan.append(("price", scene_price, ("", "", code, coupon, True, ""), "Tap the link for today's price." + (f" Use code {', '.join(clean_code)}." if has_code else " Just clip the coupon." if coupon else ""), None, None, "in"))
+    else:
+        bits = []
+        if pct >= 10:
+            bits.append(f"That's {pct} percent off the {was_label.lower()}.")
+        if lowest:
+            bits.append("The lowest price I've seen on it.")
+        if has_code:
+            bits.append(f"Use code {', '.join(clean_code)}.")
+        elif coupon:
+            bits.append("Just clip the coupon.")
+        if not bits:
+            bits.append(f"Only {price} on Amazon this morning.")
+        plan.append(("price", scene_price, (price, f"{was_label.lower()} {was}" if was else "", code, coupon, False, stamp), " ".join(bits), None, None, "in"))
+    plan.append(("cta", scene_cta, (), pick(CLOSERS, deal["id"], "cl").format(brand=BRAND).split(". ")[0].rstrip(".") + ".", None, None, "in"))
+
+    # ---- voice: one clip per scene; scene lasts exactly as long as its line ----
     ab = AB_VOICE.lower() != "off" and int(hashlib.sha1(deal["id"].encode()).hexdigest(), 16) % 2 == 1
     voice = AB_VOICE if ab else VOICE
-    audio = work / f"{n}.mp3"
-    try:
-        asyncio.run(make_voice(parts, audio, voice))
-        total = duration(audio) + 0.6
-        scale = max(total / sum(durations), 1.0)
-        durations = [d * scale for d in durations]
-    except Exception as e:  # no voice? still make the video, silent
-        print(f"[warn] voiceover failed: {e}")
-        audio = None
+    clips, durs, scenes, zooms, names, speech = [], [], [], [], [], []
+    for i, (name, fn, args, line, rate, pitch, zoom) in enumerate(plan):
+        png = work / f"{n}_{name}.png"
+        fn(png, *args)
+        wav = work / f"{n}_{name}.wav"
+        try:
+            sec = tts_clip(line, wav, voice, rate, pitch)
+        except Exception as e:
+            print(f"[warn] voice failed ({name}): {e}")
+            sec, wav = 0.0, None
+        d = max(MIN_SCENE, _grid(LEAD + sec + TAIL))
+        clips.append(wav if sec else None); durs.append(d); scenes.append(png); zooms.append(zoom); names.append(name); speech.append(sec)
+    # 24 s cap: drop gallery shots from the end, then the features scene
+    while sum(durs) > MAX_TOTAL and any(nm.startswith("gallery") or nm == "features" for nm in names):
+        idx = max(i for i, nm in enumerate(names) if nm.startswith("gallery") or nm == "features")
+        for lst in (clips, durs, scenes, zooms, names, speech):
+            lst.pop(idx)
+    audio = None
+    if any(clips):
+        audio = work / f"{n}.m4a"
+        build_audio(clips, durs, audio)
     out = OUT / f"deal_{n}.mp4"
-    render(scenes, durations, audio, out)
-    if os.environ.get("ELEVENLABS_API_KEY"):
-        vname = "ElevenLabs"
-    else:
-        mm = re.search(r"-([A-Za-z]+?)(?:Multilingual)?Neural$", voice)
-        vname = mm.group(1) if mm else voice
+    render(scenes, durs, audio, out, zooms)
+    # sync sheet for QA: every line must start after its scene begins and end before the next one
+    off, sheet = 0.0, []
+    for nm, d, sec in zip(names, durs, speech):
+        sheet.append({"scene": nm, "start": round(off, 3), "end": round(off + d, 3),
+                      "speech_start": round(off + LEAD, 3), "speech_end": round(off + LEAD + sec, 3)})
+        assert off + LEAD + sec <= off + d + 1e-6, f"speech overruns scene {nm}"
+        off += d
+    (OUT / f"deal_{n}.sync.json").write_text(json.dumps({"total": round(off, 2), "scenes": sheet}, indent=1))
+    vname = "ElevenLabs" if os.environ.get("ELEVENLABS_API_KEY") else (re.search(r"-([A-Za-z]+?)(?:Multilingual)?Neural$", voice) or [None, voice])[1]
     (OUT / f"deal_{n}.txt").write_text(caption(title, price, code, coupon, deal) + "\n")
-    (OUT / f"deal_{n}.meta.txt").write_text(f"Source deal: {deal['link']}\nVoice (A/B test): {vname}\n")   # internal, never pasted
+    (OUT / f"deal_{n}.meta.txt").write_text(f"Source deal: {deal['link']}\nVoice (A/B test): {vname}\nScenes: {', '.join(names)}  Total: {off:.1f}s\n")   # internal, never pasted
     return out
 
 
