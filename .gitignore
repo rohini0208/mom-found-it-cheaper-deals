@@ -4,3 +4,5 @@ __pycache__/
 site/
 posts/
 daily_log.txt
+run_gallery_test.bat
+gallery_test_log.txt
