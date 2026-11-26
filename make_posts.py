@@ -165,7 +165,7 @@ def seasonal_groups(deals, made, top=2):
             used.update(i["id"] for i in items)
             SEEN_ASIN.update(i.get("asin") for i in items)
             top_price = max(price_value(i["price"]) or 0 for i in items)
-            band = next((b for b in (15, 25, 40, 60, 100, 200) if top_price <= b), None)
+            band = next((b for b in (10, 20, 25, 50, 100) if top_price < b), None)   # same buckets as the site tiers
             theme = ev["theme"] + (f" under ${band}" if band else "")
             out.append((ev, theme, items))
         if len(out) >= top:
@@ -246,7 +246,7 @@ def draw_tile(img, i, deal, top):
         d.text((x, y + 10), "Price drop on Amazon", font=serif(46, "Bold"), fill=GOLD)
     else:
         pf = serif(64, "Bold")
-        d.text((x, y + 4), deal["price"], font=pf, fill=GOLD)
+        d.text((x, y + 4), shown_price(deal), font=pf, fill=GOLD)
         code = clean_code(deal)
         extra = (f"CODE {code}" if code else "CLIP THE COUPON" if deal.get("coupon") else "")
         was = deal.get("was", "")
@@ -289,10 +289,11 @@ def make_image(path, theme, items):
 
 # ---------- layout v2: bold, photo-first (closer to the big deal groups) ----------
 TRUST = (21, 101, 192)   # blue = trust, used for ratings
-ORANGE = ((255, 143, 0), (255, 255, 255))
-GREEN = ((46, 160, 90), (255, 235, 59))
-TEAL = ((0, 137, 123), (255, 213, 79))
-GOLD = ((255, 193, 7), (27, 94, 32))
+import brand as _B
+ORANGE = (_B.PEACH, _B.INK)          # brand v2: pastel bases, ink text, tangerine for the number only
+GREEN = (_B.MINT, _B.INK)
+TEAL = (_B.LAVENDER, _B.INK)
+GOLD = (_B.CREAM, _B.INK)
 ROT = [ORANGE, GREEN, TEAL, GOLD]
 PALETTES = {                      # locked set: orange, green, teal, golden yellow
     "Baby & Kids": GOLD, "Toys & Games": ORANGE, "Beauty & Health": TEAL,
@@ -335,6 +336,22 @@ def pct_off(deal):
     return round((1 - a / b) * 100) if a and b and b > a else 0
 
 
+def shown_price(deal):
+    """What the image shows. Compliant mode: the tier ('Under $20') from Amazon's checked price, never the number."""
+    if AMAZON_PRICES != "hide":
+        return deal["price"]
+    now = price_value((META.get(deal.get("asin", "")) or {}).get("now") or "") or price_value(deal.get("price", ""))
+    return _B.tier(now) or "Price dropped"
+
+
+def shown_pct(deal):
+    return 0 if AMAZON_PRICES == "hide" else pct_off(deal)
+
+
+def shown_was(deal):
+    return "" if AMAZON_PRICES == "hide" else was_of(deal)
+
+
 def draw_tile_v2(img, i, deal, top, accent):
     d = ImageDraw.Draw(img)
     d.rounded_rectangle([40, top, PW - 40, top + V2_TILE_H], 30, fill=(255, 255, 255))
@@ -365,12 +382,12 @@ def draw_tile_v2(img, i, deal, top, accent):
         d.text((x, y), line, font=tf, fill=CHAR)
         y += tf.size + 6
     pf = sans(66, "Bold")
-    price = deal["price"]
+    price = shown_price(deal)
     pw_ = d.textlength(price, font=pf)
-    d.rounded_rectangle([x - 6, y + 4, x + pw_ + 26, y + 86], 22, fill=accent[0] if False else CHAR)
+    d.rounded_rectangle([x - 6, y + 4, x + pw_ + 26, y + 86], 22, fill=_B.TANGERINE)
     d.text((x + 10, y + 8), price, font=pf, fill=(255, 255, 255))
     cx = x + pw_ + 44
-    off, was = pct_off(deal), was_of(deal)
+    off, was = shown_pct(deal), shown_was(deal)
     if off >= 10:
         d.rounded_rectangle([cx, y + 16, cx + 150, y + 70], 27, fill=(229, 57, 53))
         d.text((cx + 16, y + 24), f"{off}% OFF", font=sans(30, "Bold"), fill=(255, 255, 255))
@@ -411,7 +428,7 @@ def cta_pill(img, y=1260, h=68):
     """Bold, readable footer: where the links are + why to join."""
     d = ImageDraw.Draw(img)
     d.rounded_rectangle([40, y, PW - 40, y + h], h // 2, fill=(255, 255, 255))
-    t = "LINKS IN THE 1ST COMMENT  \u00b7  JOIN FREE"
+    t = "TAP THE LINK  \u00b7  momfounditcheaper.com"
     f = fit(d, t, lambda z: sans(z, "Bold"), 32, PW - 240, max_lines=1, min_size=22)
     centered(d, y + (h - f.size) // 2 - 4, t, f, (33, 33, 33), max_w=PW - 220)
     d.text((PW - 40 - 20 - d.textlength("#AD", font=sans(26, "Bold")), y + h // 2 - 15), "#AD", font=sans(26, "Bold"), fill=(120, 120, 120))
@@ -470,7 +487,7 @@ def make_image_single(path, deal, cat="Everything else"):
     nd = ImageDraw.Draw(note)
     nd.rounded_rectangle([8, 8, 552, 192], 14, fill=(255, 247, 170))
     nf = hand(46)
-    lines = wrap(nd, "Mom's pick: " + mom_note(deal), nf, 500)[:3]
+    lines = wrap(nd, "Mia's pick: " + mom_note(deal), nf, 500)[:3]
     yy = 24
     for ln in lines:
         nd.text((28, yy), ln, font=nf, fill=(60, 50, 20))
@@ -529,11 +546,11 @@ def _price_row(img, deal, x, y, big, max_w):
     """Price pill, % off badge, was price. Returns y below the row."""
     d = ImageDraw.Draw(img)
     pf = sans(big, "Bold")
-    price = deal["price"]
+    price = shown_price(deal)
     pw_ = d.textlength(price, font=pf)
-    d.rounded_rectangle([x - 6, y, x + pw_ + 26, y + big + 22], 22, fill=CHAR)
+    d.rounded_rectangle([x - 6, y, x + pw_ + 26, y + big + 22], 22, fill=_B.TANGERINE)
     d.text((x + 10, y + 6), price, font=pf, fill=(255, 255, 255))
-    off, was = pct_off(deal), was_of(deal)
+    off, was = shown_pct(deal), shown_was(deal)
     cx = x + pw_ + 42
     bf = sans(max(22, big // 2 - 6), "Bold")
     if off >= 10:
@@ -638,7 +655,7 @@ def make_image_trio(path, theme, items, cat="Everything else"):
         d.text((x0 + 50 - d.textlength(str(k + 1), font=sans(32, "Bold")) / 2, 298), str(k + 1), font=sans(32, "Bold"), fill=(255, 255, 255))
         y = _title(d, deal, x0 + 18, 626, cw - 36, 30, 3, 22)
         y = _price_row(img, deal, x0 + 18, y + 8, 56, cw - 36)
-        off = pct_off(deal)
+        off = shown_pct(deal)
         d = ImageDraw.Draw(img)
         if off >= 10:
             d.text((x0 + 18, y), f"was {was_of(deal)}  ({off}% off)", font=sans(24, "Medium"), fill=MUTED)
@@ -649,8 +666,8 @@ def make_image_trio(path, theme, items, cat="Everything else"):
     d = ImageDraw.Draw(img)
     d.rounded_rectangle([40, 1110, PW - 40, 1250], 34, fill=accent)
     ink = CHAR if sum(accent) > 480 else (255, 255, 255)
-    centered(d, 1134, "LINKS IN THE 1ST COMMENT", sans(50, "Bold"), ink, max_w=PW - 100)
-    centered(d, 1198, "join free for daily deals  \u00b7  prices can change, check before you buy", sans(26, "Medium"), ink, max_w=PW - 100)
+    centered(d, 1134, "momfounditcheaper.com", sans(50, "Bold"), ink, max_w=PW - 100)
+    centered(d, 1198, "checked against Amazon this morning  \u00b7  prices can change, tap for today's", sans(26, "Medium"), ink, max_w=PW - 100)
     centered(d, 1290, "#AD  \u00b7  AMAZON ASSOCIATE, I EARN FROM QUALIFYING PURCHASES", sans(23, "SemiBold"), fg(img), spacing=3, max_w=PW - 60)
     img.save(path)
 
@@ -712,13 +729,13 @@ def link_for(deal):
     return f"{SITE}#d-{hashlib.sha1(deal['id'].encode()).hexdigest()[:10]}"
 
 
-BANDS = [5, 10, 15, 20, 25, 30, 40, 50, 60, 75, 100, 150, 200, 300]
+BANDS = (10, 20, 25, 50, 100)        # same buckets as the site tiers
 
 
 def fun_theme(cat, items):
     """'Games under $15' beats 'Toy finds': the price band tells people what they are getting."""
     top = max(price_value(i["price"]) or 0 for i in items)
-    band = next((b for b in BANDS if top <= b), None)
+    band = next((b for b in BANDS if top < b), None)
     base = THEMES.get(cat, "Today's top finds").replace(" finds", "").replace("Today's top", "Top")
     return f"{base} under ${band}" if band else f"{base} worth a look"
 

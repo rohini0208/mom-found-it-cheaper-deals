@@ -3,10 +3,10 @@
 Reply with the numbers to approve, e.g. `post 1, q2; video 3; eng poll`. Nothing is posted until you say so.
 
 ## Posts that passed strict QA (13)
-### post_5 — Stocking stuffers under $15 (ok)
+### post_5 — Stocking stuffers under $10 (ok)
 ```
 CAPTION:
-✨ Stocking stuffers under $15: 72-Piece BePuzzled Disney Frozen Sven Deluxe Original 3D Crystal Puzzle, 576-Piece Beetles Short Almond Gel Nail Tips Kit and 1000-Pc RoseArt Hobby Haven Greentree Garden Center Jigsaw Puzzle
+✨ Stocking stuffers under $10: 72-Piece BePuzzled Disney Frozen Sven Deluxe Original 3D Crystal Puzzle, 576-Piece Beetles Short Almond Gel Nail Tips Kit and 1000-Pc RoseArt Hobby Haven Greentree Garden Center Jigsaw Puzzle
 Which would you grab first?
 All three, checked against Amazon this morning: https://momfounditcheaper.com/
 #ad As an Amazon Associate I earn from qualifying purchases.
@@ -24,10 +24,10 @@ https://www.amazon.com/dp/B0DXWVN78D?tag=momfounditc08-20
 As an Amazon Ass
 ```
 
-### post_7 — Toy & game under $40 (ok)
+### post_7 — Toy & game under $50 (ok)
 ```
 CAPTION:
-✨ Toy & game under $40: 577-Pc LEGO One Piece: Tony Tony Chopper Building Set, 16-Piece Fisher-Price Wooden Pretend Play Fruit Pie Toy Set and 8-Piece Playmobil Junior: Everyday Heroes Toddler Playset
+✨ Toy & game under $50: 577-Pc LEGO One Piece: Tony Tony Chopper Building Set, 16-Piece Fisher-Price Wooden Pretend Play Fruit Pie Toy Set and 8-Piece Playmobil Junior: Everyday Heroes Toddler Playset
 Tell us which one you want and we will keep an eye out for more like it.
 All three, checked against Amazon this morning: https://momfounditcheaper.com/
 #ad As an Amazon Associate I earn from qualifying purchases.
@@ -45,10 +45,10 @@ https://www.amazon.com/dp/B0CS8D3WJJ?tag=momfounditc08-20
 As an A
 ```
 
-### post_9 — Home & kitchen under $150 (ok)
+### post_9 — Home & kitchen worth a look (ok)
 ```
 CAPTION:
-✨ Home & kitchen under $150: ECR4Kids 2-in-1 Adjustable Hardwood Sit or Step Stool, Nuwave Pro Plus 2 Infrared Countertop Air Fryer Oven and Gibson Home Rothernberg 18-Piece Porcelain Dinnerware Set
+✨ Home & kitchen worth a look: ECR4Kids 2-in-1 Adjustable Hardwood Sit or Step Stool, Nuwave Pro Plus 2 Infrared Countertop Air Fryer Oven and Gibson Home Rothernberg 18-Piece Porcelain Dinnerware Set
 Which would you grab first?
 All three, checked against Amazon this morning: https://momfounditcheaper.com/
 #ad As an Amazon Associate I earn from qualifying purchases.
@@ -66,10 +66,10 @@ https://www.amazon.com/dp/B0GWRVM27R?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-### post_10 — Fashion under $60 (ok)
+### post_10 — Fashion under $100 (ok)
 ```
 CAPTION:
-✨ Fashion under $60: THE NORTH FACE Women's Borealis Backpack, Dr. Martens Women's Rometty Leather Heeled Chelsea Boots and Women’s Joggers
+✨ Fashion under $100: THE NORTH FACE Women's Borealis Backpack, Dr. Martens Women's Rometty Leather Heeled Chelsea Boots and Women’s Joggers
 Which one is going in your cart?
 All three, checked against Amazon this morning: https://momfounditcheaper.com/
 #ad As an Amazon Associate I earn from qualifying purchases.
