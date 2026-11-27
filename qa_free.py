@@ -14,12 +14,13 @@ import sys
 import urllib.request
 from pathlib import Path
 
-OR_URL = os.environ.get("OMNIROUTE_URL", "http://localhost:4000/v1").rstrip("/")
+OR_URL = os.environ.get("OMNIROUTE_URL", "http://localhost:20128/v1").rstrip("/")
 OR_KEY = os.environ.get("OMNIROUTE_KEY", "sk-omniroute")
-# Compliance QA models. OmniRoute routes/falls back. Keep 2+ for the "two fresh models" rule.
-MODELS = os.environ.get("QA_MODELS", "gemini-1.5-flash,llama-3.1-70b,mixtral-8x7b").split(",")
+# Compliance QA models (verified free + returning clean JSON on the Lenovo OmniRoute, 2026-11-27).
+# OmniRoute routes/falls back. Keep 2+ for the "two fresh models" rule.
+MODELS = os.environ.get("QA_MODELS", "cohere/command-a-03-2025,groq/allam-2-7b").split(",")
 # The judge is an INDEPENDENT channel: different models from QA, so nothing grades its own work.
-JUDGE_MODELS = os.environ.get("JUDGE_MODELS", "qwen-2.5-72b,deepseek-chat,command-r-plus").split(",")
+JUDGE_MODELS = os.environ.get("JUDGE_MODELS", "groq/qwen/qwen3.8-27b,cohere/command-r-plus-08-2024").split(",")
 
 RUBRIC = """You are a strict compliance + quality reviewer for an Amazon Associates deal post.
 Check ONLY these and reply as compact JSON {{"verdict":"pass|warn|fail","note":"<=12 words"}}:
