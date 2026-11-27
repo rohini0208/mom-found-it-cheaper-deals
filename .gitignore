@@ -6,3 +6,6 @@ posts/
 daily_log.txt
 run_gallery_test.bat
 gallery_test_log.txt
+.env
+data/pins_posted.json
+data/pinterest_state.json
