@@ -16,10 +16,38 @@
       "link": "https://momfounditcheaper.com/#under-10",
       "board": "Mom-Approved Finds",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "Compliant with all requirements."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 5.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 3.0,
+            "note": "No specific product, price, or hook; generic listicle fails engagement."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good price hook, but lacks a clear call to action."
+          }
+        ]
+      }
     },
     {
       "id": "pin_02",
@@ -30,10 +58,38 @@
       "link": "https://momfounditcheaper.com/#under-10",
       "board": "Mom-Approved Finds",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 6.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 6.0,
+            "note": "Honest disclosure, but lacks hook, CTA, and visual context."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good price hook, but lacks a clear call to action."
+          }
+        ]
+      }
     },
     {
       "id": "pin_03",
@@ -44,10 +100,38 @@
       "link": "https://momfounditcheaper.com/#under-10",
       "board": "Mom-Approved Finds",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 7.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 7.0,
+            "note": "Good hook and disclosure, but lacks a clear call to action."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good price hook, but lacks a clear call to action."
+          }
+        ]
+      }
     },
     {
       "id": "pin_04",
@@ -58,10 +142,38 @@
       "link": "https://momfounditcheaper.com/#under-20",
       "board": "Mom-Approved Finds",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "Compliant with all requirements."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 5.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 3.0,
+            "note": "No specific product, price, or hook; generic list fails engagement."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good price hook, but lacks a clear product focus."
+          }
+        ]
+      }
     },
     {
       "id": "pin_05",
@@ -72,10 +184,38 @@
       "link": "https://momfounditcheaper.com/#under-20",
       "board": "Mom-Approved Finds",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 7.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, price, disclosure; lacks explicit CTA and question."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Clear, honest, and engaging, but could be more concise."
+          }
+        ]
+      }
     },
     {
       "id": "pin_06",
@@ -86,10 +226,38 @@
       "link": "https://momfounditcheaper.com/#under-20",
       "board": "Mom-Approved Finds",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "Compliant with all requirements."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 7.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 7.0,
+            "note": "Good hook and disclosure, but lacks a clear call to action."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Clear, honest, and engaging, but could be more concise."
+          }
+        ]
+      }
     },
     {
       "id": "pin_07",
@@ -100,10 +268,38 @@
       "link": "https://momfounditcheaper.com/#under-25",
       "board": "Mom-Approved Finds",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "Compliant with all checked criteria."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 6.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 6.0,
+            "note": "Good disclosure, but lacks specific product hook and clear CTA."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good price hook, but lacks a clear call to action."
+          }
+        ]
+      }
     },
     {
       "id": "pin_08",
@@ -114,10 +310,38 @@
       "link": "https://momfounditcheaper.com/#under-25",
       "board": "Mom-Approved Finds",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 7.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 7.0,
+            "note": "Clear hook and price, but lacks specific benefit or CTA."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good price hook, but lacks a clear call to action."
+          }
+        ]
+      }
     },
     {
       "id": "pin_09",
@@ -128,10 +352,38 @@
       "link": "https://momfounditcheaper.com/#under-25",
       "board": "Mom-Approved Finds",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "Compliant with all requirements."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 7.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 6.0,
+            "note": "Honest disclosure, but lacks hook, CTA, and visual context."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 8.0,
+            "note": "Clear, honest, and engaging, but could be more concise."
+          }
+        ]
+      }
     },
     {
       "id": "pin_10",
@@ -142,10 +394,38 @@
       "link": "https://momfounditcheaper.com/#under-50",
       "board": "Mom-Approved Finds",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "Compliant with all requirements."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 6.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 6.0,
+            "note": "Good disclosure, but lacks specific product hook and clear CTA."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good price hook, but lacks a clear call to action."
+          }
+        ]
+      }
     },
     {
       "id": "pin_11",
@@ -156,10 +436,38 @@
       "link": "https://momfounditcheaper.com/#under-50",
       "board": "Mom-Approved Finds",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 7.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, price, disclosure; lacks explicit CTA and question."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good price hook, but lacks a clear call to action."
+          }
+        ]
+      }
     },
     {
       "id": "pin_12",
@@ -170,10 +478,38 @@
       "link": "https://momfounditcheaper.com/#under-50",
       "board": "Mom-Approved Finds",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 7.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 6.0,
+            "note": "Honest disclosure, but lacks hook, CTA, and visual context."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 8.0,
+            "note": "Clear, honest, and engaging, but could be more concise."
+          }
+        ]
+      }
     }
   ],
   "posts": [
@@ -186,10 +522,38 @@
       "image_url": "https://momfounditcheaper.com/posts/post_1.png",
       "link": "https://momfounditcheaper.com/",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 8.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 9.0,
+            "note": "Strong hook, clear CTA, honest disclosure, snappy format."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good price, question, but too many hashtags."
+          }
+        ]
+      }
     },
     {
       "id": "post_2",
@@ -200,10 +564,38 @@
       "image_url": "https://momfounditcheaper.com/posts/post_2.png",
       "link": "https://momfounditcheaper.com/",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 8.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 9.0,
+            "note": "Strong hook, clear CTA, honest disclosure, snappy format."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good hook, CTA, and disclosure; add product image."
+          }
+        ]
+      }
     },
     {
       "id": "post_q1",
@@ -214,10 +606,38 @@
       "image_url": "https://momfounditcheaper.com/posts/post_q1.png",
       "link": "https://momfounditcheaper.com/#d-1cd229e753",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 6.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 7.0,
+            "note": "Good hook and price, but lacks specific call to action."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 6.0,
+            "note": "Good price hook, but lacks a clear call to action."
+          }
+        ]
+      }
     },
     {
       "id": "post_q2",
@@ -228,10 +648,38 @@
       "image_url": "https://momfounditcheaper.com/posts/post_q2.png",
       "link": "https://momfounditcheaper.com/#d-3f7d575335",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 7.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, clear price, honest disclosure, concise format."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good price, but needs a snappier caption."
+          }
+        ]
+      }
     },
     {
       "id": "post_q3",
@@ -242,10 +690,38 @@
       "image_url": "https://momfounditcheaper.com/posts/post_q3.png",
       "link": "https://momfounditcheaper.com/#d-92ff278e51",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 7.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 7.0,
+            "note": "Strong hook and price, but lacks specific use-case benefit."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good price hook, but needs a product image."
+          }
+        ]
+      }
     },
     {
       "id": "post_q4",
@@ -256,10 +732,38 @@
       "image_url": "https://momfounditcheaper.com/posts/post_q4.png",
       "link": "https://momfounditcheaper.com/#d-4f53c9c988",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 7.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, clear price, honest disclosure, concise format."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 6.0,
+            "note": "Good price, but lacks a clear call to action."
+          }
+        ]
+      }
     },
     {
       "id": "post_q5",
@@ -270,10 +774,38 @@
       "image_url": "https://momfounditcheaper.com/posts/post_q5.png",
       "link": "https://momfounditcheaper.com/#d-284f79ba3c",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 7.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, clear price, honest disclosure, concise format."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 6.0,
+            "note": "Good price hook, but lacks a clear call to action."
+          }
+        ]
+      }
     },
     {
       "id": "post_single",
@@ -284,10 +816,38 @@
       "image_url": "https://momfounditcheaper.com/posts/post_single.png",
       "link": "https://momfounditcheaper.com/#d-bfc8abdf2d",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 4.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 2.0,
+            "note": "Missing price, benefit, and CTA; lacks hook and specific deal details."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 6.0,
+            "note": "Good hook, but improve call to action and disclosure."
+          }
+        ]
+      }
     }
   ],
   "reels": [
@@ -299,10 +859,38 @@
       "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_1.mp4",
       "link": "https://momfounditcheaper.com/#d-fdffa6ceb5",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 7.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, specific price, honest disclosure, clear CTA."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 6.0,
+            "note": "Good price, but the caption is too long and lacks a clear call to action."
+          }
+        ]
+      }
     },
     {
       "id": "deal_2",
@@ -312,10 +900,38 @@
       "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_2.mp4",
       "link": "https://momfounditcheaper.com/#d-3e6f706a5a",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 6.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, specific price, honest disclosure, clear CTA."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 4.0,
+            "note": "Good price, but the caption is too long and lacks a clear call to action."
+          }
+        ]
+      }
     },
     {
       "id": "deal_3",
@@ -325,10 +941,38 @@
       "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_3.mp4",
       "link": "https://momfounditcheaper.com/#d-9145b18208",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 7.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, specific price, honest disclosure, clear CTA."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 6.0,
+            "note": "Good price hook, but too much text, no question."
+          }
+        ]
+      }
     },
     {
       "id": "deal_4",
@@ -338,10 +982,38 @@
       "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_4.mp4",
       "link": "https://momfounditcheaper.com/#d-59e9a64f05",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 7.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 7.0,
+            "note": "Strong hook and price, but lacks specific CTA and visual context."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Clear price, but lacks a snappy hook and call to action."
+          }
+        ]
+      }
     },
     {
       "id": "deal_5",
@@ -351,10 +1023,38 @@
       "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_5.mp4",
       "link": "https://momfounditcheaper.com/#d-ebc8ab9989",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 7.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, specific price, honest disclosure, clear CTA."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Clear, honest, and engaging, but could be more concise."
+          }
+        ]
+      }
     },
     {
       "id": "deal_6",
@@ -364,10 +1064,38 @@
       "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_6.mp4",
       "link": "https://momfounditcheaper.com/#d-8b5abb0740",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 6.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, specific price, honest disclosure, clear CTA."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 5.0,
+            "note": "Good price hook, but too much text, no call to action."
+          }
+        ]
+      }
     },
     {
       "id": "deal_7",
@@ -377,10 +1105,38 @@
       "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_7.mp4",
       "link": "https://momfounditcheaper.com/#d-60426d1d23",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 7.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, specific price, honest disclosure, clear CTA."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 6.0,
+            "note": "Good price hook, but lacks a clear call to action."
+          }
+        ]
+      }
     },
     {
       "id": "deal_8",
@@ -390,10 +1146,38 @@
       "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_8.mp4",
       "link": "https://momfounditcheaper.com/#d-422f4e12ca",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 6.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, specific price, honest disclosure, clear CTA."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 5.0,
+            "note": "Good price hook, but lacks a clear call to action."
+          }
+        ]
+      }
     },
     {
       "id": "deal_9",
@@ -403,10 +1187,38 @@
       "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_9.mp4",
       "link": "https://momfounditcheaper.com/#d-26e89c0fea",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 6.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, specific price, honest disclosure, clear CTA."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 5.0,
+            "note": "Good price, but lacks a clear call to action."
+          }
+        ]
+      }
     },
     {
       "id": "deal_10",
@@ -416,10 +1228,38 @@
       "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_10.mp4",
       "link": "https://momfounditcheaper.com/#d-0bb7bfcb0c",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 7.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, specific price, honest disclosure, clear CTA."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 6.0,
+            "note": "Good price hook, but lacks a clear call to action."
+          }
+        ]
+      }
     },
     {
       "id": "deal_11",
@@ -429,10 +1269,38 @@
       "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_11.mp4",
       "link": "https://momfounditcheaper.com/#d-2297282522",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 6.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, specific price, honest disclosure, clear CTA."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 4.0,
+            "note": "Good price hook, but too much text, no call to action."
+          }
+        ]
+      }
     },
     {
       "id": "deal_12",
@@ -442,10 +1310,38 @@
       "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_12.mp4",
       "link": "https://momfounditcheaper.com/#d-f9cb8f9e44",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 6.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, specific price, honest disclosure, clear CTA."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 5.0,
+            "note": "Good price hook, but lacks a clear call to action."
+          }
+        ]
+      }
     },
     {
       "id": "deal_13",
@@ -455,10 +1351,38 @@
       "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_13.mp4",
       "link": "https://momfounditcheaper.com/#d-9ae9db3762",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 6.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, specific price, honest disclosure, clear CTA."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 4.0,
+            "note": "Good price, but the caption is too long and lacks a clear call to action."
+          }
+        ]
+      }
     },
     {
       "id": "deal_14",
@@ -468,10 +1392,38 @@
       "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_14.mp4",
       "link": "https://momfounditcheaper.com/#d-0d5ed7f27f",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 7.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, specific price, honest disclosure, clear CTA."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Clear, honest, but could be snappier and more visual."
+          }
+        ]
+      }
     },
     {
       "id": "deal_15",
@@ -481,10 +1433,38 @@
       "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_15.mp4",
       "link": "https://momfounditcheaper.com/#d-252698cf07",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 7.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, specific price, honest disclosure, clear CTA."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 6.0,
+            "note": "Good price hook, but too much text, no call to action."
+          }
+        ]
+      }
     },
     {
       "id": "deal_16",
@@ -494,10 +1474,38 @@
       "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_16.mp4",
       "link": "https://momfounditcheaper.com/#d-48eef42640",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/openai/gpt-oss-120b",
+            "verdict": "warn",
+            "note": ""
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 6.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, specific price, honest disclosure, clear CTA."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 4.0,
+            "note": "Good price hook, but too much text, no call to action."
+          }
+        ]
+      }
     }
   ]
 }
