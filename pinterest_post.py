@@ -20,14 +20,19 @@ Usage:
 """
 import utf8_io  # noqa: F401  (first import: forces UTF-8 text IO so Windows cp1252 can't crash on emoji)
 import argparse
+import base64
 import json
 import os
 import random
 import sys
+import threading
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
+import webbrowser
 from datetime import datetime, timezone, timedelta
+from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
 
 ET = timezone(timedelta(hours=-5))                       # US Eastern (winter); display/window only
@@ -44,24 +49,122 @@ MAX_GAP = int(os.environ.get("PIN_MAX_GAP_MIN", "45"))   # minutes between posts
 WIN_START = int(os.environ.get("PIN_WINDOW_START", "8"))  # earliest hour ET to post
 WIN_END = int(os.environ.get("PIN_WINDOW_END", "21"))     # latest hour ET to post
 TOKEN = os.environ.get("PINTEREST_TOKEN", "")
+REFRESH = os.environ.get("PINTEREST_REFRESH", "")
 BOARD_ID_ENV = os.environ.get("PINTEREST_BOARD_ID", "")
+APP_ID = os.environ.get("PINTEREST_APP_ID", "1645680")
+APP_SECRET = os.environ.get("PINTEREST_APP_SECRET", "")
+REDIRECT = os.environ.get("PINTEREST_REDIRECT", "http://localhost:8085/")
+SCOPES = os.environ.get("PINTEREST_SCOPES", "boards:read,pins:read,pins:write")
+
+
+ENV_PATH = Path(".env")
 
 
 def load_dotenv(path=".env"):
-    """Minimal .env reader so PINTEREST_TOKEN / PINTEREST_BOARD_ID need not be exported each run."""
-    global TOKEN, BOARD_ID_ENV
+    """Minimal .env reader so the token/secret need not be exported each run."""
+    global TOKEN, REFRESH, BOARD_ID_ENV, APP_SECRET, APP_ID
     p = Path(path)
-    if not p.exists():
-        return
-    for line in p.read_text().splitlines():
-        line = line.strip()
-        if not line or line.startswith("#") or "=" not in line:
-            continue
-        k, v = line.split("=", 1)
-        k, v = k.strip(), v.strip().strip('"').strip("'")
-        os.environ.setdefault(k, v)
-    TOKEN = TOKEN or os.environ.get("PINTEREST_TOKEN", "")
-    BOARD_ID_ENV = BOARD_ID_ENV or os.environ.get("PINTEREST_BOARD_ID", "")
+    if p.exists():
+        for line in p.read_text().splitlines():
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            k, v = line.split("=", 1)
+            os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+    TOKEN = os.environ.get("PINTEREST_TOKEN", TOKEN)
+    REFRESH = os.environ.get("PINTEREST_REFRESH", REFRESH)
+    BOARD_ID_ENV = os.environ.get("PINTEREST_BOARD_ID", BOARD_ID_ENV)
+    APP_SECRET = os.environ.get("PINTEREST_APP_SECRET", APP_SECRET)
+    APP_ID = os.environ.get("PINTEREST_APP_ID", APP_ID)
+
+
+def update_env(updates):
+    """Write/replace keys in .env, preserving other lines. Values are not quoted."""
+    lines = ENV_PATH.read_text().splitlines() if ENV_PATH.exists() else []
+    seen = set()
+    out = []
+    for line in lines:
+        s = line.strip()
+        if s and not s.startswith("#") and "=" in s:
+            k = s.split("=", 1)[0].strip()
+            if k in updates:
+                out.append(f"{k}={updates[k]}"); seen.add(k); continue
+        out.append(line)
+    for k, v in updates.items():
+        if k not in seen:
+            out.append(f"{k}={v}")
+    ENV_PATH.write_text("\n".join(out) + "\n")
+
+
+def _token_exchange(form):
+    """POST /v5/oauth/token with HTTP Basic (app_id:app_secret). Returns the token JSON."""
+    data = urllib.parse.urlencode(form).encode()
+    basic = base64.b64encode(f"{APP_ID}:{APP_SECRET}".encode()).decode()
+    req = urllib.request.Request(API + "/oauth/token", data=data, method="POST",
+                                 headers={"Authorization": "Basic " + basic,
+                                          "Content-Type": "application/x-www-form-urlencoded"})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return json.loads(r.read())
+
+
+def refresh_access_token():
+    """Use the refresh token to mint a new access token; persist it to .env."""
+    global TOKEN
+    if not (REFRESH and APP_SECRET):
+        return False
+    try:
+        tok = _token_exchange({"grant_type": "refresh_token", "refresh_token": REFRESH})
+    except Exception:
+        return False
+    TOKEN = tok.get("access_token", TOKEN)
+    update_env({"PINTEREST_TOKEN": TOKEN})
+    return bool(tok.get("access_token"))
+
+
+def oauth_authorize():
+    """One-time: run the OAuth code flow to get a pins:write token into .env."""
+    global TOKEN, REFRESH
+    if not APP_SECRET:
+        print("ERROR: set PINTEREST_APP_SECRET in .env first (copy it from the app's Configure page)."); sys.exit(2)
+    port = urllib.parse.urlparse(REDIRECT).port or 8085
+    auth_url = ("https://www.pinterest.com/oauth/?" + urllib.parse.urlencode({
+        "client_id": APP_ID, "redirect_uri": REDIRECT, "response_type": "code",
+        "scope": SCOPES, "state": "mfic"}))
+    holder = {}
+
+    class H(BaseHTTPRequestHandler):
+        def do_GET(self):
+            q = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+            holder["code"] = (q.get("code") or [""])[0]
+            self.send_response(200); self.send_header("Content-Type", "text/html"); self.end_headers()
+            self.wfile.write(b"<h2>Authorized. You can close this tab and return to the terminal.</h2>")
+
+        def log_message(self, *a):
+            pass
+
+    srv = HTTPServer(("localhost", port), H)
+    threading.Thread(target=srv.handle_request, daemon=True).start()
+    print("Opening Pinterest authorize page. If it does not open, paste this URL into Neo:\n" + auth_url)
+    try:
+        webbrowser.open(auth_url)
+    except Exception:
+        pass
+    print(f"Waiting for the redirect to {REDIRECT} ...")
+    for _ in range(300):
+        if holder.get("code"):
+            break
+        time.sleep(1)
+    srv.server_close()
+    code = holder.get("code")
+    if not code:
+        print("No authorization code received (timed out). Re-run --auth."); sys.exit(2)
+    tok = _token_exchange({"grant_type": "authorization_code", "code": code, "redirect_uri": REDIRECT})
+    TOKEN = tok.get("access_token", ""); REFRESH = tok.get("refresh_token", "")
+    if not TOKEN:
+        print("Token exchange failed: " + json.dumps(tok)[:200]); sys.exit(2)
+    update_env({"PINTEREST_TOKEN": TOKEN, "PINTEREST_REFRESH": REFRESH, "PINTEREST_APP_ID": APP_ID})
+    print(f"Success. Wrote PINTEREST_TOKEN (scopes: {SCOPES}) and PINTEREST_REFRESH to .env.")
+    print("Now dry-run:  python pinterest_post.py        then go live:  python pinterest_post.py --go")
 
 
 def _read_json(p, default):
@@ -110,14 +213,19 @@ def seconds_until_window(now=None):
     return max(1, int((nxt - now).total_seconds()))
 
 
-def api(method, path, body=None):
+def api(method, path, body=None, _retry=True):
     url = API + path
     data = json.dumps(body).encode() if body is not None else None
     req = urllib.request.Request(url, data=data, method=method,
                                  headers={"Authorization": "Bearer " + TOKEN,
                                           "Content-Type": "application/json"})
-    with urllib.request.urlopen(req, timeout=60) as r:
-        return json.loads(r.read())
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:
+            return json.loads(r.read())
+    except urllib.error.HTTPError as e:
+        if e.code == 401 and _retry and refresh_access_token():
+            return api(method, path, body, _retry=False)   # token refreshed, retry once
+        raise
 
 
 def resolve_board_id(name, cache):
@@ -274,10 +382,15 @@ def run(go, once, ignore_window):
 
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument("--auth", action="store_true", help="one-time OAuth: get a pins:write token into .env")
     ap.add_argument("--go", action="store_true", help="actually post (default is a dry run)")
     ap.add_argument("--once", action="store_true", help="post at most one due pin, then exit")
     ap.add_argument("--now", action="store_true", help="ignore the daytime posting window")
     a = ap.parse_args()
+    if a.auth:
+        load_dotenv()
+        oauth_authorize()
+        return
     run(a.go, a.once, a.now)
 
 
