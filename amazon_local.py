@@ -109,16 +109,19 @@ def save_gallery(ctx, a, html, limit=4):
     """Extra photos from the page's colorImages.initial block (the variant on the page only)."""
     import io
     from PIL import Image
-    blk = re.search(r"'colorImages':\s*\{\s*'initial':\s*(\[.*?\])\s*\}", html, re.S)
-    if not blk:
+    i = html.find("'colorImages'")              # 'colorImages': { 'initial': A.$.parseJSON('[{"hiRes":...,"variant":"MAIN"},...]')
+    if i < 0:
         return 0
+    chunk = html[i:i + 300000]
+    j = chunk.find("'colorToAsin'")
+    if j > 0:
+        chunk = chunk[:j]
     urls = []
-    for item in re.findall(r"\{[^{}]*?\}", blk.group(1)):
-        if not re.search(r'"variant":"(?:MAIN|PT\d\d)"', item):
+    for hi, large, variant in re.findall(r'"hiRes":(?:null|"(https:[^"]+)").*?"large":"(https:[^"]+)".*?"variant":"([A-Z0-9]+)"', chunk, re.S):
+        if not re.fullmatch(r"MAIN|PT\d\d", variant):
             continue
-        hi = re.search(r'"hiRes":"(https:[^"]+)"', item) or re.search(r'"large":"(https:[^"]+)"', item)
-        if hi:
-            urls.append(re.sub(r"\._[^.]*_\.", "._SL600_.", hi.group(1)))
+        u = hi or large
+        urls.append(re.sub(r"\._[^.]*_\.", "._SL600_.", u))
     # drop old gallery files, then save unique ones (skip the hero and near-duplicates)
     for f in PH.glob(f"{a}_*.jpg"):
         f.unlink()
