@@ -49,11 +49,14 @@ def main():
             pass
         parts.append(f"<h2>Pinterest pins ({len(rows)})</h2><div class=grid>")
         for r in rows:
-            src = pd / r["media_url"]
+            # Pinterest bulk CSV headers: "Media URL" is the published https URL; the local file is its basename in pd
+            murl = r.get("Media URL") or r.get("media_url") or ""
+            fname = murl.rsplit("/", 1)[-1]
+            src = pd / fname
             if src.exists():
                 shutil.copy(src, OUT / "review" / src.name)
-            parts.append(f'<section class="item pin"><img src=review/{esc(r["media_url"])} loading=lazy>'
-                         f'<pre><b>Title:</b> {esc(r["title"])}\n<b>Link:</b> {esc(r["link"])}\n<b>Description:</b> {esc(r["description"])}</pre></section>')
+            parts.append(f'<section class="item pin"><img src=review/{esc(fname)} loading=lazy>'
+                         f'<pre><b>Title:</b> {esc(r.get("Title",""))}\n<b>Link:</b> {esc(r.get("Link",""))}\n<b>Description:</b> {esc(r.get("Description",""))}</pre></section>')
         parts.append("</div>")
     # videos
     parts.append(f"<h2>Videos ({len(q['videos'])})</h2>")
