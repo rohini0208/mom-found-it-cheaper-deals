@@ -16,8 +16,10 @@ from pathlib import Path
 
 OR_URL = os.environ.get("OMNIROUTE_URL", "http://localhost:4000/v1").rstrip("/")
 OR_KEY = os.environ.get("OMNIROUTE_KEY", "sk-omniroute")
-# free-tier models to ask; OmniRoute routes/falls back. Keep 2+ for the "two fresh models" rule.
+# Compliance QA models. OmniRoute routes/falls back. Keep 2+ for the "two fresh models" rule.
 MODELS = os.environ.get("QA_MODELS", "gemini-1.5-flash,llama-3.1-70b,mixtral-8x7b").split(",")
+# The judge is an INDEPENDENT channel: different models from QA, so nothing grades its own work.
+JUDGE_MODELS = os.environ.get("JUDGE_MODELS", "qwen-2.5-72b,deepseek-chat,command-r-plus").split(",")
 
 RUBRIC = """You are a strict compliance + quality reviewer for an Amazon Associates deal post.
 Check ONLY these and reply as compact JSON {"verdict":"pass|warn|fail","note":"<=12 words"}:
@@ -86,8 +88,8 @@ def qa_item(item):
     models = [ask(m, item) for m in MODELS]
     worst = max(models, key=lambda x: ["pass", "warn", "fail"].index(x["verdict"]))["verdict"]
     item["qa"] = {"status": worst, "models": models}
-    # judge: mean of the free models' 0-10 scores; bar JUDGE_BAR to be eligible
-    jl = [judge_one(m, item) for m in MODELS]
+    # judge: INDEPENDENT models (not the QA set) score 0-10; bar JUDGE_BAR to be eligible
+    jl = [judge_one(m, item) for m in JUDGE_MODELS]
     nums = [x["score"] for x in jl if x["score"] is not None]
     mean = round(sum(nums) / len(nums), 1) if nums else None
     item["judge"] = {"score": mean, "bar": JUDGE_BAR, "pass": (mean is not None and mean >= JUDGE_BAR), "models": jl}
