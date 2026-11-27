@@ -1,31 +1,11 @@
-# QA report (926 deals)
+# QA report (900 deals)
 
 ## Blocked (never posted)
-- no price: 118
-- title is a price fragment or store tag: 22
-- marked expired: 17
-- Amazon shows $33.24, higher than the deal price (stale or needs a coupon): 1
-- Amazon shows $76.99, higher than the deal price (stale or needs a coupon): 1
-- Amazon shows $63.95, higher than the deal price (stale or needs a coupon): 1
-- Amazon shows $18.49, higher than the deal price (stale or needs a coupon): 1
-- Amazon shows $8.56, higher than the deal price (stale or needs a coupon): 1
-- Amazon shows $2.29, higher than the deal price (stale or needs a coupon): 1
-- Amazon shows $80.49, higher than the deal price (stale or needs a coupon): 1
-- Amazon shows $166.59, higher than the deal price (stale or needs a coupon): 1
-- Amazon shows $6.99, higher than the deal price (stale or needs a coupon): 1
-- Amazon shows $8.02, higher than the deal price (stale or needs a coupon): 1
-- Amazon shows $1197.99, higher than the deal price (stale or needs a coupon): 1
-- Amazon shows $8.49, higher than the deal price (stale or needs a coupon): 1
-- Amazon shows $30.23, higher than the deal price (stale or needs a coupon): 1
-- Amazon shows $2.99, higher than the deal price (stale or needs a coupon): 1
-- Amazon shows $40, higher than the deal price (stale or needs a coupon): 1
-- Amazon shows $11.24, higher than the deal price (stale or needs a coupon): 1
-- Amazon shows $59.99, higher than the deal price (stale or needs a coupon): 1
-- Amazon shows $12.99, higher than the deal price (stale or needs a coupon): 1
-- Amazon shows $79.99, higher than the deal price (stale or needs a coupon): 1
-- Amazon shows $27.01, higher than the deal price (stale or needs a coupon): 1
-- Amazon shows $7.39, higher than the deal price (stale or needs a coupon): 1
-- Amazon shows $17.99, higher than the deal price (stale or needs a coupon): 1
+- no price: 110
+- title is a price fragment or store tag: 19
+- marked expired: 15
+- price not below was-price: 2
+- Amazon shows $31.95, higher than the deal price (stale or needs a coupon): 1
 - Amazon shows $16.99, higher than the deal price (stale or needs a coupon): 1
 - Amazon shows $29.99, higher than the deal price (stale or needs a coupon): 1
 - Amazon shows $28.49, higher than the deal price (stale or needs a coupon): 1
@@ -33,7 +13,12 @@
 - Amazon shows $279.98, higher than the deal price (stale or needs a coupon): 1
 - Amazon shows $79.95, higher than the deal price (stale or needs a coupon): 1
 - Amazon shows $949.99, higher than the deal price (stale or needs a coupon): 1
+- Amazon shows $11.67, higher than the deal price (stale or needs a coupon): 1
+- Amazon shows $15.23, higher than the deal price (stale or needs a coupon): 1
+- Amazon shows $15.99, higher than the deal price (stale or needs a coupon): 1
+- Amazon shows $33.24, higher than the deal price (stale or needs a coupon): 1
 
 ## Warnings (posted, but check)
-- Amazon deal without product ID (no affiliate link, no price check): 297
-- code may be expired, will be hidden: 1
+- Amazon deal without product ID (no affiliate link, no price check): 411
+- code may be expired, will be hidden: 2
+- title has cut-off or garbled text: 1
