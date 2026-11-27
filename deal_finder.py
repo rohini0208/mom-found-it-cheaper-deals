@@ -431,7 +431,7 @@ def write_markdown(deals, errors):
     for d in deals:
         when = datetime.fromisoformat(d["seen"]).strftime("%b %d %H:%M")
         title = d["title"].replace("|", "/")
-        extra = " / ".join(x for x in (d["code"], d["coupon"]) if x)
+        extra = " / ".join(x for x in (d.get("code") or "", d.get("coupon") or "") if x)
         if extra and d.get("code_label"):
             extra += f" ({d['code_label']})"
         lines.append(f"| {when} | [{title}]({d['link']}) | {d['price']} | {extra} | {d['source']} |")
@@ -445,7 +445,7 @@ def write_html(deals):
     rows = []
     for d in deals:
         when = datetime.fromisoformat(d["seen"]).strftime("%b %d %H:%M")
-        extra = " / ".join(x for x in (d["code"], d["coupon"]) if x)
+        extra = " / ".join(x for x in (d.get("code") or "", d.get("coupon") or "") if x)
         rows.append(
             f"<tr><td>{when}</td><td><a href='{html.escape(d['link'])}'>{html.escape(d['title'])}</a></td>"
             f"<td>{html.escape(d['price'])}</td><td>{html.escape(extra)}</td><td>{html.escape(d['source'])}</td></tr>"
