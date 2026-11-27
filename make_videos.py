@@ -15,6 +15,11 @@ from copy_bank import CLOSERS, FEATURES_TITLES, OPENERS, hook_for, pick
 from qa import check as qa_check
 import json
 import os
+
+
+def _sft(_t, _fmt):
+    """strftime that works on Windows too: %-d/%-I are glibc-only, Windows needs %#d/%#I."""
+    return _t.strftime(_fmt.replace("%-", "%#") if os.name == "nt" else _fmt)
 import random
 import re
 import subprocess
@@ -35,7 +40,7 @@ def as_of(iso):
     from datetime import datetime
     from zoneinfo import ZoneInfo
     t = datetime.fromisoformat(iso).astimezone(ZoneInfo("America/New_York"))
-    return t.strftime("%b %-d, %-I:%M %p ET")
+    return _sft(t, "%b %-d, %-I:%M %p ET")
 
 W, H = 1080, 1920
 BRAND = "Mom Found It Cheaper"

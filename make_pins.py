@@ -9,6 +9,11 @@ import csv
 import html as html_
 import json
 import os
+
+
+def _sft(_t, _fmt):
+    """strftime that works on Windows too: %-d/%-I are glibc-only, Windows needs %#d/%#I."""
+    return _t.strftime(_fmt.replace("%-", "%#") if os.name == "nt" else _fmt)
 import re
 from datetime import date
 from pathlib import Path
@@ -47,9 +52,9 @@ def checked_stamp(asins):
     ts = [META.get(a, {}).get("checked", 0) for a in asins if a]
     ts = [t for t in ts if t]
     if not ts:
-        return _et_now().strftime("%b %-d, %Y")
+        return _sft(_et_now(), "%b %-d, %Y")
     t = datetime.fromtimestamp(max(ts), ZoneInfo("America/New_York"))
-    return t.strftime("%b %-d, %-I:%M %p ET")
+    return _sft(t, "%b %-d, %-I:%M %p ET")
 
 
 def _mia():

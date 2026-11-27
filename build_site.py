@@ -16,6 +16,11 @@ import hashlib
 import html
 import json
 import os
+
+
+def _sft(_t, _fmt):
+    """strftime that works on Windows too: %-d/%-I are glibc-only, Windows needs %#d/%#I."""
+    return _t.strftime(_fmt.replace("%-", "%#") if os.name == "nt" else _fmt)
 import re
 import urllib.parse
 from datetime import datetime, timezone
@@ -36,7 +41,7 @@ def as_of(iso):
         t = datetime.fromtimestamp(iso, ZoneInfo("America/New_York"))
     else:
         t = datetime.fromisoformat(iso).astimezone(ZoneInfo("America/New_York"))
-    return t.strftime("%b %-d, %-I:%M %p ET")
+    return _sft(t, "%b %-d, %-I:%M %p ET")
 
 DATA = Path("data")
 OUT = Path("site")
@@ -223,8 +228,8 @@ def _checked_label(m):
     tz = ZoneInfo("America/New_York")
     dt = datetime.fromtimestamp(ts, tz)
     today = datetime.now(tz).date()
-    t = dt.strftime("%-I:%M %p") + " ET"
-    return "Checked " + (t if dt.date() == today else ("yesterday " if (today - dt.date()).days == 1 else dt.strftime("%b %-d ") ) + t)
+    t = _sft(dt, "%-I:%M %p") + " ET"
+    return "Checked " + (t if dt.date() == today else ("yesterday " if (today - dt.date()).days == 1 else _sft(dt, "%b %-d ") ) + t)
 
 
 def _drop_pct(d, history, now_price):
@@ -244,7 +249,7 @@ def _lowest_since(d, history, now_price):
     lo, hi = min(p for _, p in pts), max(p for _, p in pts)
     if now_price <= lo and hi >= now_price * 1.05:         # a real drop, not a flat line
         first = pts[0][0]
-        return datetime.strptime(first, "%Y-%m-%d").strftime("%b %-d")
+        return _sft(datetime.strptime(first, "%Y-%m-%d"), "%b %-d")
     return ""
 
 
