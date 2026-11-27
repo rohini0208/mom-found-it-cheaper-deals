@@ -1,5 +1,6 @@
 """Pre-publish QA for posts. Reads posts/manifest.json + captions + PNGs, flags anything a shopper could call wrong.
 BLOCKER = post is moved to posts/blocked/ and removed from webposts/ (never goes out). WARN = listed in POST_QA.md."""
+import utf8_io  # noqa: F401  (first import: forces UTF-8 text IO so Windows cp1252 can't crash on emoji)
 import json, os, re, shutil, sys, time
 from pathlib import Path
 

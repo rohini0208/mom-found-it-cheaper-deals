@@ -5,6 +5,7 @@ Output: pins/<date>/pin_<name>.png + pins/<date>/pins.csv in Pinterest's bulk-up
 copy on momfounditcheaper.com/pins/<date>/). Prices are Amazon's morning read, stamped with its date/time.
 Run after build_site.py:  python make_pins.py
 """
+import utf8_io  # noqa: F401  (first import: forces UTF-8 text IO so Windows cp1252 can't crash on emoji)
 import csv
 import html as html_
 import json

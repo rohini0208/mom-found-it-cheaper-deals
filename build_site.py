@@ -12,6 +12,7 @@ Settings (GitHub repo secrets/variables, optional):
   SITE_URL     the public address of this site (for captions).
 """
 
+import utf8_io  # noqa: F401  (first import: forces UTF-8 text IO so Windows cp1252 can't crash on emoji)
 import hashlib
 import html
 import json

@@ -9,6 +9,7 @@ Output: posts/post_N.png and posts/post_N.txt (caption + first comment to paste)
 No Claude, no API keys. Uses photos/ when a photo matches a deal, else clean text tiles.
 """
 
+import utf8_io  # noqa: F401  (first import: forces UTF-8 text IO so Windows cp1252 can't crash on emoji)
 import hashlib
 import json
 import os

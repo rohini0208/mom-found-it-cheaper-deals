@@ -1,6 +1,7 @@
 """Unlisted review page: everything in today's approval queue, with images and full captions, on one page.
 Writes site/review.html (not linked from the site; robots noindex). Run after make_queue.py:  python make_review.py
 """
+import utf8_io  # noqa: F401  (first import: forces UTF-8 text IO so Windows cp1252 can't crash on emoji)
 import html
 import json
 import re

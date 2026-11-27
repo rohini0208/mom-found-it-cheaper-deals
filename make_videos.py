@@ -9,6 +9,7 @@ Run:  python make_videos.py            (needs: pip install pillow edge-tts, and 
 Out:  videos/deal_1.mp4 + deal_1.txt (caption to paste), ...
 """
 
+import utf8_io  # noqa: F401  (first import: forces UTF-8 text IO so Windows cp1252 can't crash on emoji)
 import asyncio
 import hashlib
 from copy_bank import CLOSERS, FEATURES_TITLES, OPENERS, hook_for, pick

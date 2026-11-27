@@ -5,6 +5,7 @@ Nothing here posts anything.
 
 Run after make_posts.py / post_qa.py:  python make_queue.py
 """
+import utf8_io  # noqa: F401  (first import: forces UTF-8 text IO so Windows cp1252 can't crash on emoji)
 import html
 import json
 import random

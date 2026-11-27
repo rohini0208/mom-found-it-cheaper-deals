@@ -5,6 +5,7 @@ or video a viewer sees), the caption, the destination link, a QA block (filled b
 status. No tokens: this runs in CI next to the render.
 
 Served at https://momfounditcheaper.com/queue/<date>.json (build_site copies queue/*.json)."""
+import utf8_io  # noqa: F401  (first import: forces UTF-8 text IO so Windows cp1252 can't crash on emoji)
 import csv
 import json
 import re
