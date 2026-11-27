@@ -2,86 +2,86 @@
  "signals": [
   {
    "source": "Amazon Best Sellers",
-   "title": "STANLEY Quencher H2.0 Flow State Tumbler, 40 oz, Black 2.0 | Handle and Straw | 3-Position Lid | Cup Holder Compatible f",
-   "link": "https://www.amazon.com/dp/B0CP9Z1S51",
-   "asin": "B0CP9Z1S51",
-   "rank": 1
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "Owala FreeSip Stainless Steel Water Bottle 24 oz Shy Marshmallow",
-   "link": "https://www.amazon.com/dp/B085DV8T75",
-   "asin": "B085DV8T75",
-   "rank": 2
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "bella Fits-Anywhere\u2122 2-Slice Slim Toaster, Long Slot & Extra Wide, Oatmilk",
-   "link": "https://www.amazon.com/dp/B0CYJBB2JQ",
-   "asin": "B0CYJBB2JQ",
-   "rank": 3
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "Alpha Grillers Instant Read Waterproof Digital Meat Thermometer for Cooking and Grilling",
-   "link": "https://www.amazon.com/dp/B00S93EQUK",
-   "asin": "B00S93EQUK",
-   "rank": 4
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "Owala SmoothSip Slider Insulated Stainless Steel Coffee Tumbler, Reusable Iced Coffee Cup, Hot Coffee Travel Mug, BPA Fr",
-   "link": "https://www.amazon.com/dp/B0DF472VMZ",
-   "asin": "B0DF472VMZ",
-   "rank": 5
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "HydroJug Traveler 32oz, Insulated Water Bottle with Handle, Brown Leopard | Triple wall insulated, flip straw lid, leak-",
-   "link": "https://www.amazon.com/dp/B0H139RH5T",
-   "asin": "B0H139RH5T",
-   "rank": 6
-  },
-  {
-   "source": "Amazon Best Sellers",
    "title": "PlayStation DualSense\u2122 Wireless Controller \u2013 Midnight Black - For PS5, PC, MAC & Mobile",
    "link": "https://www.amazon.com/dp/B0FY6Y9WZT",
    "asin": "B0FY6Y9WZT",
-   "rank": 7
+   "rank": 1
   },
   {
    "source": "Amazon Best Sellers",
    "title": "Roblox Digital Gift Card - 1,000 Robux [Includes Exclusive Virtual Item] [Digital Code]",
    "link": "https://www.amazon.com/dp/B07RZ74VLR",
    "asin": "B07RZ74VLR",
-   "rank": 8
+   "rank": 2
   },
   {
    "source": "Amazon Best Sellers",
    "title": "XBOX Wireless Gaming Controller | Shock Blue | Textured triggers and bumpers, Hybrid D-pad, XBOX Wireless, Bluetooth, US",
    "link": "https://www.amazon.com/dp/B0F1J12R6N",
    "asin": "B0F1J12R6N",
-   "rank": 9
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "Nintendo Switch 2 + Mario Kart World Bundle (includes 3-month NSO Individual Membership)",
-   "link": "https://www.amazon.com/dp/B0HGHB3V16",
-   "asin": "B0HGHB3V16",
-   "rank": 10
+   "rank": 3
   },
   {
    "source": "Amazon Best Sellers",
    "title": "$10 -PlayStation Store Gift Card [Digital Code]",
    "link": "https://www.amazon.com/dp/B00GAC1D2G",
    "asin": "B00GAC1D2G",
-   "rank": 11
+   "rank": 4
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Nintendo Switch 2 + Mario Kart World Bundle (includes 3-month NSO Individual Membership)",
+   "link": "https://www.amazon.com/dp/B0HGHB3V16",
+   "asin": "B0HGHB3V16",
+   "rank": 5
   },
   {
    "source": "Amazon Best Sellers",
    "title": "Grand Theft Auto VI - PlayStation 5 (Code in Box) | Code in Box - Playable 11/19/26, No physical disc in box",
    "link": "https://www.amazon.com/dp/B0H6K928WL",
    "asin": "B0H6K928WL",
+   "rank": 6
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "STANLEY Quencher H2.0 Flow State Tumbler, 40 oz, Black 2.0 | Handle and Straw | 3-Position Lid | Cup Holder Compatible f",
+   "link": "https://www.amazon.com/dp/B0CP9Z1S51",
+   "asin": "B0CP9Z1S51",
+   "rank": 7
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Owala FreeSip Stainless Steel Water Bottle 24 oz Shy Marshmallow",
+   "link": "https://www.amazon.com/dp/B085DV8T75",
+   "asin": "B085DV8T75",
+   "rank": 8
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "bella Fits-Anywhere\u2122 2-Slice Slim Toaster, Long Slot & Extra Wide, Oatmilk",
+   "link": "https://www.amazon.com/dp/B0CYJBB2JQ",
+   "asin": "B0CYJBB2JQ",
+   "rank": 9
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Alpha Grillers Instant Read Waterproof Digital Meat Thermometer for Cooking and Grilling",
+   "link": "https://www.amazon.com/dp/B00S93EQUK",
+   "asin": "B00S93EQUK",
+   "rank": 10
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Owala SmoothSip Slider Insulated Stainless Steel Coffee Tumbler, Reusable Iced Coffee Cup, Hot Coffee Travel Mug, BPA Fr",
+   "link": "https://www.amazon.com/dp/B0DF472VMZ",
+   "asin": "B0DF472VMZ",
+   "rank": 11
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "HydroJug Traveler 32oz, Insulated Water Bottle with Handle, Brown Leopard | Triple wall insulated, flip straw lid, leak-",
+   "link": "https://www.amazon.com/dp/B0H139RH5T",
+   "asin": "B0H139RH5T",
    "rank": 12
   },
   {
@@ -121,9 +121,9 @@
   },
   {
    "source": "Amazon Best Sellers",
-   "title": "Apple iPad 11-inch: A16 chip, 11-inch Model, Liquid Retina Display, 128GB, Wi-Fi 6, 12MP Front/12MP Back Camera, Touch I",
-   "link": "https://www.amazon.com/dp/B0DZ75TN5F",
-   "asin": "B0DZ75TN5F",
+   "title": "Apple EarPods Headphones with USB-C Plug, Wired Ear Buds with Built-in Remote to Control Music, Phone Calls, and Volume",
+   "link": "https://www.amazon.com/dp/B0DCH8VDXF",
+   "asin": "B0DCH8VDXF",
    "rank": 18
   },
   {
@@ -135,16 +135,16 @@
   },
   {
    "source": "Amazon Best Sellers",
-   "title": "Hanes Men's Zip-up Hoodie, Ecosmart Fleece Full-zip Hoodie for Men, Hooded Sweatshirt",
-   "link": "https://www.amazon.com/dp/B00JUM4DKC",
-   "asin": "B00JUM4DKC",
+   "title": "Hanes Men's Sweatshirt, EcoSmart Fleece Crewneck Sweatshirt, Big & Tall Available, 1 or 2-Pack",
+   "link": "https://www.amazon.com/dp/B072QRN7HR",
+   "asin": "B072QRN7HR",
    "rank": 20
   },
   {
    "source": "Amazon Best Sellers",
-   "title": "Hanes Men's Sweatshirt, EcoSmart Fleece Crewneck Sweatshirt, Big & Tall Available, 1 or 2-Pack",
-   "link": "https://www.amazon.com/dp/B072QRN7HR",
-   "asin": "B072QRN7HR",
+   "title": "Hanes Men's Zip-up Hoodie, Ecosmart Fleece Full-zip Hoodie for Men, Hooded Sweatshirt",
+   "link": "https://www.amazon.com/dp/B00JUM4DKC",
+   "asin": "B00JUM4DKC",
    "rank": 21
   },
   {
@@ -163,9 +163,9 @@
   },
   {
    "source": "Amazon Best Sellers",
-   "title": "HEYDUDE Men's Wally Amazon Exclusive Styles Slip On Loafer | Easy On Shoe | Breathable Textile Upper, Elastic Laces, Cus",
-   "link": "https://www.amazon.com/dp/B0GC7ZLVWL",
-   "asin": "B0GC7ZLVWL",
+   "title": "Legendary Whitetails Mens Flannel Long Sleeve Button Down 100% Cotton Shirt",
+   "link": "https://www.amazon.com/dp/B01KTUMBOI",
+   "asin": "B01KTUMBOI",
    "rank": 24
   },
   {

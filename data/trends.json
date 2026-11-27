@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-27T00:40+00:00",
+ "updated": "2026-11-27T12:27+00:00",
  "status": {
   "TikTok Made Me Buy It (Reddit)": "error: HTTP Error 404: Not Found",
   "Amazon finds (Reddit)": "error: HTTP Error 429: Too Many Requests",
@@ -44,10 +44,30 @@
   },
   {
    "source": "camelcamelcamel popular",
+   "title": "NOCO Boost GB70 2000A UltraSafe Jump Starter, 12V Lithium Battery Booster",
+   "link": "https://camelcamelcamel.com/product/B016UG6PWE?active=price_amazon",
+   "asin": "B016UG6PWE",
+   "rank": 3,
+   "label": "Best Price",
+   "words": [
+    "2000a",
+    "battery",
+    "boost",
+    "booster",
+    "gb70",
+    "jump",
+    "lithium",
+    "noco",
+    "starter",
+    "ultrasafe"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
    "title": "Breville BOV900BSS Smart Oven Air Fryer Pro, Brushed Stainless Steel",
    "link": "https://camelcamelcamel.com/product/B01N5UPTZS?active=price_amazon",
    "asin": "B01N5UPTZS",
-   "rank": 3,
+   "rank": 4,
    "label": "Best Price",
    "words": [
     "bov900bss",
@@ -65,27 +85,12 @@
    "title": "LEGO Botanicals Succulents 10309",
    "link": "https://camelcamelcamel.com/product/B09Q4GWMZQ?active=price_amazon",
    "asin": "B09Q4GWMZQ",
-   "rank": 4,
+   "rank": 5,
    "label": "Best Price",
    "words": [
     "botanicals",
     "lego",
     "succulents"
-   ]
-  },
-  {
-   "source": "camelcamelcamel popular",
-   "title": "Final Fantasy VII Rebirth - Exclusive Amazon Edition (PS5)",
-   "link": "https://camelcamelcamel.com/product/B0CGXZQ4CD?active=price_amazon",
-   "asin": "B0CGXZQ4CD",
-   "rank": 5,
-   "label": "Best Price",
-   "words": [
-    "edition",
-    "exclusive",
-    "fantasy",
-    "final",
-    "rebirth"
    ]
   },
   {
@@ -239,46 +244,20 @@
   },
   {
    "source": "camelcamelcamel popular",
-   "title": "COWAY Airmega Mighty2 Air Purifier, Next Gen of AP-1512HH, for Large Room & Home Cleans up to 1,800 ft\u00b2, HEPA and Active Carbon for Allergies, Smoke, Dust, Pets & Mold, AP-1512N(W)",
-   "link": "https://camelcamelcamel.com/product/B0GS7FF1D6?active=price_amazon",
-   "asin": "B0GS7FF1D6",
+   "title": "Samsung 77-Inch Class S90H Series, OLED, 4K, Smart TV, 2026 Model",
+   "link": "https://camelcamelcamel.com/product/B0GPY2T4L2?active=price_amazon",
+   "asin": "B0GPY2T4L2",
    "rank": 14,
-   "label": "Best Price",
+   "label": "Good Deal",
    "words": [
-    "1512hh",
-    "1512n",
-    "active",
-    "airmega",
-    "allergies",
-    "carbon",
-    "cleans",
-    "coway",
-    "dust",
-    "hepa",
-    "home",
-    "large",
-    "mighty2",
-    "mold",
-    "next",
-    "pets",
-    "purifier",
-    "room",
-    "smoke"
-   ]
-  },
-  {
-   "source": "camelcamelcamel popular",
-   "title": "Pok\u00e9mon TCG: First Partner Illustration Collection\u2014Series 3",
-   "link": "https://camelcamelcamel.com/product/B0H2JVZYZZ?active=price_amazon",
-   "asin": "B0H2JVZYZZ",
-   "rank": 15,
-   "label": "Best Price",
-   "words": [
-    "collection",
-    "first",
-    "illustration",
-    "partner",
-    "series"
+    "class",
+    "inch",
+    "model",
+    "oled",
+    "s90h",
+    "samsung",
+    "series",
+    "smart"
    ]
   },
   {
@@ -286,7 +265,7 @@
    "title": "XBOX Series X | X25 Special Edition Gaming Console | 1TB SSD",
    "link": "https://camelcamelcamel.com/product/B0HFM9NTC1?active=price_amazon",
    "asin": "B0HFM9NTC1",
-   "rank": 16,
+   "rank": 15,
    "label": "Best Price",
    "words": [
     "console",
@@ -295,6 +274,21 @@
     "series",
     "special",
     "xbox"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Apple Watch Series 12 GPS 42mm Smartwatch",
+   "link": "https://camelcamelcamel.com/product/B0HJ9ZXCSD?active=price_amazon",
+   "asin": "B0HJ9ZXCSD",
+   "rank": 16,
+   "label": "Best Price",
+   "words": [
+    "42mm",
+    "apple",
+    "series",
+    "smartwatch",
+    "watch"
    ]
   },
   {
@@ -372,10 +366,113 @@
   },
   {
    "source": "Amazon Best Sellers",
+   "title": "PlayStation DualSense\u2122 Wireless Controller \u2013 Midnight Black - For PS5, PC, MAC & Mobile",
+   "link": "https://www.amazon.com/dp/B0FY6Y9WZT",
+   "asin": "B0FY6Y9WZT",
+   "rank": 1,
+   "words": [
+    "black",
+    "controller",
+    "dualsense",
+    "midnight",
+    "mobile",
+    "playstation",
+    "wireless"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Roblox Digital Gift Card - 1,000 Robux [Includes Exclusive Virtual Item] [Digital Code]",
+   "link": "https://www.amazon.com/dp/B07RZ74VLR",
+   "asin": "B07RZ74VLR",
+   "rank": 2,
+   "words": [
+    "card",
+    "digital",
+    "exclusive",
+    "gift",
+    "includes",
+    "item",
+    "roblox",
+    "robux",
+    "virtual"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "XBOX Wireless Gaming Controller | Shock Blue | Textured triggers and bumpers, Hybrid D-pad, XBOX Wireless, Bluetooth, US",
+   "link": "https://www.amazon.com/dp/B0F1J12R6N",
+   "asin": "B0F1J12R6N",
+   "rank": 3,
+   "words": [
+    "blue",
+    "bluetooth",
+    "bumpers",
+    "controller",
+    "gaming",
+    "hybrid",
+    "shock",
+    "textured",
+    "triggers",
+    "wireless",
+    "xbox"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "$10 -PlayStation Store Gift Card [Digital Code]",
+   "link": "https://www.amazon.com/dp/B00GAC1D2G",
+   "asin": "B00GAC1D2G",
+   "rank": 4,
+   "words": [
+    "card",
+    "digital",
+    "gift",
+    "playstation",
+    "store"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Nintendo Switch 2 + Mario Kart World Bundle (includes 3-month NSO Individual Membership)",
+   "link": "https://www.amazon.com/dp/B0HGHB3V16",
+   "asin": "B0HGHB3V16",
+   "rank": 5,
+   "words": [
+    "bundle",
+    "includes",
+    "individual",
+    "kart",
+    "mario",
+    "membership",
+    "month",
+    "nintendo",
+    "switch",
+    "world"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Grand Theft Auto VI - PlayStation 5 (Code in Box) | Code in Box - Playable 11/19/26, No physical disc in box",
+   "link": "https://www.amazon.com/dp/B0H6K928WL",
+   "asin": "B0H6K928WL",
+   "rank": 6,
+   "words": [
+    "auto",
+    "disc",
+    "grand",
+    "physical",
+    "playable",
+    "playstation",
+    "theft"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
    "title": "STANLEY Quencher H2.0 Flow State Tumbler, 40 oz, Black 2.0 | Handle and Straw | 3-Position Lid | Cup Holder Compatible f",
    "link": "https://www.amazon.com/dp/B0CP9Z1S51",
    "asin": "B0CP9Z1S51",
-   "rank": 1,
+   "rank": 7,
    "words": [
     "black",
     "compatible",
@@ -395,7 +492,7 @@
    "title": "Owala FreeSip Stainless Steel Water Bottle 24 oz Shy Marshmallow",
    "link": "https://www.amazon.com/dp/B085DV8T75",
    "asin": "B085DV8T75",
-   "rank": 2,
+   "rank": 8,
    "words": [
     "bottle",
     "freesip",
@@ -411,7 +508,7 @@
    "title": "bella Fits-Anywhere\u2122 2-Slice Slim Toaster, Long Slot & Extra Wide, Oatmilk",
    "link": "https://www.amazon.com/dp/B0CYJBB2JQ",
    "asin": "B0CYJBB2JQ",
-   "rank": 3,
+   "rank": 9,
    "words": [
     "anywhere",
     "bella",
@@ -431,7 +528,7 @@
    "title": "Alpha Grillers Instant Read Waterproof Digital Meat Thermometer for Cooking and Grilling",
    "link": "https://www.amazon.com/dp/B00S93EQUK",
    "asin": "B00S93EQUK",
-   "rank": 4,
+   "rank": 10,
    "words": [
     "alpha",
     "cooking",
@@ -450,7 +547,7 @@
    "title": "Owala SmoothSip Slider Insulated Stainless Steel Coffee Tumbler, Reusable Iced Coffee Cup, Hot Coffee Travel Mug, BPA Fr",
    "link": "https://www.amazon.com/dp/B0DF472VMZ",
    "asin": "B0DF472VMZ",
-   "rank": 5,
+   "rank": 11,
    "words": [
     "coffee",
     "iced",
@@ -470,7 +567,7 @@
    "title": "HydroJug Traveler 32oz, Insulated Water Bottle with Handle, Brown Leopard | Triple wall insulated, flip straw lid, leak-",
    "link": "https://www.amazon.com/dp/B0H139RH5T",
    "asin": "B0H139RH5T",
-   "rank": 6,
+   "rank": 12,
    "words": [
     "32oz",
     "bottle",
@@ -486,109 +583,6 @@
     "triple",
     "wall",
     "water"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "PlayStation DualSense\u2122 Wireless Controller \u2013 Midnight Black - For PS5, PC, MAC & Mobile",
-   "link": "https://www.amazon.com/dp/B0FY6Y9WZT",
-   "asin": "B0FY6Y9WZT",
-   "rank": 7,
-   "words": [
-    "black",
-    "controller",
-    "dualsense",
-    "midnight",
-    "mobile",
-    "playstation",
-    "wireless"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "Roblox Digital Gift Card - 1,000 Robux [Includes Exclusive Virtual Item] [Digital Code]",
-   "link": "https://www.amazon.com/dp/B07RZ74VLR",
-   "asin": "B07RZ74VLR",
-   "rank": 8,
-   "words": [
-    "card",
-    "digital",
-    "exclusive",
-    "gift",
-    "includes",
-    "item",
-    "roblox",
-    "robux",
-    "virtual"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "XBOX Wireless Gaming Controller | Shock Blue | Textured triggers and bumpers, Hybrid D-pad, XBOX Wireless, Bluetooth, US",
-   "link": "https://www.amazon.com/dp/B0F1J12R6N",
-   "asin": "B0F1J12R6N",
-   "rank": 9,
-   "words": [
-    "blue",
-    "bluetooth",
-    "bumpers",
-    "controller",
-    "gaming",
-    "hybrid",
-    "shock",
-    "textured",
-    "triggers",
-    "wireless",
-    "xbox"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "Nintendo Switch 2 + Mario Kart World Bundle (includes 3-month NSO Individual Membership)",
-   "link": "https://www.amazon.com/dp/B0HGHB3V16",
-   "asin": "B0HGHB3V16",
-   "rank": 10,
-   "words": [
-    "bundle",
-    "includes",
-    "individual",
-    "kart",
-    "mario",
-    "membership",
-    "month",
-    "nintendo",
-    "switch",
-    "world"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "$10 -PlayStation Store Gift Card [Digital Code]",
-   "link": "https://www.amazon.com/dp/B00GAC1D2G",
-   "asin": "B00GAC1D2G",
-   "rank": 11,
-   "words": [
-    "card",
-    "digital",
-    "gift",
-    "playstation",
-    "store"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
-   "title": "Grand Theft Auto VI - PlayStation 5 (Code in Box) | Code in Box - Playable 11/19/26, No physical disc in box",
-   "link": "https://www.amazon.com/dp/B0H6K928WL",
-   "asin": "B0H6K928WL",
-   "rank": 12,
-   "words": [
-    "auto",
-    "disc",
-    "grand",
-    "physical",
-    "playable",
-    "playstation",
-    "theft"
    ]
   },
   {
@@ -692,25 +686,24 @@
   },
   {
    "source": "Amazon Best Sellers",
-   "title": "Apple iPad 11-inch: A16 chip, 11-inch Model, Liquid Retina Display, 128GB, Wi-Fi 6, 12MP Front/12MP Back Camera, Touch I",
-   "link": "https://www.amazon.com/dp/B0DZ75TN5F",
-   "asin": "B0DZ75TN5F",
+   "title": "Apple EarPods Headphones with USB-C Plug, Wired Ear Buds with Built-in Remote to Control Music, Phone Calls, and Volume",
+   "link": "https://www.amazon.com/dp/B0DCH8VDXF",
+   "asin": "B0DCH8VDXF",
    "rank": 18,
    "words": [
-    "128gb",
-    "12mp",
     "apple",
-    "back",
-    "camera",
-    "chip",
-    "display",
-    "front",
-    "inch",
-    "ipad",
-    "liquid",
-    "model",
-    "retina",
-    "touch"
+    "buds",
+    "built",
+    "calls",
+    "control",
+    "earpods",
+    "headphones",
+    "music",
+    "phone",
+    "plug",
+    "remote",
+    "volume",
+    "wired"
    ]
   },
   {
@@ -733,26 +726,10 @@
   },
   {
    "source": "Amazon Best Sellers",
-   "title": "Hanes Men's Zip-up Hoodie, Ecosmart Fleece Full-zip Hoodie for Men, Hooded Sweatshirt",
-   "link": "https://www.amazon.com/dp/B00JUM4DKC",
-   "asin": "B00JUM4DKC",
-   "rank": 20,
-   "words": [
-    "ecosmart",
-    "fleece",
-    "full",
-    "hanes",
-    "hooded",
-    "hoodie",
-    "sweatshirt"
-   ]
-  },
-  {
-   "source": "Amazon Best Sellers",
    "title": "Hanes Men's Sweatshirt, EcoSmart Fleece Crewneck Sweatshirt, Big & Tall Available, 1 or 2-Pack",
    "link": "https://www.amazon.com/dp/B072QRN7HR",
    "asin": "B072QRN7HR",
-   "rank": 21,
+   "rank": 20,
    "words": [
     "available",
     "crewneck",
@@ -761,6 +738,22 @@
     "hanes",
     "sweatshirt",
     "tall"
+   ]
+  },
+  {
+   "source": "Amazon Best Sellers",
+   "title": "Hanes Men's Zip-up Hoodie, Ecosmart Fleece Full-zip Hoodie for Men, Hooded Sweatshirt",
+   "link": "https://www.amazon.com/dp/B00JUM4DKC",
+   "asin": "B00JUM4DKC",
+   "rank": 21,
+   "words": [
+    "ecosmart",
+    "fleece",
+    "full",
+    "hanes",
+    "hooded",
+    "hoodie",
+    "sweatshirt"
    ]
   },
   {
@@ -810,24 +803,20 @@
   },
   {
    "source": "Amazon Best Sellers",
-   "title": "HEYDUDE Men's Wally Amazon Exclusive Styles Slip On Loafer | Easy On Shoe | Breathable Textile Upper, Elastic Laces, Cus",
-   "link": "https://www.amazon.com/dp/B0GC7ZLVWL",
-   "asin": "B0GC7ZLVWL",
+   "title": "Legendary Whitetails Mens Flannel Long Sleeve Button Down 100% Cotton Shirt",
+   "link": "https://www.amazon.com/dp/B01KTUMBOI",
+   "asin": "B01KTUMBOI",
    "rank": 24,
    "words": [
-    "breathable",
-    "easy",
-    "elastic",
-    "exclusive",
-    "heydude",
-    "laces",
-    "loafer",
-    "shoe",
-    "slip",
-    "styles",
-    "textile",
-    "upper",
-    "wally"
+    "button",
+    "cotton",
+    "down",
+    "flannel",
+    "legendary",
+    "long",
+    "shirt",
+    "sleeve",
+    "whitetails"
    ]
   },
   {
