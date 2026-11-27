@@ -2,47 +2,7 @@
 
 Reply with the numbers to approve, e.g. `post 1, q2; video 3; eng poll`. Nothing is posted until you say so.
 
-## Posts that passed strict QA (8)
-### post_1 — Under $10 finds (ok with warnings)
-```
-CAPTION:
-#ad 🔥 72% OFF: Franklin Sports Field Master Baseball Glove is $8.39 right now.
-✨ Under $10 finds: Franklin Sports Field Master Baseball Glove, Sealegend Dryer Vent Cleaner Kit for Dyson Dryer Lint Vacuum Attachment and Potato Head Toy Story 5 Buzz Spudyear Set
-72% off Amazon's list price and 4.6 stars from 1,483 shoppers.
-Which one is going in your cart?
-All three, checked against Amazon this morning: https://momfounditcheaper.com/
-As an Amazon Associate I earn from qualifying purchases.
-
-#dealsforyou #momlife #budgetfinds
-
-FIRST COMMENT (paste after posting):
-#ad Shop here (prices can change):
-Franklin Sports Field Master Baseball Glove — $8.39 (list $29.99, 72% off)
-https://www.amazon.com/dp/B013LPRERW?tag=momfounditc08-20
-Sealegend Dryer Vent Cleaner Kit for Dyson Dryer Lint Vacuum Attachment — $7.64 (list $8.99, 15% off)
-https://www.amazon.com/dp/B09XF248DN?tag=momfounditc08
-```
-
-### post_2 — Under $15 finds (ok with warnings)
-```
-CAPTION:
-#ad 🔥 32% OFF: Hot Wheels City Dragon Launch Transporter & 1:64 Scale Car is $10.49 right now.
-✨ Under $15 finds: Belkin Qi2 15W Magnetic Wireless Charging Pad, Wiha 79243 Slotted Phillips and Torx Bit Selector and Hot Wheels City Dragon Launch Transporter & 1:64 Scale Car
-32% off Amazon's list price and 4.7 stars from 2,525 shoppers.
-Any of these already on your list?
-All three, checked against Amazon this morning: https://momfounditcheaper.com/
-As an Amazon Associate I earn from qualifying purchases.
-
-#amazondeals #giftideas #founditcheaper
-
-FIRST COMMENT (paste after posting):
-#ad Shop here (prices can change):
-Belkin Qi2 15W Magnetic Wireless Charging Pad — $14.99 (list $29.99, 50% off)
-https://www.amazon.com/dp/B0F8LMHB64?tag=momfounditc08-20
-Wiha 79243 Slotted Phillips and Torx Bit Selector — $14.59 (list $18.24, 20% off)
-https://www.amazon.com/dp/B000F0KC4E?tag=momfoundit
-```
-
+## Posts that passed strict QA (2)
 ### post_single — Mom's pick (ok with warnings)
 ```
 CAPTION:
@@ -51,7 +11,7 @@ CAPTION:
 See it here: https://momfounditcheaper.com/#d-6e1cf46332
 As an Amazon Associate I earn from qualifying purchases.
 
-#momdeals #momfinds #dealoftheday
+#dealsforyou #momlife #budgetfinds
 
 FIRST COMMENT (paste after posting):
 #ad Shop here (prices can change):
@@ -59,103 +19,24 @@ https://www.amazon.com/dp/B0CGY3VF3K?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-### post_q1 — Quick deal: 30% OFF (ok with warnings)
+### post_q1 — Quick deal: 20% OFF (ok with warnings)
 ```
 CAPTION:
-#ad ✨ Found this for you. Amazfit Active Max Smart Watch is $118.99 on Amazon right now (list $169.99, 30% off).
-4.6 stars, 1.1K reviews on Amazon.
-See it here: https://momfounditcheaper.com/#d-9145b18208
-As an Amazon Associate I earn from qualifying purchases.
-
-#amazonfinds #momfinds #founditcheaper
-
-FIRST COMMENT (paste after posting):
-#ad Shop here (prices can change):
-https://www.amazon.com/dp/B0G4F6ZCSV?tag=momfounditc08-20
-As an Amazon Associate I earn from qualifying purchases.
-```
-
-### post_q2 — Quick deal: 15% OFF (ok with warnings)
-```
-CAPTION:
-#ad 😍 Isn't this a good one? WiiM Mini Wi-Fi Music Streamer is $84.15 on Amazon right now (list $99.00, 15% off).
-4.4 stars, 5.8K reviews on Amazon.
-See it here: https://momfounditcheaper.com/#d-422f4e12ca
-As an Amazon Associate I earn from qualifying purchases.
-
-#dealsforyou #momlife #budgetfinds
-
-FIRST COMMENT (paste after posting):
-#ad Shop here (prices can change):
-https://www.amazon.com/dp/B09HC5GRKY?tag=momfounditc08-20
-As an Amazon Associate I earn from qualifying purchases.
-```
-
-### post_q3 — Quick deal: 25% OFF (ok with warnings)
-```
-CAPTION:
-#ad 🔥 Price drop worth a look. WILSON GST Leather Game Footballs is $89.95 on Amazon right now (list $119.95, 25% off).
-4.5 stars, 1.7K reviews on Amazon.
-See it here: https://momfounditcheaper.com/#d-329a0fb469
+#ad 🔥 20% OFF — Wiha 38050 14 Piece Insulated Pop-up Bit Holder Set Slotted is $34.38 right now (was $42.98).
+4.6 stars, 153 reviews on Amazon.
+👇 Deal link in the comments.
+See it here: https://momfounditcheaper.com/#d-ab1efed6ea
 As an Amazon Associate I earn from qualifying purchases.
 
 #amazondeals #giftideas #founditcheaper
 
 FIRST COMMENT (paste after posting):
 #ad Shop here (prices can change):
-https://www.amazon.com/dp/B0009KMXVK?tag=momfounditc08-20
+https://www.amazon.com/dp/B075FFCD9L?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-### post_q4 — Quick deal: 65% OFF (ok with warnings)
-```
-CAPTION:
-#ad ✨ Found this for you. Melissa & Doug Top & Bake Wooden Pizza Counter Pretend Play is $25.10 on Amazon right now (list $70.99, 65% off).
-4.8 stars, 8.0K reviews on Amazon.
-See it here: https://momfounditcheaper.com/#d-9ae9db3762
-As an Amazon Associate I earn from qualifying purchases.
-
-#savemoney #momhacks #amazonfinds
-
-FIRST COMMENT (paste after posting):
-#ad Shop here (prices can change):
-https://www.amazon.com/dp/B075KX9NS7?tag=momfounditc08-20
-As an Amazon Associate I earn from qualifying purchases.
-```
-
-### post_q5 — Quick deal: 74% OFF (ok with warnings)
-```
-CAPTION:
-#ad ✨ Pretty, and the price is right. Maybelline Lash Sensational Sky High Mascara is $8.99 on Amazon right now (list $35.21, 74% off).
-4.5 stars, 192.8K reviews on Amazon.
-See it here: https://momfounditcheaper.com/#d-86b6d549a8
-As an Amazon Associate I earn from qualifying purchases.
-
-#momdeals #momfinds #dealoftheday
-
-FIRST COMMENT (paste after posting):
-#ad Shop here (prices can change):
-https://www.amazon.com/dp/B08H3JPH74?tag=momfounditc08-20
-As an Amazon Associate I earn from qualifying purchases.
-```
-
-## Videos (16)
-- deal_1.mp4  (caption: videos/deal_1.txt)
-- deal_10.mp4  (caption: videos/deal_10.txt)
-- deal_11.mp4  (caption: videos/deal_11.txt)
-- deal_12.mp4  (caption: videos/deal_12.txt)
-- deal_13.mp4  (caption: videos/deal_13.txt)
-- deal_14.mp4  (caption: videos/deal_14.txt)
-- deal_15.mp4  (caption: videos/deal_15.txt)
-- deal_16.mp4  (caption: videos/deal_16.txt)
-- deal_2.mp4  (caption: videos/deal_2.txt)
-- deal_3.mp4  (caption: videos/deal_3.txt)
-- deal_4.mp4  (caption: videos/deal_4.txt)
-- deal_5.mp4  (caption: videos/deal_5.txt)
-- deal_6.mp4  (caption: videos/deal_6.txt)
-- deal_7.mp4  (caption: videos/deal_7.txt)
-- deal_8.mp4  (caption: videos/deal_8.txt)
-- deal_9.mp4  (caption: videos/deal_9.txt)
+## Videos (0)
 
 ## Price-tier posts for the Page (4)
 ### Under $10
