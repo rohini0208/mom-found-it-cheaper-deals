@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-27T13:50+00:00",
+ "updated": "2026-11-27T23:28+00:00",
  "status": {
   "TikTok Made Me Buy It (Reddit)": "error: HTTP Error 404: Not Found",
   "Amazon finds (Reddit)": "error: HTTP Error 429: Too Many Requests",
@@ -166,10 +166,29 @@
   },
   {
    "source": "camelcamelcamel popular",
+   "title": "TCL 65 Inch QM6K Series QLED Mini LED 4K HDR Smart Google TV, 65QM6K, 144Hz",
+   "link": "https://camelcamelcamel.com/product/B0DSRSTJ54?active=price_amazon",
+   "asin": "B0DSRSTJ54",
+   "rank": 10,
+   "label": "Best Price",
+   "words": [
+    "144hz",
+    "65qm6k",
+    "google",
+    "inch",
+    "mini",
+    "qled",
+    "qm6k",
+    "series",
+    "smart"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
    "title": "Sony WH-1000XM6 The Best Noise Cancelling Wireless Headphones, Black",
    "link": "https://camelcamelcamel.com/product/B0F3PQHWTZ?active=price_amazon",
    "asin": "B0F3PQHWTZ",
-   "rank": 10,
+   "rank": 11,
    "label": "Best Price",
    "words": [
     "1000xm6",
@@ -187,7 +206,7 @@
    "title": "Apple AirPods Pro 3 Wireless Earbuds with Active Noise Cancellation",
    "link": "https://camelcamelcamel.com/product/B0FQFB8FMG?active=price_amazon",
    "asin": "B0FQFB8FMG",
-   "rank": 11,
+   "rank": 12,
    "label": "Best Price",
    "words": [
     "active",
@@ -204,7 +223,7 @@
    "title": "Apple AirTag (2nd Generation): Tracker for Keychain, Wallet, and More; Locator with Sound; Simple One-Tap Setup with iPhone or iPad; Key Finder with up to 1.5X Precision Finding Range",
    "link": "https://camelcamelcamel.com/product/B0GJTFXNRX?active=price_amazon",
    "asin": "B0GJTFXNRX",
-   "rank": 12,
+   "rank": 13,
    "label": "Best Price",
    "words": [
     "airtag",
@@ -224,22 +243,6 @@
     "sound",
     "tracker",
     "wallet"
-   ]
-  },
-  {
-   "source": "camelcamelcamel popular",
-   "title": "LG 65 inch Class OLED evo AI C6 4K Smart TV (65C6, 2026 Model)",
-   "link": "https://camelcamelcamel.com/product/B0GRK5D3RW?active=price_amazon",
-   "asin": "B0GRK5D3RW",
-   "rank": 13,
-   "label": "Best Price",
-   "words": [
-    "65c6",
-    "class",
-    "inch",
-    "model",
-    "oled",
-    "smart"
    ]
   },
   {
