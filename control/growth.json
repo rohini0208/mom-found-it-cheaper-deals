@@ -1,0 +1,89 @@
+{
+  "updated": "2026-11-27",
+  "metrics": [
+    {
+      "k": "FB group members",
+      "v": "\u2014",
+      "note": "confirm group restored, then track daily"
+    },
+    {
+      "k": "Post reach (7d avg)",
+      "v": "\u2014",
+      "note": "from Page/Group insights"
+    },
+    {
+      "k": "Link clicks (7d)",
+      "v": "\u2014",
+      "note": "first-comment link clicks"
+    },
+    {
+      "k": "Pinterest outbound clicks",
+      "v": "\u2014",
+      "note": "from Pinterest analytics once pins are live"
+    },
+    {
+      "k": "Associate orders (today)",
+      "v": "\u2014",
+      "note": "goal: first 3 \u2192 10"
+    },
+    {
+      "k": "Associate earnings (MTD)",
+      "v": "\u2014",
+      "note": "from Amazon Associates"
+    }
+  ],
+  "plays": [
+    {
+      "do": "Put the Amazon link in the FIRST COMMENT, not the post body",
+      "why": "Facebook throttles posts with outbound links; comment links keep reach",
+      "rule": "ok"
+    },
+    {
+      "do": "Open every post with #ad and keep 'As an Amazon Associate I earn\u2026'",
+      "why": "FTC + Amazon Associates disclosure",
+      "rule": "required"
+    },
+    {
+      "do": "Short caption: emoji + the exact price + 'link in comments'",
+      "why": "matches high-reach deal groups",
+      "rule": "ok"
+    },
+    {
+      "do": "Ask one genuine question (which color would you pick?)",
+      "why": "real engagement lifts reach",
+      "rule": "ok"
+    },
+    {
+      "do": "Pinterest: fresh pin daily, keyword-rich title, paced 3\u20135/day on a new account",
+      "why": "Pinterest rewards fresh pins; bursts look like spam",
+      "rule": "ok"
+    },
+    {
+      "do": "Cross-post the Reel to FB + a Pinterest Idea pin",
+      "why": "one asset, three surfaces",
+      "rule": "ok"
+    },
+    {
+      "do": "Invite friends + pin a friendly 'start here' post",
+      "why": "seeds a new group organically",
+      "rule": "ok"
+    }
+  ],
+  "active_flags": {
+    "link_in_comment": true,
+    "disclosure": true,
+    "snappy_caption": true,
+    "ask_question": true,
+    "paced_pins": true,
+    "crosspost": true,
+    "seed": true
+  },
+  "avoid": [
+    "Fake scarcity / countdowns that aren't real",
+    "Fake or incentivised reviews, bought followers/likes",
+    "Engagement-bait ('tag 10 friends', 'comment YES')",
+    "Undisclosed affiliate links",
+    "Copying other groups' posts or images, or using their name",
+    "Saying a price without the Amazon read-time; prices change"
+  ]
+}

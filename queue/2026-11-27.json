@@ -1,0 +1,503 @@
+{
+  "date": "2026-11-27",
+  "generated": "2026-11-27T11:33:46-05:00",
+  "counts": {
+    "pins": 12,
+    "posts": 8,
+    "reels": 16
+  },
+  "pins": [
+    {
+      "id": "pin_01",
+      "type": "pin",
+      "title": "Under $10 mom finds \u2014 verified on Amazon Nov 27",
+      "caption": "#ad Under $10 finds for moms, every price read on Amazon Nov 27, 7:19 AM ET. Toys, kitchen, beauty, baby and more; prices change, tap for today's. As an Amazon Associate I earn from qualifying purchases.",
+      "image_url": "https://momfounditcheaper.com/pins/2026-11-27/pin_under-10.png",
+      "link": "https://momfounditcheaper.com/#under-10",
+      "board": "Mom-Approved Finds",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "pin_02",
+      "type": "pin",
+      "title": "Sealegend Dryer Vent Cleaner Kit for Dyson Dryer Lint Vacuum Attachment \u2014 Under $10",
+      "caption": "#ad Sealegend Dryer Vent Cleaner Kit for Dyson Dryer Lint Vacuum Attachment. $7.64 on Amazon as of Nov 27, 7:16 AM ET (list price $8.99). Prices change; tap for today's. As an Amazon Associate I earn from qualifying purchases.",
+      "image_url": "https://momfounditcheaper.com/pins/2026-11-27/pin_under-10_1.png",
+      "link": "https://momfounditcheaper.com/#under-10",
+      "board": "Mom-Approved Finds",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "pin_03",
+      "type": "pin",
+      "title": "Potato Head Toy Story 5 Buzz Spudyear Set with 1 Potato Body and 11 Accessories \u2014 Under $10",
+      "caption": "#ad Potato Head Toy Story 5 Buzz Spudyear Set with 1 Potato Body and 11 Accessories. $8.39 on Amazon as of Nov 27, 7:19 AM ET (list price $9.97). Prices change; tap for today's. As an Amazon Associate I earn from qualifying purchases.",
+      "image_url": "https://momfounditcheaper.com/pins/2026-11-27/pin_under-10_2.png",
+      "link": "https://momfounditcheaper.com/#under-10",
+      "board": "Mom-Approved Finds",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "pin_04",
+      "type": "pin",
+      "title": "Under $20 mom finds \u2014 verified on Amazon Nov 27",
+      "caption": "#ad Under $20 finds for moms, every price read on Amazon Nov 27, 7:19 AM ET. Toys, kitchen, beauty, baby and more; prices change, tap for today's. As an Amazon Associate I earn from qualifying purchases.",
+      "image_url": "https://momfounditcheaper.com/pins/2026-11-27/pin_under-20.png",
+      "link": "https://momfounditcheaper.com/#under-20",
+      "board": "Mom-Approved Finds",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "pin_05",
+      "type": "pin",
+      "title": "Funko POP! Jumbo: Astro Bot \u2014 Under $20",
+      "caption": "#ad Funko POP! Jumbo: Astro Bot. $19.99 on Amazon as of Nov 27, 7:15 AM ET (list price $39.99). Prices change; tap for today's. As an Amazon Associate I earn from qualifying purchases.",
+      "image_url": "https://momfounditcheaper.com/pins/2026-11-27/pin_under-20_1.png",
+      "link": "https://momfounditcheaper.com/#under-20",
+      "board": "Mom-Approved Finds",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "pin_06",
+      "type": "pin",
+      "title": "Hot Wheels City Dragon Launch Transporter & 1:64 Scale Car \u2014 Under $20",
+      "caption": "#ad Hot Wheels City Dragon Launch Transporter & 1:64 Scale Car. $10.49 on Amazon as of Nov 27, 7:19 AM ET (list price $15.37). Prices change; tap for today's. As an Amazon Associate I earn from qualifying purchases.",
+      "image_url": "https://momfounditcheaper.com/pins/2026-11-27/pin_under-20_2.png",
+      "link": "https://momfounditcheaper.com/#under-20",
+      "board": "Mom-Approved Finds",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "pin_07",
+      "type": "pin",
+      "title": "Under $25 mom finds \u2014 verified on Amazon Nov 27",
+      "caption": "#ad Under $25 finds for moms, every price read on Amazon Nov 27, 7:20 AM ET. Toys, kitchen, beauty, baby and more; prices change, tap for today's. As an Amazon Associate I earn from qualifying purchases.",
+      "image_url": "https://momfounditcheaper.com/pins/2026-11-27/pin_under-25.png",
+      "link": "https://momfounditcheaper.com/#under-25",
+      "board": "Mom-Approved Finds",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "pin_08",
+      "type": "pin",
+      "title": "100% Cotton Bed Pillows \u2014 Under $25",
+      "caption": "#ad 100% Cotton Bed Pillows. $20.00 on Amazon as of Nov 27, 6:48 AM ET. Prices change; tap for today's. As an Amazon Associate I earn from qualifying purchases.",
+      "image_url": "https://momfounditcheaper.com/pins/2026-11-27/pin_under-25_1.png",
+      "link": "https://momfounditcheaper.com/#under-25",
+      "board": "Mom-Approved Finds",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "pin_09",
+      "type": "pin",
+      "title": "Jack Link's Original Zero Sugar Beef Sticks \u2014 Under $25",
+      "caption": "#ad Jack Link's Original Zero Sugar Beef Sticks. $21.14 on Amazon as of Nov 27, 7:20 AM ET. Prices change; tap for today's. As an Amazon Associate I earn from qualifying purchases.",
+      "image_url": "https://momfounditcheaper.com/pins/2026-11-27/pin_under-25_2.png",
+      "link": "https://momfounditcheaper.com/#under-25",
+      "board": "Mom-Approved Finds",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "pin_10",
+      "type": "pin",
+      "title": "Under $50 mom finds \u2014 verified on Amazon Nov 27",
+      "caption": "#ad Under $50 finds for moms, every price read on Amazon Nov 27, 7:13 AM ET. Toys, kitchen, beauty, baby and more; prices change, tap for today's. As an Amazon Associate I earn from qualifying purchases.",
+      "image_url": "https://momfounditcheaper.com/pins/2026-11-27/pin_under-50.png",
+      "link": "https://momfounditcheaper.com/#under-50",
+      "board": "Mom-Approved Finds",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "pin_11",
+      "type": "pin",
+      "title": "LEGO Creator 3 in 1 Forest Animals: Red Fox \u2014 Under $50",
+      "caption": "#ad LEGO Creator 3 in 1 Forest Animals: Red Fox. $34.99 on Amazon as of Nov 27, 7:05 AM ET (list price $49.99). Prices change; tap for today's. As an Amazon Associate I earn from qualifying purchases.",
+      "image_url": "https://momfounditcheaper.com/pins/2026-11-27/pin_under-50_1.png",
+      "link": "https://momfounditcheaper.com/#under-50",
+      "board": "Mom-Approved Finds",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "pin_12",
+      "type": "pin",
+      "title": "Fresh Roasted Coffee \u2014 Under $50",
+      "caption": "#ad Fresh Roasted Coffee. $27.48 on Amazon as of Nov 27, 6:49 AM ET. Prices change; tap for today's. As an Amazon Associate I earn from qualifying purchases.",
+      "image_url": "https://momfounditcheaper.com/pins/2026-11-27/pin_under-50_2.png",
+      "link": "https://momfounditcheaper.com/#under-50",
+      "board": "Mom-Approved Finds",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    }
+  ],
+  "posts": [
+    {
+      "id": "post_1",
+      "type": "post",
+      "title": "CAPTION:",
+      "caption": "CAPTION:\n#ad \ud83d\udd25 72% OFF: Franklin Sports Field Master Baseball Glove is $8.39 right now.\n\u2728 Under $10 finds: WORKPRO 4\" Stubby Wide Opening Adjustable Wrench, Franklin Sports Field Master Baseball Glove and Fisher-Price Wood Pretend Play Toy Fruit Pie\n72% off Amazon's list price and 4.4 stars from 1,482 shoppers.\nWhich would you grab first?\nAs an Amazon Associate I earn from qualifying purchases.\n#dealsforyou #momlife #budgetfinds\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nWORKPRO 4\" Stubby Wide Opening Adjustable Wrench \u2014 $8.11 (list $13.99, 42% off)\nFranklin Sports Field Master Baseball Glove \u2014 $8.39 (list $29.99, 72% off)\nFisher-Price Wood Pretend Play Toy Fruit Pie \u2014 $9.49 (list $14.73, 36% off)\nAs an Amazon Associate I earn from qualifying purchases.",
+      "comment": "All three, checked against Amazon this morning: https://momfounditcheaper.com/",
+      "image_url": "https://momfounditcheaper.com/posts/post_1.png",
+      "link": "https://momfounditcheaper.com/",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "post_2",
+      "type": "post",
+      "title": "CAPTION:",
+      "caption": "CAPTION:\n#ad \ud83d\udd25 50% OFF: Monopoly Board Game is $10.00 right now.\n\u2728 Under $15 finds: Monopoly Board Game, Blue Beetle and Wiha 79243 Slotted Phillips and Torx Bit Selector\n50% off Amazon's list price and 4.7 stars from 1,978 shoppers.\nAny of these already on your list?\nAs an Amazon Associate I earn from qualifying purchases.\n#amazondeals #giftideas #founditcheaper\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nMonopoly Board Game \u2014 $10.00 (list $19.99, 50% off)\nBlue Beetle \u2014 $14.99 (list $33.99, 56% off)\nWiha 79243 Slotted Phillips and Torx Bit Selector \u2014 $14.59 (list $18.24, 20% off)\nAs an Amazon Associate I earn from qualifying purchases.",
+      "comment": "All three, checked against Amazon this morning: https://momfounditcheaper.com/",
+      "image_url": "https://momfounditcheaper.com/posts/post_2.png",
+      "link": "https://momfounditcheaper.com/",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "post_q1",
+      "type": "post",
+      "title": "CAPTION:",
+      "caption": "CAPTION:\n#ad \u2728 Found this for you. SwissGear 2762 ScanSmart Laptop Backpack is $39.00 on Amazon right now (list $96.85, 60% off).\n60% below Amazon's list price.\nAs an Amazon Associate I earn from qualifying purchases.\n#savemoney #momhacks #amazonfinds\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nAs an Amazon Associate I earn from qualifying purchases.",
+      "comment": "See it here: https://momfounditcheaper.com/#d-1cd229e753",
+      "image_url": "https://momfounditcheaper.com/posts/post_q1.png",
+      "link": "https://momfounditcheaper.com/#d-1cd229e753",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "post_q2",
+      "type": "post",
+      "title": "CAPTION:",
+      "caption": "CAPTION:\n#ad \ud83d\ude0d Isn't this a good one? monTEK Heavy Duty Full Motion TV Wall Mount for 37-90 Inch is $56.98 on Amazon right now (list $89.99, 37% off).\n4.3 stars, 1.4K reviews on Amazon.\nAs an Amazon Associate I earn from qualifying purchases.\n#momdeals #momfinds #dealoftheday\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nAs an Amazon Associate I earn from qualifying purchases.",
+      "comment": "See it here: https://momfounditcheaper.com/#d-3f7d575335",
+      "image_url": "https://momfounditcheaper.com/posts/post_q2.png",
+      "link": "https://momfounditcheaper.com/#d-3f7d575335",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "post_q3",
+      "type": "post",
+      "title": "CAPTION:",
+      "caption": "CAPTION:\n#ad \ud83d\udd25 Price drop worth a look. Vaydeer Phone Lock Box is $9.40 on Amazon right now (list $19.99, 53% off).\n53% below Amazon's list price.\nAs an Amazon Associate I earn from qualifying purchases.\n#amazonfinds #momfinds #founditcheaper\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nAs an Amazon Associate I earn from qualifying purchases.",
+      "comment": "See it here: https://momfounditcheaper.com/#d-92ff278e51",
+      "image_url": "https://momfounditcheaper.com/posts/post_q3.png",
+      "link": "https://momfounditcheaper.com/#d-92ff278e51",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "post_q4",
+      "type": "post",
+      "title": "CAPTION:",
+      "caption": "CAPTION:\n#ad \u2728 Found this for you. TI-84 Evo Graphing Calculator Texas Instruments is $73.22 on Amazon right now (list $160.00, 54% off).\n4.4 stars, 1.3K reviews on Amazon.\nAs an Amazon Associate I earn from qualifying purchases.\n#dealsforyou #momlife #budgetfinds\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nAs an Amazon Associate I earn from qualifying purchases.",
+      "comment": "See it here: https://momfounditcheaper.com/#d-4f53c9c988",
+      "image_url": "https://momfounditcheaper.com/posts/post_q4.png",
+      "link": "https://momfounditcheaper.com/#d-4f53c9c988",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "post_q5",
+      "type": "post",
+      "title": "CAPTION:",
+      "caption": "CAPTION:\n#ad \ud83d\udd25 Price drop worth a look. DUMOS 31.5 Inch Small Computer Desk is $19.99 on Amazon right now (list $29.99, 33% off).\n4.6 stars, 2.7K reviews on Amazon.\nAs an Amazon Associate I earn from qualifying purchases.\n#amazondeals #giftideas #founditcheaper\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nAs an Amazon Associate I earn from qualifying purchases.",
+      "comment": "See it here: https://momfounditcheaper.com/#d-284f79ba3c",
+      "image_url": "https://momfounditcheaper.com/posts/post_q5.png",
+      "link": "https://momfounditcheaper.com/#d-284f79ba3c",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "post_single",
+      "type": "post",
+      "title": "CAPTION:",
+      "caption": "CAPTION:\n#ad Today's pick: SwitchBot CO2 Detector.\n4.3 stars, 1.6K reviews on Amazon.\nAs an Amazon Associate I earn from qualifying purchases.\n#dealsforyou #momlife #budgetfinds\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nAs an Amazon Associate I earn from qualifying purchases.",
+      "comment": "See it here: https://momfounditcheaper.com/#d-bfc8abdf2d",
+      "image_url": "https://momfounditcheaper.com/posts/post_single.png",
+      "link": "https://momfounditcheaper.com/#d-bfc8abdf2d",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    }
+  ],
+  "reels": [
+    {
+      "id": "deal_1",
+      "type": "reel",
+      "title": "#ad Actually worth it \ud83d\udc40",
+      "caption": "#ad Actually worth it \ud83d\udc40\nSamsung 48-Inch Class S90H Series - $997.99 on Amazon (price as of Nov 27, 7:21 AM ET, list $1,297.99, 23% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.",
+      "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_1.mp4",
+      "link": "https://momfounditcheaper.com/#d-fdffa6ceb5",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "deal_2",
+      "type": "reel",
+      "title": "#ad Actually worth it \ud83d\udc40",
+      "caption": "#ad Actually worth it \ud83d\udc40\nroborock 2026 New Qrevo Edge 3 Pro Robot Vacuum and Mop - $849.99 on Amazon (price as of Nov 27, 7:11 AM ET, list $1,499.99, 43% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.",
+      "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_2.mp4",
+      "link": "https://momfounditcheaper.com/#d-3e6f706a5a",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "deal_3",
+      "type": "reel",
+      "title": "#ad Gadget find under $150 that's actually worth it \ud83d\udc40",
+      "caption": "#ad Gadget find under $150 that's actually worth it \ud83d\udc40\nAmazfit Active Max Smart Watch - $118.99 on Amazon (price as of Nov 27, 6:23 AM ET, list $169.99, 30% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.",
+      "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_3.mp4",
+      "link": "https://momfounditcheaper.com/#d-9145b18208",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "deal_4",
+      "type": "reel",
+      "title": "#ad Gadget find under $100 that's actually worth it \ud83d\udc40",
+      "caption": "#ad Gadget find under $100 that's actually worth it \ud83d\udc40\nLumary Smart Ceiling Fans with Lights and Remote - $98.59 on Amazon (price as of Nov 27, 7:23 AM ET, list $169.99, 42% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.",
+      "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_4.mp4",
+      "link": "https://momfounditcheaper.com/#d-59e9a64f05",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "deal_5",
+      "type": "reel",
+      "title": "#ad Gadget find under $300 that's actually worth it \ud83d\udc40",
+      "caption": "#ad Gadget find under $300 that's actually worth it \ud83d\udc40\nPhilips 55-Inch Class 7985 Series 4K UHD QLED Ambilight Smart Roku TV HDR - $299.99 on Amazon (price as of Nov 27, 7:21 AM ET, list $349.99, 14% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.",
+      "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_5.mp4",
+      "link": "https://momfounditcheaper.com/#d-ebc8ab9989",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "deal_6",
+      "type": "reel",
+      "title": "#ad Toy find under $10 that's actually worth it \ud83d\udc40",
+      "caption": "#ad Toy find under $10 that's actually worth it \ud83d\udc40\nPotato Head Toy Story 5 Buzz Spudyear Set with 1 Potato Body and 11 Accessories - $8.39 on Amazon (price as of Nov 27, 7:19 AM ET, list $9.97, 16% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.",
+      "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_6.mp4",
+      "link": "https://momfounditcheaper.com/#d-8b5abb0740",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "deal_7",
+      "type": "reel",
+      "title": "#ad Kitchen find under $10 that's actually worth it \ud83d\udc40",
+      "caption": "#ad Kitchen find under $10 that's actually worth it \ud83d\udc40\nSealegend Dryer Vent Cleaner Kit for Dyson Dryer Lint Vacuum Attachment - $7.64 on Amazon (price as of Nov 27, 7:16 AM ET, list $8.99, 15% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.",
+      "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_7.mp4",
+      "link": "https://momfounditcheaper.com/#d-60426d1d23",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "deal_8",
+      "type": "reel",
+      "title": "#ad Gadget find under $100 that's actually worth it \ud83d\udc40",
+      "caption": "#ad Gadget find under $100 that's actually worth it \ud83d\udc40\nWiiM Mini Wi-Fi Music Streamer - $84.15 on Amazon (price as of Nov 27, 7:16 AM ET, list $99.00, 15% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.",
+      "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_8.mp4",
+      "link": "https://momfounditcheaper.com/#d-422f4e12ca",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "deal_9",
+      "type": "reel",
+      "title": "#ad Toy find under $20 that's actually worth it \ud83d\udc40",
+      "caption": "#ad Toy find under $20 that's actually worth it \ud83d\udc40\nFunko POP! Jumbo: Astro Bot - $19.99 on Amazon (price as of Nov 27, 7:15 AM ET, list $39.99, 50% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.",
+      "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_9.mp4",
+      "link": "https://momfounditcheaper.com/#d-26e89c0fea",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "deal_10",
+      "type": "reel",
+      "title": "#ad Gadget find under $15 that's actually worth it \ud83d\udc40",
+      "caption": "#ad Gadget find under $15 that's actually worth it \ud83d\udc40\nBelkin Qi2 15W Magnetic Wireless Charging Pad - $14.99 on Amazon (price as of Nov 27, 7:14 AM ET, list $29.99, 50% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.",
+      "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_10.mp4",
+      "link": "https://momfounditcheaper.com/#d-0bb7bfcb0c",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "deal_11",
+      "type": "reel",
+      "title": "#ad Gadget find under $500 that's actually worth it \ud83d\udc40",
+      "caption": "#ad Gadget find under $500 that's actually worth it \ud83d\udc40\nApple AirPods Max 2 Wireless Over-Ear Headphones \u2013 Midnight - $419.00 on Amazon (price as of Nov 27, 7:09 AM ET, list $549.00, 24% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.",
+      "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_11.mp4",
+      "link": "https://momfounditcheaper.com/#d-2297282522",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "deal_12",
+      "type": "reel",
+      "title": "#ad Closet find under $300 that's actually worth it \ud83d\udc40",
+      "caption": "#ad Closet find under $300 that's actually worth it \ud83d\udc40\nAway The Carry-On Luggage - $206.00 on Amazon (price as of Nov 27, 7:09 AM ET, list $275.00, 25% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.",
+      "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_12.mp4",
+      "link": "https://momfounditcheaper.com/#d-f9cb8f9e44",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "deal_13",
+      "type": "reel",
+      "title": "#ad Amazon find under $30 that's actually worth it \ud83d\udc40",
+      "caption": "#ad Amazon find under $30 that's actually worth it \ud83d\udc40\nMelissa & Doug Top & Bake Wooden Pizza Counter Pretend Play Set - $25.10 on Amazon (price as of Nov 27, 7:05 AM ET, list $70.99, 65% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.",
+      "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_13.mp4",
+      "link": "https://momfounditcheaper.com/#d-9ae9db3762",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "deal_14",
+      "type": "reel",
+      "title": "#ad Toy find under $25 that's actually worth it \ud83d\udc40",
+      "caption": "#ad Toy find under $25 that's actually worth it \ud83d\udc40\nLEGO Classic Medium Creative Brick Box 10696 - $21.42 on Amazon (price as of Nov 27, 7:05 AM ET, list $34.99, 39% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.",
+      "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_14.mp4",
+      "link": "https://momfounditcheaper.com/#d-0d5ed7f27f",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "deal_15",
+      "type": "reel",
+      "title": "#ad Gadget find under $300 that's actually worth it \ud83d\udc40",
+      "caption": "#ad Gadget find under $300 that's actually worth it \ud83d\udc40\nLG S6FTR 5.1 ch. Home Theater Soundbar with Rear Surround Speakers - $249.99 on Amazon (price as of Nov 27, 6:53 AM ET, list $399.99, 38% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.",
+      "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_15.mp4",
+      "link": "https://momfounditcheaper.com/#d-252698cf07",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    },
+    {
+      "id": "deal_16",
+      "type": "reel",
+      "title": "#ad Amazon find under $25 that's actually worth it \ud83d\udc40",
+      "caption": "#ad Amazon find under $25 that's actually worth it \ud83d\udc40\nRazer Orochi V2 Wireless Gaming Mouse - $24.99 on Amazon (price as of Nov 27, 6:48 AM ET, list $29.99, 17% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.",
+      "video_url": "https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_16.mp4",
+      "link": "https://momfounditcheaper.com/#d-48eef42640",
+      "qa": {
+        "status": "pending",
+        "models": []
+      },
+      "status": "pending"
+    }
+  ]
+}

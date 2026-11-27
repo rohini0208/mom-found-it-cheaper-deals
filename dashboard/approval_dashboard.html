@@ -1,0 +1,318 @@
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Content Control Center</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: sticky bar with workflow switcher; Overview grid of channel health cards -> drill into one channel's approval queue of true-to-life previews. */
+:root{
+  --bg:#f6f3ec; --panel:#fffdf8; --ink:#241f18; --muted:#6c6457; --line:#e4ddcf;
+  --gold:#c8862a; --good:#2f8f54; --warn:#c8871b; --bad:#c0392b;
+  --good-bg:#e7f3ec; --warn-bg:#faf0dc; --bad-bg:#f8e6e3; --idle-bg:#ede7da;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#17140f; --panel:#201c15; --ink:#f0ebe0; --muted:#a79d8b; --line:#342e24;
+  --gold:#e0a84e; --good:#58c483; --warn:#e0a84e; --bad:#e2675a;
+  --good-bg:#15271d; --warn-bg:#2a2112; --bad-bg:#2c1714; --idle-bg:#262016; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#17140f; --panel:#201c15; --ink:#f0ebe0; --muted:#a79d8b; --line:#342e24;
+  --gold:#e0a84e; --good:#58c483; --warn:#e0a84e; --bad:#e2675a;
+  --good-bg:#15271d; --warn-bg:#2a2112; --bad-bg:#2c1714; --idle-bg:#262016; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;margin:0;line-height:1.45}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:"Space Grotesk",system-ui,sans-serif;margin:0}
+a{color:var(--gold)}
+button{font-family:inherit}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--panel);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--panel)}
+.barin{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding-block:13px}
+.barin h1{font-size:1.12rem;letter-spacing:.2px}
+.barin h1 small{display:block;font-family:Inter;font-weight:400;font-size:.72rem;color:var(--muted);letter-spacing:0}
+.switch{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+.swbtn{font-family:"Space Grotesk";font-size:.84rem;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.swbtn[aria-current="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.crumb{display:flex;align-items:center;gap:8px;padding-block:14px;font-size:.9rem;color:var(--muted)}
+.crumb button{background:none;border:none;color:var(--gold);cursor:pointer;font-size:.9rem;padding:0}
+/* overview */
+.ov{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;padding-bottom:40px}
+.wf{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0;cursor:pointer}
+.wf:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wf.off{opacity:.68;cursor:default}
+.wf h3{font-size:1.02rem}
+.wf .chan{font-size:.74rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
+.pills{display:flex;flex-wrap:wrap;gap:6px}
+.pill{font-size:.75rem;padding:3px 9px;border-radius:999px;border:1px solid var(--line);font-variant-numeric:tabular-nums}
+.pill.good{background:var(--good-bg);color:var(--good);border-color:transparent}
+.pill.warn{background:var(--warn-bg);color:var(--warn);border-color:transparent}
+.pill.bad{background:var(--bad-bg);color:var(--bad);border-color:transparent}
+.pill.idle{background:var(--idle-bg);color:var(--muted);border-color:transparent}
+.wf .run{font-size:.78rem;color:var(--muted)}
+.wf .open{align-self:flex-start;font-family:"Space Grotesk";font-weight:600;font-size:.82rem;padding:7px 13px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+/* detail */
+.tally{display:flex;gap:8px;flex-wrap:wrap;padding-block:4px 10px}
+.chip{font-size:.78rem;padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:var(--panel);font-variant-numeric:tabular-nums}
+.chip.attn{color:var(--bad);border-color:var(--bad)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;padding-block:6px}
+.tab{font-family:"Space Grotesk";font-size:.9rem;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.note{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 14px;margin-block:10px;font-size:.84rem;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;padding-bottom:40px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.card.approved{border-color:var(--good)}
+.card.rejected{opacity:.55}
+.media{background:#000;display:flex;align-items:center;justify-content:center;max-height:420px;overflow:hidden}
+.media img,.media video{width:100%;height:auto;display:block;max-height:420px;object-fit:contain}
+.cbody{padding:12px 14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.ttl{font-family:"Space Grotesk";font-weight:700;font-size:.98rem;text-wrap:balance}
+.kind{font-size:.68rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+.fb{border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--bg);font-size:.85rem;white-space:pre-wrap;word-break:break-word;min-width:0}
+.fb .cmt{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);color:var(--muted);font-size:.8rem}
+.lnk{font-size:.8rem;word-break:break-all}
+.qa{display:flex;flex-direction:column;gap:6px}
+.qa .row{display:flex;gap:8px;align-items:flex-start;font-size:.8rem}
+.dot{flex:none;margin-top:3px;width:9px;height:9px;border-radius:50%}
+.dot.good{background:var(--good)}.dot.warn{background:var(--warn)}.dot.bad{background:var(--bad)}.dot.pending{background:var(--muted)}
+.verdict{display:inline-flex;align-items:center;gap:7px;font-size:.78rem;font-weight:600;padding:4px 10px;border-radius:999px;align-self:flex-start}
+.verdict.good{background:var(--good-bg);color:var(--good)}
+.verdict.warn{background:var(--warn-bg);color:var(--warn)}
+.verdict.bad{background:var(--bad-bg);color:var(--bad)}
+.verdict.pending{background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.status{font-size:.76rem;font-weight:600;padding:3px 9px;border-radius:999px;align-self:flex-start}
+.status.published{background:var(--good-bg);color:var(--good)}
+.status.error{background:var(--bad-bg);color:var(--bad)}
+.acts{display:flex;gap:8px;margin-top:2px}
+.btn{flex:1;font-family:"Space Grotesk";font-weight:600;font-size:.85rem;padding:9px;border-radius:10px;border:1px solid var(--line);cursor:pointer;background:var(--bg);color:var(--ink)}
+.btn.ok[aria-pressed="true"]{background:var(--good);border-color:var(--good);color:#fff}
+.btn.no[aria-pressed="true"]{background:var(--bad);border-color:var(--bad);color:#fff}
+.btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.foot{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding-block:16px;border-top:1px solid var(--line);margin-top:8px;font-size:.82rem;color:var(--muted)}
+.foot button{font-family:"Space Grotesk";font-weight:600;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+</style>
+
+<div class="bar"><div class="wrap barin">
+  <h1>Content Control Center<small id="sub">All channels · approvals · health</small></h1>
+  <div class="switch" id="switch"></div>
+</div></div>
+
+<div class="wrap" id="app"></div>
+
+<script>
+/* One central index lists every workflow; each points to its own queue + status JSON on the site.
+   Add a channel by adding an entry — no code change. Mom Found It Cheaper ships with real data today;
+   the others are placeholders you wire as you build each workflow. */
+const SITE = "https://momfounditcheaper.com";
+const INDEX_URL = SITE + "/control/index.json";   // live central index (optional; embedded copy below is the fallback)
+const WORKER_URL = "";                             // Cloudflare Worker for approvals -> n8n (set once deployed)
+
+const MFIC_QUEUE = {"date":"2026-11-27","generated":"2026-11-27T11:33:46-05:00","counts":{"pins":12,"posts":8,"reels":16},"pins":[{"id":"pin_01","type":"pin","title":"Under $10 mom finds \u2014 verified on Amazon Nov 27","caption":"#ad Under $10 finds for moms, every price read on Amazon Nov 27, 7:19 AM ET. Toys, kitchen, beauty, baby and more; prices change, tap for today's. As an Amazon Associate I earn from qualifying purchases.","image_url":"https://momfounditcheaper.com/pins/2026-11-27/pin_under-10.png","link":"https://momfounditcheaper.com/#under-10","board":"Mom-Approved Finds","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"pin_02","type":"pin","title":"Sealegend Dryer Vent Cleaner Kit for Dyson Dryer Lint Vacuum Attachment \u2014 Under $10","caption":"#ad Sealegend Dryer Vent Cleaner Kit for Dyson Dryer Lint Vacuum Attachment. $7.64 on Amazon as of Nov 27, 7:16 AM ET (list price $8.99). Prices change; tap for today's. As an Amazon Associate I earn from qualifying purchases.","image_url":"https://momfounditcheaper.com/pins/2026-11-27/pin_under-10_1.png","link":"https://momfounditcheaper.com/#under-10","board":"Mom-Approved Finds","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"pin_03","type":"pin","title":"Potato Head Toy Story 5 Buzz Spudyear Set with 1 Potato Body and 11 Accessories \u2014 Under $10","caption":"#ad Potato Head Toy Story 5 Buzz Spudyear Set with 1 Potato Body and 11 Accessories. $8.39 on Amazon as of Nov 27, 7:19 AM ET (list price $9.97). Prices change; tap for today's. As an Amazon Associate I earn from qualifying purchases.","image_url":"https://momfounditcheaper.com/pins/2026-11-27/pin_under-10_2.png","link":"https://momfounditcheaper.com/#under-10","board":"Mom-Approved Finds","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"pin_04","type":"pin","title":"Under $20 mom finds \u2014 verified on Amazon Nov 27","caption":"#ad Under $20 finds for moms, every price read on Amazon Nov 27, 7:19 AM ET. Toys, kitchen, beauty, baby and more; prices change, tap for today's. As an Amazon Associate I earn from qualifying purchases.","image_url":"https://momfounditcheaper.com/pins/2026-11-27/pin_under-20.png","link":"https://momfounditcheaper.com/#under-20","board":"Mom-Approved Finds","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"pin_05","type":"pin","title":"Funko POP! Jumbo: Astro Bot \u2014 Under $20","caption":"#ad Funko POP! Jumbo: Astro Bot. $19.99 on Amazon as of Nov 27, 7:15 AM ET (list price $39.99). Prices change; tap for today's. As an Amazon Associate I earn from qualifying purchases.","image_url":"https://momfounditcheaper.com/pins/2026-11-27/pin_under-20_1.png","link":"https://momfounditcheaper.com/#under-20","board":"Mom-Approved Finds","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"pin_06","type":"pin","title":"Hot Wheels City Dragon Launch Transporter & 1:64 Scale Car \u2014 Under $20","caption":"#ad Hot Wheels City Dragon Launch Transporter & 1:64 Scale Car. $10.49 on Amazon as of Nov 27, 7:19 AM ET (list price $15.37). Prices change; tap for today's. As an Amazon Associate I earn from qualifying purchases.","image_url":"https://momfounditcheaper.com/pins/2026-11-27/pin_under-20_2.png","link":"https://momfounditcheaper.com/#under-20","board":"Mom-Approved Finds","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"pin_07","type":"pin","title":"Under $25 mom finds \u2014 verified on Amazon Nov 27","caption":"#ad Under $25 finds for moms, every price read on Amazon Nov 27, 7:20 AM ET. Toys, kitchen, beauty, baby and more; prices change, tap for today's. As an Amazon Associate I earn from qualifying purchases.","image_url":"https://momfounditcheaper.com/pins/2026-11-27/pin_under-25.png","link":"https://momfounditcheaper.com/#under-25","board":"Mom-Approved Finds","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"pin_08","type":"pin","title":"100% Cotton Bed Pillows \u2014 Under $25","caption":"#ad 100% Cotton Bed Pillows. $20.00 on Amazon as of Nov 27, 6:48 AM ET. Prices change; tap for today's. As an Amazon Associate I earn from qualifying purchases.","image_url":"https://momfounditcheaper.com/pins/2026-11-27/pin_under-25_1.png","link":"https://momfounditcheaper.com/#under-25","board":"Mom-Approved Finds","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"pin_09","type":"pin","title":"Jack Link's Original Zero Sugar Beef Sticks \u2014 Under $25","caption":"#ad Jack Link's Original Zero Sugar Beef Sticks. $21.14 on Amazon as of Nov 27, 7:20 AM ET. Prices change; tap for today's. As an Amazon Associate I earn from qualifying purchases.","image_url":"https://momfounditcheaper.com/pins/2026-11-27/pin_under-25_2.png","link":"https://momfounditcheaper.com/#under-25","board":"Mom-Approved Finds","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"pin_10","type":"pin","title":"Under $50 mom finds \u2014 verified on Amazon Nov 27","caption":"#ad Under $50 finds for moms, every price read on Amazon Nov 27, 7:13 AM ET. Toys, kitchen, beauty, baby and more; prices change, tap for today's. As an Amazon Associate I earn from qualifying purchases.","image_url":"https://momfounditcheaper.com/pins/2026-11-27/pin_under-50.png","link":"https://momfounditcheaper.com/#under-50","board":"Mom-Approved Finds","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"pin_11","type":"pin","title":"LEGO Creator 3 in 1 Forest Animals: Red Fox \u2014 Under $50","caption":"#ad LEGO Creator 3 in 1 Forest Animals: Red Fox. $34.99 on Amazon as of Nov 27, 7:05 AM ET (list price $49.99). Prices change; tap for today's. As an Amazon Associate I earn from qualifying purchases.","image_url":"https://momfounditcheaper.com/pins/2026-11-27/pin_under-50_1.png","link":"https://momfounditcheaper.com/#under-50","board":"Mom-Approved Finds","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"pin_12","type":"pin","title":"Fresh Roasted Coffee \u2014 Under $50","caption":"#ad Fresh Roasted Coffee. $27.48 on Amazon as of Nov 27, 6:49 AM ET. Prices change; tap for today's. As an Amazon Associate I earn from qualifying purchases.","image_url":"https://momfounditcheaper.com/pins/2026-11-27/pin_under-50_2.png","link":"https://momfounditcheaper.com/#under-50","board":"Mom-Approved Finds","qa":{"status":"pending","models":[]},"status":"pending"}],"posts":[{"id":"post_1","type":"post","title":"CAPTION:","caption":"CAPTION:\n#ad \ud83d\udd25 72% OFF: Franklin Sports Field Master Baseball Glove is $8.39 right now.\n\u2728 Under $10 finds: WORKPRO 4\" Stubby Wide Opening Adjustable Wrench, Franklin Sports Field Master Baseball Glove and Fisher-Price Wood Pretend Play Toy Fruit Pie\n72% off Amazon's list price and 4.4 stars from 1,482 shoppers.\nWhich would you grab first?\nAs an Amazon Associate I earn from qualifying purchases.\n#dealsforyou #momlife #budgetfinds\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nWORKPRO 4\" Stubby Wide Opening Adjustable Wrench \u2014 $8.11 (list $13.99, 42% off)\nFranklin Sports Field Master Baseball Glove \u2014 $8.39 (list $29.99, 72% off)\nFisher-Price Wood Pretend Play Toy Fruit Pie \u2014 $9.49 (list $14.73, 36% off)\nAs an Amazon Associate I earn from qualifying purchases.","comment":"All three, checked against Amazon this morning: https://momfounditcheaper.com/","image_url":"https://momfounditcheaper.com/posts/post_1.png","link":"https://momfounditcheaper.com/","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"post_2","type":"post","title":"CAPTION:","caption":"CAPTION:\n#ad \ud83d\udd25 50% OFF: Monopoly Board Game is $10.00 right now.\n\u2728 Under $15 finds: Monopoly Board Game, Blue Beetle and Wiha 79243 Slotted Phillips and Torx Bit Selector\n50% off Amazon's list price and 4.7 stars from 1,978 shoppers.\nAny of these already on your list?\nAs an Amazon Associate I earn from qualifying purchases.\n#amazondeals #giftideas #founditcheaper\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nMonopoly Board Game \u2014 $10.00 (list $19.99, 50% off)\nBlue Beetle \u2014 $14.99 (list $33.99, 56% off)\nWiha 79243 Slotted Phillips and Torx Bit Selector \u2014 $14.59 (list $18.24, 20% off)\nAs an Amazon Associate I earn from qualifying purchases.","comment":"All three, checked against Amazon this morning: https://momfounditcheaper.com/","image_url":"https://momfounditcheaper.com/posts/post_2.png","link":"https://momfounditcheaper.com/","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"post_q1","type":"post","title":"CAPTION:","caption":"CAPTION:\n#ad \u2728 Found this for you. SwissGear 2762 ScanSmart Laptop Backpack is $39.00 on Amazon right now (list $96.85, 60% off).\n60% below Amazon's list price.\nAs an Amazon Associate I earn from qualifying purchases.\n#savemoney #momhacks #amazonfinds\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nAs an Amazon Associate I earn from qualifying purchases.","comment":"See it here: https://momfounditcheaper.com/#d-1cd229e753","image_url":"https://momfounditcheaper.com/posts/post_q1.png","link":"https://momfounditcheaper.com/#d-1cd229e753","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"post_q2","type":"post","title":"CAPTION:","caption":"CAPTION:\n#ad \ud83d\ude0d Isn't this a good one? monTEK Heavy Duty Full Motion TV Wall Mount for 37-90 Inch is $56.98 on Amazon right now (list $89.99, 37% off).\n4.3 stars, 1.4K reviews on Amazon.\nAs an Amazon Associate I earn from qualifying purchases.\n#momdeals #momfinds #dealoftheday\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nAs an Amazon Associate I earn from qualifying purchases.","comment":"See it here: https://momfounditcheaper.com/#d-3f7d575335","image_url":"https://momfounditcheaper.com/posts/post_q2.png","link":"https://momfounditcheaper.com/#d-3f7d575335","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"post_q3","type":"post","title":"CAPTION:","caption":"CAPTION:\n#ad \ud83d\udd25 Price drop worth a look. Vaydeer Phone Lock Box is $9.40 on Amazon right now (list $19.99, 53% off).\n53% below Amazon's list price.\nAs an Amazon Associate I earn from qualifying purchases.\n#amazonfinds #momfinds #founditcheaper\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nAs an Amazon Associate I earn from qualifying purchases.","comment":"See it here: https://momfounditcheaper.com/#d-92ff278e51","image_url":"https://momfounditcheaper.com/posts/post_q3.png","link":"https://momfounditcheaper.com/#d-92ff278e51","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"post_q4","type":"post","title":"CAPTION:","caption":"CAPTION:\n#ad \u2728 Found this for you. TI-84 Evo Graphing Calculator Texas Instruments is $73.22 on Amazon right now (list $160.00, 54% off).\n4.4 stars, 1.3K reviews on Amazon.\nAs an Amazon Associate I earn from qualifying purchases.\n#dealsforyou #momlife #budgetfinds\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nAs an Amazon Associate I earn from qualifying purchases.","comment":"See it here: https://momfounditcheaper.com/#d-4f53c9c988","image_url":"https://momfounditcheaper.com/posts/post_q4.png","link":"https://momfounditcheaper.com/#d-4f53c9c988","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"post_q5","type":"post","title":"CAPTION:","caption":"CAPTION:\n#ad \ud83d\udd25 Price drop worth a look. DUMOS 31.5 Inch Small Computer Desk is $19.99 on Amazon right now (list $29.99, 33% off).\n4.6 stars, 2.7K reviews on Amazon.\nAs an Amazon Associate I earn from qualifying purchases.\n#amazondeals #giftideas #founditcheaper\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nAs an Amazon Associate I earn from qualifying purchases.","comment":"See it here: https://momfounditcheaper.com/#d-284f79ba3c","image_url":"https://momfounditcheaper.com/posts/post_q5.png","link":"https://momfounditcheaper.com/#d-284f79ba3c","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"post_single","type":"post","title":"CAPTION:","caption":"CAPTION:\n#ad Today's pick: SwitchBot CO2 Detector.\n4.3 stars, 1.6K reviews on Amazon.\nAs an Amazon Associate I earn from qualifying purchases.\n#dealsforyou #momlife #budgetfinds\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nAs an Amazon Associate I earn from qualifying purchases.","comment":"See it here: https://momfounditcheaper.com/#d-bfc8abdf2d","image_url":"https://momfounditcheaper.com/posts/post_single.png","link":"https://momfounditcheaper.com/#d-bfc8abdf2d","qa":{"status":"pending","models":[]},"status":"pending"}],"reels":[{"id":"deal_1","type":"reel","title":"#ad Actually worth it \ud83d\udc40","caption":"#ad Actually worth it \ud83d\udc40\nSamsung 48-Inch Class S90H Series - $997.99 on Amazon (price as of Nov 27, 7:21 AM ET, list $1,297.99, 23% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.","video_url":"https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_1.mp4","link":"https://momfounditcheaper.com/#d-fdffa6ceb5","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"deal_2","type":"reel","title":"#ad Actually worth it \ud83d\udc40","caption":"#ad Actually worth it \ud83d\udc40\nroborock 2026 New Qrevo Edge 3 Pro Robot Vacuum and Mop - $849.99 on Amazon (price as of Nov 27, 7:11 AM ET, list $1,499.99, 43% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.","video_url":"https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_2.mp4","link":"https://momfounditcheaper.com/#d-3e6f706a5a","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"deal_3","type":"reel","title":"#ad Gadget find under $150 that's actually worth it \ud83d\udc40","caption":"#ad Gadget find under $150 that's actually worth it \ud83d\udc40\nAmazfit Active Max Smart Watch - $118.99 on Amazon (price as of Nov 27, 6:23 AM ET, list $169.99, 30% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.","video_url":"https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_3.mp4","link":"https://momfounditcheaper.com/#d-9145b18208","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"deal_4","type":"reel","title":"#ad Gadget find under $100 that's actually worth it \ud83d\udc40","caption":"#ad Gadget find under $100 that's actually worth it \ud83d\udc40\nLumary Smart Ceiling Fans with Lights and Remote - $98.59 on Amazon (price as of Nov 27, 7:23 AM ET, list $169.99, 42% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.","video_url":"https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_4.mp4","link":"https://momfounditcheaper.com/#d-59e9a64f05","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"deal_5","type":"reel","title":"#ad Gadget find under $300 that's actually worth it \ud83d\udc40","caption":"#ad Gadget find under $300 that's actually worth it \ud83d\udc40\nPhilips 55-Inch Class 7985 Series 4K UHD QLED Ambilight Smart Roku TV HDR - $299.99 on Amazon (price as of Nov 27, 7:21 AM ET, list $349.99, 14% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.","video_url":"https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_5.mp4","link":"https://momfounditcheaper.com/#d-ebc8ab9989","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"deal_6","type":"reel","title":"#ad Toy find under $10 that's actually worth it \ud83d\udc40","caption":"#ad Toy find under $10 that's actually worth it \ud83d\udc40\nPotato Head Toy Story 5 Buzz Spudyear Set with 1 Potato Body and 11 Accessories - $8.39 on Amazon (price as of Nov 27, 7:19 AM ET, list $9.97, 16% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.","video_url":"https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_6.mp4","link":"https://momfounditcheaper.com/#d-8b5abb0740","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"deal_7","type":"reel","title":"#ad Kitchen find under $10 that's actually worth it \ud83d\udc40","caption":"#ad Kitchen find under $10 that's actually worth it \ud83d\udc40\nSealegend Dryer Vent Cleaner Kit for Dyson Dryer Lint Vacuum Attachment - $7.64 on Amazon (price as of Nov 27, 7:16 AM ET, list $8.99, 15% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.","video_url":"https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_7.mp4","link":"https://momfounditcheaper.com/#d-60426d1d23","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"deal_8","type":"reel","title":"#ad Gadget find under $100 that's actually worth it \ud83d\udc40","caption":"#ad Gadget find under $100 that's actually worth it \ud83d\udc40\nWiiM Mini Wi-Fi Music Streamer - $84.15 on Amazon (price as of Nov 27, 7:16 AM ET, list $99.00, 15% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.","video_url":"https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_8.mp4","link":"https://momfounditcheaper.com/#d-422f4e12ca","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"deal_9","type":"reel","title":"#ad Toy find under $20 that's actually worth it \ud83d\udc40","caption":"#ad Toy find under $20 that's actually worth it \ud83d\udc40\nFunko POP! Jumbo: Astro Bot - $19.99 on Amazon (price as of Nov 27, 7:15 AM ET, list $39.99, 50% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.","video_url":"https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_9.mp4","link":"https://momfounditcheaper.com/#d-26e89c0fea","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"deal_10","type":"reel","title":"#ad Gadget find under $15 that's actually worth it \ud83d\udc40","caption":"#ad Gadget find under $15 that's actually worth it \ud83d\udc40\nBelkin Qi2 15W Magnetic Wireless Charging Pad - $14.99 on Amazon (price as of Nov 27, 7:14 AM ET, list $29.99, 50% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.","video_url":"https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_10.mp4","link":"https://momfounditcheaper.com/#d-0bb7bfcb0c","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"deal_11","type":"reel","title":"#ad Gadget find under $500 that's actually worth it \ud83d\udc40","caption":"#ad Gadget find under $500 that's actually worth it \ud83d\udc40\nApple AirPods Max 2 Wireless Over-Ear Headphones \u2013 Midnight - $419.00 on Amazon (price as of Nov 27, 7:09 AM ET, list $549.00, 24% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.","video_url":"https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_11.mp4","link":"https://momfounditcheaper.com/#d-2297282522","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"deal_12","type":"reel","title":"#ad Closet find under $300 that's actually worth it \ud83d\udc40","caption":"#ad Closet find under $300 that's actually worth it \ud83d\udc40\nAway The Carry-On Luggage - $206.00 on Amazon (price as of Nov 27, 7:09 AM ET, list $275.00, 25% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.","video_url":"https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_12.mp4","link":"https://momfounditcheaper.com/#d-f9cb8f9e44","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"deal_13","type":"reel","title":"#ad Amazon find under $30 that's actually worth it \ud83d\udc40","caption":"#ad Amazon find under $30 that's actually worth it \ud83d\udc40\nMelissa & Doug Top & Bake Wooden Pizza Counter Pretend Play Set - $25.10 on Amazon (price as of Nov 27, 7:05 AM ET, list $70.99, 65% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.","video_url":"https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_13.mp4","link":"https://momfounditcheaper.com/#d-9ae9db3762","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"deal_14","type":"reel","title":"#ad Toy find under $25 that's actually worth it \ud83d\udc40","caption":"#ad Toy find under $25 that's actually worth it \ud83d\udc40\nLEGO Classic Medium Creative Brick Box 10696 - $21.42 on Amazon (price as of Nov 27, 7:05 AM ET, list $34.99, 39% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.","video_url":"https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_14.mp4","link":"https://momfounditcheaper.com/#d-0d5ed7f27f","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"deal_15","type":"reel","title":"#ad Gadget find under $300 that's actually worth it \ud83d\udc40","caption":"#ad Gadget find under $300 that's actually worth it \ud83d\udc40\nLG S6FTR 5.1 ch. Home Theater Soundbar with Rear Surround Speakers - $249.99 on Amazon (price as of Nov 27, 6:53 AM ET, list $399.99, 38% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.","video_url":"https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_15.mp4","link":"https://momfounditcheaper.com/#d-252698cf07","qa":{"status":"pending","models":[]},"status":"pending"},{"id":"deal_16","type":"reel","title":"#ad Amazon find under $25 that's actually worth it \ud83d\udc40","caption":"#ad Amazon find under $25 that's actually worth it \ud83d\udc40\nRazer Orochi V2 Wireless Gaming Mouse - $24.99 on Amazon (price as of Nov 27, 6:48 AM ET, list $29.99, 17% off; prices change).\nMore deals daily in our free Facebook group: Mom Found It Cheaper\n#amazonfinds #momfinds #dealsforyou #founditcheaper #savemoney\nAs an Amazon Associate I earn from qualifying purchases. Prices and codes can change.","video_url":"https://github.com/rohini0208/mom-found-it-cheaper-deals/releases/download/todays-videos/deal_16.mp4","link":"https://momfounditcheaper.com/#d-48eef42640","qa":{"status":"pending","models":[]},"status":"pending"}]};
+
+// Embedded fallback index. `queue` inline (MFIC) or `queue_url` (others, when built).
+let INDEX = {
+  workflows: [
+    { id:"mfic", name:"Mom Found It Cheaper", channel:"Facebook · Pinterest · Site", state:"live",
+      last_run:{status:"ok", at:"2026-11-27 07:41 ET"}, queue: MFIC_QUEUE },
+    { id:"hazel-toast", name:"Hazel & Toast", channel:"YouTube Shorts", state:"planned", queue_url:null },
+    { id:"gotcharoo", name:"Gotcharoo", channel:"YouTube · Instagram", state:"planned", queue_url:null },
+    { id:"stickaroo", name:"Stickaroo", channel:"YouTube Shorts", state:"planned", queue_url:null },
+    { id:"barty-crumb", name:"Barty & Crumb", channel:"YouTube", state:"planned", queue_url:null },
+    { id:"kai-mira", name:"Kai & Mira", channel:"YouTube", state:"planned", queue_url:null }
+  ]
+};
+
+// Growth tracker: metrics + the day's rule-safe plays + a running log. Produced by growth_tracker.py
+// (OmniRoute free models propose plays; a compliance guard filters them). Embedded starter below.
+INDEX.growth = {
+  updated: "2026-11-27",
+  metrics: [
+    { k:"FB group members", v:"—", note:"confirm group restored, then track daily" },
+    { k:"Post reach (7d avg)", v:"—", note:"from Page/Group insights" },
+    { k:"Link clicks (7d)", v:"—", note:"first-comment link clicks" },
+    { k:"Pinterest outbound clicks", v:"—", note:"from Pinterest analytics once pins are live" },
+    { k:"Associate orders (today)", v:"—", note:"from Amazon Associates; goal: first 3 → 10" },
+    { k:"Associate earnings (MTD)", v:"—", note:"from Amazon Associates" }
+  ],
+  plays: [
+    { do:"Put the Amazon link in the FIRST COMMENT, not the post body", why:"Facebook throttles posts with outbound links; comment links keep reach", rule:"ok" },
+    { do:"Open every post with #ad and keep ‘As an Amazon Associate I earn…’", why:"FTC + Amazon Associates disclosure", rule:"required" },
+    { do:"Short, specific caption: emoji + the exact price + ‘link in comments 👇’", why:"matches what high-reach deal groups do", rule:"ok" },
+    { do:"Ask one genuine question (‘which color would you pick?’)", why:"real engagement lifts reach", rule:"ok — not engagement-bait" },
+    { do:"Pinterest: fresh pin daily, keyword-rich title, paced (3–5/day on a new account)", why:"Pinterest rewards fresh pins; bursts look like spam", rule:"ok" },
+    { do:"Cross-post the Reel to FB + a Pinterest Idea pin", why:"same asset, three surfaces", rule:"ok" },
+    { do:"Invite friends + pin a friendly ‘start here’ post", why:"seeds a new group organically", rule:"ok" }
+  ],
+  avoid: [
+    "Fake scarcity / countdowns that aren’t real",
+    "Fake or incentivised reviews, bought followers/likes",
+    "Engagement-bait (‘tag 10 friends’, ‘comment YES’)",
+    "Undisclosed affiliate links",
+    "Copying other groups’ posts or images, or using their name",
+    "Saying a price without the Amazon read-time; prices change"
+  ]
+};
+
+let DECISIONS = {}; try{ DECISIONS = JSON.parse(localStorage.getItem("ccc_decisions")||"{}"); }catch(e){}
+const esc = s => (s==null?"":String(s)).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const vRank = v => ["pass","warn","fail"].indexOf(v);
+const vClass = v => ({pass:"good",warn:"warn",fail:"bad"}[v]||"pending");
+const items = q => q ? [...(q.pins||[]),...(q.posts||[]),...(q.reels||[])] : [];
+
+function qaVerdict(it){
+  const m=(it.qa&&it.qa.models)||[]; if(!m.length) return {cls:"pending",label:"QA pending"};
+  const worst=m.reduce((a,x)=> vRank(x.verdict)>vRank(a)?x.verdict:a,"pass");
+  return {cls:vClass(worst),label:worst==="pass"?"QA passed":worst==="warn"?"QA: check":"QA: fix"};
+}
+function judgePill(it){
+  const jd=it.judge; if(!jd||jd.score==null) return `<span class="verdict pending">Judge: scoring…</span>`;
+  const cls=jd.pass?"good":(jd.score>=jd.bar-2?"warn":"bad");
+  return `<span class="verdict ${cls}">Judge ${jd.score}/10 · bar ${jd.bar}</span>`;
+}
+function needsAttention(it){ return qaVerdict(it).cls==="bad" || it.status==="error" || (it.judge&&it.judge.pass===false); }
+function wfHealth(w){
+  const its=items(w.queue);
+  const pending=its.filter(it=>DECISIONS[dk(w.id,it.id)]!=="approve"&&DECISIONS[dk(w.id,it.id)]!=="reject").length;
+  const attn=its.filter(needsAttention).length;
+  const appr=its.filter(it=>DECISIONS[dk(w.id,it.id)]==="approve").length;
+  return {total:its.length,pending,attn,appr};
+}
+const dk=(wf,id)=>wf+"::"+id;
+
+function overview(){
+  const cards = INDEX.workflows.map(w=>{
+    if(w.state!=="live" || !w.queue){
+      return `<div class="wf off" tabindex="-1"><div><div class="chan">${esc(w.channel||"")}</div><h3>${esc(w.name)}</h3></div>
+        <div class="pills"><span class="pill idle">Not wired yet</span></div>
+        <div class="run">Add its queue file to bring it online here.</div></div>`;
+    }
+    const h=wfHealth(w);
+    const rs=(w.last_run&&w.last_run.status)||"";
+    const runPill = rs==="ok"?`<span class="pill good">Last run ok</span>`:rs==="error"?`<span class="pill bad">Last run failed</span>`:`<span class="pill idle">No run yet</span>`;
+    return `<div class="wf" role="button" tabindex="0" data-open="${esc(w.id)}">
+      <div><div class="chan">${esc(w.channel||"")}</div><h3>${esc(w.name)}</h3></div>
+      <div class="pills">
+        ${runPill}
+        <span class="pill ${h.pending?"warn":"good"}">${h.pending} to approve</span>
+        ${h.attn?`<span class="pill bad">${h.attn} need attention</span>`:`<span class="pill good">0 flagged</span>`}
+        <span class="pill idle">${h.appr} approved</span>
+      </div>
+      <div class="run">${w.last_run?("Last run "+esc(w.last_run.at||"")):""} · ${h.total} items today</div>
+      <button class="open" data-open="${esc(w.id)}">Review →</button>
+    </div>`;
+  }).join("");
+  return `<div class="crumb"><strong>Overview</strong> · ${INDEX.workflows.length} workflows</div><div class="ov">${cards}</div>`;
+}
+
+let TAB="pins";
+function detail(w){
+  const q=w.queue, its=items(q);
+  const attn=its.filter(needsAttention).length;
+  const appr=its.filter(it=>DECISIONS[dk(w.id,it.id)]==="approve").length;
+  const groups={pins:q.pins||[],posts:q.posts||[],reels:q.reels||[]};
+  const tabs=Object.entries(groups).map(([k,v])=>`<button class="tab" data-tab="${k}" aria-selected="${k===TAB}">${k[0].toUpperCase()+k.slice(1)} (${v.length})</button>`).join("");
+  const cards=(groups[TAB]||[]).map(it=>card(w,it)).join("")||"<p>Nothing in this group today.</p>";
+  return `<div class="crumb"><button data-home>Overview</button> › <strong>${esc(w.name)}</strong> <span>· ${esc((q&&q.date)||"")}</span></div>
+    <div class="tally">
+      <span class="chip"><b>${its.length}</b> items</span>
+      <span class="chip"><b>${appr}</b> approved</span>
+      ${attn?`<span class="chip attn"><b>${attn}</b> need attention</span>`:`<span class="chip"><b>0</b> flagged</span>`}
+    </div>
+    <div class="tabs">${tabs}</div>
+    <div class="grid">${cards}</div>
+    <div class="foot"><span>Approvals saved on this device. Connect the Worker URL to feed them to the publisher automatically.</span>
+      <button id="export">Copy approved list (JSON)</button></div>`;
+}
+
+function media(it){
+  if(it.type==="reel"&&it.video_url) return `<div class="media"><video controls preload="metadata" playsinline src="${esc(it.video_url)}"></video></div>`;
+  if(it.image_url) return `<div class="media"><img loading="lazy" src="${esc(it.image_url)}" alt="${esc(it.title)}"></div>`;
+  return "";
+}
+function qaRows(it){
+  const m=(it.qa&&it.qa.models)||[];
+  if(!m.length) return `<div class="qa"><div class="row"><span class="dot pending"></span><span>No QA yet — OmniRoute free models score each item before it reaches you.</span></div></div>`;
+  return `<div class="qa">`+m.map(x=>`<div class="row"><span class="dot ${vClass(x.verdict)}"></span><span style="font-weight:600;min-width:64px">${esc(x.model)}</span><span>${esc(x.note||x.verdict)}</span></div>`).join("")+`</div>`;
+}
+function statusBadge(it){
+  if(it.status==="published") return `<span class="status published">✓ Published${it.published_at?" · "+esc(it.published_at):""}</span>`;
+  if(it.status==="error") return `<span class="status error">⚠ Publish error: ${esc(it.error||"see logs")}</span>`;
+  return "";
+}
+function card(w,it){
+  const key=dk(w.id,it.id), dec=DECISIONS[key]||"", qv=qaVerdict(it);
+  const cmt=it.comment?`<div class="cmt">💬 First comment: ${esc(it.comment)}</div>`:"";
+  return `<div class="card ${dec==="approve"?"approved":dec==="reject"?"rejected":""}" data-id="${esc(it.id)}">
+    ${media(it)}
+    <div class="cbody">
+      <div class="kind">${esc(it.type)} · ${esc(it.id)}</div>
+      <div class="ttl">${esc(it.title)}</div>
+      <span class="verdict ${qv.cls}">${esc(qv.label)}</span>
+      ${judgePill(it)}
+      ${statusBadge(it)}
+      <div class="fb">${esc(it.caption)}${cmt}</div>
+      ${it.link?`<a class="lnk" href="${esc(it.link)}" target="_blank" rel="noopener">${esc(it.link)}</a>`:""}
+      ${qaRows(it)}
+      <div class="acts"><button class="btn ok" aria-pressed="${dec==="approve"}" data-act="approve">Approve</button>
+        <button class="btn no" aria-pressed="${dec==="reject"}" data-act="reject">Reject</button></div>
+    </div></div>`;
+}
+
+function growthView(){
+  const g=INDEX.growth||{};
+  const tiles=(g.metrics||[]).map(m=>`<div class="wf" style="cursor:default"><div class="chan">${esc(m.k)}</div>
+    <div style="font-family:'Space Grotesk';font-weight:700;font-size:1.6rem;font-variant-numeric:tabular-nums">${esc(m.v)}</div>
+    <div class="run">${esc(m.note||"")}</div></div>`).join("");
+  const plays=(g.plays||[]).map(p=>`<div class="card"><div class="cbody">
+    <span class="verdict ${p.rule==="required"?"warn":"good"}">${p.rule==="required"?"Required":"Rule-safe"}</span>
+    <div class="ttl" style="font-size:.95rem">${esc(p.do)}</div>
+    <div class="run">${esc(p.why)}</div></div></div>`).join("");
+  const avoid=(g.avoid||[]).map(a=>`<div class="qa"><div class="row"><span class="dot bad"></span><span>${esc(a)}</span></div></div>`).join("");
+  return `<div class="crumb"><button data-home>Overview</button> › <strong>Growth</strong> <span>· updated ${esc(g.updated||"")}</span></div>
+    <div class="note">Goal: grow the group and drive Amazon Associate sales (first 3 → 10) without breaking a single platform rule. Metrics fill in from Facebook, Pinterest and Amazon Associates; plays below are re-scored daily and the safe ones feed back into the posting workflow.</div>
+    <h2 style="margin:14px 0 8px">This week</h2><div class="ov">${tiles}</div>
+    <h2 style="margin:18px 0 8px">Today’s plays <span style="font-family:Inter;font-weight:400;font-size:.8rem;color:var(--muted)">— rule-checked</span></h2><div class="grid">${plays}</div>
+    <h2 style="margin:18px 0 8px">Never do</h2><div style="background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:40px">${avoid}</div>`;
+}
+
+let VIEW="overview";
+function wf(id){ return INDEX.workflows.find(w=>w.id===id); }
+function render(){
+  const app=document.getElementById("app");
+  const live=INDEX.workflows.filter(w=>w.state==="live");
+  document.getElementById("switch").innerHTML =
+    `<button class="swbtn" data-home aria-current="${VIEW==="overview"}">Overview</button>`+
+    `<button class="swbtn" data-growth aria-current="${VIEW==="growth"}">Growth</button>`+
+    live.map(w=>`<button class="swbtn" data-open="${w.id}" aria-current="${VIEW===w.id}">${esc(w.name.split(" ")[0])}</button>`).join("");
+  app.innerHTML = VIEW==="overview" ? overview() : VIEW==="growth" ? growthView() : detail(wf(VIEW));
+}
+
+document.addEventListener("click", e=>{
+  const home=e.target.closest("[data-home]"); if(home){ VIEW="overview"; render(); return; }
+  const gr=e.target.closest("[data-growth]"); if(gr){ VIEW="growth"; render(); return; }
+  const op=e.target.closest("[data-open]"); if(op){ const id=op.getAttribute("data-open"); if(wf(id)&&wf(id).queue){ VIEW=id; TAB="pins"; render(); } return; }
+  const tab=e.target.closest(".tab"); if(tab){ TAB=tab.dataset.tab; render(); return; }
+  const b=e.target.closest(".btn"); if(b){
+    const id=e.target.closest(".card").dataset.id, act=b.dataset.act, key=dk(VIEW,id);
+    DECISIONS[key]=DECISIONS[key]===act?"":act;
+    try{ localStorage.setItem("ccc_decisions",JSON.stringify(DECISIONS)); }catch(_){}
+    if(WORKER_URL&&DECISIONS[key]) fetch(WORKER_URL.replace(/\/$/,"")+"/approve",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({workflow:VIEW,date:wf(VIEW).queue.date,id,decision:DECISIONS[key]})}).catch(()=>{});
+    render(); return;
+  }
+  const ex=e.target.closest("#export"); if(ex){
+    const w=wf(VIEW), out={workflow:VIEW,date:w.queue.date,approved:[],rejected:[]};
+    items(w.queue).forEach(it=>{const d=DECISIONS[dk(VIEW,it.id)]; if(d==="approve")out.approved.push(it.id); if(d==="reject")out.rejected.push(it.id);});
+    const txt=JSON.stringify(out,null,2);
+    navigator.clipboard?.writeText(txt).then(()=>{ex.textContent="Copied ✓";setTimeout(()=>ex.textContent="Copy approved list (JSON)",1500);}).catch(()=>{ex.textContent=txt.slice(0,40)+"…";});
+  }
+});
+document.addEventListener("keydown", e=>{ if(e.key==="Enter"){ const op=e.target.closest&&e.target.closest("[data-open]"); if(op){op.click();} }});
+
+render();
+// Live central index + per-workflow status (optional; falls back to embedded).
+(async function(){
+  try{ const r=await fetch(INDEX_URL,{cache:"no-store"}); if(r.ok){ const idx=await r.json();
+    // merge: fetch each live workflow's queue_url if provided
+    for(const w of idx.workflows){ if(w.queue_url&&!w.queue){ try{const qr=await fetch(w.queue_url,{cache:"no-store"}); if(qr.ok)w.queue=await qr.json();}catch(_){}} }
+    INDEX=idx; render(); } }catch(e){}
+})();
+</script>

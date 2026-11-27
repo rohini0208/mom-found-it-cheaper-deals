@@ -753,6 +753,13 @@ Deals are found from public deal feeds and checked against Amazon each morning. 
             shutil.copy(f, dst / f.name)
     if Path("queue/QUEUE.md").exists():
         shutil.copy("queue/QUEUE.md", OUT / "queue.md")
+    for src in ("queue", "control", "status"):            # machine-readable feeds for the Control Center dashboard + n8n
+        sp = Path(src)
+        if sp.is_dir():
+            dd = OUT / src
+            dd.mkdir(parents=True, exist_ok=True)
+            for f in sp.glob("*.json"):
+                shutil.copy(f, dd / f.name)
     if Path("brand/mia_hero_scene.jpg").exists():          # pre-saved JPEG: Cloudflare's build has no PIL
         shutil.copy("brand/mia_hero_scene.jpg", OUT / "mia-scene.jpg")
     (OUT / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#B84300"/><text x="32" y="44" font-size="34" font-weight="700" text-anchor="middle" fill="#fff" font-family="Arial">M</text></svg>')

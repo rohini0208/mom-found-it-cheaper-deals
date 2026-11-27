@@ -1,0 +1,11 @@
+name = "ccc-approvals"
+main = "approval-worker.js"
+compatibility_date = "2024-11-01"
+
+# 1. Create the KV namespace once:  wrangler kv:namespace create CCC
+#    then paste the returned id below.
+# 2. Deploy:  wrangler deploy
+# 3. Put the deployed URL into dashboard WORKER_URL and into the n8n publisher.
+[[kv_namespaces]]
+binding = "CCC"
+id = "REPLACE_WITH_KV_ID"

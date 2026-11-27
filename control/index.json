@@ -1,0 +1,50 @@
+{
+  "workflows": [
+    {
+      "id": "mfic",
+      "name": "Mom Found It Cheaper",
+      "channel": "Facebook \u00b7 Pinterest \u00b7 Site",
+      "state": "live",
+      "last_run": {
+        "status": "ok",
+        "at": "2026-11-27 07:41 ET"
+      },
+      "queue_url": "https://momfounditcheaper.com/queue/latest.json"
+    },
+    {
+      "id": "hazel-toast",
+      "name": "Hazel & Toast",
+      "channel": "YouTube Shorts",
+      "state": "planned",
+      "queue_url": null
+    },
+    {
+      "id": "gotcharoo",
+      "name": "Gotcharoo",
+      "channel": "YouTube \u00b7 Instagram",
+      "state": "planned",
+      "queue_url": null
+    },
+    {
+      "id": "stickaroo",
+      "name": "Stickaroo",
+      "channel": "YouTube Shorts",
+      "state": "planned",
+      "queue_url": null
+    },
+    {
+      "id": "barty-crumb",
+      "name": "Barty & Crumb",
+      "channel": "YouTube",
+      "state": "planned",
+      "queue_url": null
+    },
+    {
+      "id": "kai-mira",
+      "name": "Kai & Mira",
+      "channel": "YouTube",
+      "state": "planned",
+      "queue_url": null
+    }
+  ]
+}
