@@ -263,7 +263,7 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     rows = []
     pub = f"{SITE}pins/{OUT.name}/"                       # build_site copies pins/<date>/ to site/pins/<date>/
-    board = "Mom Found It Cheaper"
+    board = "Mom-Approved Finds"
     for key, label, items in tiers_from_site():
         p = OUT / f"pin_{key}.png"
         tier_pin(key, label, items).save(p, optimize=True)
