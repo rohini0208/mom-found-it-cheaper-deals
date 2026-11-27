@@ -36,8 +36,8 @@ OPENERS = [
 CLOSERS = [
     "The link is in the caption. Check the price before you buy, it can change. More finds every day at {brand}.",
     "Link's in the caption. Prices move, so look before you buy. New finds daily at {brand}.",
-    "You'll find the link in the caption. Double check the price first. More at {brand}.",
-    "Tap the link in the caption to see today's price. We post more finds every day at {brand}.",
+    "You'll find the link below. Double check the price first. More at {brand}.",
+    "Tap the link below to see today's price. We post more finds every day at {brand}.",
 ]
 
 FEATURES_TITLES = ["Why it's a good find", "What you get", "Worth a look", "Why we like it"]
@@ -60,6 +60,17 @@ def pick(options, key, salt="", avoid=None):
     return options[i]
 
 
-def hook_for(category, key, avoid=None):
-    pool = HOOKS.get(category) or HOOKS["default"]          # category lines first; generic ones only when none exist
-    return pick(pool, key, "hook", avoid)
+def hook_for(category, key, avoid=None, used=None, title=""):
+    """Pick a category hook. `used` is a set of hooks already chosen this run (no repeats). `title`
+    lets us drop a seasonal hook (e.g. gift/holiday) when the product is off-season."""
+    pool = list(HOOKS.get(category) or HOOKS["default"])
+    tl = title.lower()
+    if "halloween" in tl or "costume" in tl:               # a Halloween item in late Nov is clearance, not a gift
+        pool = [h for h in pool if "gift" not in (h[0] + h[1]).lower()] or pool
+    used = used or set()
+    i = _h(key, "hook") % len(pool)
+    for step in range(len(pool)):
+        cand = pool[(i + step) % len(pool)]
+        if cand != avoid and cand not in used:
+            return cand
+    return pool[i]

@@ -334,12 +334,13 @@ def scene_hook(path, hook, photo=None, studio=None):
                     sw, sh = src.size
             if photo and min(W / sw, H / sh) <= 2.2:
                 img = ImageOps.fit(src, (W, H), Image.LANCZOS, centering=(0.5, 0.45))
-            else:                                           # small or studio photo: <= 2x upscale over a blurred fill
-                img = ImageOps.fit(src, (W, H), Image.LANCZOS).filter(ImageFilter.GaussianBlur(50))
-                img = Image.blend(img, Image.new("RGB", (W, H), CHAR), 0.35)
-                scale = min(2.0, (W - 120) / sw, 1000 / sh)
+            else:                                           # small or studio photo: fill the lower frame on a blurred bed
+                img = ImageOps.fit(src, (W, H), Image.LANCZOS).filter(ImageFilter.GaussianBlur(55))
+                img = Image.blend(img, Image.new("RGB", (W, H), CHAR), 0.4)
+                band_top, band_h = 740, H - 740 - 40         # product sits big in the space below the headline
+                scale = min(2.2, (W - 80) / sw, band_h / sh)
                 pic = src.resize((int(sw * scale), int(sh * scale)), Image.LANCZOS)
-                img.paste(pic, ((W - pic.width) // 2, 760 + (1000 - pic.height) // 2))
+                img.paste(pic, ((W - pic.width) // 2, band_top + (band_h - pic.height) // 2))
             shade = Image.new("L", (W, H), 0)                     # soft darkening behind the headline
             ImageDraw.Draw(shade).rectangle([0, 0, W, 760], fill=120)
             img.paste((20, 16, 30), mask=shade.filter(ImageFilter.GaussianBlur(90)))
@@ -393,9 +394,9 @@ def scene_product_photo(path, title, deal, photo, price="", was_label="", was=""
     pic = ImageOps.contain(src, (cw - 90, ch - 90))
     img.paste(pic, ((W - pic.width) // 2, top + (ch - pic.height) // 2))
     d = ImageDraw.Draw(img)
-    if price:
-        title = spoken_name(title)                      # one line under the photo; the caption has the full name
-    tf = fit(d, title, lambda s: serif(s, "SemiBold"), 72 if price else 84, W - 180, max_lines=1 if price else 2, min_size=40)
+    if price and len(title) > 60:                       # keep the variant/bundle; trim only a very long tail at a boundary
+        title = re.split(r"\s[-–|]\s|,\s(?=[A-Z])", title)[0]
+    tf = fit(d, title, lambda s: serif(s, "SemiBold"), 72 if price else 84, W - 180, max_lines=2, min_size=38)
     y = centered(d, top + ch + 36, title, tf, IVORY, gap=12, max_w=W - 180)
     if price:
         price_chip(img, price, was_label, was, min(y + 22, SAFE_BOTTOM - 180))
@@ -604,16 +605,31 @@ def render(scenes, durations, audio, out_path, zooms=None):
     subprocess.run(cmd, check=True)
 
 
+def _ghash(path):
+    """8x8 difference hash, for dropping near-duplicate gallery shots."""
+    im = Image.open(path).convert("L").resize((9, 8))
+    px = im.load()
+    return tuple(px[x + 1, y] > px[x, y] for y in range(8) for x in range(8))
+
+
 def gallery_photos(deal, limit=3):
-    """Extra product photos saved by the Lenovo run: photos/<ASIN>_2.jpg ... (hero is <ASIN>.jpg)."""
+    """Extra product photos saved by the Lenovo run: photos/<ASIN>_2.jpg ... (hero is <ASIN>.jpg).
+    Near-duplicate angles are dropped so 'from another angle' is never the same shot twice."""
     a = deal.get("asin")
     if not a or not PHOTOS.is_dir():
         return []
-    out = []
-    for i in range(2, 2 + limit + 2):
+    out, hashes = [], []
+    for i in range(2, 2 + limit + 3):
         for ext in (".jpg", ".png", ".webp"):
             f = PHOTOS / f"{a}_{i}{ext}"
             if f.exists():
+                try:
+                    h = _ghash(f)
+                    if any(sum(x != y for x, y in zip(h, g)) <= 6 for g in hashes):
+                        break                               # too close to a shot we already kept
+                    hashes.append(h)
+                except Exception:
+                    pass
                 out.append(f)
                 break
     return out[:limit]
@@ -727,6 +743,7 @@ def is_lowest_seen(deal):
 
 
 _LAST_HOOK = [None]
+_USED_HOOKS = set()           # hooks already used this run, so no two videos open the same way
 
 
 def spoken_name(title):
@@ -785,7 +802,8 @@ def make_one(n, deal, work):
         _cat = category_of(str(meta.get("title") or deal["title"])) or deal.get("category", "")
     except Exception:
         _cat = deal.get("category", "")
-    hook = hook_for(_cat, deal["id"], avoid=_LAST_HOOK[0])
+    hook = hook_for(_cat, deal["id"], avoid=_LAST_HOOK[0], used=_USED_HOOKS, title=title)
+    _USED_HOOKS.add(hook)
     _pv = price_value(price) or 0
     if _pv > 50 and "small price" in " ".join(hook).lower():
         hook = ("Don't pay", "full price.")
@@ -799,7 +817,7 @@ def make_one(n, deal, work):
     # ---- scenes, each with the exact line spoken over it ----
     plan = []    # (name, draw_fn, args, spoken, rate, pitch, zoom)
     life = None if hide else lifestyle_photo(deal)          # frame 1 = product in use when Amazon's gallery has one
-    plan.append(("hook", scene_hook, (hook, life, find_photo(deal)), f"{hook[0]} {hook[1]}", "+12%", "+4Hz", "push" if life else "in"))
+    plan.append(("hook", scene_hook, (hook, life, find_photo(deal)), f"{hook[0]} {hook[1]}", "+12%", "+4Hz", "push"))
     if hide:
         plan.append(("product", scene_product, (title, deal), f"{spoken} just had a price drop on Amazon.", None, None, "in"))
     else:
@@ -809,12 +827,12 @@ def make_one(n, deal, work):
     if gallery and life and life in gallery and len(gallery) > 1:
         gallery = [g for g in gallery if g != life]          # already used as frame 1
     if gallery:
-        fillers = ["Here's a closer look.", "And from another angle.", "One more look."]
+        fillers = ["Here's a closer look at what you get.", "And here it is from another angle.", "One more look before you decide."]
         try:
             _r, _n = float(meta.get("rating") or 0), int(meta.get("reviews") or 0)
         except Exception:
             _r, _n = 0, 0
-        proof = f"Rated {_r:g} stars by {_n:,} shoppers on Amazon." if _r >= 4.3 and _n >= 100 else ""
+        proof = f"Rated {_r:g} stars by {_n:,} shoppers on Amazon." if _r >= 4.3 and _n >= 25 else ""
         lines = list(feats_all)
         if proof:
             lines.insert(min(1, len(lines)), proof)
@@ -863,7 +881,7 @@ def make_one(n, deal, work):
         except Exception as e:
             print(f"[warn] voice failed ({name}): {e}")
             sec, wav = 0.0, None
-        d = max(MIN_GALLERY if name.startswith("gallery") else MIN_SCENE, _grid(LEAD + sec + TAIL))
+        d = _grid(LEAD + sec + TAIL) if name.startswith("gallery") else max(MIN_SCENE, _grid(LEAD + sec + TAIL))
         if d > MAX_SCENE:
             print(f"[warn] scene {name} runs {d:.1f}s (> {MAX_SCENE}s): shorten its line: {line!r}")
         clips.append(wav if sec else None); durs.append(d); scenes.append(png); zooms.append(zoom); names.append(name); speech.append(sec)

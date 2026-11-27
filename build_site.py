@@ -124,7 +124,7 @@ def _amz_title(d):
     t = parts[0]
     if len(t.split()) < 3 and len(parts) > 1 and len(parts[1].split()) <= 3:
         t = f"{t} {parts[1].strip()}"                              # "Crayola Light-Ups - Mummy" keeps its variant
-    w = t.split()[:12]
+    w = t.split()[:16]
     while w and w[-1].lower().rstrip(",&") in {"by", "for", "with", "and", "or", "the", "a", "an", "of", "to", "in", "on", "&", "w/", "up"}:
         w.pop()
     return " ".join(w)
