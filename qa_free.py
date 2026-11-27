@@ -22,7 +22,7 @@ MODELS = os.environ.get("QA_MODELS", "gemini-1.5-flash,llama-3.1-70b,mixtral-8x7
 JUDGE_MODELS = os.environ.get("JUDGE_MODELS", "qwen-2.5-72b,deepseek-chat,command-r-plus").split(",")
 
 RUBRIC = """You are a strict compliance + quality reviewer for an Amazon Associates deal post.
-Check ONLY these and reply as compact JSON {"verdict":"pass|warn|fail","note":"<=12 words"}:
+Check ONLY these and reply as compact JSON {{"verdict":"pass|warn|fail","note":"<=12 words"}}:
 - Has an #ad / disclosure and "As an Amazon Associate" somewhere: if missing -> fail.
 - States a price without an Amazon read time/date -> warn.
 - Any absolute or unverifiable claim ("lowest ever", "cheapest", fake urgency) -> fail.
