@@ -12,7 +12,7 @@ HOOKS = {
     "default": [("This one's", "actually worth it."), ("The find", "moms keep sharing."), ("Okay, this is", "a good one."),
                 ("Small thing,", "big difference."), ("You'll use this", "every single day."), ("Saw it,", "had to share.")],
     "Baby & Kids": [("Makes mornings", "so much easier."), ("Little kids", "love this one."), ("The mom hack", "nobody told you.")],
-    "Toys & Games": [("Keeps them busy", "for hours."), ("Gift closet,", "sorted."), ("The toy they'll", "actually play with.")],
+    "Toys & Games": [("Gift closet,", "sorted."), ("The toy they'll", "actually play with."), ("Screen-free,", "and they love it.")],
     "Beauty & Health": [("Five minutes,", "feels like a spa."), ("The one everyone", "keeps asking about."), ("Self-care that", "fits a mom's day.")],
     "Home & Kitchen": [("Dinner, done", "in half the time."), ("Clutter gone,", "counter back."), ("The kitchen upgrade", "you'll use daily.")],
     "Fashion": [("Love this look.", "Wait for the price."), ("Comfy enough", "for school pickup."), ("The piece that", "goes with everything.")],
@@ -61,5 +61,5 @@ def pick(options, key, salt="", avoid=None):
 
 
 def hook_for(category, key, avoid=None):
-    pool = HOOKS["default"] + HOOKS.get(category, [])
+    pool = HOOKS.get(category) or HOOKS["default"]          # category lines first; generic ones only when none exist
     return pick(pool, key, "hook", avoid)

@@ -239,7 +239,7 @@ def rule(draw, y, w=220, color=GOLD):
     draw.line([((W - w) / 2, y), ((W + w) / 2, y)], fill=color, width=3)
 
 
-SAFE_TOP, SAFE_BOTTOM = 300, 1440      # Reels/Shorts UI covers the top 15 % and bottom 25 %; all text lives between
+SAFE_TOP, SAFE_BOTTOM = 350, 1400      # Shorts UI covers top 15 % / bottom 25 %; margins absorb the 1.10x zoom (y=350 -> 289 px)
 
 
 def masthead(draw, color, y=SAFE_TOP + 12):
@@ -318,13 +318,13 @@ def lifestyle_photo(deal):
     return best
 
 
-def scene_hook(path, hook, photo=None):
+def scene_hook(path, hook, photo=None, studio=None):
     """Frame 1: the product in use (full-bleed real photo) with the hook in a bold block, top-centre of the
-    safe zone. Falls back to the ivory text card when there is no usable photo."""
+    safe zone. No in-use shot: the studio photo on a blurred fill (never a text-only first frame)."""
     from PIL import ImageFilter, ImageOps
-    if photo:
+    if photo or studio:
         try:
-            src = Image.open(photo).convert("RGB")
+            src = Image.open(photo or studio).convert("RGB")
             # seller caption strips (flat colour band top/bottom) are cropped away before the full-bleed fit
             q = src.resize((120, 120)).quantize(colors=16)
             sw, sh = src.size
@@ -332,16 +332,23 @@ def scene_hook(path, hook, photo=None):
                 if sorted(strip.getcolors(), reverse=True)[0][0] / (120 * 18) >= 0.45:
                     src = src.crop(box)
                     sw, sh = src.size
-            img = ImageOps.fit(src, (W, H), Image.LANCZOS, centering=(0.5, 0.45))
+            if photo and min(W / sw, H / sh) <= 2.2:
+                img = ImageOps.fit(src, (W, H), Image.LANCZOS, centering=(0.5, 0.45))
+            else:                                           # small or studio photo: <= 2x upscale over a blurred fill
+                img = ImageOps.fit(src, (W, H), Image.LANCZOS).filter(ImageFilter.GaussianBlur(50))
+                img = Image.blend(img, Image.new("RGB", (W, H), CHAR), 0.35)
+                scale = min(2.0, (W - 120) / sw, 1000 / sh)
+                pic = src.resize((int(sw * scale), int(sh * scale)), Image.LANCZOS)
+                img.paste(pic, ((W - pic.width) // 2, 760 + (1000 - pic.height) // 2))
             shade = Image.new("L", (W, H), 0)                     # soft darkening behind the headline
             ImageDraw.Draw(shade).rectangle([0, 0, W, 760], fill=120)
             img.paste((20, 16, 30), mask=shade.filter(ImageFilter.GaussianBlur(90)))
             d = ImageDraw.Draw(img)
-            f1 = fit(d, hook[0], lambda s: sans(s, "Bold"), 84, W - 200, max_lines=1, min_size=56)
-            f2 = fit(d, hook[1], lambda s: sans(s, "ExtraBold"), 112, W - 200, max_lines=1, min_size=64)
+            f1 = fit(d, hook[0], lambda s: sans(s, "Bold"), 80, W - 260, max_lines=1, min_size=52)
+            f2 = fit(d, hook[1], lambda s: sans(s, "ExtraBold"), 104, W - 260, max_lines=1, min_size=60)
             w1, w2 = d.textlength(hook[0], font=f1), d.textlength(hook[1], font=f2)
-            bw = max(w1, w2) + 120
-            y0 = 420
+            bw = min(max(w1, w2) + 120, W - 120)
+            y0 = 440
             d.rounded_rectangle([(W - bw) / 2, y0, (W + bw) / 2, y0 + f1.size + f2.size + 90], 28, fill=(255, 197, 61))
             d.text(((W - w1) / 2, y0 + 28), hook[0], font=f1, fill=(31, 26, 46))
             d.text(((W - w2) / 2, y0 + 28 + f1.size + 14), hook[1], font=f2, fill=(31, 26, 46))
@@ -388,10 +395,10 @@ def scene_product_photo(path, title, deal, photo, price="", was_label="", was=""
     d = ImageDraw.Draw(img)
     if price:
         title = spoken_name(title)                      # one line under the photo; the caption has the full name
-    tf = fit(d, title, lambda s: serif(s, "SemiBold"), 72 if price else 84, W - 180, max_lines=1 if price else 2, min_size=44)
-    y = centered(d, top + ch + 36, title, tf, IVORY, gap=12)
+    tf = fit(d, title, lambda s: serif(s, "SemiBold"), 72 if price else 84, W - 180, max_lines=1 if price else 2, min_size=40)
+    y = centered(d, top + ch + 36, title, tf, IVORY, gap=12, max_w=W - 180)
     if price:
-        price_chip(img, price, was_label, was, y + 22)
+        price_chip(img, price, was_label, was, min(y + 22, SAFE_BOTTOM - 180))
     else:
         rule(d, y + 40, 160)
     footer(ImageDraw.Draw(img), MUTED)
@@ -453,16 +460,16 @@ def scene_price(path, price, was, code, coupon, amazon=False, stamp="", pct=0, l
         wf = serif(72, "Regular")
         label = was if was.lower().startswith(("list", "was")) else f"was {was}"
         w = d.textlength(label, font=wf)
-        d.text(((W - w) / 2, y), label, font=wf, fill=MUTED)
+        d.text(((W - w) / 2, y), label, font=wf, fill=(214, 206, 222))                              # readable on navy
         d.line([((W - w) / 2 - 10, y + 44), ((W + w) / 2 + 10, y + 44)], fill=BLUSH, width=6)   # through the digits
         y += 110
     else:
         y = centered(d, y, "NOW ONLY", sans(40, "SemiBold"), MUTED, spacing=8) + 30
     if not amazon:
         pf = fit(d, price, lambda s: serif(s, "Bold"), 260, W - 200, max_lines=1, min_size=120)
-        y = centered(d, y, price, pf, GOLD) + 40
+        y = centered(d, y, price, pf, GOLD) + 90                     # clear of the "$" descender
         if stamp:
-            y = centered(d, y, stamp, sans(28, "Medium"), MUTED, spacing=2) + 70
+            y = centered(d, y, stamp, sans(28, "Medium"), (214, 206, 222), spacing=2) + 70
         if pct >= 10:                                              # big, in the space that used to be empty
             sf = sans(150, "ExtraBold")
             txt = f"{pct}% OFF"
@@ -488,8 +495,8 @@ def scene_price(path, price, was, code, coupon, amazon=False, stamp="", pct=0, l
 def scene_cta(path):
     img = Image.new("RGB", (W, H), IVORY)
     d = ImageDraw.Draw(img)
-    centered(d, 460, "Tap the link to see", serif(76, "Regular", italic=True), CHAR)
-    centered(d, 580, "today's price on Amazon", serif(76, "Regular", italic=True), CHAR)
+    centered(d, 460, "Tap the link in the caption", serif(76, "Regular", italic=True), CHAR)
+    centered(d, 580, "for today's price", serif(76, "Regular", italic=True), CHAR)
     rule(d, 750, 160)
     centered(d, 820, "Mom Found", serif(150, "Bold"), CHAR)
     centered(d, 990, "It Cheaper", serif(150, "Bold"), GOLD)
@@ -505,6 +512,8 @@ FPS = 30
 LEAD, TAIL = 0.15, 0.10          # speech starts just after the dissolve; short breath before the next scene (dead air < 0.6 s)
 MIN_SCENE = 1.6                  # shorter than this the zoom is invisible
 MAX_SCENE = 6.0                  # benchmark: no single picture held longer than this
+MIN_GALLERY = 2.2                # a photo + caption needs this long to read
+MIN_TOTAL = 16.0                 # benchmark band 16-32 s: keep extra gallery looks until we reach it
 MAX_TOTAL = 24.0                 # Reels/Shorts sweet spot; gallery/features trimmed to fit
 
 
@@ -726,8 +735,8 @@ def spoken_name(title):
     words = t.split()
     cut = {"with", "for", "of", "to", "in", "on", "by", "w/", "plus", "or", "featuring", "includes"}
     if len(words) > 8:
-        idx = [i for i, w in enumerate(words[:9]) if w.lower() in cut and i >= 3]
-        words = words[:idx[0]] if idx and idx[0] >= 4 else (words[:idx[-1]] if idx else words[:9])
+        idx = [i for i, w in enumerate(words[:11]) if w.lower() in cut and i >= 3]
+        words = words[:idx[0]] if idx and idx[0] >= 4 else (words[:idx[-1]] if idx else words[:11])
     stop = {"with", "and", "&", "for", "of", "the", "a", "to", "in", "on", "by", "w/", "plus", "or"}
     while len(words) > 2 and (words[-1].lower().strip(",.") in stop or re.fullmatch(r"[\d.,]+[a-z]*", words[-1].lower())):
         words.pop()
@@ -790,7 +799,7 @@ def make_one(n, deal, work):
     # ---- scenes, each with the exact line spoken over it ----
     plan = []    # (name, draw_fn, args, spoken, rate, pitch, zoom)
     life = None if hide else lifestyle_photo(deal)          # frame 1 = product in use when Amazon's gallery has one
-    plan.append(("hook", scene_hook, (hook, life), f"{hook[0]} {hook[1]}", "+12%", "+4Hz", "push" if life else "in"))
+    plan.append(("hook", scene_hook, (hook, life, find_photo(deal)), f"{hook[0]} {hook[1]}", "+12%", "+4Hz", "push" if life else "in"))
     if hide:
         plan.append(("product", scene_product, (title, deal), f"{spoken} just had a price drop on Amazon.", None, None, "in"))
     else:
@@ -809,10 +818,8 @@ def make_one(n, deal, work):
         lines = list(feats_all)
         if proof:
             lines.insert(min(1, len(lines)), proof)
-        if not lines:
-            gallery = gallery[:1]                           # nothing real to say: one extra look, not three fillers
-        else:
-            gallery = gallery[:len(lines)]                  # every gallery shot carries a real line (no fillers)
+        # real lines first; extra looks with short fillers keep the video inside the 16-32 s band
+        gallery = gallery[:max(len(lines), 2)] if lines else gallery[:2]
         for i, g in enumerate(gallery):
             line = lines[i] if i < len(lines) else fillers[min(i, len(fillers) - 1)]
             plan.append((f"gallery{i+1}", scene_gallery, (g, line, i + 1), line, None, None, "out" if i % 2 == 0 else "in"))
@@ -856,7 +863,7 @@ def make_one(n, deal, work):
         except Exception as e:
             print(f"[warn] voice failed ({name}): {e}")
             sec, wav = 0.0, None
-        d = max(MIN_SCENE, _grid(LEAD + sec + TAIL))
+        d = max(MIN_GALLERY if name.startswith("gallery") else MIN_SCENE, _grid(LEAD + sec + TAIL))
         if d > MAX_SCENE:
             print(f"[warn] scene {name} runs {d:.1f}s (> {MAX_SCENE}s): shorten its line: {line!r}")
         clips.append(wav if sec else None); durs.append(d); scenes.append(png); zooms.append(zoom); names.append(name); speech.append(sec)

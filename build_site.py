@@ -120,7 +120,10 @@ def _amz_title(d):
         return ""
     t = re.sub(r"[\u200b\u200c\u200d\ufeff]", "", html.unescape(m["title"]))
     t = re.sub(r"(\w)- (\w)", r"\1-\2", t)                      # "Anti- Fatigue" -> "Anti-Fatigue"
-    t = re.split(r",(?!\d)| \| | - | \(", t)[0]
+    parts = re.split(r",(?!\d)| \| | - | \(", t)
+    t = parts[0]
+    if len(t.split()) < 3 and len(parts) > 1 and len(parts[1].split()) <= 3:
+        t = f"{t} {parts[1].strip()}"                              # "Crayola Light-Ups - Mummy" keeps its variant
     w = t.split()[:12]
     while w and w[-1].lower().rstrip(",&") in {"by", "for", "with", "and", "or", "the", "a", "an", "of", "to", "in", "on", "&", "w/", "up"}:
         w.pop()

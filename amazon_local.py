@@ -88,8 +88,8 @@ def resolve_asins(ctx, deals, limit=450):
 def stale(meta, a):
     """Re-check a product when new fields are missing or the data is older than 20 hours."""
     m = meta.get(a)
-    if not m or m.get("v") != 5 or not (PH / f"{a}.jpg").exists() or "gallery" not in m:
-        return True                         # v5 = buy-box seller + gallery photos
+    if not m or m.get("v") != 6 or not (PH / f"{a}.jpg").exists() or "gallery" not in m:
+        return True                         # v6 = buy-box seller + 1200 px gallery photos
     return time.time() - m.get("checked", 0) > 20 * 3600
 
 
@@ -121,7 +121,7 @@ def save_gallery(ctx, a, html, limit=4):
         if not re.fullmatch(r"MAIN|PT\d\d", variant):
             continue
         u = hi or large
-        urls.append(re.sub(r"\._[^.]*_\.", "._SL600_.", u))
+        urls.append(re.sub(r"\._[^.]*_\.", "._SL1200_.", u))
     # drop old gallery files, then save unique ones (skip the hero and near-duplicates)
     for f in PH.glob(f"{a}_*.jpg"):
         f.unlink()
@@ -256,14 +256,14 @@ def main():
                 m = re.search(r'"hiRes":"(https:[^"]+)"', html)
                 meta[a] = {"rating": float(rt.group(1)) if rt else None,
                            "reviews": parse_reviews(rc.group(1)) if rc else None,
-                           "list": lp.group(0) if lp else None, "now": now.group(0) if now else None, "v": 5,
+                           "list": lp.group(0) if lp else None, "now": now.group(0) if now else None, "v": 6,
                            "checked": int(time.time())}
                 try:                                    # coupons, promo codes, chosen variant, stock
                     meta[a].update(page.evaluate(PROMO_JS))
                 except Exception:
                     pass
                 if m:
-                    img = ctx.request.get(re.sub(r"\._[^.]*_\.", "._SL600_.", m.group(1)))
+                    img = ctx.request.get(re.sub(r"\._[^.]*_\.", "._SL1200_.", m.group(1)))
                     (PH / f"{a}.jpg").write_bytes(img.body())
                 try:                                    # up to 4 more gallery photos of the SELECTED variant -> <ASIN>_2.jpg ...
                     meta[a]["gallery"] = save_gallery(ctx, a, html)
