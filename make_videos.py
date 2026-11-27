@@ -35,7 +35,7 @@ def as_of(iso):
     from datetime import datetime
     from zoneinfo import ZoneInfo
     t = datetime.fromisoformat(iso).astimezone(ZoneInfo("America/New_York"))
-    return t.strftime("%b %-d, %-I %p ET")
+    return t.strftime("%b %-d, %-I:%M %p ET")
 
 W, H = 1080, 1920
 BRAND = "Mom Found It Cheaper"
@@ -153,6 +153,10 @@ def pick_deals(deals, made):
             _n = price_value(str(_m.get("now") or ""))
             if not _n or not _m.get("checked") or _t.time() - _m["checked"] > 36 * 3600 or abs(_n - price) / _n > 0.05:
                 continue                              # a shown price must be Amazon's own, read in the last 36h
+            _l = price_value(str(_m.get("list") or "")) if _m.get("list") else None
+            _real_deal = (_l and _n < _l * 0.9) or (d.get("code") and d["code"] != "w/ code") or d.get("coupon") or is_lowest_seen(d)
+            if not _real_deal:
+                continue                              # price == list and no coupon: nothing "cheaper" to show
         score = (2 if d.get("code") and d["code"] != "w/ code" else 0) + (1 if d.get("coupon") else 0)
         score += 3 if find_photo(d) else 0          # deals with a real photo go first
         score += 2 * len(viral_sources(d, SIGNALS))  # buzzing in several places = viral
@@ -240,8 +244,15 @@ def masthead(draw, color, y=170):
     rule(draw, y + 70, 120, GOLD)
 
 
-def footer(draw, color):
-    centered(draw, 1760, "#AD  ·  PRICES CAN CHANGE", sans(28, "Medium"), color, spacing=5)
+def footer(draw, color=None, dark_bg=True):
+    """Disclosure pill, top-left under the masthead (readable on any background, clear of Reels/Shorts UI)."""
+    f = sans(30, "Bold")
+    txt = "#AD · PAID LINK · PRICES CAN CHANGE"
+    w = draw.textlength(txt, font=f)
+    x0, y0 = 56, 268
+    fill, ink = ((31, 26, 46), IVORY) if dark_bg else (IVORY, CHAR)
+    draw.rounded_rectangle([x0, y0, x0 + w + 40, y0 + 54], radius=27, fill=fill, outline=GOLD, width=2)
+    draw.text((x0 + 20, y0 + 10), txt, font=f, fill=ink)
 
 
 def badge_text(deal):
@@ -295,6 +306,8 @@ def scene_product_photo(path, title, deal, photo, price="", was_label="", was=""
     pic = ImageOps.contain(src, (cw - 90, ch - 90))
     img.paste(pic, ((W - pic.width) // 2, top + (ch - pic.height) // 2))
     d = ImageDraw.Draw(img)
+    if price and len(title) > 46:
+        title = spoken_name(title)                      # two lines max under the photo; the caption has the full name
     tf = fit(d, title, lambda s: serif(s, "SemiBold"), 76 if price else 84, W - 180, max_lines=2, min_size=50)
     y = centered(d, top + ch + 44, title, tf, IVORY, gap=12)
     if price:
@@ -347,6 +360,15 @@ def scene_price(path, price, was, code, coupon, amazon=False, stamp=""):
     img = Image.new("RGB", (W, H), CHAR)
     d = ImageDraw.Draw(img)
     masthead(d, IVORY)
+    _a, _b = price_value(price or ""), price_value(was or "")
+    if _a and _b and _b > _a * 1.1:                               # the % that is spoken on this card, shown too
+        pct = int(round(100 * (_b - _a) / _b))
+        sf = sans(44, "Black")
+        txt = f"{pct}% OFF"
+        tw = d.textlength(txt, font=sf)
+        x1, y1 = W - 70, 268
+        d.rounded_rectangle([x1 - tw - 40, y1, x1, y1 + 70], radius=16, fill=(255, 197, 61))
+        d.text((x1 - tw - 20, y1 + 10), txt, font=sf, fill=(31, 26, 46))
     y = 640
     if amazon:      # Amazon policy: no price unless it comes from Amazon's API
         y = centered(d, y, "PRICE DROP", sans(44, "SemiBold"), MUTED, spacing=10) + 40
@@ -469,7 +491,7 @@ def render(scenes, durations, audio, out_path, zooms=None):
     for i, (dur, zd) in enumerate(zip(durations, zooms)):
         frames = int(round((dur + fade) * FPS))
         z = "min(1+0.0004*on,1.04)" if zd == "in" else "max(1.04-0.0004*on,1.0)"
-        parts.append(f"[{i}:v]scale=1134:2016,zoompan=z='{z}':d={frames}"
+        parts.append(f"[{i}:v]scale={W*2}:{H*2}:flags=lanczos,zoompan=z='{z}':d={frames}"
                      f":x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s={W}x{H}:fps={FPS},setsar=1[v{i}]")
     last, offset = "v0", 0.0
     for i in range(1, len(durations)):
@@ -553,11 +575,11 @@ def price_chip(img, price, was_label, was_val, y0=1510):
     d.rounded_rectangle([x0, y0, x0 + w + 88, y0 + 110], radius=24, fill=GOLD)
     d.text((x0 + 44, y0 + 10), price, font=pf, fill=IVORY)
     if was_val:
-        wf = sans(34, "Medium")
+        wf = sans(40, "SemiBold")
         lbl = f"{was_label} {was_val}"
         lw = d.textlength(lbl, font=wf)
-        d.text(((W - lw) / 2, y0 + 128), lbl, font=wf, fill=MUTED)
-        d.line([((W - lw) / 2 - 4, y0 + 150), ((W + lw) / 2 + 4, y0 + 150)], fill=BLUSH, width=3)
+        d.text(((W - lw) / 2, y0 + 126), lbl, font=wf, fill=IVORY)
+        d.line([((W - lw) / 2 - 4, y0 + 152), ((W + lw) / 2 + 4, y0 + 152)], fill=BLUSH, width=4)
 
 
 def caption(title, price, code, coupon, deal=None):
@@ -589,6 +611,23 @@ def is_lowest_seen(deal):
     earlier = [p for d, p in json.loads(hist_file.read_text()).get(product_key(deal), []) if d != day]
     return len(earlier) >= 1 and price < min(earlier)
 
+
+
+_LAST_HOOK = [None]
+
+
+def spoken_name(title):
+    """Short product name for the voice: cut at a natural break, never on a dangling word or bare number."""
+    t = re.split(r"\s[-–|]\s|:\s|\(", title)[0]
+    words = t.split()
+    cut = {"with", "for", "of", "to", "in", "on", "by", "w/", "plus", "or", "featuring", "includes"}
+    if len(words) > 8:
+        idx = [i for i, w in enumerate(words[:9]) if w.lower() in cut and i >= 3]
+        words = words[:idx[0]] if idx and idx[0] >= 4 else (words[:idx[-1]] if idx else words[:9])
+    stop = {"with", "and", "&", "for", "of", "the", "a", "to", "in", "on", "by", "w/", "plus", "or"}
+    while len(words) > 2 and (words[-1].lower().strip(",.") in stop or re.fullmatch(r"[\d.,]+[a-z]*", words[-1].lower())):
+        words.pop()
+    return " ".join(words).rstrip(".!?,;: -")
 
 
 def _short_feats(feats, n):
@@ -626,8 +665,18 @@ def make_one(n, deal, work):
     if was:
         a, b = price_value(price), price_value(was)
         pct = int(round(100 * (b - a) / b)) if a and b and b > a else 0
-    spoken = " ".join(title.split()[:7]).rstrip(".!?,;: -")
-    hook = hook_for(deal.get("category", ""), deal["id"])
+    title = title.replace("\u2122", "").replace("\u00ae", "").strip()
+    spoken = spoken_name(title)
+    try:
+        from deal_finder import category_of
+        _cat = category_of(str(meta.get("title") or deal["title"])) or deal.get("category", "")
+    except Exception:
+        _cat = deal.get("category", "")
+    hook = hook_for(_cat, deal["id"], avoid=_LAST_HOOK[0])
+    _pv = price_value(price) or 0
+    if _pv > 50 and "small price" in " ".join(hook).lower():
+        hook = ("Don't pay", "full price.")
+    _LAST_HOOK[0] = hook
     gallery = [] if hide else gallery_photos(deal)
     feats_all = _short_feats(deal.get("features") or [], 3)
     clean_code = "".join(c for c in (code or "").upper() if c.isalnum())
@@ -640,11 +689,25 @@ def make_one(n, deal, work):
     if hide:
         plan.append(("product", scene_product, (title, deal), f"{spoken} just had a price drop on Amazon.", None, None, "in"))
     else:
-        said_was = f" {was_label} {was}." if was else ""
-        plan.append(("product", scene_product, (title, deal, price, was_label, was), f"{spoken}, only {price}.{said_was}", None, None, "in"))
+        if was and was_label == "List price":
+            line = f"{spoken} is only {price} right now, down from a {was} list price."
+        elif was:
+            line = f"{spoken} is only {price} right now. It was {was}."
+        else:
+            line = f"{spoken} is only {price} right now."
+        plan.append(("product", scene_product, (title, deal, price, was_label, was), line, None, None, "in"))
     if gallery:
+        fillers = ["Here's a closer look.", "And from another angle.", "One more look."]
+        try:
+            _r, _n = float(meta.get("rating") or 0), int(meta.get("reviews") or 0)
+        except Exception:
+            _r, _n = 0, 0
+        proof = f"Rated {_r:g} stars by {_n:,} shoppers on Amazon." if _r >= 4.3 and _n >= 100 else ""
+        lines = list(feats_all)
+        if proof:
+            lines.insert(min(1, len(lines)), proof)
         for i, g in enumerate(gallery):
-            line = feats_all[i] if i < len(feats_all) else ("Here's a closer look." if i == 0 else "And another angle.")
+            line = lines[i] if i < len(lines) else fillers[min(i, len(fillers) - 1)]
             plan.append((f"gallery{i+1}", scene_gallery, (g, line, i + 1), line, None, None, "out" if i % 2 == 0 else "in"))
         rest = feats_all[len(gallery):]
     else:
@@ -664,7 +727,7 @@ def make_one(n, deal, work):
         elif coupon:
             bits.append("Just clip the coupon.")
         if not bits:
-            bits.append(f"Only {price} on Amazon this morning.")
+            bits.append(f"Only {price} on Amazon right now.")
         plan.append(("price", scene_price, (price, f"{was_label.lower()} {was}" if was else "", code, coupon, False, stamp), " ".join(bits), None, None, "in"))
     plan.append(("cta", scene_cta, (), pick(CLOSERS, deal["id"], "cl").format(brand=BRAND).split(". ")[0].rstrip(".") + ".", None, None, "in"))
 
