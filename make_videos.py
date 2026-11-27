@@ -133,6 +133,11 @@ try:
 except Exception:
     _BLOCKLIST = set()
 
+try:
+    _NO_LIFESTYLE = set(json.loads(Path("data/no_lifestyle.json").read_text()).get("asins", []))
+except Exception:
+    _NO_LIFESTYLE = set()                         # ASINs whose gallery is all packaging/spec panels: post+pin only, no Reel
+
 
 def pick_deals(deals, made):
     good = []
@@ -157,6 +162,8 @@ def pick_deals(deals, made):
             _real_deal = (_l and _n < _l * 0.9) or (d.get("code") and d["code"] != "w/ code") or d.get("coupon") or is_lowest_seen(d)
             if not _real_deal:
                 continue                              # price == list and no coupon: nothing "cheaper" to show
+        if not lifestyle_photo(d):
+            continue                                  # no in-use photo = frame 1 would be a white-bg hero; skip the video (post/pin still run)
         score = (2 if d.get("code") and d["code"] != "w/ code" else 0) + (1 if d.get("coupon") else 0)
         score += 3 if find_photo(d) else 0          # deals with a real photo go first
         score += 2 * len(viral_sources(d, SIGNALS))  # buzzing in several places = viral
@@ -300,9 +307,11 @@ def _scene_score(path):
 
 
 def lifestyle_photo(deal):
-    """Best in-use / lifestyle shot from Amazon's own gallery (photos/<ASIN>_2..5.jpg), or None."""
+    """Best in-use / lifestyle shot from Amazon's own gallery (photos/<ASIN>_2..5.jpg), or None.
+    Rejects studio cut-outs (mostly-white). An ASIN tagged in data/no_lifestyle.json (a human/QA call that
+    its gallery is all packaging or spec panels) returns None, so that product is a post/pin, never a Reel."""
     asin = deal.get("asin")
-    if not asin:
+    if not asin or asin in _NO_LIFESTYLE:
         return None
     best, best_s = None, 0
     for n in range(2, 6):
