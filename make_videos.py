@@ -173,7 +173,7 @@ from brand import CREAM as IVORY, INK as CHAR, TANGERINE as GOLD, MUTED, PEACH a
 FONTS = Path(__file__).parent / "fonts"
 
 
-WEIGHTS = {"Regular": 400, "Medium": 500, "SemiBold": 600, "Bold": 700}
+WEIGHTS = {"Regular": 400, "Medium": 500, "SemiBold": 600, "Bold": 700, "ExtraBold": 800, "Black": 900}
 
 
 def _variable(file, size, weight):
@@ -239,20 +239,29 @@ def rule(draw, y, w=220, color=GOLD):
     draw.line([((W - w) / 2, y), ((W + w) / 2, y)], fill=color, width=3)
 
 
-def masthead(draw, color, y=170):
-    centered(draw, y, BRAND.upper(), sans(34, "SemiBold"), color, spacing=9)
-    rule(draw, y + 70, 120, GOLD)
+SAFE_TOP, SAFE_BOTTOM = 300, 1440      # Reels/Shorts UI covers the top 15 % and bottom 25 %; all text lives between
+
+
+def masthead(draw, color, y=SAFE_TOP + 12):
+    """Small brand line, right-aligned on the same row as the #AD pill (both inside the safe zone)."""
+    f = sans(24, "SemiBold")
+    txt = BRAND.upper()
+    w = sum(draw.textlength(c, font=f) for c in txt) + 4 * (len(txt) - 1)
+    x = W - 56 - w
+    for c in txt:
+        draw.text((x, y), c, font=f, fill=color)
+        x += draw.textlength(c, font=f) + 4
 
 
 def footer(draw, color=None, dark_bg=True):
-    """Disclosure pill, top-left under the masthead (readable on any background, clear of Reels/Shorts UI)."""
-    f = sans(30, "Bold")
+    """Disclosure pill, top-left, first row of the safe zone (readable on any background, clear of Reels/Shorts UI)."""
+    f = sans(28, "Bold")
     txt = "#AD · PAID LINK · PRICES CAN CHANGE"
     w = draw.textlength(txt, font=f)
-    x0, y0 = 56, 268
+    x0, y0 = 56, SAFE_TOP
     fill, ink = ((31, 26, 46), IVORY) if dark_bg else (IVORY, CHAR)
-    draw.rounded_rectangle([x0, y0, x0 + w + 40, y0 + 54], radius=27, fill=fill, outline=GOLD, width=2)
-    draw.text((x0 + 20, y0 + 10), txt, font=f, fill=ink)
+    draw.rounded_rectangle([x0, y0, x0 + w + 40, y0 + 50], radius=25, fill=fill, outline=GOLD, width=2)
+    draw.text((x0 + 20, y0 + 9), txt, font=f, fill=ink)
 
 
 def badge_text(deal):
@@ -269,7 +278,78 @@ def badge_text(deal):
     return "TODAY'S FIND"
 
 
-def scene_hook(path, hook):
+def _scene_score(path):
+    """How much a gallery photo looks like a real scene (product in use / worn) rather than a studio
+    cut-out or a seller infographic. Returns (non_white_border, dominant_color_share)."""
+    im = Image.open(path).convert("RGB").resize((120, 120))
+    px = im.load()
+    border = tot = 0
+    for x in range(120):
+        for y in range(120):
+            if x < 8 or y < 8 or x >= 112 or y >= 112:
+                tot += 1
+                if min(px[x, y]) > 235:
+                    border += 1
+    q = im.quantize(colors=16)
+    counts = sorted(q.getcolors(), reverse=True)
+    flat = 0                                  # flat band top/bottom = seller caption strip / infographic header
+    for strip in (q.crop((0, 0, 120, 18)), q.crop((0, 102, 120, 120))):
+        c = sorted(strip.getcolors(), reverse=True)
+        flat = max(flat, c[0][0] / (120 * 18))
+    return 1 - border / tot, max(counts[0][0] / (120 * 120), flat * 0.5)
+
+
+def lifestyle_photo(deal):
+    """Best in-use / lifestyle shot from Amazon's own gallery (photos/<ASIN>_2..5.jpg), or None."""
+    asin = deal.get("asin")
+    if not asin:
+        return None
+    best, best_s = None, 0
+    for n in range(2, 6):
+        p = PHOTOS / f"{asin}_{n}.jpg"
+        if not p.is_file():
+            continue
+        try:
+            nonwhite, dom = _scene_score(p)
+        except Exception:
+            continue
+        if nonwhite >= 0.6 and dom <= 0.25 and nonwhite - dom > best_s:
+            best, best_s = p, nonwhite - dom
+    return best
+
+
+def scene_hook(path, hook, photo=None):
+    """Frame 1: the product in use (full-bleed real photo) with the hook in a bold block, top-centre of the
+    safe zone. Falls back to the ivory text card when there is no usable photo."""
+    from PIL import ImageFilter, ImageOps
+    if photo:
+        try:
+            src = Image.open(photo).convert("RGB")
+            # seller caption strips (flat colour band top/bottom) are cropped away before the full-bleed fit
+            q = src.resize((120, 120)).quantize(colors=16)
+            sw, sh = src.size
+            for strip, box in ((q.crop((0, 0, 120, 18)), (0, int(sh * 0.2), sw, sh)), (q.crop((0, 102, 120, 120)), (0, 0, sw, int(sh * 0.8)))):
+                if sorted(strip.getcolors(), reverse=True)[0][0] / (120 * 18) >= 0.45:
+                    src = src.crop(box)
+                    sw, sh = src.size
+            img = ImageOps.fit(src, (W, H), Image.LANCZOS, centering=(0.5, 0.45))
+            shade = Image.new("L", (W, H), 0)                     # soft darkening behind the headline
+            ImageDraw.Draw(shade).rectangle([0, 0, W, 760], fill=120)
+            img.paste((20, 16, 30), mask=shade.filter(ImageFilter.GaussianBlur(90)))
+            d = ImageDraw.Draw(img)
+            f1 = fit(d, hook[0], lambda s: sans(s, "Bold"), 84, W - 200, max_lines=1, min_size=56)
+            f2 = fit(d, hook[1], lambda s: sans(s, "ExtraBold"), 112, W - 200, max_lines=1, min_size=64)
+            w1, w2 = d.textlength(hook[0], font=f1), d.textlength(hook[1], font=f2)
+            bw = max(w1, w2) + 120
+            y0 = 420
+            d.rounded_rectangle([(W - bw) / 2, y0, (W + bw) / 2, y0 + f1.size + f2.size + 90], 28, fill=(255, 197, 61))
+            d.text(((W - w1) / 2, y0 + 28), hook[0], font=f1, fill=(31, 26, 46))
+            d.text(((W - w2) / 2, y0 + 28 + f1.size + 14), hook[1], font=f2, fill=(31, 26, 46))
+            footer(d, MUTED)
+            img.save(path)
+            return
+        except Exception as e:
+            print(f"[warn] hook photo {photo}: {e}")
     img = Image.new("RGB", (W, H), IVORY)
     d = ImageDraw.Draw(img)
     masthead(d, CHAR)
@@ -294,10 +374,10 @@ def scene_product_photo(path, title, deal, photo, price="", was_label="", was=""
     badge = badge_text(deal)
     bf = sans(30, "SemiBold")
     bw = sum(d.textlength(c, font=bf) for c in badge) + 6 * (len(badge) - 1) + 80
-    d.rounded_rectangle([(W - bw) / 2, 430, (W + bw) / 2, 506], radius=38, fill=CHAR, outline=GOLD, width=3)
-    centered(d, 449, badge, bf, GOLD, spacing=6)
-    # card with the product photo, whole product visible (no cropping)
-    cw, ch, top = (860, 760, 540) if price else (860, 900, 560)     # room under the card for the price chip
+    d.rounded_rectangle([(W - bw) / 2, 390, (W + bw) / 2, 466], radius=38, fill=CHAR, outline=GOLD, width=3)
+    centered(d, 409, badge, bf, GOLD, spacing=6)
+    # card with the product photo, whole product visible (no cropping); everything ends above SAFE_BOTTOM
+    cw, ch, top = (860, 560, 500) if price else (860, 720, 500)     # room under the card for the price chip
     shadow = Image.new("L", (W, H), 0)
     ImageDraw.Draw(shadow).rounded_rectangle([(W - cw) / 2 + 10, top + 24, (W + cw) / 2 + 10, top + ch + 24], 48, fill=150)
     img.paste((0, 0, 0), mask=shadow.filter(ImageFilter.GaussianBlur(28)))
@@ -306,12 +386,12 @@ def scene_product_photo(path, title, deal, photo, price="", was_label="", was=""
     pic = ImageOps.contain(src, (cw - 90, ch - 90))
     img.paste(pic, ((W - pic.width) // 2, top + (ch - pic.height) // 2))
     d = ImageDraw.Draw(img)
-    if price and len(title) > 46:
-        title = spoken_name(title)                      # two lines max under the photo; the caption has the full name
-    tf = fit(d, title, lambda s: serif(s, "SemiBold"), 76 if price else 84, W - 180, max_lines=2, min_size=50)
-    y = centered(d, top + ch + 44, title, tf, IVORY, gap=12)
     if price:
-        price_chip(img, price, was_label, was, y + 26)
+        title = spoken_name(title)                      # one line under the photo; the caption has the full name
+    tf = fit(d, title, lambda s: serif(s, "SemiBold"), 72 if price else 84, W - 180, max_lines=1 if price else 2, min_size=44)
+    y = centered(d, top + ch + 36, title, tf, IVORY, gap=12)
+    if price:
+        price_chip(img, price, was_label, was, y + 22)
     else:
         rule(d, y + 40, 160)
     footer(ImageDraw.Draw(img), MUTED)
@@ -331,13 +411,13 @@ def scene_product(path, title, deal, price="", was_label="", was=""):
     badge = badge_text(deal)
     bf = sans(32, "SemiBold")
     bw = sum(d.textlength(c, font=bf) for c in badge) + 6 * (len(badge) - 1) + 80
-    d.rounded_rectangle([(W - bw) / 2, 640, (W + bw) / 2, 720], radius=40, outline=GOLD, width=3)
-    centered(d, 660, badge, bf, GOLD, spacing=6)
-    tf = fit(d, title, lambda s: serif(s, "SemiBold"), 112, W - 200, max_lines=4)
-    y = centered(d, 840, title, tf, IVORY, gap=18)
+    d.rounded_rectangle([(W - bw) / 2, 440, (W + bw) / 2, 520], radius=40, outline=GOLD, width=3)
+    centered(d, 460, badge, bf, GOLD, spacing=6)
+    tf = fit(d, title, lambda s: serif(s, "SemiBold"), 112, W - 200, max_lines=3)
+    y = centered(d, 600, title, tf, IVORY, gap=18)
     rule(d, y + 50, 160)
     if price:
-        price_chip(img, price, was_label, was)
+        price_chip(img, price, was_label, was, y + 110)
     footer(ImageDraw.Draw(img), MUTED)
     img.save(path)
 
@@ -346,56 +426,61 @@ def scene_features(path, features, title="Why it's a good find"):
     img = Image.new("RGB", (W, H), IVORY)
     d = ImageDraw.Draw(img)
     masthead(d, CHAR)
-    centered(d, 520, title, serif(96, "Regular", italic=True), CHAR)
-    rule(d, 670, 160)
-    y = 800
+    centered(d, 420, title, serif(96, "Regular", italic=True), CHAR)
+    rule(d, 570, 160)
+    y = 660
     for i, feat in enumerate(features[:3], 1):
-        centered(d, y, f"0{i}", serif(64, "Bold"), GOLD)
-        y = centered(d, y + 90, feat, sans(54, "Medium"), CHAR, max_w=W - 240, gap=10) + 70
+        centered(d, y, f"0{i}", serif(56, "Bold"), GOLD)
+        y = centered(d, y + 80, feat, sans(50, "Medium"), CHAR, max_w=W - 240, gap=10) + 50
     footer(d, MUTED)
     img.save(path)
 
 
-def scene_price(path, price, was, code, coupon, amazon=False, stamp=""):
+def scene_price(path, price, was, code, coupon, amazon=False, stamp="", pct=0, lowest=""):
+    """Price card: struck reference price, big price, the % OFF (spoken here, so shown big here), lowest-seen line."""
     img = Image.new("RGB", (W, H), CHAR)
     d = ImageDraw.Draw(img)
     masthead(d, IVORY)
     _a, _b = price_value(price or ""), price_value(was or "")
-    if _a and _b and _b > _a * 1.1:                               # the % that is spoken on this card, shown too
+    if not pct and _a and _b and _b > _a * 1.1:
         pct = int(round(100 * (_b - _a) / _b))
-        sf = sans(44, "Black")
-        txt = f"{pct}% OFF"
-        tw = d.textlength(txt, font=sf)
-        x1, y1 = W - 70, 268
-        d.rounded_rectangle([x1 - tw - 40, y1, x1, y1 + 70], radius=16, fill=(255, 197, 61))
-        d.text((x1 - tw - 20, y1 + 10), txt, font=sf, fill=(31, 26, 46))
-    y = 640
+    y = 440
     if amazon:      # Amazon policy: no price unless it comes from Amazon's API
-        y = centered(d, y, "PRICE DROP", sans(44, "SemiBold"), MUTED, spacing=10) + 40
+        y = centered(d, y + 160, "PRICE DROP", sans(44, "SemiBold"), MUTED, spacing=10) + 40
         y = centered(d, y, "on Amazon today", serif(110, "Bold"), GOLD) + 50
         y = centered(d, y, "Tap the link for today's price", serif(58, "Regular", italic=True), IVORY) + 110
     elif was:
-        wf = serif(80, "Regular")
+        wf = serif(72, "Regular")
         label = was if was.lower().startswith(("list", "was")) else f"was {was}"
         w = d.textlength(label, font=wf)
         d.text(((W - w) / 2, y), label, font=wf, fill=MUTED)
-        d.line([((W - w) / 2 - 10, y + 58), ((W + w) / 2 + 10, y + 58)], fill=BLUSH, width=5)
-        y += 140
+        d.line([((W - w) / 2 - 10, y + 44), ((W + w) / 2 + 10, y + 44)], fill=BLUSH, width=6)   # through the digits
+        y += 110
     else:
         y = centered(d, y, "NOW ONLY", sans(40, "SemiBold"), MUTED, spacing=8) + 30
     if not amazon:
-        pf = fit(d, price, lambda s: serif(s, "Bold"), 300, W - 200, max_lines=1, min_size=120)
-        y = centered(d, y, price, pf, GOLD) + 130
+        pf = fit(d, price, lambda s: serif(s, "Bold"), 260, W - 200, max_lines=1, min_size=120)
+        y = centered(d, y, price, pf, GOLD) + 40
         if stamp:
-            y = centered(d, y - 10, stamp, sans(30, "Medium"), MUTED, spacing=2) + 90
+            y = centered(d, y, stamp, sans(28, "Medium"), MUTED, spacing=2) + 70
+        if pct >= 10:                                              # big, in the space that used to be empty
+            sf = sans(150, "ExtraBold")
+            txt = f"{pct}% OFF"
+            tw = d.textlength(txt, font=sf)
+            d.rounded_rectangle([(W - tw) / 2 - 50, y, (W + tw) / 2 + 50, y + 190], radius=36, fill=(255, 197, 61))
+            d.text(((W - tw) / 2, y + 8), txt, font=sf, fill=(31, 26, 46))
+            y += 230
+        if lowest:
+            y = centered(d, y, lowest, sans(40, "SemiBold"), IVORY, spacing=2) + 70
     if code and code != "w/ code":
+        y = min(y, SAFE_BOTTOM - 220)
         centered(d, y, "WITH CODE", sans(34, "SemiBold"), MUTED, spacing=8)
         cf = sans(80, "Bold")
         cw = sum(d.textlength(c, font=cf) for c in code) + 10 * (len(code) - 1)
         d.rounded_rectangle([(W - cw) / 2 - 60, y + 70, (W + cw) / 2 + 60, y + 210], radius=16, outline=GOLD, width=3)
         centered(d, y + 95, code, cf, IVORY, spacing=10)
     elif coupon or code:
-        centered(d, y, "CLIP THE COUPON" if coupon else "PROMO CODE INSIDE", sans(48, "SemiBold"), IVORY, spacing=8)
+        centered(d, min(y, SAFE_BOTTOM - 80), "CLIP THE COUPON" if coupon else "PROMO CODE INSIDE", sans(48, "SemiBold"), IVORY, spacing=8)
     footer(d, MUTED)
     img.save(path)
 
@@ -403,13 +488,13 @@ def scene_price(path, price, was, code, coupon, amazon=False, stamp=""):
 def scene_cta(path):
     img = Image.new("RGB", (W, H), IVORY)
     d = ImageDraw.Draw(img)
-    centered(d, 560, "Tap the link to see", serif(76, "Regular", italic=True), CHAR)
-    centered(d, 680, "today's price on Amazon", serif(76, "Regular", italic=True), CHAR)
-    rule(d, 850, 160)
-    centered(d, 920, "Mom Found", serif(150, "Bold"), CHAR)
-    centered(d, 1090, "It Cheaper", serif(150, "Bold"), GOLD)
-    rule(d, 1310, 160)
-    centered(d, 1360, "JOIN FREE  ·  NEW DEALS DAILY", sans(34, "SemiBold"), MUTED, spacing=7)
+    centered(d, 460, "Tap the link to see", serif(76, "Regular", italic=True), CHAR)
+    centered(d, 580, "today's price on Amazon", serif(76, "Regular", italic=True), CHAR)
+    rule(d, 750, 160)
+    centered(d, 820, "Mom Found", serif(150, "Bold"), CHAR)
+    centered(d, 990, "It Cheaper", serif(150, "Bold"), GOLD)
+    rule(d, 1210, 160)
+    centered(d, 1260, "JOIN FREE  ·  NEW DEALS DAILY", sans(34, "SemiBold"), MUTED, spacing=7)
     footer(d, MUTED)
     img.save(path)
 
@@ -417,8 +502,9 @@ def scene_cta(path):
 # ---------- voice and video (one clip per scene, scene length = its own line) ----------
 
 FPS = 30
-LEAD, TAIL = 0.25, 0.25          # speech starts after the dissolve settles; breath before the next scene
+LEAD, TAIL = 0.15, 0.10          # speech starts just after the dissolve; short breath before the next scene (dead air < 0.6 s)
 MIN_SCENE = 1.6                  # shorter than this the zoom is invisible
+MAX_SCENE = 6.0                  # benchmark: no single picture held longer than this
 MAX_TOTAL = 24.0                 # Reels/Shorts sweet spot; gallery/features trimmed to fit
 
 
@@ -473,14 +559,16 @@ def build_audio(clips, scene_durs, out_path):
             cmd += ["-f", "lavfi", "-t", f"{d:.3f}", "-i", "anullsrc=r=24000:cl=mono"]
         labels.append(f"[{i}:a]adelay={int(LEAD * 1000)}:all=1,apad=whole_dur={d:.3f},atrim=0:{d:.3f}[a{i}]")
     joined = "".join(f"[a{i}]" for i in range(len(clips)))
-    cmd += ["-filter_complex", ";".join(labels) + f";{joined}concat=n={len(clips)}:v=0:a=1[out]",
+    # loudnorm to -14 LUFS / -1.5 dBTP: Shorts-level loudness, no clipping; the dur=sum(scene_durs) stays exact
+    cmd += ["-filter_complex", ";".join(labels) + f";{joined}concat=n={len(clips)}:v=0:a=1,"
+            f"loudnorm=I=-14:TP=-1.5:LRA=11,atrim=0:{sum(scene_durs):.3f},apad=whole_dur={sum(scene_durs):.3f}[out]",
             "-map", "[out]", "-c:a", "aac", "-b:a", "128k", str(out_path)]
     subprocess.run(cmd, check=True)
 
 
 def render(scenes, durations, audio, out_path, zooms=None):
     """Steady Ken Burns on each scene (zoom in, or zoom out on alternate gallery shots), 0.4 s dissolve, voice on top."""
-    fade = 0.4
+    fade = 0.25                      # short dissolve: two caption layers never read at once
     zooms = zooms or ["in"] * len(scenes)
     cmd = ["ffmpeg", "-y", "-loglevel", "error"]
     for s in scenes:
@@ -490,7 +578,8 @@ def render(scenes, durations, audio, out_path, zooms=None):
     parts = []
     for i, (dur, zd) in enumerate(zip(durations, zooms)):
         frames = int(round((dur + fade) * FPS))
-        z = "min(1+0.0004*on,1.04)" if zd == "in" else "max(1.04-0.0004*on,1.0)"
+        z = {"in": "min(1+0.0004*on,1.04)", "out": "max(1.04-0.0004*on,1.0)",
+             "push": "min(1+0.0012*on,1.10)"}[zd]           # push = frame-1 photo, visibly alive in the first second
         parts.append(f"[{i}:v]scale={W*2}:{H*2}:flags=lanczos,zoompan=z='{z}':d={frames}"
                      f":x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s={W}x{H}:fps={FPS},setsar=1[v{i}]")
     last, offset = "v0", 0.0
@@ -549,7 +638,7 @@ def scene_gallery(path, photo, caption_text, idx):
     img = Image.blend(bg, img, 0.72)
     d = ImageDraw.Draw(img)
     masthead(d, IVORY)
-    cw, ch, top = 900, 1000, 330
+    cw, ch, top = 900, 760, 400
     shadow = Image.new("L", (W, H), 0)
     ImageDraw.Draw(shadow).rounded_rectangle([(W - cw) / 2 + 10, top + 24, (W + cw) / 2 + 10, top + ch + 24], 48, fill=150)
     img.paste((0, 0, 0), mask=shadow.filter(ImageFilter.GaussianBlur(28)))
@@ -558,20 +647,20 @@ def scene_gallery(path, photo, caption_text, idx):
     pic = ImageOps.contain(src, (cw - 80, ch - 80))
     img.paste(pic, ((W - pic.width) // 2, top + (ch - pic.height) // 2))
     d = ImageDraw.Draw(img)
-    centered(d, top + ch + 60, f"0{idx}", serif(60, "Bold"), GOLD)
-    cf = fit(d, caption_text, lambda s_: sans(s_, "Medium"), 56, W - 200, max_lines=3, min_size=40)
-    centered(d, top + ch + 140, caption_text, cf, IVORY, gap=12)
+    centered(d, top + ch + 44, f"0{idx}", serif(52, "Bold"), GOLD)
+    cf = fit(d, caption_text, lambda s_: sans(s_, "Medium"), 54, W - 200, max_lines=2, min_size=40)
+    centered(d, top + ch + 116, caption_text, cf, IVORY, gap=10)            # ends above SAFE_BOTTOM
     footer(d, MUTED)
     img.save(path)
 
 
-def price_chip(img, price, was_label, was_val, y0=1510):
+def price_chip(img, price, was_label, was_val, y0=1200):
     """Gold price pill on the product card (price is spoken on this scene, so it must be seen here too)."""
     d = ImageDraw.Draw(img)
     pf = serif(76, "Bold")
     w = d.textlength(price, font=pf)
     x0 = (W - w) / 2 - 44
-    y0 = min(y0, 1600)
+    y0 = min(y0, SAFE_BOTTOM - 180)                      # pill + was-line stay above the Shorts UI
     d.rounded_rectangle([x0, y0, x0 + w + 88, y0 + 110], radius=24, fill=GOLD)
     d.text((x0 + 44, y0 + 10), price, font=pf, fill=IVORY)
     if was_val:
@@ -582,11 +671,26 @@ def price_chip(img, price, was_label, was_val, y0=1510):
         d.line([((W - lw) / 2 - 4, y0 + 152), ((W + lw) / 2 + 4, y0 + 152)], fill=BLUSH, width=4)
 
 
-def caption(title, price, code, coupon, deal=None):
+def under_band(p):
+    """'under $25' with the smallest true band (strict <), or ''."""
+    for t in (5, 10, 15, 20, 25, 30, 40, 50, 75, 100, 150, 200, 300, 500):
+        if p < t:
+            return f"under ${t}"
+    return ""
+
+
+def caption(title, price, code, coupon, deal=None, cat="", was="", pct=0):
     extra = f" Use code {code}." if code and code != "w/ code" else (" Clip the coupon!" if coupon else "")
     if deal and is_amazon(deal) and AMAZON_PRICES != "hide":
-        head = (f"#ad Mom found it cheaper! {title} - {price} on Amazon "
-                f"(price as of {as_of(deal['seen'])}, prices change).{extra}")
+        # title formula from the trend benchmark: <category> find under $X that's actually worth it
+        band = under_band(price_value(price) or 0)
+        noun = {"Baby & Kids": "mom find", "Toys & Games": "toy find", "Beauty & Health": "beauty find",
+                "Home & Kitchen": "kitchen find", "Fashion": "closet find", "Tech & Electronics": "gadget find",
+                "Pets": "pet find", "Holiday & Seasonal": "holiday find"}.get(cat, "Amazon find")
+        lead = f"#ad {noun.capitalize()} {band} that's actually worth it \U0001F440\n" if band else "#ad Actually worth it \U0001F440\n"
+        wasbit = f", list {was}, {pct}% off" if was and pct >= 10 else ""
+        head = (f"{lead}{title} - {price} on Amazon "
+                f"(price as of {as_of(deal['seen'])}{wasbit}; prices change).{extra}")
     elif deal and is_amazon(deal):    # no price for Amazon items (Associates policy)
         head = f"#ad Mom found it cheaper! Price drop on Amazon: {title}. Tap for today's price.{extra}"
     else:
@@ -685,17 +789,16 @@ def make_one(n, deal, work):
 
     # ---- scenes, each with the exact line spoken over it ----
     plan = []    # (name, draw_fn, args, spoken, rate, pitch, zoom)
-    plan.append(("hook", scene_hook, (hook,), f"{hook[0]} {hook[1]}", "+12%", "+4Hz", "in"))
+    life = None if hide else lifestyle_photo(deal)          # frame 1 = product in use when Amazon's gallery has one
+    plan.append(("hook", scene_hook, (hook, life), f"{hook[0]} {hook[1]}", "+12%", "+4Hz", "push" if life else "in"))
     if hide:
         plan.append(("product", scene_product, (title, deal), f"{spoken} just had a price drop on Amazon.", None, None, "in"))
     else:
-        if was and was_label == "List price":
-            line = f"{spoken} is only {price} right now, down from a {was} list price."
-        elif was:
-            line = f"{spoken} is only {price} right now. It was {was}."
-        else:
-            line = f"{spoken} is only {price} right now."
+        # short line here (scene <= MAX_SCENE); the list price and % move to the price card where they are shown big
+        line = f"{spoken} is only {price} right now."
         plan.append(("product", scene_product, (title, deal, price, was_label, was), line, None, None, "in"))
+    if gallery and life and life in gallery and len(gallery) > 1:
+        gallery = [g for g in gallery if g != life]          # already used as frame 1
     if gallery:
         fillers = ["Here's a closer look.", "And from another angle.", "One more look."]
         try:
@@ -706,6 +809,10 @@ def make_one(n, deal, work):
         lines = list(feats_all)
         if proof:
             lines.insert(min(1, len(lines)), proof)
+        if not lines:
+            gallery = gallery[:1]                           # nothing real to say: one extra look, not three fillers
+        else:
+            gallery = gallery[:len(lines)]                  # every gallery shot carries a real line (no fillers)
         for i, g in enumerate(gallery):
             line = lines[i] if i < len(lines) else fillers[min(i, len(fillers) - 1)]
             plan.append((f"gallery{i+1}", scene_gallery, (g, line, i + 1), line, None, None, "out" if i % 2 == 0 else "in"))
@@ -718,17 +825,22 @@ def make_one(n, deal, work):
         plan.append(("price", scene_price, ("", "", code, coupon, True, ""), "Tap the link for today's price." + (f" Use code {', '.join(clean_code)}." if has_code else " Just clip the coupon." if coupon else ""), None, None, "in"))
     else:
         bits = []
-        if pct >= 10:
-            bits.append(f"That's {pct} percent off the {was_label.lower()}.")
+        if pct >= 10 and was_label == "List price":
+            bits.append(f"Down from a {was} list price, that's {pct} percent off.")
+        elif pct >= 10:
+            bits.append(f"It was {was}. That's {pct} percent off.")
+        elif was:
+            bits.append(f"Down from {was}.")
         if lowest:
-            bits.append("The lowest price I've seen on it.")
+            bits.append("The lowest price we've tracked on it.")
         if has_code:
             bits.append(f"Use code {', '.join(clean_code)}.")
         elif coupon:
             bits.append("Just clip the coupon.")
         if not bits:
             bits.append(f"Only {price} on Amazon right now.")
-        plan.append(("price", scene_price, (price, f"{was_label.lower()} {was}" if was else "", code, coupon, False, stamp), " ".join(bits), None, None, "in"))
+        plan.append(("price", scene_price, (price, f"{was_label.lower()} {was}" if was else "", code, coupon, False, stamp, pct,
+                                            "LOWEST PRICE WE'VE TRACKED" if lowest else ""), " ".join(bits), None, None, "in"))
     plan.append(("cta", scene_cta, (), pick(CLOSERS, deal["id"], "cl").format(brand=BRAND).split(". ")[0].rstrip(".") + ".", None, None, "in"))
 
     # ---- voice: one clip per scene; scene lasts exactly as long as its line ----
@@ -745,6 +857,8 @@ def make_one(n, deal, work):
             print(f"[warn] voice failed ({name}): {e}")
             sec, wav = 0.0, None
         d = max(MIN_SCENE, _grid(LEAD + sec + TAIL))
+        if d > MAX_SCENE:
+            print(f"[warn] scene {name} runs {d:.1f}s (> {MAX_SCENE}s): shorten its line: {line!r}")
         clips.append(wav if sec else None); durs.append(d); scenes.append(png); zooms.append(zoom); names.append(name); speech.append(sec)
     # 24 s cap: drop gallery shots from the end, then the features scene
     while sum(durs) > MAX_TOTAL and any(nm.startswith("gallery") or nm == "features" for nm in names):
@@ -766,7 +880,7 @@ def make_one(n, deal, work):
         off += d
     (OUT / f"deal_{n}.sync.json").write_text(json.dumps({"total": round(off, 2), "scenes": sheet}, indent=1))
     vname = "ElevenLabs" if os.environ.get("ELEVENLABS_API_KEY") else (re.search(r"-([A-Za-z]+?)(?:Multilingual)?Neural$", voice) or [None, voice])[1]
-    (OUT / f"deal_{n}.txt").write_text(caption(title, price, code, coupon, deal) + "\n")
+    (OUT / f"deal_{n}.txt").write_text(caption(title, price, code, coupon, deal, _cat, was, pct) + "\n")
     (OUT / f"deal_{n}.meta.txt").write_text(f"Source deal: {deal['link']}\nVoice (A/B test): {vname}\nScenes: {', '.join(names)}  Total: {off:.1f}s\n")   # internal, never pasted
     return out
 

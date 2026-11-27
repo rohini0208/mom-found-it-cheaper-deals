@@ -7,23 +7,23 @@ urgency, no "lowest ever" unless the data says so).
 
 import hashlib
 
+# Hooks are benefit / curiosity lines (trend benchmark 2026-11-26: winners never open on a price or "deal alert").
 HOOKS = {
-    "default": [("Stop scrolling,", "mama."), ("Don't pay", "full price."), ("I found it", "cheaper."),
-                ("Your new", "favorite find."), ("Quick, before", "it moves."), ("Mom-approved", "price drop."),
-                ("This one", "caught my eye."), ("Small price,", "big win.")],
-    "Baby & Kids": [("Parents,", "look at this."), ("Kid stuff,", "cheaper today."), ("Tired mama?", "Save here.")],
-    "Toys & Games": [("Gift idea", "for less."), ("Playtime,", "cheaper today."), ("Holiday list?", "Check this.")],
-    "Beauty & Health": [("Self-care,", "cheaper."), ("Glow for", "less."), ("Treat yourself,", "not your wallet.")],
-    "Home & Kitchen": [("Kitchen find,", "cheaper today."), ("Home upgrade,", "small price."), ("Your kitchen", "needs this.")],
-    "Fashion": [("Style for", "less."), ("Closet find,", "cheaper today."), ("Wear it,", "don't overpay.")],
-    "Tech & Electronics": [("Tech price", "drop."), ("Gadget alert,", "cheaper."), ("Upgrade for", "less.")],
-    "Pets": [("Pet parents,", "look."), ("Spoil them,", "spend less."), ("Fur-baby find,", "cheaper today.")],
-    "Grocery & Household": [("Pantry find,", "cheaper today."), ("Household", "savings."), ("Restock for", "less.")],
-    "Gaming & Entertainment": [("Game on,", "pay less."), ("Fun find,", "cheaper today.")],
-    "Sports & Fitness": [("Move more,", "spend less."), ("Fitness find,", "cheaper today.")],
-    "Holiday & Seasonal": [("Holiday find,", "cheaper today."), ("Deck the halls", "for less.")],
-    "Office & School": [("Desk upgrade,", "small price."), ("Back-to-it", "savings.")],
-    "Outdoor & Tools": [("Tool deal,", "cheaper today."), ("Fix-it find", "for less."), ("Outdoor gear,", "price drop.")],
+    "default": [("This one's", "actually worth it."), ("The find", "moms keep sharing."), ("Okay, this is", "a good one."),
+                ("Small thing,", "big difference."), ("You'll use this", "every single day."), ("Saw it,", "had to share.")],
+    "Baby & Kids": [("Makes mornings", "so much easier."), ("Little kids", "love this one."), ("The mom hack", "nobody told you.")],
+    "Toys & Games": [("Keeps them busy", "for hours."), ("Gift closet,", "sorted."), ("The toy they'll", "actually play with.")],
+    "Beauty & Health": [("Five minutes,", "feels like a spa."), ("The one everyone", "keeps asking about."), ("Self-care that", "fits a mom's day.")],
+    "Home & Kitchen": [("Dinner, done", "in half the time."), ("Clutter gone,", "counter back."), ("The kitchen upgrade", "you'll use daily.")],
+    "Fashion": [("Love this look.", "Wait for the price."), ("Comfy enough", "for school pickup."), ("The piece that", "goes with everything.")],
+    "Tech & Electronics": [("Peace of mind,", "one little gadget."), ("Set it once,", "forget it."), ("The upgrade", "you'll notice daily.")],
+    "Pets": [("Your dog's", "new favorite thing."), ("Happy pet,", "tidy house."), ("Pet parents,", "look at this.")],
+    "Grocery & Household": [("Restock day,", "made easy."), ("The pantry staple", "everyone's grabbing."), ("Chores,", "faster.")],
+    "Gaming & Entertainment": [("Family game night,", "sorted."), ("Screen-free fun", "they'll beg for.")],
+    "Sports & Fitness": [("Workout at home,", "no excuses."), ("Move more,", "the easy way.")],
+    "Holiday & Seasonal": [("Holiday magic,", "zero stress."), ("Deck the halls", "the easy way.")],
+    "Office & School": [("Homework spot,", "sorted."), ("Desk upgrade", "you'll feel.")],
+    "Outdoor & Tools": [("Fix it yourself,", "this weekend."), ("Backyard ready", "in one afternoon.")],
 }
 
 OPENERS = [

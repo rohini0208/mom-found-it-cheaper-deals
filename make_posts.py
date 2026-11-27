@@ -23,8 +23,8 @@ from PIL import Image, ImageDraw, ImageFont, ImageOps
 from copy_bank import PERSONAL, pick
 from qa import check as qa_check
 from deal_finder import is_amazon, no_price_title, product_key
-from make_videos import (AMAZON_PRICES, BRAND, CHAR, GOLD, IVORY, MUTED, SITE, SKIP_WORDS,
-                         as_of, centered, find_photo, fit, masthead, price_value, rule, sans,
+from make_videos import (AMAZON_PRICES, BRAND, CHAR, GOLD, IVORY, MUTED, PHOTOS, SITE, SKIP_WORDS,
+                         as_of, centered, find_photo, fit, lifestyle_photo, masthead, price_value, rule, sans,
                          serif, short_title, wrap)
 from trends_finder import load_signals, viral_sources
 
@@ -462,8 +462,34 @@ def mom_note(deal):
     return "Found this for you. Check price!"
 
 
+def _cover_into(img, path, box_xy, size, radius=28):
+    """Paste a photo cropped to fill the box (like a lifestyle panel), rounded corners."""
+    x0, y0 = box_xy
+    w, h = size
+    pic = ImageOps.fit(Image.open(path).convert("RGB"), (w, h), Image.LANCZOS, centering=(0.5, 0.4))
+    mask = Image.new("L", (w, h), 0)
+    ImageDraw.Draw(mask).rounded_rectangle([0, 0, w, h], radius, fill=255)
+    img.paste(pic, (x0, y0), mask)
+
+
+_OPENERS = {                     # warm, personal openers by category; every one is an opinion, not a claim
+    "Fashion": ["✨ Love this look!", "\U0001F60D Isn't this pretty?", "✨ Pretty, and the price is right."],
+    "Beauty & Health": ["✨ Self-care for less.", "\U0001F49B Stocking-stuffer size price.", "✨ Pretty, and the price is right."],
+    "Home & Kitchen": ["\U0001F3E1 Kitchen upgrade for less.", "✨ Small upgrade, big difference.", "\U0001F525 Price drop worth a look."],
+    "Toys & Games": ["\U0001F381 Gift closet, sorted.", "\U0001F381 Kids' gift idea at a good price.", "\U0001F525 Price drop worth a look."],
+    "Baby & Kids": ["\U0001F49B Mamas, this one's for you.", "\U0001F381 Gift closet, sorted.", "✨ Small upgrade, big difference."],
+}
+_OPENERS_ANY = ["\U0001F525 Price drop worth a look.", "✨ Found this for you.", "\U0001F60D Isn't this a good one?"]
+
+
+def _opener(deal, n=0):
+    opts = _OPENERS.get(deal.get("category", ""), _OPENERS_ANY)
+    return opts[n % len(opts)]
+
+
 def make_image_single(path, deal, cat="Everything else"):
-    """One product, big photo, handwritten mom note. Feels like a friend's find, not a flyer."""
+    """One product, big photo, handwritten mom note. Feels like a friend's find, not a flyer.
+    With a real in-use gallery shot: two panels, product left, product-in-use right."""
     bg, accent = PALETTES.get(cat, PALETTES["Everything else"])
     img = Image.new("RGB", (PW, PH), bg)
     d = ImageDraw.Draw(img)
@@ -479,7 +505,17 @@ def make_image_single(path, deal, cat="Everything else"):
             narrow = w0 / h0 < 0.7
         except Exception:
             pass
-    if narrow:
+    life = lifestyle_photo(deal) if ph else None
+    if life:
+        try:
+            _photo_into(img, deal, (70, 116), (440, 520))     # studio shot left
+            _cover_into(img, life, (540, 116), (PW - 540 - 70, 520))   # in-use shot right
+        except Exception as e:
+            print(f"[warn] lifestyle {life}: {e}")
+            life = None
+    if life:
+        pass
+    elif narrow:
         _photo_into(img, deal, (110, 116), (400, 520))      # photo left, note on the right, no overlap
     else:
         _photo_into(img, deal, (70, 116), (PW - 140, 520))
@@ -988,7 +1024,8 @@ def main():
         nm = tidy(short_title(no_price_title(d["title"])))
         nm = nm if len(nm) <= 70 else " ".join(nm.split()[:9])
         off = pct_off(d)
-        cap = ("#ad " + (f"\U0001F525 {off}% OFF! {nm} is {d['price']} on Amazon right now (list {was_of(d)}).\n" if AMAZON_PRICES != "hide" and was_of(d) else f"\U0001F525 {nm} is {d['price']} on Amazon right now.\n" if AMAZON_PRICES != "hide" else f"Price drop on Amazon: {nm}.\n")
+        opener = _opener(d, qn)
+        cap = ("#ad " + (f"{opener} {nm} is {d['price']} on Amazon right now (list {was_of(d)}, {off}% off).\n" if AMAZON_PRICES != "hide" and was_of(d) else f"{opener} {nm} is {d['price']} on Amazon right now.\n" if AMAZON_PRICES != "hide" else f"Price drop on Amazon: {nm}.\n")
                + f"{mom_note(d)}\nSee it here: {SITE}#d-{hashlib.sha1(d['id'].encode()).hexdigest()[:10]}\n"
                f"As an Amazon Associate I earn from qualifying purchases.\n\n{_tags()}")
         cm = f"#ad Shop here (prices can change):\n{link_for(d)}\nAs an Amazon Associate I earn from qualifying purchases."
