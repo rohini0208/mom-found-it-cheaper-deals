@@ -832,7 +832,7 @@ def texts(theme, items):
         st = (st[0].upper() + st[1:]) if st else ""
     caption = ("#ad " + lead + f"✨ {theme}: {names[0]}, {names[1]} and {names[2]}\n"
                + (f"{st}\n" if st else "")
-               + f"{pick(QUESTIONS, items[0]['id'], 'q')}\nAll three, checked against Amazon this morning: {SITE}\nAs an Amazon Associate I earn from qualifying purchases.\n\n{_tags()}")
+               + f"{pick(QUESTIONS, items[0]['id'], 'q')}\nAll three, checked against Amazon this morning: {SITE}\n\U0001F447 Links in the comments.\nAs an Amazon Associate I earn from qualifying purchases.\n\n{_tags()}")
     any_code = any(clean_code(i) for i in items)
     lines = ["#ad Shop here (prices" + (" and codes" if any_code else "") + " can change):"]
     for n, i in zip(names, items):
@@ -1024,9 +1024,14 @@ def main():
         nm = tidy(short_title(no_price_title(d["title"])))
         nm = nm if len(nm) <= 70 else " ".join(nm.split()[:9])
         off = pct_off(d)
-        opener = _opener(d, qn)
-        cap = ("#ad " + (f"{opener} {nm} is {d['price']} on Amazon right now (list {was_of(d)}, {off}% off).\n" if AMAZON_PRICES != "hide" and was_of(d) else f"{opener} {nm} is {d['price']} on Amazon right now.\n" if AMAZON_PRICES != "hide" else f"Price drop on Amazon: {nm}.\n")
-               + f"{mom_note(d)}\nSee it here: {SITE}#d-{hashlib.sha1(d['id'].encode()).hexdigest()[:10]}\n"
+        # Hook-first: lead with the %OFF + product + price (validated to score higher than a warm opener),
+        # then an explicit "link in the comments" CTA. Falls back when there is no discount or prices are hidden.
+        _lead = (f"\U0001F525 {off}% OFF — {nm} is {d['price']} right now (was {was_of(d)})."
+                 if AMAZON_PRICES != "hide" and was_of(d) and off >= 15
+                 else f"{nm} is {d['price']} on Amazon right now." if AMAZON_PRICES != "hide"
+                 else f"Price drop on Amazon: {nm}.")
+        cap = ("#ad " + _lead + "\n"
+               + f"{mom_note(d)}\n\U0001F447 Deal link in the comments.\nSee it here: {SITE}#d-{hashlib.sha1(d['id'].encode()).hexdigest()[:10]}\n"
                f"As an Amazon Associate I earn from qualifying purchases.\n\n{_tags()}")
         cm = f"#ad Shop here (prices can change):\n{link_for(d)}\nAs an Amazon Associate I earn from qualifying purchases."
         (OUT / f"{f}.txt").write_text(f"CAPTION:\n{cap}\n\nFIRST COMMENT (paste after posting):\n{cm}\n")

@@ -270,7 +270,7 @@ def main():
         stamp = checked_stamp([it[4] for it in items])
         rows.append({"Title": f"{label} mom finds — verified on Amazon {stamp.split(',')[0]}", "Media URL": pub + p.name,
                      "Pinterest board": board, "Thumbnail": "",
-                     "Description": f"#ad {label} finds for moms, every price read on Amazon {stamp}. Toys, kitchen, beauty, baby and more; prices change, tap for today's. As an Amazon Associate I earn from qualifying purchases.",
+                     "Description": f"#ad {label} mom finds that actually deliver \U0001F447 Toys, kitchen, beauty & baby, each price read on Amazon {stamp}. Tap for today's price. As an Amazon Associate I earn from qualifying purchases.",
                      "Link": f"{SITE}#{key}", "Publish date": "",
                      "Keywords": f"{label.lower()} amazon finds, mom deals, gifts {label.lower()}, stocking stuffers, budget finds for moms, black friday deals"})
         for i, (src, alt, now, was, asin) in enumerate(items[:2], 1):
@@ -280,9 +280,16 @@ def main():
             nm = clean_name(alt)
             st = checked_stamp([asin])
             pr = (f"{now} on Amazon as of {st}" + (f" (list price {was})" if was else "")) if now else f"{label} on Amazon as of {st}"
+            _mn = re.search(r"[\d.]+", now or ""); _mw = re.search(r"[\d.]+", was or "")
+            _nn = float(_mn.group()) if _mn else 0.0
+            _nw = float(_mw.group()) if _mw else 0.0
+            _offp = int(round((1 - _nn / _nw) * 100)) if _nw > 0 and _nn > 0 else 0
+            # Hook-first description: lead with the discount when there's a real one, else the plain name+price.
+            _desc = (f"\U0001F525 {_offp}% off — {nm[:90]} is {now} (was {was}). Price read Amazon {st}. Tap for today's price."
+                     if _offp >= 15 else f"{nm[:120]}. {pr}. Prices change; tap for today's.")
             codes = " ".join(re.findall(r"\b\d{4,6}\b", raw))
             rows.append({"Title": f"{nm[:80]} — {label}", "Media URL": pub + pp.name, "Pinterest board": board, "Thumbnail": "",
-                         "Description": f"#ad {nm[:120]}. {pr}. Prices change; tap for today's. As an Amazon Associate I earn from qualifying purchases.",
+                         "Description": f"#ad {_desc} As an Amazon Associate I earn from qualifying purchases.",
                          "Link": f"{SITE}#{key}", "Publish date": "",
                          "Keywords": ", ".join(x for x in [nm.lower()[:60], codes, label.lower(), "amazon finds", "mom deals", "gift ideas"] if x)})
     with open(OUT / "pins.csv", "w", newline="") as fh:
