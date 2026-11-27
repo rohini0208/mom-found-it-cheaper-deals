@@ -35,7 +35,7 @@
 - WARN: name looks cut/junky: '#ad Shop here (prices can change):'
 - WARN: name looks cut/junky: 'LEGO ONE PIECE Tony Tony Chopper 75643 — $39.99 (list $69.99, 43% off)'
 - WARN: name looks cut/junky: 'LEGO Speed Champions Ferrari 499P 77261 — $23.99 (list $29.99, 20% off)'
-- WARN: name looks cut/junky: 'LEGO Classic Medium Creative Brick Box 10696 — $21.42 (list $34.99, 39% off)'
+- WARN: name looks cut/junky: 'LEGO Creator 3 in 1 Forest Animals: Red Fox 31154 — $34.99 (list $49.99, 30% off)'
 ## post_8 (Outdoor & tools worth a look): ok with warnings
 - WARN: name looks cut/junky: '#ad Shop here (prices can change):'
 - WARN: name looks cut/junky: 'Wiha 38050 14 Piece Insulated Pop-up Bit Holder Set Slotted — $34.38 (list $42.98, 20% off)'
@@ -61,19 +61,20 @@
 - WARN: name looks cut/junky: '#ad Shop here (prices can change):'
 ## post_q2 (Quick deal: 37% OFF): ok with warnings
 - WARN: name looks cut/junky: '#ad Shop here (prices can change):'
-## post_q3 (Quick deal: 30% OFF): ok with warnings
+## post_q3 (Quick deal: 53% OFF): ok with warnings
 - WARN: name looks cut/junky: '#ad Shop here (prices can change):'
-## post_q4 (Quick deal: 53% OFF): ok with warnings
+## post_q4 (Quick deal: 54% OFF): ok with warnings
 - WARN: name looks cut/junky: '#ad Shop here (prices can change):'
-## post_q5 (Quick deal: 54% OFF): ok with warnings
+## post_q5 (Quick deal: 33% OFF): ok with warnings
 - WARN: name looks cut/junky: '#ad Shop here (prices can change):'
-## post_q6 (Quick deal: 33% OFF): ok with warnings
+## post_q6 (Quick deal: 23% OFF): ok with warnings
 - WARN: name looks cut/junky: '#ad Shop here (prices can change):'
-## post_q7 (Quick deal: 23% OFF): ok with warnings
+## post_q7 (Quick deal: 17% OFF): ok with warnings
 - WARN: name looks cut/junky: '#ad Shop here (prices can change):'
-## post_q8 (Quick deal: 17% OFF): ok with warnings
+## post_q8 (Quick deal: 40% OFF): ok with warnings
 - WARN: name looks cut/junky: '#ad Shop here (prices can change):'
-## post_q9 (Quick deal: 40% OFF): ok with warnings
+## post_q9 (Quick deal: 31% OFF): ok with warnings
 - WARN: name looks cut/junky: '#ad Shop here (prices can change):'
-## post_q10 (Quick deal: 31% OFF): ok with warnings
+## post_q10 (Quick deal: 45% OFF): BLOCKED
+- BLOCKER: claims 45% off without a valid list price: medicube Salmon DNA PDRN Pink Hyaluronic
 - WARN: name looks cut/junky: '#ad Shop here (prices can change):'

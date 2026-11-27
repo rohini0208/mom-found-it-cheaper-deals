@@ -1,8 +1,8 @@
-# Approval queue — 2026-11-26
+# Approval queue — 2026-11-27
 
 Reply with the numbers to approve, e.g. `post 1, q2; video 3; eng poll`. Nothing is posted until you say so.
 
-## Posts that passed strict QA (20)
+## Posts that passed strict QA (19)
 ### post_1 — Under $10 finds (ok with warnings)
 ```
 CAPTION:
@@ -113,9 +113,9 @@ https://www.amazon.com/dp/B0DY8K122V?tag=momfounditc08-20
 ### post_7 — Toy & game under $50 (ok with warnings)
 ```
 CAPTION:
-#ad 🔥 39% OFF: LEGO Classic Medium Creative Brick Box 10696 is $21.42 right now.
-✨ Toy & game under $50: LEGO ONE PIECE Tony Tony Chopper 75643, LEGO Speed Champions Ferrari 499P 77261 and LEGO Classic Medium Creative Brick Box 10696
-39% off Amazon's list price and 4.8 stars from 58,454 shoppers.
+#ad 🔥 30% OFF: LEGO Creator 3 in 1 Forest Animals: Red Fox 31154 is $34.99 right now.
+✨ Toy & game under $50: LEGO ONE PIECE Tony Tony Chopper 75643, LEGO Speed Champions Ferrari 499P 77261 and LEGO Creator 3 in 1 Forest Animals: Red Fox 31154
+30% off Amazon's list price and 4.9 stars from 3,266 shoppers.
 Any of these already on your list?
 All three, checked against Amazon this morning: https://momfounditcheaper.com/
 As an Amazon Associate I earn from qualifying purchases.
@@ -128,7 +128,7 @@ LEGO ONE PIECE Tony Tony Chopper 75643 — $39.99 (list $69.99, 43% off)
 https://www.amazon.com/dp/B0G2T1W5S9?tag=momfounditc08-20
 LEGO Speed Champions Ferrari 499P 77261 — $23.99 (list $29.99, 20% off)
 https://www.amazon.com/dp/B0G2T43599?tag=momfounditc08-20
-LEGO Classic Medium Creative Brick Box 10696 — $2
+LEGO Creator 3 in 1 Forest Animals: Red 
 ```
 
 ### post_8 — Outdoor & tools worth a look (ok with warnings)
@@ -176,16 +176,16 @@ https://www.amazon.com/dp/B079D381ZR?
 ### post_single — Mom's pick (ok with warnings)
 ```
 CAPTION:
-#ad Today's pick: GNCC 2K Security Camera Indoor.
-4.4 stars, 828 reviews on Amazon.
-See it here: https://momfounditcheaper.com/#d-348211cb19
+#ad Today's pick: SwitchBot CO2 Detector.
+4.3 stars, 1.6K reviews on Amazon.
+See it here: https://momfounditcheaper.com/#d-bfc8abdf2d
 As an Amazon Associate I earn from qualifying purchases.
 
 #dealsforyou #momlife #budgetfinds
 
 FIRST COMMENT (paste after posting):
 #ad Shop here (prices can change):
-https://www.amazon.com/dp/B0G5WWT1L1?tag=momfounditc08-20
+https://www.amazon.com/dp/B0DLN46519?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
@@ -240,23 +240,7 @@ https://www.amazon.com/dp/B0DT494JX5?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-### post_q3 — Quick deal: 30% OFF (ok with warnings)
-```
-CAPTION:
-#ad 🔥 30% OFF! SwitchBot CO2 Detector is $48.99 on Amazon right now (list $69.99).
-4.3 stars, 1.6K reviews on Amazon.
-See it here: https://momfounditcheaper.com/#d-bfc8abdf2d
-As an Amazon Associate I earn from qualifying purchases.
-
-#amazonfinds #momfinds #founditcheaper
-
-FIRST COMMENT (paste after posting):
-#ad Shop here (prices can change):
-https://www.amazon.com/dp/B0DLN46519?tag=momfounditc08-20
-As an Amazon Associate I earn from qualifying purchases.
-```
-
-### post_q4 — Quick deal: 53% OFF (ok with warnings)
+### post_q3 — Quick deal: 53% OFF (ok with warnings)
 ```
 CAPTION:
 #ad 🔥 53% OFF! Vaydeer Phone Lock Box is $9.40 on Amazon right now (list $19.99).
@@ -264,7 +248,7 @@ CAPTION:
 See it here: https://momfounditcheaper.com/#d-92ff278e51
 As an Amazon Associate I earn from qualifying purchases.
 
-#dealsforyou #momlife #budgetfinds
+#amazonfinds #momfinds #founditcheaper
 
 FIRST COMMENT (paste after posting):
 #ad Shop here (prices can change):
@@ -272,7 +256,7 @@ https://www.amazon.com/dp/B0GVSN566G?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-### post_q5 — Quick deal: 54% OFF (ok with warnings)
+### post_q4 — Quick deal: 54% OFF (ok with warnings)
 ```
 CAPTION:
 #ad 🔥 54% OFF! TI-84 Evo Graphing Calculator Texas Instruments is $73.22 on Amazon right now (list $160.00).
@@ -280,7 +264,7 @@ CAPTION:
 See it here: https://momfounditcheaper.com/#d-4f53c9c988
 As an Amazon Associate I earn from qualifying purchases.
 
-#amazondeals #giftideas #founditcheaper
+#dealsforyou #momlife #budgetfinds
 
 FIRST COMMENT (paste after posting):
 #ad Shop here (prices can change):
@@ -288,7 +272,7 @@ https://www.amazon.com/dp/B0G8QXXF8B?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-### post_q6 — Quick deal: 33% OFF (ok with warnings)
+### post_q5 — Quick deal: 33% OFF (ok with warnings)
 ```
 CAPTION:
 #ad 🔥 33% OFF! DUMOS 31.5 Inch Small Computer Desk is $19.99 on Amazon right now (list $29.99).
@@ -296,7 +280,7 @@ CAPTION:
 See it here: https://momfounditcheaper.com/#d-284f79ba3c
 As an Amazon Associate I earn from qualifying purchases.
 
-#savemoney #momhacks #amazonfinds
+#amazondeals #giftideas #founditcheaper
 
 FIRST COMMENT (paste after posting):
 #ad Shop here (prices can change):
@@ -304,7 +288,7 @@ https://www.amazon.com/dp/B0HM36F6DY?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-### post_q7 — Quick deal: 23% OFF (ok with warnings)
+### post_q6 — Quick deal: 23% OFF (ok with warnings)
 ```
 CAPTION:
 #ad 🔥 23% OFF! Gibson Home Rothernberg Plates and Bowls 18 Piece Porcelain is $45.99 on Amazon right now (list $59.99).
@@ -312,7 +296,7 @@ CAPTION:
 See it here: https://momfounditcheaper.com/#d-924bc84c26
 As an Amazon Associate I earn from qualifying purchases.
 
-#momdeals #momfinds #dealoftheday
+#savemoney #momhacks #amazonfinds
 
 FIRST COMMENT (paste after posting):
 #ad Shop here (prices can change):
@@ -320,7 +304,7 @@ https://www.amazon.com/dp/B0GWRVM27R?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-### post_q8 — Quick deal: 17% OFF (ok with warnings)
+### post_q7 — Quick deal: 17% OFF (ok with warnings)
 ```
 CAPTION:
 #ad 🔥 17% OFF! Razer Orochi V2 Wireless Gaming Mouse is $24.99 on Amazon right now (list $29.99).
@@ -328,7 +312,7 @@ CAPTION:
 See it here: https://momfounditcheaper.com/#d-48eef42640
 As an Amazon Associate I earn from qualifying purchases.
 
-#amazonfinds #momfinds #founditcheaper
+#momdeals #momfinds #dealoftheday
 
 FIRST COMMENT (paste after posting):
 #ad Shop here (prices can change):
@@ -336,7 +320,7 @@ https://www.amazon.com/dp/B0916N2LPZ?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-### post_q9 — Quick deal: 40% OFF (ok with warnings)
+### post_q8 — Quick deal: 40% OFF (ok with warnings)
 ```
 CAPTION:
 #ad 🔥 40% OFF! Shark Navigator Lift-Away Upright Vacuum Cleaner is $119.99 on Amazon right now (list $200).
@@ -344,7 +328,7 @@ CAPTION:
 See it here: https://momfounditcheaper.com/#d-05160a6751
 As an Amazon Associate I earn from qualifying purchases.
 
-#dealsforyou #momlife #budgetfinds
+#amazonfinds #momfinds #founditcheaper
 
 FIRST COMMENT (paste after posting):
 #ad Shop here (prices can change):
@@ -352,7 +336,7 @@ https://www.amazon.com/dp/B005KMDV9A?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-### post_q10 — Quick deal: 31% OFF (ok with warnings)
+### post_q9 — Quick deal: 31% OFF (ok with warnings)
 ```
 CAPTION:
 #ad 🔥 31% OFF! Eureka Bagless Canister Vacuum is $54.99 on Amazon right now (list $79.99).
@@ -360,7 +344,7 @@ CAPTION:
 See it here: https://momfounditcheaper.com/#d-4d4970562e
 As an Amazon Associate I earn from qualifying purchases.
 
-#amazondeals #giftideas #founditcheaper
+#dealsforyou #momlife #budgetfinds
 
 FIRST COMMENT (paste after posting):
 #ad Shop here (prices can change):
@@ -443,7 +427,7 @@ All of them, with links: https://momfounditcheaper.com/#under-50
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-## Pinterest pins (12) — folder pins/2026-11-26/ (pins.csv has title, description, link)
+## Pinterest pins (12) — folder pins/2026-11-27/ (pins.csv has title, description, link)
 - pin_under-10.png
 - pin_under-10_1.png
 - pin_under-10_2.png
@@ -458,8 +442,8 @@ As an Amazon Associate I earn from qualifying purchases.
 - pin_under-50_2.png
 
 ## Engagement drafts (Page)
-- **Poll:** What's your Black Friday budget this year?  Options: Under $50 / $50-150 / $150-300 / No limit, help me
-- **Ask:** Gift shopping this week? Say 'toddler', 'grade school' or 'teen' and I'll post three finds under $20 for that group.
+- **Poll:** Best stocking stuffer price?  Options: Under $5 / $5-10 / $10-20 / Price doesn't matter if it's cute
+- **Ask:** Moms: what's the one thing you overpaid for last year? I'll find a better price.
 - **Pin:** #ad New here? Every deal on https://momfounditcheaper.com/ is checked against Amazon before it's posted. Save the page and tell me what you want found cheaper. As an Amazon Associate I earn from qualifying purchases.
 
 ## Checklist before posting
