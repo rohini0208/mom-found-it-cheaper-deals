@@ -70,9 +70,14 @@ def _first(page, getters, timeout=8000):
 
 
 def type_like_human(loc, text):
+    """Works for <textarea> AND Draft.js contenteditable (no .fill(), which Draft.js ignores)."""
     loc.click()
     human_pause(0.2, 0.6)
-    loc.fill("")
+    try:
+        loc.press("Control+a")
+        loc.press("Delete")
+    except Exception:
+        pass
     loc.type(text, delay=random.uniform(40, 110))
     human_pause(0.3, 0.9)
 
@@ -93,58 +98,59 @@ def publish_pin(page, it, dry):
     file_input.set_input_files(str(img))
     human_pause(3.0, 5.0)                                 # let Pinterest process the image
 
-    # 2) title
+    # exact selectors confirmed from the live pin-builder DOM
+    # 2) title (textarea#pin-draft-title-*)
     title = _first(page, [
-        lambda: page.get_by_placeholder("Add a title"),
-        lambda: page.get_by_role("textbox", name="Add your title"),
-        lambda: page.locator('[data-test-id="pin-draft-title"] textarea, textarea[id*="title" i]'),
+        lambda: page.locator('textarea[id^="pin-draft-title"]').first,
+        lambda: page.get_by_placeholder("Add your title"),
     ])
     if title:
         type_like_human(title, (it.get("title") or "")[:100])
 
-    # 3) description (Pinterest's current placeholder is "Tell everyone what your Pin is about")
+    # 3) description (Draft.js editable inside [data-test-id^="pin-draft-description"])
     desc = _first(page, [
-        lambda: page.get_by_placeholder("Tell everyone what your Pin is about"),
-        lambda: page.get_by_role("textbox", name="Tell everyone what your Pin is about"),
-        lambda: page.get_by_placeholder("Add a detailed description"),
-        lambda: page.locator('[data-test-id="pin-draft-description"] div[role="textbox"], [data-test-id="pin-draft-description"] textarea'),
+        lambda: page.locator('[data-test-id^="pin-draft-description"] [contenteditable="true"]').first,
+        lambda: page.locator('[data-test-id^="pin-draft-description"] div[role="textbox"]').first,
+        lambda: page.locator('[data-test-id^="pin-draft-description"] textarea').first,
     ])
     if desc:
         type_like_human(desc, (it.get("caption") or "")[:480])
 
-    # 4) destination link
+    # 4) destination link (textarea#pin-draft-link-*)
     link = _first(page, [
+        lambda: page.locator('textarea[id^="pin-draft-link"]').first,
         lambda: page.get_by_placeholder("Add a destination link"),
-        lambda: page.get_by_role("textbox", name="Add a destination link"),
-        lambda: page.locator('input[id*="link" i], textarea[id*="link" i]'),
     ])
     if link and it.get("link"):
         type_like_human(link, it["link"])
 
-    # 5) board picker -> choose the pin's board by name
+    # 5) board: only open the picker if the target board is not already selected
     board_name = it.get("board", "")
-    picker = _first(page, [
-        lambda: page.get_by_role("button", name="Choose a board"),
-        lambda: page.locator('[data-test-id="board-dropdown-select-button"]'),
-        lambda: page.get_by_text("Choose a board"),
-    ])
-    if picker and board_name:
-        picker.click(); human_pause(0.6, 1.4)
-        opt = _first(page, [
-            lambda: page.get_by_role("option", name=board_name),
-            lambda: page.get_by_text(board_name, exact=True),
-        ])
-        if opt:
-            opt.click(); human_pause(0.5, 1.2)
+    btn = page.locator('[data-test-id="board-dropdown-select-button"]').first
+    try:
+        current = btn.inner_text(timeout=4000)
+    except Exception:
+        current = ""
+    if board_name and board_name.lower() not in current.lower():
+        try:
+            btn.click(); human_pause(0.6, 1.4)
+            opt = _first(page, [
+                lambda: page.get_by_role("option", name=board_name),
+                lambda: page.get_by_text(board_name),
+            ], timeout=5000)
+            if opt:
+                opt.click(); human_pause(0.5, 1.2)
+        except Exception:
+            pass
 
     if dry:
         page.screenshot(path="status/pw_dryrun_preview.png")
         return True, "dry-run (form filled, not published; see status/pw_dryrun_preview.png)"
 
-    # 6) publish
+    # 6) publish (confirmed id board-dropdown-save-button)
     pub = _first(page, [
+        lambda: page.locator('[data-test-id="board-dropdown-save-button"]').first,
         lambda: page.get_by_role("button", name="Publish"),
-        lambda: page.locator('[data-test-id="board-dropdown-save-button"]'),
         lambda: page.get_by_role("button", name="Save"),
     ])
     if not pub:
