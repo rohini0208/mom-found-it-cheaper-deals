@@ -121,6 +121,41 @@ def refresh_access_token():
     return bool(tok.get("access_token"))
 
 
+def diag():
+    """Print the token's account, boards, and the full error from a test pin create."""
+    load_dotenv()
+    if not TOKEN:
+        print("no PINTEREST_TOKEN in .env"); return
+    def raw(method, path, body=None):
+        data = json.dumps(body).encode() if body is not None else None
+        req = urllib.request.Request(API + path, data=data, method=method,
+                                     headers={"Authorization": "Bearer " + TOKEN, "Content-Type": "application/json"})
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                return r.status, r.read().decode()
+        except urllib.error.HTTPError as e:
+            return e.code, e.read().decode()
+    s, b = raw("GET", "/user_account")
+    print(f"user_account [{s}]: {b[:300]}")
+    s, b = raw("GET", "/boards?page_size=50")
+    print(f"boards [{s}]: {b[:600]}")
+    try:
+        boards = json.loads(b).get("items", [])
+    except Exception:
+        boards = []
+    if boards:
+        bid = boards[0]["id"]
+        q = _read_json(QUEUE, {})
+        pin = (q.get("pins") or [{}])[0]
+        body = {"board_id": bid, "title": (pin.get("title") or "Test")[:100],
+                "description": (pin.get("caption") or "test")[:800], "link": pin.get("link", ""),
+                "media_source": {"source_type": "image_url", "url": pin.get("image_url", "")}}
+        s, b = raw("POST", "/pins", body)
+        print(f"create pin on board {bid} [{s}]: {b[:600]}")
+    else:
+        print("No boards returned for this token's account.")
+
+
 def oauth_authorize():
     """One-time: run the OAuth code flow to get a pins:write token into .env."""
     global TOKEN, REFRESH
@@ -390,6 +425,7 @@ def run(go, once, ignore_window):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--auth", action="store_true", help="one-time OAuth: get a pins:write token into .env")
+    ap.add_argument("--diag", action="store_true", help="print token account, boards, and full pin-create error")
     ap.add_argument("--go", action="store_true", help="actually post (default is a dry run)")
     ap.add_argument("--once", action="store_true", help="post at most one due pin, then exit")
     ap.add_argument("--now", action="store_true", help="ignore the daytime posting window")
@@ -397,6 +433,9 @@ def main():
     if a.auth:
         load_dotenv()
         oauth_authorize()
+        return
+    if a.diag:
+        diag()
         return
     run(a.go, a.once, a.now)
 
