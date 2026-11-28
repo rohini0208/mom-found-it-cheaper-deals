@@ -54,7 +54,7 @@ BOARD_ID_ENV = os.environ.get("PINTEREST_BOARD_ID", "")
 APP_ID = os.environ.get("PINTEREST_APP_ID", "1645680")
 APP_SECRET = os.environ.get("PINTEREST_APP_SECRET", "")
 REDIRECT = os.environ.get("PINTEREST_REDIRECT", "http://localhost:8085/")
-SCOPES = os.environ.get("PINTEREST_SCOPES", "boards:read,pins:read,pins:write")
+SCOPES = os.environ.get("PINTEREST_SCOPES", "boards:read,boards:write,pins:read,pins:write,user_accounts:read")
 
 
 ENV_PATH = Path(".env")
