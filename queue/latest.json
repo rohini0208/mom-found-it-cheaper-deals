@@ -1,209 +1,1105 @@
 {
-  "date": "2026-11-27",
-  "generated": "2026-11-27T16:37:30-05:00",
+  "date": "2026-11-28",
+  "generated": "2026-11-28T08:42:29-05:00",
   "counts": {
-    "pins": 12,
-    "posts": 2,
+    "pins": 9,
+    "posts": 17,
     "reels": 0
   },
   "pins": [
     {
       "id": "pin_01",
       "type": "pin",
-      "title": "Under $10 mom finds \u2014 verified on Amazon Nov 27",
-      "caption": "#ad Under $10 mom finds that actually deliver \ud83d\udc47 Toys, kitchen, beauty & baby, each price read on Amazon Nov 27, 7:19 AM ET. Tap for today's price. As an Amazon Associate I earn from qualifying purchases.",
-      "image_url": "https://momfounditcheaper.com/pins/2026-11-27/pin_under-10.png",
+      "title": "Under $10 mom finds \u2014 verified on Amazon Nov 28",
+      "caption": "#ad Under $10 mom finds that actually deliver \ud83d\udc47 Toys, kitchen, beauty & baby, each price read on Amazon Nov 28, 7:05 AM ET. Tap for today's price. As an Amazon Associate I earn from qualifying purchases.",
+      "image_url": "https://momfounditcheaper.com/pins/2026-11-28/pin_under-10.png",
       "link": "https://momfounditcheaper.com/#under-10",
       "board": "Mom-Approved Finds",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "pass",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/allam-2-7b",
+            "verdict": "pass",
+            "note": "All required elements present and correct."
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 7.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, honest disclosure, clear CTA, concise caption."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good price hook, but lacks a clear product focus."
+          }
+        ]
+      }
     },
     {
       "id": "pin_02",
       "type": "pin",
-      "title": "Sealegend Dryer Vent Cleaner Kit for Dyson Dryer Lint Vacuum Attachment \u2014 Under $10",
-      "caption": "#ad \ud83d\udd25 15% off \u2014 Sealegend Dryer Vent Cleaner Kit for Dyson Dryer Lint Vacuum Attachment is $7.64 (was $8.99). Price read Amazon Nov 27, 7:16 AM ET. Tap for today's price. As an Amazon Associate I earn from qualifying purchases.",
-      "image_url": "https://momfounditcheaper.com/pins/2026-11-27/pin_under-10_1.png",
+      "title": "Extra Large Christmas Gift Bags for Bikes \u2014 Under $10",
+      "caption": "#ad \ud83d\udd25 46% off \u2014 Extra Large Christmas Gift Bags for Bikes is $6.99 (was $12.99). Price read Amazon Nov 28, 6:45 AM ET. Tap for today's price. As an Amazon Associate I earn from qualifying purchases.",
+      "image_url": "https://momfounditcheaper.com/pins/2026-11-28/pin_under-10_1.png",
       "link": "https://momfounditcheaper.com/#under-10",
       "board": "Mom-Approved Finds",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "pass",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/allam-2-7b",
+            "verdict": "pass",
+            "note": "Ad disclosure, price information, no unsafe content, spelling correct, Amazon As"
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 7.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, price, disclosure; lacks specific CTA and question."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good hook, clear CTA, but could be snappier."
+          }
+        ]
+      }
     },
     {
       "id": "pin_03",
       "type": "pin",
-      "title": "Potato Head Toy Story 5 Buzz Spudyear Set with 1 Potato Body and 11 Accessories \u2014 Under $10",
-      "caption": "#ad \ud83d\udd25 16% off \u2014 Potato Head Toy Story 5 Buzz Spudyear Set with 1 Potato Body and 11 Accessories is $8.39 (was $9.97). Price read Amazon Nov 27, 7:19 AM ET. Tap for today's price. As an Amazon Associate I earn from qualifying purchases.",
-      "image_url": "https://momfounditcheaper.com/pins/2026-11-27/pin_under-10_2.png",
+      "title": "HEETA Scalp Massager Hair Growth Scrubber for Dandruff Removal Hair Care \u2014 Under $10",
+      "caption": "#ad HEETA Scalp Massager Hair Growth Scrubber for Dandruff Removal Hair Care. $5.49 on Amazon as of Nov 28, 7:05 AM ET. Prices change; tap for today's. As an Amazon Associate I earn from qualifying purchases.",
+      "image_url": "https://momfounditcheaper.com/pins/2026-11-28/pin_under-10_2.png",
       "link": "https://momfounditcheaper.com/#under-10",
       "board": "Mom-Approved Finds",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "pass",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/allam-2-7b",
+            "verdict": "pass",
+            "note": "Has disclosure, accurate price, no unsafe content, no typos"
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 6.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 6.0,
+            "note": "Good disclosure, but lacks hook, CTA, and visual context."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good price hook, clear call to action, but lacks a snappy caption."
+          }
+        ]
+      }
     },
     {
       "id": "pin_04",
       "type": "pin",
-      "title": "Under $20 mom finds \u2014 verified on Amazon Nov 27",
-      "caption": "#ad Under $20 mom finds that actually deliver \ud83d\udc47 Toys, kitchen, beauty & baby, each price read on Amazon Nov 27, 7:19 AM ET. Tap for today's price. As an Amazon Associate I earn from qualifying purchases.",
-      "image_url": "https://momfounditcheaper.com/pins/2026-11-27/pin_under-20.png",
+      "title": "Under $20 mom finds \u2014 verified on Amazon Nov 28",
+      "caption": "#ad Under $20 mom finds that actually deliver \ud83d\udc47 Toys, kitchen, beauty & baby, each price read on Amazon Nov 28, 7:03 AM ET. Tap for today's price. As an Amazon Associate I earn from qualifying purchases.",
+      "image_url": "https://momfounditcheaper.com/pins/2026-11-28/pin_under-20.png",
       "link": "https://momfounditcheaper.com/#under-20",
       "board": "Mom-Approved Finds",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "pass",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/allam-2-7b",
+            "verdict": "pass",
+            "note": "All required elements present and correct."
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 7.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, honest disclosure, clear CTA, concise caption."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 6.0,
+            "note": "Clear, honest, but lacks a snappy hook and visual product."
+          }
+        ]
+      }
     },
     {
       "id": "pin_05",
       "type": "pin",
-      "title": "Funko POP! Jumbo: Astro Bot \u2014 Under $20",
-      "caption": "#ad \ud83d\udd25 50% off \u2014 Funko POP! Jumbo: Astro Bot is $19.99 (was $39.99). Price read Amazon Nov 27, 7:15 AM ET. Tap for today's price. As an Amazon Associate I earn from qualifying purchases.",
-      "image_url": "https://momfounditcheaper.com/pins/2026-11-27/pin_under-20_1.png",
+      "title": "Transformers Toys Heroic Optimus Prime Action Figure \u2014 Under $20",
+      "caption": "#ad \ud83d\udd25 30% off \u2014 Transformers Toys Heroic Optimus Prime Action Figure is $19.49 (was $27.90). Price read Amazon Nov 28, 6:42 AM ET. Tap for today's price. As an Amazon Associate I earn from qualifying purchases.",
+      "image_url": "https://momfounditcheaper.com/pins/2026-11-28/pin_under-20_1.png",
       "link": "https://momfounditcheaper.com/#under-20",
       "board": "Mom-Approved Finds",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "pass",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/allam-2-7b",
+            "verdict": "pass",
+            "note": "Has disclosure, accurate price, no unsafe content, correct product info, read Am"
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 8.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, price, disclosure; lacks question or visual context."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 8.0,
+            "note": "Great price, clear CTA, but add a fun fact or question."
+          }
+        ]
+      }
     },
     {
       "id": "pin_06",
       "type": "pin",
-      "title": "Hot Wheels City Dragon Launch Transporter & 1:64 Scale Car \u2014 Under $20",
-      "caption": "#ad \ud83d\udd25 32% off \u2014 Hot Wheels City Dragon Launch Transporter & 1:64 Scale Car is $10.49 (was $15.37). Price read Amazon Nov 27, 7:19 AM ET. Tap for today's price. As an Amazon Associate I earn from qualifying purchases.",
-      "image_url": "https://momfounditcheaper.com/pins/2026-11-27/pin_under-20_2.png",
+      "title": "Ontel Battery Daddy Storage & Organizer Case w/Tester \u2014 Under $20",
+      "caption": "#ad \ud83d\udd25 20% off \u2014 Ontel Battery Daddy Storage & Organizer Case w/Tester is $15.99 (was $19.99). Price read Amazon Nov 28, 6:50 AM ET. Tap for today's price. As an Amazon Associate I earn from qualifying purchases.",
+      "image_url": "https://momfounditcheaper.com/pins/2026-11-28/pin_under-20_2.png",
       "link": "https://momfounditcheaper.com/#under-20",
       "board": "Mom-Approved Finds",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "pass",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/allam-2-7b",
+            "verdict": "pass",
+            "note": "Has disclosure, accurate price, no unsafe content, correct product info"
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 7.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, price, disclosure; lacks question or visual context."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Clear, honest, and concise, but lacks a visual product hook."
+          }
+        ]
+      }
     },
     {
       "id": "pin_07",
       "type": "pin",
-      "title": "Under $25 mom finds \u2014 verified on Amazon Nov 27",
-      "caption": "#ad Under $25 mom finds that actually deliver \ud83d\udc47 Toys, kitchen, beauty & baby, each price read on Amazon Nov 27, 7:20 AM ET. Tap for today's price. As an Amazon Associate I earn from qualifying purchases.",
-      "image_url": "https://momfounditcheaper.com/pins/2026-11-27/pin_under-25.png",
-      "link": "https://momfounditcheaper.com/#under-25",
+      "title": "Under $50 mom finds \u2014 verified on Amazon Nov 28",
+      "caption": "#ad Under $50 mom finds that actually deliver \ud83d\udc47 Toys, kitchen, beauty & baby, each price read on Amazon Nov 28, 7:04 AM ET. Tap for today's price. As an Amazon Associate I earn from qualifying purchases.",
+      "image_url": "https://momfounditcheaper.com/pins/2026-11-28/pin_under-50.png",
+      "link": "https://momfounditcheaper.com/#under-50",
       "board": "Mom-Approved Finds",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "pass",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/allam-2-7b",
+            "verdict": "pass",
+            "note": "All required elements present and correct."
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 7.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, honest disclosure, clear CTA, concise caption."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 6.0,
+            "note": "Clear, honest, but lacks a snappy hook and visual product."
+          }
+        ]
+      }
     },
     {
       "id": "pin_08",
       "type": "pin",
-      "title": "100% Cotton Bed Pillows \u2014 Under $25",
-      "caption": "#ad 100% Cotton Bed Pillows. $20.00 on Amazon as of Nov 27, 6:48 AM ET. Prices change; tap for today's. As an Amazon Associate I earn from qualifying purchases.",
-      "image_url": "https://momfounditcheaper.com/pins/2026-11-27/pin_under-25_1.png",
-      "link": "https://momfounditcheaper.com/#under-25",
+      "title": "3-Piece Book Cutting Board Set with Scalloped Stand \u2014 Under $50",
+      "caption": "#ad 3-Piece Book Cutting Board Set with Scalloped Stand. $39.99 on Amazon as of Nov 28, 6:56 AM ET (list price $45.99). Prices change; tap for today's. As an Amazon Associate I earn from qualifying purchases.",
+      "image_url": "https://momfounditcheaper.com/pins/2026-11-28/pin_under-50_1.png",
+      "link": "https://momfounditcheaper.com/#under-50",
       "board": "Mom-Approved Finds",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "pass",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/allam-2-7b",
+            "verdict": "pass",
+            "note": "Ad disclosure, accurate pricing, no unsafe content, proper capitalization"
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 6.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 6.0,
+            "note": "Honest disclosure, but lacks hook, CTA, and visual context."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good hook, clear call to action, but could be more concise."
+          }
+        ]
+      }
     },
     {
       "id": "pin_09",
       "type": "pin",
-      "title": "Jack Link's Original Zero Sugar Beef Sticks \u2014 Under $25",
-      "caption": "#ad Jack Link's Original Zero Sugar Beef Sticks. $21.14 on Amazon as of Nov 27, 7:20 AM ET. Prices change; tap for today's. As an Amazon Associate I earn from qualifying purchases.",
-      "image_url": "https://momfounditcheaper.com/pins/2026-11-27/pin_under-25_2.png",
-      "link": "https://momfounditcheaper.com/#under-25",
-      "board": "Mom-Approved Finds",
-      "qa": {
-        "status": "pending",
-        "models": []
-      },
-      "status": "pending"
-    },
-    {
-      "id": "pin_10",
-      "type": "pin",
-      "title": "Under $50 mom finds \u2014 verified on Amazon Nov 27",
-      "caption": "#ad Under $50 mom finds that actually deliver \ud83d\udc47 Toys, kitchen, beauty & baby, each price read on Amazon Nov 27, 7:13 AM ET. Tap for today's price. As an Amazon Associate I earn from qualifying purchases.",
-      "image_url": "https://momfounditcheaper.com/pins/2026-11-27/pin_under-50.png",
+      "title": "Ufree 5 in 1 Curling Iron with Flat Iron \u2014 Under $50",
+      "caption": "#ad Ufree 5 in 1 Curling Iron with Flat Iron. $37.39 on Amazon as of Nov 28, 6:53 AM ET. Prices change; tap for today's. As an Amazon Associate I earn from qualifying purchases.",
+      "image_url": "https://momfounditcheaper.com/pins/2026-11-28/pin_under-50_2.png",
       "link": "https://momfounditcheaper.com/#under-50",
       "board": "Mom-Approved Finds",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "pass",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/allam-2-7b",
+            "verdict": "pass",
+            "note": "Ad disclosure, price info, no unsafe content, correct product info, and proper p"
+          }
+        ]
       },
-      "status": "pending"
-    },
-    {
-      "id": "pin_11",
-      "type": "pin",
-      "title": "LEGO Creator 3 in 1 Forest Animals: Red Fox \u2014 Under $50",
-      "caption": "#ad \ud83d\udd25 30% off \u2014 LEGO Creator 3 in 1 Forest Animals: Red Fox is $34.99 (was $49.99). Price read Amazon Nov 27, 7:05 AM ET. Tap for today's price. As an Amazon Associate I earn from qualifying purchases.",
-      "image_url": "https://momfounditcheaper.com/pins/2026-11-27/pin_under-50_1.png",
-      "link": "https://momfounditcheaper.com/#under-50",
-      "board": "Mom-Approved Finds",
-      "qa": {
-        "status": "pending",
-        "models": []
-      },
-      "status": "pending"
-    },
-    {
-      "id": "pin_12",
-      "type": "pin",
-      "title": "Fresh Roasted Coffee \u2014 Under $50",
-      "caption": "#ad Fresh Roasted Coffee. $27.48 on Amazon as of Nov 27, 6:49 AM ET. Prices change; tap for today's. As an Amazon Associate I earn from qualifying purchases.",
-      "image_url": "https://momfounditcheaper.com/pins/2026-11-27/pin_under-50_2.png",
-      "link": "https://momfounditcheaper.com/#under-50",
-      "board": "Mom-Approved Finds",
-      "qa": {
-        "status": "pending",
-        "models": []
-      },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 7.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 7.0,
+            "note": "Good hook and disclosure, but lacks a clear call to action."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 8.0,
+            "note": "Clear, honest, and engaging; could be more concise."
+          }
+        ]
+      }
     }
   ],
   "posts": [
     {
+      "id": "post_1",
+      "type": "post",
+      "title": "CAPTION:",
+      "caption": "CAPTION:\n#ad \ud83d\udd25 31% OFF: HEETA Scalp Massager Hair Growth Scrubber for Dandruff Removal Hair Care is $5.49 right now.\n\u2728 Under $10 finds: HEETA Scalp Massager Hair Growth Scrubber for Dandruff Removal Hair Care, JARLINK 18 Pcs Mesh Zipper Pouch Bags and Poetry for Neanderthals by Exploding Kittens\n31% off Amazon's list price and 4.6 stars from 154,313 shoppers.\nTell us which one you want and we will keep an eye out for more like it.\n\ud83d\udc47 Links in the comments.\nAs an Amazon Associate I earn from qualifying purchases.\n#dealsforyou #momlife #budgetfinds\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nHEETA Scalp Massager Hair Growth Scrubber for Dandruff Removal Hair Care \u2014 $5.49 (list $7.99, 31% off)\nJARLINK 18 Pcs Mesh Zipper Pouch Bags \u2014 $9.99 (list $16, 38% off)\nPoetry for Neanderthals by Exploding Kittens \u2014 $9.99 (list $20, 50% off)\nAs an Amazon Associate I earn from qualifying purchases.",
+      "comment": "All three, checked against Amazon this morning: https://momfounditcheaper.com/",
+      "image_url": "https://momfounditcheaper.com/posts/post_1.png",
+      "link": "https://momfounditcheaper.com/",
+      "qa": {
+        "status": "pass",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/allam-2-7b",
+            "verdict": "pass",
+            "note": "All requirements met: disclosure, price info, no unverifiable claims, safe produ"
+          }
+        ]
+      },
+      "status": "pending",
+      "judge": {
+        "score": 6.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 7.0,
+            "note": "Good hook and disclosure, but cluttered with three unrelated items."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 6.0,
+            "note": "Good price hook, but lacks a clear product image."
+          }
+        ]
+      }
+    },
+    {
+      "id": "post_2",
+      "type": "post",
+      "title": "CAPTION:",
+      "caption": "CAPTION:\n#ad \ud83d\udd25 30% OFF: Belt Hanger for Closet Max 42 Belts is $6.25 right now.\n\u2728 Under $15 finds: VEHHE Paper Towel Holder Countertop, Belt Hanger for Closet Max 42 Belts and Color Stack Challenge\n30% off Amazon's list price and 4.8 stars from 3,679 shoppers.\nAny of these already on your list?\n\ud83d\udc47 Links in the comments.\nAs an Amazon Associate I earn from qualifying purchases.\n#amazondeals #giftideas #founditcheaper\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nVEHHE Paper Towel Holder Countertop \u2014 $12.34 (list $16.99, 27% off)\nBelt Hanger for Closet Max 42 Belts \u2014 $6.25 (list $8.99, 30% off)\nColor Stack Challenge \u2014 $10.00 (list $20, 50% off)\nAs an Amazon Associate I earn from qualifying purchases.",
+      "comment": "All three, checked against Amazon this morning: https://momfounditcheaper.com/",
+      "image_url": "https://momfounditcheaper.com/posts/post_2.png",
+      "link": "https://momfounditcheaper.com/",
+      "qa": {
+        "status": "pass",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/allam-2-7b",
+            "verdict": "pass",
+            "note": "All required elements present and correct."
+          }
+        ]
+      },
+      "status": "pending",
+      "judge": {
+        "score": 7.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, clear CTA, honest disclosure, snappy format."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good price, clear CTA, but lacks product image."
+          }
+        ]
+      }
+    },
+    {
+      "id": "post_3",
+      "type": "post",
+      "title": "CAPTION:",
+      "caption": "CAPTION:\n#ad \ud83d\udd25 30% OFF: Transformers Toys Heroic Optimus Prime Action Figure is $19.49 right now.\n\u2728 Under $25 finds: Milwaukee Electric Tool 48-32-4408 Shockwave Drive & Fasten Bit Set, Transformers Toys Heroic Optimus Prime Action Figure and Powerbuilt 1/2 Inch Drive Impact Driver Set Extractor Tool\n30% off Amazon's list price and 4.6 stars from 11,740 shoppers.\nAny of these already on your list?\n\ud83d\udc47 Links in the comments.\nAs an Amazon Associate I earn from qualifying purchases.\n#savemoney #momhacks #amazonfinds\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nMilwaukee Electric Tool 48-32-4408 Shockwave Drive & Fasten Bit Set \u2014 $22.97 (list $38.21, 40% off)\nTransformers Toys Heroic Optimus Prime Action Figure \u2014 $19.49 (list $27.90, 30% off)\nPowerbuilt 1/2 Inch Drive Impact Driver Set Extractor Tool \u2014 $15.87 (list $23.83, 33% off)\nAs an Amazon Associate I earn from qualifying purchases.",
+      "comment": "All three, checked against Amazon this morning: https://momfounditcheaper.com/",
+      "image_url": "https://momfounditcheaper.com/posts/post_3.png",
+      "link": "https://momfounditcheaper.com/",
+      "qa": {
+        "status": "pass",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/allam-2-7b",
+            "verdict": "pass",
+            "note": "All required elements present: disclosure, accurate prices, and no unsafe conten"
+          }
+        ]
+      },
+      "status": "pending",
+      "judge": {
+        "score": 7.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, clear CTA, honest disclosure, snappy caption."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good price hook, but too many products for a single post."
+          }
+        ]
+      }
+    },
+    {
+      "id": "post_4",
+      "type": "post",
+      "title": "CAPTION:",
+      "caption": "CAPTION:\n#ad \ud83d\udd25 55% OFF: Ninja Kitchen System Pro is $100.00 right now.\n\u2728 Home & kitchen worth a look: Ninja Kitchen System Pro, Tangkula Desktop Bookshelf and Mythinglogic 3-Tier Foldable Rolling Kitchen Island Cart\n55% off Amazon's list price and 4.4 stars from 43,623 shoppers.\nWhich would you grab first?\n\ud83d\udc47 Links in the comments.\nAs an Amazon Associate I earn from qualifying purchases.\n#momdeals #momfinds #dealoftheday\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nNinja Kitchen System Pro \u2014 $100.00 (list $219.99, 55% off)\nTangkula Desktop Bookshelf \u2014 $54.99 (list $99.99, 45% off)\nMythinglogic 3-Tier Foldable Rolling Kitchen Island Cart \u2014 $142.49 (list $179.99, 21% off)\nAs an Amazon Associate I earn from qualifying purchases.",
+      "comment": "All three, checked against Amazon this morning: https://momfounditcheaper.com/",
+      "image_url": "https://momfounditcheaper.com/posts/post_4.png",
+      "link": "https://momfounditcheaper.com/",
+      "qa": {
+        "status": "pass",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/allam-2-7b",
+            "verdict": "pass",
+            "note": "All requirements met: disclosure, price info, no unverifiable claims, safe conte"
+          }
+        ]
+      },
+      "status": "pending",
+      "judge": {
+        "score": 7.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, clear CTA, honest disclosure, snappy caption."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good hook, CTA, and disclosure; add product image."
+          }
+        ]
+      }
+    },
+    {
+      "id": "post_5",
+      "type": "post",
+      "title": "CAPTION:",
+      "caption": "CAPTION:\n#ad \ud83d\udd25 20% OFF: Ontel Battery Daddy Storage & Organizer Case w/Tester is $15.99 right now.\n\u2728 Outdoor & tools worth a look: Goplus Tool Box, Powerbuilt 23-Pc Master A/C Clutch Removal & Installation Tool Kit and Ontel Battery Daddy Storage & Organizer Case w/Tester\n20% off Amazon's list price and 4.8 stars from 84,113 shoppers.\nAny of these already on your list?\n\ud83d\udc47 Links in the comments.\nAs an Amazon Associate I earn from qualifying purchases.\n#amazonfinds #momfinds #founditcheaper\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nGoplus Tool Box \u2014 $105.14 (list $159.99, 34% off)\nPowerbuilt 23-Pc Master A/C Clutch Removal & Installation Tool Kit \u2014 $68.31 (list $105.77, 35% off)\nOntel Battery Daddy Storage & Organizer Case w/Tester \u2014 $15.99 (list $19.99, 20% off)\nAs an Amazon Associate I earn from qualifying purchases.",
+      "comment": "All three, checked against Amazon this morning: https://momfounditcheaper.com/",
+      "image_url": "https://momfounditcheaper.com/posts/post_5.png",
+      "link": "https://momfounditcheaper.com/",
+      "qa": {
+        "status": "pass",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/allam-2-7b",
+            "verdict": "pass",
+            "note": "All requirements met: ad disclosure, price info, no unverifiable claims, safe co"
+          }
+        ]
+      },
+      "status": "pending",
+      "judge": {
+        "score": 7.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, clear CTA, honest disclosure, snappy caption."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good hook, CTA, and disclosure; lacks product image."
+          }
+        ]
+      }
+    },
+    {
+      "id": "post_6",
+      "type": "post",
+      "title": "CAPTION:",
+      "caption": "CAPTION:\n#ad \ud83d\udd25 71% OFF: AncestryDNA Genetic Test Kit: Personalized Results is $29.00 right now.\n\u2728 Top under $100: AncestryDNA Genetic Test Kit: Personalized Results, Conair LED Vanity Mirror and FilmHOO 12 Rainbow Colored Pencils\n71% off Amazon's list price and 4.6 stars from 91,779 shoppers.\nWhich one is going in your cart?\n\ud83d\udc47 Links in the comments.\nAs an Amazon Associate I earn from qualifying purchases.\n#dealsforyou #momlife #budgetfinds\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nAncestryDNA Genetic Test Kit: Personalized Results \u2014 $29.00 (list $99, 71% off)\nConair LED Vanity Mirror \u2014 $53.99 (list $79.99, 33% off)\nFilmHOO 12 Rainbow Colored Pencils \u2014 $2.99 (list $4.99, 40% off)\nAs an Amazon Associate I earn from qualifying purchases.",
+      "comment": "All three, checked against Amazon this morning: https://momfounditcheaper.com/",
+      "image_url": "https://momfounditcheaper.com/posts/post_6.png",
+      "link": "https://momfounditcheaper.com/",
+      "qa": {
+        "status": "pass",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/allam-2-7b",
+            "verdict": "pass",
+            "note": "All requirements met: #ad, disclosure, accurate pricing, no unsafe content"
+          }
+        ]
+      },
+      "status": "pending",
+      "judge": {
+        "score": 7.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, clear CTA, honest disclosure, snappy format."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good hook, CTA, disclosure, but long caption."
+          }
+        ]
+      }
+    },
+    {
       "id": "post_q1",
       "type": "post",
       "title": "CAPTION:",
-      "caption": "CAPTION:\n#ad \ud83d\udd25 20% OFF \u2014 Wiha 38050 14 Piece Insulated Pop-up Bit Holder Set Slotted is $34.38 right now (was $42.98).\n4.6 stars, 153 reviews on Amazon.\n\ud83d\udc47 Deal link in the comments.\nAs an Amazon Associate I earn from qualifying purchases.\n#amazondeals #giftideas #founditcheaper\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nAs an Amazon Associate I earn from qualifying purchases.",
-      "comment": "See it here: https://momfounditcheaper.com/#d-ab1efed6ea",
+      "caption": "CAPTION:\n#ad \ud83d\udd25 20% OFF \u2014 Standing Computer Gaming Office Desk is $79.99 right now (was $99.99).\n20% below Amazon's list price.\n\ud83d\udc47 Deal link in the comments.\nAs an Amazon Associate I earn from qualifying purchases.\n#savemoney #momhacks #amazonfinds\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nAs an Amazon Associate I earn from qualifying purchases.",
+      "comment": "See it here: https://momfounditcheaper.com/#d-2d7b178040",
       "image_url": "https://momfounditcheaper.com/posts/post_q1.png",
-      "link": "https://momfounditcheaper.com/#d-ab1efed6ea",
+      "link": "https://momfounditcheaper.com/#d-2d7b178040",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "pass",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/allam-2-7b",
+            "verdict": "pass",
+            "note": "All required elements present and correct."
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 7.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, clear price, honest disclosure, concise format."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good price hook, but needs a snappier caption."
+          }
+        ]
+      }
+    },
+    {
+      "id": "post_q10",
+      "type": "post",
+      "title": "CAPTION:",
+      "caption": "CAPTION:\n#ad \ud83d\udd25 29% OFF \u2014 Sol de Janeiro Jet Set is $24 right now (was $34).\n4.7 stars, 20.3K reviews on Amazon.\n\ud83d\udc47 Deal link in the comments.\nAs an Amazon Associate I earn from qualifying purchases.\n#amazondeals #giftideas #founditcheaper\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nAs an Amazon Associate I earn from qualifying purchases.",
+      "comment": "See it here: https://momfounditcheaper.com/#d-c3f9f7fb39",
+      "image_url": "https://momfounditcheaper.com/posts/post_q10.png",
+      "link": "https://momfounditcheaper.com/#d-c3f9f7fb39",
+      "qa": {
+        "status": "pass",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/allam-2-7b",
+            "verdict": "pass",
+            "note": "All required elements present and correct."
+          }
+        ]
+      },
+      "status": "pending",
+      "judge": {
+        "score": 8.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 9.0,
+            "note": "Strong hook, clear price, honest disclosure, concise format."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good price hook, CTA, disclosure, but lacks product image."
+          }
+        ]
+      }
+    },
+    {
+      "id": "post_q2",
+      "type": "post",
+      "title": "CAPTION:",
+      "caption": "CAPTION:\n#ad \ud83d\udd25 37% OFF \u2014 Astercook Kitchen Scissors is $9.48 right now (was $14.99).\n4.8 stars, 3.5K reviews on Amazon.\n\ud83d\udc47 Deal link in the comments.\nAs an Amazon Associate I earn from qualifying purchases.\n#momdeals #momfinds #dealoftheday\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nAs an Amazon Associate I earn from qualifying purchases.",
+      "comment": "See it here: https://momfounditcheaper.com/#d-ba6b01b344",
+      "image_url": "https://momfounditcheaper.com/posts/post_q2.png",
+      "link": "https://momfounditcheaper.com/#d-ba6b01b344",
+      "qa": {
+        "status": "pass",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/allam-2-7b",
+            "verdict": "pass",
+            "note": "All required elements present and correct."
+          }
+        ]
+      },
+      "status": "pending",
+      "judge": {
+        "score": 7.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, clear price, honest disclosure, concise format."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good price hook, CTA, disclosure, but no product image."
+          }
+        ]
+      }
+    },
+    {
+      "id": "post_q3",
+      "type": "post",
+      "title": "CAPTION:",
+      "caption": "CAPTION:\n#ad \ud83d\udd25 34% OFF \u2014 Singles To Go! Dunkin' Refreshers Green Tea Drink Mix Packets is $7.50 right now (was $11.28).\n4.6 stars, 5.2K reviews on Amazon.\n\ud83d\udc47 Deal link in the comments.\nAs an Amazon Associate I earn from qualifying purchases.\n#amazonfinds #momfinds #founditcheaper\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nAs an Amazon Associate I earn from qualifying purchases.",
+      "comment": "See it here: https://momfounditcheaper.com/#d-8d24d4d251",
+      "image_url": "https://momfounditcheaper.com/posts/post_q3.png",
+      "link": "https://momfounditcheaper.com/#d-8d24d4d251",
+      "qa": {
+        "status": "pass",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/allam-2-7b",
+            "verdict": "pass",
+            "note": "All required elements present and correct."
+          }
+        ]
+      },
+      "status": "pending",
+      "judge": {
+        "score": 7.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, clear price, honest disclosure, concise format."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 6.0,
+            "note": "Good price hook, but lacks a clear call to action."
+          }
+        ]
+      }
+    },
+    {
+      "id": "post_q4",
+      "type": "post",
+      "title": "CAPTION:",
+      "caption": "CAPTION:\n#ad \ud83d\udd25 50% OFF \u2014 BlueParrott B550-XT Bluetooth Headset is $119.99 right now (was $239.99).\n4.5 stars, 2.7K reviews on Amazon.\n\ud83d\udc47 Deal link in the comments.\nAs an Amazon Associate I earn from qualifying purchases.\n#dealsforyou #momlife #budgetfinds\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nAs an Amazon Associate I earn from qualifying purchases.",
+      "comment": "See it here: https://momfounditcheaper.com/#d-d6c40747f0",
+      "image_url": "https://momfounditcheaper.com/posts/post_q4.png",
+      "link": "https://momfounditcheaper.com/#d-d6c40747f0",
+      "qa": {
+        "status": "pass",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/allam-2-7b",
+            "verdict": "pass",
+            "note": "All required elements present and correct."
+          }
+        ]
+      },
+      "status": "pending",
+      "judge": {
+        "score": 7.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, clear price, honest disclosure, concise format."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good hook, CTA, disclosure, but long caption."
+          }
+        ]
+      }
+    },
+    {
+      "id": "post_q5",
+      "type": "post",
+      "title": "CAPTION:",
+      "caption": "CAPTION:\n#ad \ud83d\udd25 24% OFF \u2014 Lysol All Purpose Cleaner Spray is $12.91 right now (was $17).\n4.7 stars, 39.9K reviews on Amazon.\n\ud83d\udc47 Deal link in the comments.\nAs an Amazon Associate I earn from qualifying purchases.\n#amazondeals #giftideas #founditcheaper\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nAs an Amazon Associate I earn from qualifying purchases.",
+      "comment": "See it here: https://momfounditcheaper.com/#d-614c650424",
+      "image_url": "https://momfounditcheaper.com/posts/post_q5.png",
+      "link": "https://momfounditcheaper.com/#d-614c650424",
+      "qa": {
+        "status": "pass",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/allam-2-7b",
+            "verdict": "pass",
+            "note": "All required elements present and correct."
+          }
+        ]
+      },
+      "status": "pending",
+      "judge": {
+        "score": 7.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 9.0,
+            "note": "Strong hook, clear price, honest disclosure, concise format."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 6.0,
+            "note": "Good price hook, but lacks a clear call to action."
+          }
+        ]
+      }
+    },
+    {
+      "id": "post_q6",
+      "type": "post",
+      "title": "CAPTION:",
+      "caption": "CAPTION:\n#ad \ud83d\udd25 52% OFF \u2014 CELSIUS ARCTIC VIBE Sparkling Frozen Berry is $12 right now (was $25).\n4.7 stars, 3.8K reviews on Amazon.\n\ud83d\udc47 Deal link in the comments.\nAs an Amazon Associate I earn from qualifying purchases.\n#savemoney #momhacks #amazonfinds\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nAs an Amazon Associate I earn from qualifying purchases.",
+      "comment": "See it here: https://momfounditcheaper.com/#d-a415e64807",
+      "image_url": "https://momfounditcheaper.com/posts/post_q6.png",
+      "link": "https://momfounditcheaper.com/#d-a415e64807",
+      "qa": {
+        "status": "pass",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/allam-2-7b",
+            "verdict": "pass",
+            "note": "All required elements present and correct."
+          }
+        ]
+      },
+      "status": "pending",
+      "judge": {
+        "score": 8.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 9.0,
+            "note": "Strong hook, clear price, honest disclosure, concise format."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good price, CTA, disclosure, but lacks a hook."
+          }
+        ]
+      }
+    },
+    {
+      "id": "post_q7",
+      "type": "post",
+      "title": "CAPTION:",
+      "caption": "CAPTION:\n#ad \ud83d\udd25 15% OFF \u2014 Rugcomf Runner Rug 2'7\"x8' Washable Non Slip Floral Animal C is $23.79 right now (was $27.99).\n4.5 stars, 2.0K reviews on Amazon.\n\ud83d\udc47 Deal link in the comments.\nAs an Amazon Associate I earn from qualifying purchases.\n#momdeals #momfinds #dealoftheday\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nAs an Amazon Associate I earn from qualifying purchases.",
+      "comment": "See it here: https://momfounditcheaper.com/#d-d93bc31078",
+      "image_url": "https://momfounditcheaper.com/posts/post_q7.png",
+      "link": "https://momfounditcheaper.com/#d-d93bc31078",
+      "qa": {
+        "status": "pass",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/allam-2-7b",
+            "verdict": "pass",
+            "note": "All required elements present and correct."
+          }
+        ]
+      },
+      "status": "pending",
+      "judge": {
+        "score": 7.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, clear price, honest disclosure, concise format."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good hook, CTA, disclosure, but lacks a snappy caption."
+          }
+        ]
+      }
+    },
+    {
+      "id": "post_q8",
+      "type": "post",
+      "title": "CAPTION:",
+      "caption": "CAPTION:\n#ad 3-Piece Book Cutting Board Set is $39.99 on Amazon right now.\nFound this for you. Check price!\n\ud83d\udc47 Deal link in the comments.\nAs an Amazon Associate I earn from qualifying purchases.\n#amazonfinds #momfinds #founditcheaper\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nAs an Amazon Associate I earn from qualifying purchases.",
+      "comment": "See it here: https://momfounditcheaper.com/#d-c35261696d",
+      "image_url": "https://momfounditcheaper.com/posts/post_q8.png",
+      "link": "https://momfounditcheaper.com/#d-c35261696d",
+      "qa": {
+        "status": "pass",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/allam-2-7b",
+            "verdict": "pass",
+            "note": "All required elements present and correct."
+          }
+        ]
+      },
+      "status": "pending",
+      "judge": {
+        "score": 5.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 7.0,
+            "note": "Good hook and disclosure, but lacks specific benefit or urgency."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 3.0,
+            "note": "Missing product image, and a question would help."
+          }
+        ]
+      }
+    },
+    {
+      "id": "post_q9",
+      "type": "post",
+      "title": "CAPTION:",
+      "caption": "CAPTION:\n#ad \ud83d\udd25 20% OFF \u2014 CGE Codenames Board Game is $19.98 right now (was $24.99).\n4.8 stars, 412 reviews on Amazon.\n\ud83d\udc47 Deal link in the comments.\nAs an Amazon Associate I earn from qualifying purchases.\n#dealsforyou #momlife #budgetfinds\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nAs an Amazon Associate I earn from qualifying purchases.",
+      "comment": "See it here: https://momfounditcheaper.com/#d-5092c9cde0",
+      "image_url": "https://momfounditcheaper.com/posts/post_q9.png",
+      "link": "https://momfounditcheaper.com/#d-5092c9cde0",
+      "qa": {
+        "status": "pass",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "pass",
+            "note": "All compliance and quality criteria met."
+          },
+          {
+            "model": "groq/allam-2-7b",
+            "verdict": "pass",
+            "note": "All required elements present and correct."
+          }
+        ]
+      },
+      "status": "pending",
+      "judge": {
+        "score": 7.5,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 8.0,
+            "note": "Strong hook, clear price, honest disclosure, concise format."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 7.0,
+            "note": "Good price hook, but lacks a clear call to action."
+          }
+        ]
+      }
     },
     {
       "id": "post_single",
       "type": "post",
       "title": "CAPTION:",
-      "caption": "CAPTION:\n#ad Today's pick: LEGO Creator 3 in 1 Forest Animals: Red Fox 31154.\n4.9 stars, 3.3K reviews on Amazon.\nAs an Amazon Associate I earn from qualifying purchases.\n#dealsforyou #momlife #budgetfinds\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nAs an Amazon Associate I earn from qualifying purchases.",
-      "comment": "See it here: https://momfounditcheaper.com/#d-6e1cf46332",
+      "caption": "CAPTION:\n#ad Today's pick: Glad ForceFlex Tall Kitchen Trash Bags.\n4.7 stars, 14.3K reviews on Amazon.\nAs an Amazon Associate I earn from qualifying purchases.\n#amazondeals #giftideas #founditcheaper\nFIRST COMMENT (paste after posting):\n#ad Shop here (prices can change):\nAs an Amazon Associate I earn from qualifying purchases.",
+      "comment": "See it here: https://momfounditcheaper.com/#d-0692957941",
       "image_url": "https://momfounditcheaper.com/posts/post_single.png",
-      "link": "https://momfounditcheaper.com/#d-6e1cf46332",
+      "link": "https://momfounditcheaper.com/#d-0692957941",
       "qa": {
-        "status": "pending",
-        "models": []
+        "status": "warn",
+        "models": [
+          {
+            "model": "cohere/command-a-03-2025",
+            "verdict": "warn",
+            "note": "States a price without an Amazon read time/date."
+          },
+          {
+            "model": "groq/allam-2-7b",
+            "verdict": "pass",
+            "note": "All required elements present and correct."
+          }
+        ]
       },
-      "status": "pending"
+      "status": "pending",
+      "judge": {
+        "score": 2.0,
+        "bar": 9,
+        "pass": false,
+        "models": [
+          {
+            "model": "groq/qwen/qwen3.8-27b",
+            "score": 2.0,
+            "note": "Missing price, benefit, and CTA; lacks hook and specific deal details."
+          },
+          {
+            "model": "cohere/command-r-plus-08-2024",
+            "score": 2.0,
+            "note": "Missing hook, price, and call to action."
+          }
+        ]
+      }
     }
   ],
   "reels": []

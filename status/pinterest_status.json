@@ -1,0 +1,64 @@
+{
+  "updated": "2026-11-27T23:06:32-05:00",
+  "mode": "ui-live",
+  "account_age_days": 0,
+  "cap_today": 3,
+  "posted_today": 1,
+  "remaining_today": 2,
+  "approved_waiting": 1,
+  "window": "08:00-21:00 ET",
+  "window_open": false,
+  "next_action_at": "2026-11-27T23:39:32-05:00",
+  "note": "",
+  "recent": [
+    {
+      "id": "pin_01",
+      "title": "Under $10 mom finds \u2014 verified on Amazon Nov 27",
+      "result": "error",
+      "error": "HTTP 401: {\"code\":3,\"message\":\"Your token does not have sufficient permissions to perform this operation. Please ensure your token is authorized with the correct set of s",
+      "at": "2026-11-27T22:07:03-05:00"
+    },
+    {
+      "id": "pin_01",
+      "title": "Under $10 mom finds \u2014 verified on Amazon Nov 27",
+      "result": "error",
+      "error": "HTTP 401: {\"code\":3,\"message\":\"Your token does not have sufficient permissions to perform this operation. Please ensure your token is authorized with the correct set of s",
+      "at": "2026-11-27T22:09:26-05:00"
+    },
+    {
+      "id": "pin_01",
+      "title": "Under $10 mom finds \u2014 verified on Amazon Nov 27",
+      "result": "error",
+      "error": "HTTP 403: {\"code\":29,\"message\":\"Apps with Trial access may not create Pins in production https://api.pinterest.com - use API Sandbox https://api-sandbox.pinterest.com ins",
+      "at": "2026-11-27T22:15:47-05:00"
+    },
+    {
+      "id": "pin_01",
+      "title": "Under $10 mom finds \u2014 verified on Amazon Nov 27",
+      "result": "would-post",
+      "note": "dry-run (form filled, not published; see status/pw_dryrun_preview.png)",
+      "at": "2026-11-27T22:26:49-05:00"
+    },
+    {
+      "id": "pin_01",
+      "title": "Under $10 mom finds \u2014 verified on Amazon Nov 27",
+      "result": "would-post",
+      "note": "dry-run (form filled, not published; see status/pw_dryrun_preview.png)",
+      "at": "2026-11-27T22:45:34-05:00"
+    },
+    {
+      "id": "pin_01",
+      "title": "Under $10 mom finds \u2014 verified on Amazon Nov 27",
+      "result": "would-post",
+      "note": "dry-run (form filled, not published; see status/pw_dryrun_preview.png)",
+      "at": "2026-11-27T22:50:39-05:00"
+    },
+    {
+      "id": "pin_01",
+      "title": "Under $10 mom finds \u2014 verified on Amazon Nov 27",
+      "result": "posted",
+      "note": "published",
+      "at": "2026-11-27T23:06:32-05:00"
+    }
+  ]
+}
