@@ -226,8 +226,11 @@ def run(go, once, ignore_window):
                         break
                     time.sleep(3600); continue
                 if not elig:
-                    write_status(mode, state, elig, recent, note="no approved pins waiting")
-                    print("No approved pins waiting. Approve some, then rerun.")
+                    stale = queue.get("date") and queue.get("date") != today
+                    note = (f"queue {queue.get('date')} is stale (today is {today}); not posting - wait for today's render"
+                            if stale else "no approved pins waiting")
+                    write_status(mode, state, elig, recent, note=note)
+                    print(note if stale else "No approved pins waiting. Approve some, then rerun.")
                     if once:
                         break
                     time.sleep(600); continue

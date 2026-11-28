@@ -284,7 +284,12 @@ def resolve_board_id(name, cache):
     return cache.get(name, "")
 
 
-def eligible_pins(queue, posted):
+def eligible_pins(queue, posted, today=None):
+    # Freshness guard: pins carry a dated price + read-time, so NEVER post a queue that
+    # isn't today's (ET). A stale queue (yesterday's render) yields zero eligible items.
+    today = today or datetime.now(ET).strftime("%Y-%m-%d")
+    if queue.get("date") and queue.get("date") != today:
+        return []
     out = []
     for it in queue.get("pins", []):
         if it.get("status") != "approved":
