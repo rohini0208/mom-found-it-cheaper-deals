@@ -86,6 +86,8 @@ def main():
                 continue
             if (it.get("qa") or {}).get("status") == "fail":
                 continue
+            if (it.get("image_qa") or {}).get("status") == "fail":   # visual QA failed
+                continue
             if a.min_judge is not None:
                 js = (it.get("judge") or {}).get("score")
                 if js is None or js < a.min_judge:
@@ -97,6 +99,8 @@ def main():
             if it.get("id") == want:
                 if (it.get("qa") or {}).get("status") == "fail":
                     print(f"skip {want}: QA failed (not approvable)")
+                elif (it.get("image_qa") or {}).get("status") == "fail":
+                    print(f"skip {want}: image QA failed (not approvable)")
                 else:
                     it["status"] = "approved"; changed.append(want)
                 break

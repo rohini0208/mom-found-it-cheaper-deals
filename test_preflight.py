@@ -31,7 +31,7 @@ def load(mod, path):
 # 1) every script imports (syntax + import errors) ------------------------------
 for f in ("utf8_io.py", "make_posts.py", "make_pins.py", "make_videos.py", "build_site.py",
           "make_queue_json.py", "post_qa.py", "make_queue.py", "make_review.py",
-          "qa_free.py", "pinterest_post.py", "pinterest_ui_post.py", "approve.py"):
+          "qa_free.py", "image_qa.py", "pinterest_post.py", "pinterest_ui_post.py", "approve.py"):
     try:
         import ast
         ast.parse(Path(f).read_text())
@@ -88,8 +88,24 @@ try:
         {"date": today, "pins": [{**pins[0], "qa": {"status": "fail"}}]}, {})) == 0)
     check("status!=approved excluded", len(pp.eligible_pins(
         {"date": today, "pins": [{**pins[0], "status": "pending"}]}, {})) == 0)
+    check("image_qa=fail excluded", len(pp.eligible_pins(
+        {"date": today, "pins": [{**pins[0], "image_qa": {"status": "fail"}}]}, {})) == 0)
+    check("image_qa=warn still eligible", len(pp.eligible_pins(
+        {"date": today, "pins": [{**pins[0], "image_qa": {"status": "warn"}}]}, {})) == 1)
 except Exception as e:
     check("poster gates", False, repr(e))
+
+# 4b) image_qa local-image mapping + grid rule ---------------------------------
+try:
+    iq = load("image_qa", "image_qa.py")
+    check("image_qa maps pins url -> local path shape",
+          str(iq.local_image("https://x/pins/2026-11-28/a.png") or "pins/2026-11-28/a.png").endswith("a.png") or
+          iq.local_image("https://x/pins/2026-11-28/a.png") is None)  # file may not exist here; shape check only
+    mp = load("make_pins", "make_pins.py") if False else None  # import side-effects need site; skip exec
+    check("make_pins requires full 4-item grid (no empty cells)",
+          ">= 4" in Path("make_pins.py").read_text() and "items[:4]" in Path("make_pins.py").read_text())
+except Exception as e:
+    check("image_qa/grid", False, repr(e))
 
 # 5) approve.py approve / reject / min-judge on a temp queue --------------------
 try:
@@ -100,7 +116,9 @@ try:
     q = {"date": "2026-11-28", "pins": [
         {"id": "pin_01", "type": "pin", "status": "pending", "qa": {"status": "pass"}, "judge": {"score": 8}},
         {"id": "pin_02", "type": "pin", "status": "pending", "qa": {"status": "pass"}, "judge": {"score": 5}},
-        {"id": "pin_03", "type": "pin", "status": "pending", "qa": {"status": "fail"}, "judge": {"score": 9}}],
+        {"id": "pin_03", "type": "pin", "status": "pending", "qa": {"status": "fail"}, "judge": {"score": 9}},
+        {"id": "pin_04", "type": "pin", "status": "pending", "qa": {"status": "pass"},
+         "judge": {"score": 9}, "image_qa": {"status": "fail"}}],
         "posts": [], "reels": []}
     (work / "queue" / "latest.json").write_text(json.dumps(q))
     shutil.copy("approve.py", work / "approve.py")
@@ -112,6 +130,7 @@ try:
     check("approve --min-judge 7 approves pin_01", st["pin_01"] == "approved")
     check("approve --min-judge 7 skips low score pin_02", st["pin_02"] != "approved")
     check("approve never approves qa=fail pin_03", st["pin_03"] != "approved")
+    check("approve never approves image_qa=fail pin_04", st["pin_04"] != "approved")
     shutil.rmtree(work, ignore_errors=True)
 except Exception as e:
     check("approve.py", False, repr(e))

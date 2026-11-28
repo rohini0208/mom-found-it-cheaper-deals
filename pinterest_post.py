@@ -297,6 +297,8 @@ def eligible_pins(queue, posted, today=None):
             continue
         if (it.get("qa") or {}).get("status") == "fail":
             continue
+        if (it.get("image_qa") or {}).get("status") == "fail":   # visual QA failed (bad grid / off-brand / price)
+            continue
         if f"{date}:{it.get('id')}" in posted:  # date-scoped: ids repeat each day, so key by date+id
             continue
         if not it.get("image_url") or not it.get("link"):

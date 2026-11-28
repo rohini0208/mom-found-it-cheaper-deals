@@ -115,7 +115,7 @@ def tiers_from_site():
             if now and _price_rose(asin, now):
                 continue                                   # our own log shows it cheaper earlier: not a "found it cheaper"
             items.append((ROOT / "site" / html_.unescape(src), html_.unescape(alt), now or "", was or "", asin))
-        if len(items) >= 3:
+        if len(items) >= 4:                                # 2x2 grid needs a full 4 - never leave an empty cell
             out.append((key, label, items[:4]))
     return out
 

@@ -143,6 +143,32 @@ def publish_pin(page, it, dry):
         except Exception:
             pass
 
+    # SAFETY: never publish a pin missing its link, description or title. Re-try once, then skip.
+    def _val(loc):
+        if not loc:
+            return ""
+        try:
+            return (loc.input_value() or "").strip()
+        except Exception:
+            try:
+                return (loc.inner_text() or "").strip()
+            except Exception:
+                return ""
+    if it.get("link") and link and not _val(link):
+        type_like_human(link, it["link"])
+    if it.get("caption") and desc and not _val(desc):
+        type_like_human(desc, (it.get("caption") or "")[:480])
+    problems = []
+    if it.get("title") and not _val(title):
+        problems.append("title empty")
+    if it.get("caption") and not _val(desc):
+        problems.append("description empty")
+    if it.get("link") and not _val(link):
+        problems.append("link empty")
+    if problems:
+        page.screenshot(path="status/pw_fieldcheck.png")
+        return False, "field check failed: " + ", ".join(problems) + " (see status/pw_fieldcheck.png)"
+
     if dry:
         page.screenshot(path="status/pw_dryrun_preview.png")
         return True, "dry-run (form filled, not published; see status/pw_dryrun_preview.png)"
