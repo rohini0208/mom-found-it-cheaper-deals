@@ -9,3 +9,5 @@ gallery_test_log.txt
 .env
 data/pins_posted.json
 data/pinterest_state.json
+.pw_pinterest/
+status/pw_*.png
