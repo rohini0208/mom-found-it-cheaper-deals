@@ -1,52 +1,237 @@
-# Approval queue — 2026-11-27
+# Approval queue — 2026-11-28
 
 Reply with the numbers to approve, e.g. `post 1, q2; video 3; eng poll`. Nothing is posted until you say so.
 
-## Posts that passed strict QA (2)
-### post_single — Mom's pick (ok with warnings)
+## Posts that passed strict QA (11)
+### post_1 — Under $10 finds (ok with warnings)
 ```
 CAPTION:
-#ad Today's pick: LEGO Creator 3 in 1 Forest Animals: Red Fox 31154.
-4.9 stars, 3.3K reviews on Amazon.
-See it here: https://momfounditcheaper.com/#d-6e1cf46332
+#ad 🔥 47% OFF: Bluey’s Play Date Plush Surprise Toddler House Playset is $9.99 right now.
+✨ Under $10 finds: Bluey’s Play Date Plush Surprise Toddler House Playset, Squishmallows Original Peanuts 8in Baseball Snoopy – Official Jazwares Plush and CRAFTSMAN High-Visibility Tape Measure 25 FT
+47% off Amazon's list price.
+Tell us which one you want and we will keep an eye out for more like it.
+All three, checked against Amazon this morning: https://momfounditcheaper.com/
+👇 Links in the comments.
 As an Amazon Associate I earn from qualifying purchases.
 
 #dealsforyou #momlife #budgetfinds
 
 FIRST COMMENT (paste after posting):
 #ad Shop here (prices can change):
-https://www.amazon.com/dp/B0CGY3VF3K?tag=momfounditc08-20
-As an Amazon Associate I earn from qualifying purchases.
+Bluey’s Play Date Plush Surprise Toddler House Playset — $9.99 (list $18.79, 47% off)
+https://www.amazon.com/dp/B0CPN4458M?tag=momfounditc08-20
+Squishmallows Original Peanuts 8in Baseball Snoopy – Official Jazwares Plush — $7.19
 ```
 
-### post_q1 — Quick deal: 20% OFF (ok with warnings)
+### post_2 — Under $25 finds (ok with warnings)
 ```
 CAPTION:
-#ad 🔥 20% OFF — Wiha 38050 14 Piece Insulated Pop-up Bit Holder Set Slotted is $34.38 right now (was $42.98).
-4.6 stars, 153 reviews on Amazon.
-👇 Deal link in the comments.
-See it here: https://momfounditcheaper.com/#d-ab1efed6ea
+#ad 🔥 26% OFF: Ernie Ball Regular Slinky Nickel Wound Electric Guitar Strings Amazon Exclusive is $19.99 right now.
+✨ Under $25 finds: Ernie Ball Regular Slinky Nickel Wound Electric Guitar Strings Amazon Exclusive, Mega Man Star Force Legacy Collecti and HEAD Tour Pro Tennis Racket
+26% off Amazon's list price and 4.8 stars from 133,062 shoppers.
+Any of these already on your list?
+All three, checked against Amazon this morning: https://momfounditcheaper.com/
+👇 Links in the comments.
 As an Amazon Associate I earn from qualifying purchases.
 
 #amazondeals #giftideas #founditcheaper
 
 FIRST COMMENT (paste after posting):
 #ad Shop here (prices can change):
-https://www.amazon.com/dp/B075FFCD9L?tag=momfounditc08-20
+Ernie Ball Regular Slinky Nickel Wound Electric Guitar Strings Amazon Exclusive — $19.99 (list $26.99, 26% off)
+https://www.amazon.com/dp/B09WZ8PVZH?tag=momfounditc08-20
+Mega Man Star Force Legacy Collecti — $24.99 (list $39.99, 38%
+```
+
+### post_3 — Outdoor & tools under $100 (ok with warnings)
+```
+CAPTION:
+#ad 🔥 38% OFF: DEWALT 20V MAX Circular Saw Cordless is $99.00 right now.
+✨ Outdoor & tools under $100: Powerbuilt Slide Hammer Locking Pliers Set, DEWALT 20V MAX Circular Saw Cordless and CCCEI Wall Mount Modular Tool Charging Organizer
+38% off Amazon's list price and 4.3 stars from 11,307 shoppers.
+Tell us which one you want and we will keep an eye out for more like it.
+All three, checked against Amazon this morning: https://momfounditcheaper.com/
+👇 Links in the comments.
+As an Amazon Associate I earn from qualifying purchases.
+
+#savemoney #momhacks #amazonfinds
+
+FIRST COMMENT (paste after posting):
+#ad Shop here (prices can change):
+Powerbuilt Slide Hammer Locking Pliers Set — $34.80 (list $53.92, 35% off)
+https://www.amazon.com/dp/B08QR9G2MD?tag=momfounditc08-20
+DEWALT 20V MAX Circular Saw Cordless — $99.00 (list $159.00, 38% off)
+https://www.amazon.com/dp/B007NVSTO8?tag=momf
+```
+
+### post_single — Mom's pick (ok with warnings)
+```
+CAPTION:
+#ad Today's pick: NOCO Boost GB70 2000A UltraSafe Jump Starter.
+4.4 stars, 31.3K reviews on Amazon.
+See it here: https://momfounditcheaper.com/#d-f00e76729d
+As an Amazon Associate I earn from qualifying purchases.
+
+#momdeals #momfinds #dealoftheday
+
+FIRST COMMENT (paste after posting):
+#ad Shop here (prices can change):
+https://www.amazon.com/dp/B016UG6PWE?tag=momfounditc08-20
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-## Videos (0)
+### post_thisorthat — THIS or THAT (ok with warnings)
+```
+CAPTION:
+#ad THIS or THAT? 🛒
+A: Bedsure ComfyFleece Dog Beds Large
+B: Rugcomf Runner Rug 2'7"x8' Washable
+Which would you pick, A or B?
+Both checked against Amazon this morning: https://momfounditcheaper.com/
+As an Amazon Associate I earn from qualifying purchases.
+
+#amazonfinds #momfinds #founditcheaper
+
+FIRST COMMENT (paste after posting):
+#ad Shop here (prices can change):
+A: https://www.amazon.com/dp/B0GVXXBTPC?tag=momfounditc08-20
+B: https://www.amazon.com/dp/B0DYDLKYVC?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+### post_q1 — Quick deal: 50% OFF (ok with warnings)
+```
+CAPTION:
+#ad 🔥 50% OFF — Levoit VortexIQ Pro Cordless Vacuum is $149.99 right now (was $299.99).
+50% below Amazon's list price.
+👇 Deal link in the comments.
+See it here: https://momfounditcheaper.com/#d-2be7349c18
+As an Amazon Associate I earn from qualifying purchases.
+
+#dealsforyou #momlife #budgetfinds
+
+FIRST COMMENT (paste after posting):
+#ad Shop here (prices can change):
+https://www.amazon.com/dp/B0GX948D7R?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+### post_q2 — Quick deal: 24% OFF (ok with warnings)
+```
+CAPTION:
+#ad 🔥 24% OFF — Pooper Scooper for Dogs Metal Heavy Duty Long Handle Rake is $18.99 right now (was $24.99).
+4.6 stars, 2.3K reviews on Amazon.
+👇 Deal link in the comments.
+See it here: https://momfounditcheaper.com/#d-bdc01e6632
+As an Amazon Associate I earn from qualifying purchases.
+
+#amazondeals #giftideas #founditcheaper
+
+FIRST COMMENT (paste after posting):
+#ad Shop here (prices can change):
+https://www.amazon.com/dp/B0CWLG8KZ6?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+### post_q4 — Quick deal: 15% OFF (ok with warnings)
+```
+CAPTION:
+#ad 🔥 15% OFF — Naomi Home Vienna 7.5ft Pre-Lit Slim Pencil Christmas Tree is $118.14 right now (was $138.99).
+4.4 stars, 965 reviews on Amazon.
+👇 Deal link in the comments.
+See it here: https://momfounditcheaper.com/#d-c5f1bc3860
+As an Amazon Associate I earn from qualifying purchases.
+
+#momdeals #momfinds #dealoftheday
+
+FIRST COMMENT (paste after posting):
+#ad Shop here (prices can change):
+https://www.amazon.com/dp/B0B9HCBYJ9?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+### post_q5 — Quick deal: 38% OFF (ok with warnings)
+```
+CAPTION:
+#ad 🔥 38% OFF — TCL S55H 2.1 Sound Bar is $99.99 right now (was $159.99).
+4.4 stars, 868 reviews on Amazon.
+👇 Deal link in the comments.
+See it here: https://momfounditcheaper.com/#d-623845949d
+As an Amazon Associate I earn from qualifying purchases.
+
+#amazonfinds #momfinds #founditcheaper
+
+FIRST COMMENT (paste after posting):
+#ad Shop here (prices can change):
+https://www.amazon.com/dp/B0D1JBBJ6S?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+### post_q6 — Quick deal: 36% OFF (ok with warnings)
+```
+CAPTION:
+#ad 🔥 36% OFF — Shark EveryMess 3-in-1 Wet/Dry Vac & Stain Eliminator is $128.69 right now (was $199.99).
+4.5 stars, 1.3K reviews on Amazon.
+👇 Deal link in the comments.
+See it here: https://momfounditcheaper.com/#d-c8bcc01502
+As an Amazon Associate I earn from qualifying purchases.
+
+#dealsforyou #momlife #budgetfinds
+
+FIRST COMMENT (paste after posting):
+#ad Shop here (prices can change):
+https://www.amazon.com/dp/B0G2ZMG22K?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+### post_q7 — Quick deal: 43% OFF (ok with warnings)
+```
+CAPTION:
+#ad 🔥 43% OFF — Cuisinart Core Custom 4-Cup Mini Chopper is $36.95 right now (was $64.95).
+4.4 stars, 817 reviews on Amazon.
+👇 Deal link in the comments.
+See it here: https://momfounditcheaper.com/#d-4361869425
+As an Amazon Associate I earn from qualifying purchases.
+
+#amazondeals #giftideas #founditcheaper
+
+FIRST COMMENT (paste after posting):
+#ad Shop here (prices can change):
+https://www.amazon.com/dp/B09R94BHV2?tag=momfounditc08-20
+As an Amazon Associate I earn from qualifying purchases.
+```
+
+## Videos (20)
+- deal_1.mp4  (caption: videos/deal_1.txt)
+- deal_10.mp4  (caption: videos/deal_10.txt)
+- deal_11.mp4  (caption: videos/deal_11.txt)
+- deal_12.mp4  (caption: videos/deal_12.txt)
+- deal_13.mp4  (caption: videos/deal_13.txt)
+- deal_14.mp4  (caption: videos/deal_14.txt)
+- deal_15.mp4  (caption: videos/deal_15.txt)
+- deal_16.mp4  (caption: videos/deal_16.txt)
+- deal_17.mp4  (caption: videos/deal_17.txt)
+- deal_18.mp4  (caption: videos/deal_18.txt)
+- deal_19.mp4  (caption: videos/deal_19.txt)
+- deal_2.mp4  (caption: videos/deal_2.txt)
+- deal_20.mp4  (caption: videos/deal_20.txt)
+- deal_3.mp4  (caption: videos/deal_3.txt)
+- deal_4.mp4  (caption: videos/deal_4.txt)
+- deal_5.mp4  (caption: videos/deal_5.txt)
+- deal_6.mp4  (caption: videos/deal_6.txt)
+- deal_7.mp4  (caption: videos/deal_7.txt)
+- deal_8.mp4  (caption: videos/deal_8.txt)
+- deal_9.mp4  (caption: videos/deal_9.txt)
 
 ## Price-tier posts for the Page (4)
 ### Under $10
 ```
 #ad Under $10 finds today (each one checked against Amazon before posting; prices can change):
-1. Sealegend Dryer Vent Cleaner Kit for Dyson Dryer Lint Vacuum Attachment — $7.64 (was $8.99)
-2. Potato Head Toy Story 5 Buzz Spudyear Set with 1 Potato Body and 11 Accessories — $8.39 (was $9.97)
-3. grace & stella Under Eye Serum Roller with Cooling Metal Ball — $7.45 (was $12.95)
-4. Maybelline Lash Sensational Sky High Mascara — $8.45 (was $35.21)
-5. Pentel Refill Ink for ENER-Gel and Lancelot Gel Pen — $2.43
+1. Paw Patrol Rewards Box Gift Pack with 11 Toy Figures and Stickers — $9.99 (was $16.86)
+2. B. toys Outdoor Games Galore — $5.27 (was $6.21)
+3. Bluey’s Play Date Plush Surprise Toddler House Playset — $9.99 (was $18.79)
+4. Squishmallows Original Peanuts 8in Baseball Snoopy – Official Jazwares Plush — $7.19 (was $7.99)
+5. Jazwares DC The Penguin Plush — $2.52
 
 All of them, with links: https://momfounditcheaper.com/#under-10
 As an Amazon Associate I earn from qualifying purchases.
@@ -55,11 +240,11 @@ As an Amazon Associate I earn from qualifying purchases.
 ### Under $20
 ```
 #ad Under $20 finds today (each one checked against Amazon before posting; prices can change):
-1. Funko POP! Jumbo: Astro Bot — $19.99 (was $39.99)
-2. Hot Wheels City Dragon Launch Transporter & 1:64 Scale Car — $10.49 (was $15.37)
-3. JARLINK Over the Door Organizer for Bedroom — $18.97 (was $26.99)
-4. Play Nine The Card Game of Golf — $15.99 (was $19.99)
-5. Kitty City Large Cat Tunnel Bed — $15.83
+1. Animagic Let's Glo Capybara Spa Time — $12.48 (was $21.99)
+2. Transformers Toys Heroic Optimus Prime Action Figure — $19.49 (was $27.90)
+3. Ontel Battery Daddy Storage & Organizer Case w/Tester — $15.99 (was $19.99)
+4. Lysol All Purpose Cleaner Spray — $13.59
+5. CGE Codenames Board Game — $19.98 (was $24.99)
 
 All of them, with links: https://momfounditcheaper.com/#under-20
 As an Amazon Associate I earn from qualifying purchases.
@@ -68,11 +253,10 @@ As an Amazon Associate I earn from qualifying purchases.
 ### Under $25
 ```
 #ad Under $25 finds today (each one checked against Amazon before posting; prices can change):
-1. LEGO Classic Medium Creative Brick Box 10696 — $21.42 (was $34.99)
-2. 100% Cotton Bed Pillows — $20.00
-3. Jack Link's Original Zero Sugar Beef Sticks — $21.14
-4. Burt's Bees Holiday Lip Balm Gift Set — $20.98
-5. LEGO Christmas Table Decoration 40743 — $23.99 (was $39.99)
+1. Rugcomf Runner Rug 2'7"x8' Washable Non Slip Floral Animal Cat — $23.79 (was $27.99)
+2. Gym Bag for Men Women Expandable Sports Duffle — $23.99 (was $29.99)
+3. Milwaukee Electric Tool 48-32-4408 Shockwave Drive & Fasten Bit Set — $22.97 (was $38.21)
+4. Mega Man Star Force Legacy Collection — $24.99 (was $39.99)
 
 All of them, with links: https://momfounditcheaper.com/#under-25
 As an Amazon Associate I earn from qualifying purchases.
@@ -81,33 +265,30 @@ As an Amazon Associate I earn from qualifying purchases.
 ### Under $50
 ```
 #ad Under $50 finds today (each one checked against Amazon before posting; prices can change):
-1. LEGO Creator 3 in 1 Forest Animals: Red Fox 31154 — $34.99 (was $49.99)
-2. Fresh Roasted Coffee — $27.48
-3. Wiha 74959 TorxPlus and Security Torx Bit Set with Ratchet — $27.98
-4. Wiha 38050 14 Piece Insulated Pop-up Bit Holder Set Slotted — $34.38 (was $42.98)
-5. Melissa & Doug Top & Bake Wooden Pizza Counter Pretend Play Set — $25.10 (was $70.99)
+1. Fisher-Price™ Pour & Play Water Table — $38.99 (was $47.64)
+2. 3-Piece Book Cutting Board Set with Scalloped Stand — $39.99 (was $45.99)
+3. Bedsure ComfyFleece® Dog Beds Large Sized Dog Washable，40in Sandy Beige — $37.49 (was $74.99)
+4. Ufree 5 in 1 Curling Iron with Flat Iron — $37.39
+5. Ufree Beard Trimmer for Men — $28.48
 
 All of them, with links: https://momfounditcheaper.com/#under-50
 As an Amazon Associate I earn from qualifying purchases.
 ```
 
-## Pinterest pins (12) — folder pins/2026-11-27/ (pins.csv has title, description, link)
+## Pinterest pins (9) — folder pins/2026-11-28/ (pins.csv has title, description, link)
 - pin_under-10.png
 - pin_under-10_1.png
 - pin_under-10_2.png
 - pin_under-20.png
 - pin_under-20_1.png
 - pin_under-20_2.png
-- pin_under-25.png
-- pin_under-25_1.png
-- pin_under-25_2.png
 - pin_under-50.png
 - pin_under-50_1.png
 - pin_under-50_2.png
 
 ## Engagement drafts (Page)
 - **Poll:** Best stocking stuffer price?  Options: Under $5 / $5-10 / $10-20 / Price doesn't matter if it's cute
-- **Ask:** Moms: what's the one thing you overpaid for last year? I'll find a better price.
+- **Ask:** Gift shopping this week? Say 'toddler', 'grade school' or 'teen' and I'll post three finds under $20 for that group.
 - **Pin:** #ad New here? Every deal on https://momfounditcheaper.com/ is checked against Amazon before it's posted. Save the page and tell me what you want found cheaper. As an Amazon Associate I earn from qualifying purchases.
 
 ## Checklist before posting
