@@ -102,11 +102,12 @@ def publish_pin(page, it, dry):
     if title:
         type_like_human(title, (it.get("title") or "")[:100])
 
-    # 3) description
+    # 3) description (Pinterest's current placeholder is "Tell everyone what your Pin is about")
     desc = _first(page, [
-        lambda: page.get_by_placeholder("Add a detailed description"),
+        lambda: page.get_by_placeholder("Tell everyone what your Pin is about"),
         lambda: page.get_by_role("textbox", name="Tell everyone what your Pin is about"),
-        lambda: page.locator('[data-test-id="pin-draft-description"] textarea, div[role="textbox"]'),
+        lambda: page.get_by_placeholder("Add a detailed description"),
+        lambda: page.locator('[data-test-id="pin-draft-description"] div[role="textbox"], [data-test-id="pin-draft-description"] textarea'),
     ])
     if desc:
         type_like_human(desc, (it.get("caption") or "")[:480])
