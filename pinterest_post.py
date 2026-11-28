@@ -163,8 +163,15 @@ def oauth_authorize():
     if not TOKEN:
         print("Token exchange failed: " + json.dumps(tok)[:200]); sys.exit(2)
     update_env({"PINTEREST_TOKEN": TOKEN, "PINTEREST_REFRESH": REFRESH, "PINTEREST_APP_ID": APP_ID})
-    print(f"Success. Wrote PINTEREST_TOKEN (scopes: {SCOPES}) and PINTEREST_REFRESH to .env.")
-    print("Now dry-run:  python pinterest_post.py        then go live:  python pinterest_post.py --go")
+    granted = tok.get("scope", "(not reported)")
+    print(f"Success. Wrote PINTEREST_TOKEN + PINTEREST_REFRESH to .env.")
+    print(f"Requested scopes : {SCOPES}")
+    print(f"GRANTED scopes   : {granted}")
+    if "pins:write" not in str(granted):
+        print("WARNING: pins:write was NOT granted. On the authorize screen you must allow Pin creation,")
+        print("         and authorize on the Mom Found It Cheaper business account. Re-run --auth.")
+    else:
+        print("pins:write granted. Dry-run:  python pinterest_post.py   then live:  python pinterest_post.py --go")
 
 
 def _read_json(p, default):
