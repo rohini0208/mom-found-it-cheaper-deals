@@ -290,13 +290,14 @@ def eligible_pins(queue, posted, today=None):
     today = today or datetime.now(ET).strftime("%Y-%m-%d")
     if queue.get("date") and queue.get("date") != today:
         return []
+    date = queue.get("date") or today
     out = []
     for it in queue.get("pins", []):
         if it.get("status") != "approved":
             continue
         if (it.get("qa") or {}).get("status") == "fail":
             continue
-        if it.get("id") in posted:
+        if f"{date}:{it.get('id')}" in posted:  # date-scoped: ids repeat each day, so key by date+id
             continue
         if not it.get("image_url") or not it.get("link"):
             continue
@@ -410,7 +411,7 @@ def run(go, once, ignore_window):
             continue
 
         if go:
-            posted[it["id"]] = {"pin_id": pin_id, "at": at}
+            posted[f"{today}:{it['id']}"] = {"pin_id": pin_id, "at": at}
             _write_json(POSTED, posted)
             state["by_date"][today] = posted_today + 1
             _write_json(STATE, state)

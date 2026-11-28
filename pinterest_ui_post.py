@@ -250,7 +250,7 @@ def run(go, once, ignore_window):
                                "result": ("posted" if (ok and go) else "would-post" if ok else "error"),
                                "note": note, "at": at})
                 if ok and go:
-                    posted[it["id"]] = {"at": at, "via": "ui"}
+                    posted[f"{today}:{it['id']}"] = {"at": at, "via": "ui"}
                     _write_json(POSTED, posted)
                     state["by_date"][today] = posted_today + 1
                     _write_json(STATE, state)
