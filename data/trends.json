@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-27T23:28+00:00",
+ "updated": "2026-11-28T07:51+00:00",
  "status": {
   "TikTok Made Me Buy It (Reddit)": "error: HTTP Error 404: Not Found",
   "Amazon finds (Reddit)": "error: HTTP Error 429: Too Many Requests",
@@ -99,7 +99,7 @@
    "link": "https://camelcamelcamel.com/product/B0CG6NR413?active=price_amazon",
    "asin": "B0CG6NR413",
    "rank": 6,
-   "label": "Best Price",
+   "label": "Good Deal",
    "words": [
     "42mm",
     "black",
@@ -130,30 +130,10 @@
   },
   {
    "source": "camelcamelcamel popular",
-   "title": "Amazon Kindle Paperwhite 16GB (2024 model) \u2013 7\" glare-free display and weeks of battery life \u2013 Black",
-   "link": "https://camelcamelcamel.com/product/B0CFPJYX7P?active=price_amazon",
-   "asin": "B0CFPJYX7P",
-   "rank": 8,
-   "label": "Good Deal",
-   "words": [
-    "16gb",
-    "battery",
-    "black",
-    "display",
-    "glare",
-    "kindle",
-    "life",
-    "model",
-    "paperwhite",
-    "weeks"
-   ]
-  },
-  {
-   "source": "camelcamelcamel popular",
    "title": "AMD RYZEN 7 9800X3D 8-Core, 16-Thread Desktop Processor",
    "link": "https://camelcamelcamel.com/product/B0DKFMSMYK?active=price_amazon",
    "asin": "B0DKFMSMYK",
-   "rank": 9,
+   "rank": 8,
    "label": "Good Deal",
    "words": [
     "9800x3d",
@@ -169,7 +149,7 @@
    "title": "TCL 65 Inch QM6K Series QLED Mini LED 4K HDR Smart Google TV, 65QM6K, 144Hz",
    "link": "https://camelcamelcamel.com/product/B0DSRSTJ54?active=price_amazon",
    "asin": "B0DSRSTJ54",
-   "rank": 10,
+   "rank": 9,
    "label": "Best Price",
    "words": [
     "144hz",
@@ -188,7 +168,7 @@
    "title": "Sony WH-1000XM6 The Best Noise Cancelling Wireless Headphones, Black",
    "link": "https://camelcamelcamel.com/product/B0F3PQHWTZ?active=price_amazon",
    "asin": "B0F3PQHWTZ",
-   "rank": 11,
+   "rank": 10,
    "label": "Best Price",
    "words": [
     "1000xm6",
@@ -206,7 +186,7 @@
    "title": "Apple AirPods Pro 3 Wireless Earbuds with Active Noise Cancellation",
    "link": "https://camelcamelcamel.com/product/B0FQFB8FMG?active=price_amazon",
    "asin": "B0FQFB8FMG",
-   "rank": 12,
+   "rank": 11,
    "label": "Best Price",
    "words": [
     "active",
@@ -223,7 +203,7 @@
    "title": "Apple AirTag (2nd Generation): Tracker for Keychain, Wallet, and More; Locator with Sound; Simple One-Tap Setup with iPhone or iPad; Key Finder with up to 1.5X Precision Finding Range",
    "link": "https://camelcamelcamel.com/product/B0GJTFXNRX?active=price_amazon",
    "asin": "B0GJTFXNRX",
-   "rank": 13,
+   "rank": 12,
    "label": "Best Price",
    "words": [
     "airtag",
@@ -243,6 +223,36 @@
     "sound",
     "tracker",
     "wallet"
+   ]
+  },
+  {
+   "source": "camelcamelcamel popular",
+   "title": "Hisense 65\" U7 Mini-LED ULED 4K UHD Best Premium Gaming HDR Smart Google TV (65U7SG, 2026 NEW) - Hi-QLED, Native 165Hz, VRR 330, HDR10+, Dolby Vision IQ\u00b7Atmos, IMAX Enhanced, Anti-Reflection, 2.1.2 Ch",
+   "link": "https://camelcamelcamel.com/product/B0GR9BLPJ8?active=price_amazon",
+   "asin": "B0GR9BLPJ8",
+   "rank": 13,
+   "label": "Best Price",
+   "words": [
+    "165hz",
+    "65u7sg",
+    "anti",
+    "atmos",
+    "best",
+    "dolby",
+    "enhanced",
+    "gaming",
+    "google",
+    "hdr10",
+    "hisense",
+    "imax",
+    "mini",
+    "native",
+    "premium",
+    "qled",
+    "reflection",
+    "smart",
+    "uled",
+    "vision"
    ]
   },
   {
